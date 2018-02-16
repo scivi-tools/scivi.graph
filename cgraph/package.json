@@ -1,0 +1,28 @@
+{
+  "name": "SciViGraph",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "",
+  "dependencies": {
+    "@types/chartjs": "0.0.31",
+    "@types/jquery": "2.0.34",
+    "@types/jqueryui": "^1.11.37",
+    "@types/pixi.js": "^4.6.0",
+    "browserify": "^14.5.0",
+    "chart.js": "^2.7.1",
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-run": "^1.7.1",
+    "gulp-uglify": "^3.0.0",
+    "ngraph.graph": "0.0.14",
+    "ngraph.louvain": "^1.0.1",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}
