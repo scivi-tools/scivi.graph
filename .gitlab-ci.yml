@@ -1,0 +1,46 @@
+variables:
+  DOCKER_DRIVER: overlay2
+
+stages:
+  - build_static
+  - build
+  - deploy
+
+build_static:
+  image: node:6
+  stage: build_static
+  cache:
+    key: "npm"
+    paths:
+      - node_modules
+  before_script:
+    - npm install
+  script: NODE_ENV=production ./node_modules/typescript/bin/tsc
+  artifacts:
+    paths:
+      - cgraph/build
+    expire_in: 1 day
+
+build_image:
+  stage: build
+  image: tmaier/docker-compose
+  before_script:
+    - docker info
+  script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN docker.semograph.com
+    - docker-compose build --pull
+    - docker-compose push
+  only:
+    - master
+
+deploy_prod:
+  stage: deploy
+  image: docker:latest
+  variables:
+    DOCKER_HOST: tcp://10.0.6.2:2376
+  script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN docker.semograph.com
+    - docker stack deploy -c docker-compose.yml graph --with-registry-auth
+  only:
+    - master
+
