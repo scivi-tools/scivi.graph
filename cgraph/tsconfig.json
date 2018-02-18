@@ -3,7 +3,7 @@
     "compilerOptions": {
         "rootDir": "source",
         "outFile": "build/scivi-cgraph.js",
-        "watch": true,
+        "watch": false,
         "module":"amd",
         "target": "es5"
     }

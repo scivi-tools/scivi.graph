@@ -24,5 +24,8 @@
     "ngraph.louvain": "^1.0.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
+  },
+  "devDependencies": {
+    "typescript": "^2.7.2"
   }
 }
