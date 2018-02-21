@@ -151,7 +151,7 @@ namespace SciViGraph
             this.createEdges();
             this.createCache();
 
-            this.m_nodesList.buildList(this.m_data.nodes);
+            this.m_nodesList.buildList(this.m_data.nodes, this);
             this.m_statistics.buildChart(this.m_data.nodes, this.m_stage.colors);
         }
 
@@ -431,27 +431,25 @@ namespace SciViGraph
             this.m_stage.scale.set(s, s);
 
             this.m_data.nodes.forEach((node: Node, i: number) => {
-                if (node.visible) {
-                    let x = this.m_radius * Math.cos(i * angleStep);
-                    let y = this.m_radius * Math.sin(i * angleStep);
+                let x = this.m_radius * Math.cos(i * angleStep);
+                let y = this.m_radius * Math.sin(i * angleStep);
 
-                    this.m_stage.addChild(node);
+                this.m_stage.addChild(node);
 
-                    node.position.set(x, y);
-                    node.rotation = Math.atan2(-x, y) + Math.PI / 2;
+                node.position.set(x, y);
+                node.rotation = Math.atan2(-x, y) + Math.PI / 2;
 
-                    if (node.rotation > Math.PI / 2) {
-                        node.scale.set(-0.5, -0.5);
-                        node.setAnchor(1.0, 0.5, this.m_maxTextLength);
-                    } else {
-                        node.scale.set(0.5, 0.5);
-                        node.setAnchor(0.0, 0.5, this.m_maxTextLength);
-                    }
-
-                    node.highlight = HighlightType.None;
-                    node.info = this.m_info;
-                    node.svRenderer = this;
+                if (node.rotation > Math.PI / 2) {
+                    node.scale.set(-0.5, -0.5);
+                    node.setAnchor(1.0, 0.5, this.m_maxTextLength);
+                } else {
+                    node.scale.set(0.5, 0.5);
+                    node.setAnchor(0.0, 0.5, this.m_maxTextLength);
                 }
+
+                node.highlight = HighlightType.None;
+                node.info = this.m_info;
+                node.svRenderer = this;
             });
         }
 
@@ -753,6 +751,14 @@ namespace SciViGraph
             let r2 = this.filterEdges();
             if (r1 || r2)
                 this.render(true, true);
+        }
+
+        public showAllNodes(show: boolean)
+        {
+            this.m_data.nodes.forEach((node) => {
+                node.isShown = show;
+            });
+            this.updateNodesVisibility();
         }
     }
 }

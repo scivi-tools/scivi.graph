@@ -11,8 +11,9 @@ namespace SciViGraph
         private m_column: PIXI.Graphics;
         private m_svRenderer: Renderer;
         private m_edgeBatches: EdgeBatch[];
-        private m_isShown;
-        private m_listLabel;
+        private m_isShown: boolean;
+        private m_listLabel: HTMLSpanElement;
+        private m_cbInput: HTMLInputElement;
 
         public static passiveTextAlpha = 0.3;
         private static readonly m_hoveredTextAlpha = 1.0;
@@ -42,6 +43,7 @@ namespace SciViGraph
             this.m_highlightSet = false;
             this.m_isShown = true;
             this.m_listLabel = null;
+            this.m_cbInput = null;
         }
 
         public postInfo()
@@ -104,29 +106,31 @@ namespace SciViGraph
 
         public postListItem(list: HTMLElement)
         {
-            let cbInput = document.createElement("input");
-            cbInput.type = "checkbox";
-            cbInput.checked = this.m_isShown;
-            cbInput.onchange = () => {
-                this.m_isShown = cbInput.checked;
+            this.m_cbInput = document.createElement("input");
+            this.m_cbInput.type = "checkbox";
+            this.m_cbInput.checked = this.m_isShown;
+            this.m_cbInput.onchange = () => {
+                this.isShown = this.m_cbInput.checked;
                 this.m_svRenderer.updateNodesVisibility();
-                if (!this.m_isShown) {
-                    this.m_listLabel.style.fontWeight = "";
-                    this.m_listLabel.innerHTML = this.label;
-                }
             };
 
             this.m_listLabel = document.createElement("span");
             this.m_listLabel.innerHTML = this.label;
-            this.m_listLabel.onmouseover = () => { this.m_svRenderer.hoverNode(this); };
-            this.m_listLabel.onmouseout = () => { this.m_svRenderer.hoverNode(null); };
+            this.m_listLabel.onmouseover = () => {
+                if (this.m_isShown)
+                    this.m_svRenderer.hoverNode(this);
+            };
+            this.m_listLabel.onmouseout = () => {
+                if (this.m_isShown)
+                    this.m_svRenderer.hoverNode(null);
+            };
             this.m_listLabel.onclick = () => {
                 if (this.m_isShown)
                     this.m_svRenderer.selectNode(this);
             };
 
             let itm = document.createElement("div");
-            itm.appendChild(cbInput);
+            itm.appendChild(this.m_cbInput);
             itm.appendChild(this.m_listLabel);
 
             list.appendChild(itm);
@@ -194,6 +198,17 @@ namespace SciViGraph
         get isShown(): boolean
         {
             return this.m_isShown;
+        }
+
+        set isShown(shown: boolean)
+        {
+            this.m_isShown = shown;
+            if (this.m_cbInput)
+                this.m_cbInput.checked = shown; // Does not invoke onChange.
+            if (!this.m_isShown) {
+                this.m_listLabel.style.fontWeight = "";
+                this.m_listLabel.innerHTML = this.label;
+            }
         }
 
         set color(newColor: number) 
