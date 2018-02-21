@@ -2,27 +2,29 @@
 <html>
     <head>
         <meta charset="utf-8"/>
-        <title>SciViGraph</title>
+        <title>SciVi-CGraph</title>
         
-        <script src="../../lib/pixi.js"></script>
-        <script src="../../lib/jquery.js"></script>
-        <script src="../../lib/jquery-ui.js"></script>
-        <script src="../../lib/split.min.js"></script>
-        <script src="../../lib/louvain.min.js"></script>
-        <script src="../../lib/chart.min.js"></script>
+        <script src="../lib/pixi.js"></script>
+        <script src="../lib/jquery.min.js"></script>
+        <script src="../lib/jquery-ui.min.js"></script>
+        <script src="../lib/split.min.js"></script>
+        <script src="../lib/louvain.min.js"></script>
+        <script src="../lib/chart.min.js"></script>
 
-        <link rel="stylesheet" href="../../css/jquery-ui.css"/>
-        <link rel="stylesheet" href="../../css/default.css"/>
+        <link rel="stylesheet" href="../css/jquery-ui.css"/>
+        <link rel="stylesheet" href="../css/default.css"/>
 
         <script src="data.js"></script>
-        <script src="../../colors.js"></script>
-        <script src="../../bundle.js"></script>
+        <script src="../css/colors.js"></script>
+        <script src="../lib/scivi-cgraph.min.js"></script>
 
         <script>
             function main()
             {
                 var parser = new SciViGraph.Parser(g_data);
-                var renderer = new SciViGraph.Renderer($('#view')[0], $('#info')[0], $('#settings')[0], $('#stats')[0]);
+                var renderer = new SciViGraph.Renderer($('#view')[0], $('#info')[0], 
+                                                       $('#list')[0], $('#settings')[0], 
+                                                       $('#stats')[0]);
 
                 var nodes = parser.nodes;
                 var edges = parser.edges;
@@ -50,6 +52,7 @@
                 Louvain.detectClusters({nodes: nodes, edges: edges});
 
                 var steps = [
+                    new Date("09/01/2016"),
                     new Date("10/01/2016"),
                     new Date("11/01/2016"),
                     new Date("12/01/2016"),
@@ -65,29 +68,8 @@
                     new Date("10/01/2017"),
                 ];
                 var colors = [
-                    0x000000,
-
-                    0x5dc8cd,
                     0xdd1111,
-                    
-                    0x5dc8cd,
-                    0xdd1111,
-
-                    0x5dc8cd,
-                    0xdd1111,
-
-                    0x5dc8cd,
-                    0xdd1111,
-
-                    0x5dc8cd,
-                    0xdd1111,
-
-                    0x5dc8cd,
-                    0xdd1111,
-
-                    0x00aaee,
-
-                    0x000000
+                    0x5dc8cd
                 ];
                 var textColors = [
                     0xffffff,
@@ -95,6 +77,7 @@
                 ];
                 var names = [
                     "2016-",
+                    "Сентябрь 2016",
                     "Октябрь 2016",
                     "Ноябрь 2016",
                     "Декабрь 2016",
@@ -128,10 +111,12 @@
             <div id="tabs">
                 <ul>
                     <li><a href="#info">Информация о вершине</a></li>
+                    <li><a href="#list">Вершины</a></li>
                     <li><a href="#settings">Настройки</a></li>
                     <li><a href="#stats">Группы</a></li>
                 </ul>
                 <div id="info"></div>
+                <div id="list"></div>
                 <div id="settings"></div>
                 <div id="stats"></div>
             </div>

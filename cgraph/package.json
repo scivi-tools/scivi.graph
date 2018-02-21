@@ -1,10 +1,10 @@
 {
-  "name": "SciViGraph",
+  "name": "SciVi-CGraph",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Circular graph visualization module of SciVi",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc && uglifyjs build/scivi-cgraph.js -o ../demo/cgraph/lib/scivi-cgraph.min.js"
   },
   "author": "",
   "license": "",
@@ -26,6 +26,7 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "devDependencies": {
-    "typescript": "^2.7.2"
+    "typescript": "^2.7.2",
+    "uglify-js": "^3.3.11"
   }
 }

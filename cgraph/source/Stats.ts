@@ -203,7 +203,8 @@ namespace SciViGraph
                         },
                         legend: {
                             display: false
-                        }
+                        },
+                        cutoutPercentage: 50
                     }
                 };
 

@@ -2,20 +2,26 @@ variables:
   DOCKER_DRIVER: overlay2
 
 stages:
-  - build_static
+  - build_cgraph
   - build
   - deploy
 
-build_static:
+build_cgraph:
   image: node:6
-  stage: build_static
+  stage: build_cgraph
   cache:
     key: "npm"
     paths:
       - node_modules
   before_script:
+    - pushd cgraph
     - npm install
-  script: NODE_ENV=production ./node_modules/typescript/bin/tsc
+    - popd
+  script: 
+    - pushd cgraph
+    - NODE_ENV=production ./node_modules/typescript/bin/tsc
+    - NODE_ENV=production ./node_modules/uglify-js/bin/uglifyjs ./build/scivi-cgraph.js -o ../demo/cgraph/lib/scivi-cgraph.min.js
+    - popd
   artifacts:
     paths:
       - cgraph/build
