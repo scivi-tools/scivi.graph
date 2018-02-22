@@ -1,4 +1,4 @@
-namespace SciViGraph
+namespace SciViCGraph
 {
     export enum HighlightType
     {

@@ -21,8 +21,8 @@
         <script>
             function main()
             {
-                var parser = new SciViGraph.Parser(g_data);
-                var renderer = new SciViGraph.Renderer($('#view')[0], $('#info')[0], 
+                var parser = new SciViCGraph.Parser(g_data);
+                var renderer = new SciViCGraph.Renderer($('#view')[0], $('#info')[0], 
                                                        $('#list')[0], $('#settings')[0], 
                                                        $('#stats')[0]);
 
@@ -93,7 +93,7 @@
                     "Октябрь 2017",
                     "2017+"
                 ];
-                var scale = new SciViGraph.Scale(steps, colors, textColors, names, (node) => { return node.date; });
+                var scale = new SciViCGraph.Scale(steps, colors, textColors, names, (node) => { return node.date; });
 
                 renderer.setInput(nodes, edges, g_colors);
                 renderer.scale = scale;
