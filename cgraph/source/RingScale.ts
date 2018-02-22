@@ -2,14 +2,12 @@ namespace SciViGraph
 {
     export class RingScale extends Curve
     {
-        static readonly m_fontSize = 25;
-
         private m_highlights: RingScaleSegment[];
         private m_highlightedSegment: number;
         private m_names: string[];
 
         constructor(private m_inRadius: number, private m_outRadius: number, private m_width: number, 
-                    private m_container: HTMLElement)
+                    private m_fontSize, private m_container: HTMLElement)
         {
             super();
 
@@ -40,7 +38,7 @@ namespace SciViGraph
             this.m_colors.push(c);
             this.arc(0, 0, this.m_outRadius, from, to, false);
 
-            const letterLen = RingScale.m_fontSize / 2.0;
+            const letterLen = this.m_fontSize / 2.0;
             let arcLen = this.m_outRadius * (to - from);
             let n = Math.min(name.length, Math.floor(arcLen / letterLen));
             let textLen = letterLen * n;
@@ -117,7 +115,7 @@ namespace SciViGraph
             let text = new PIXI.Text(label);
             text.style = new PIXI.TextStyle({
                 fontFamily: "Lucida Console, Monaco, monospace",
-                fontSize: RingScale.m_fontSize.toString() + "px",
+                fontSize: this.m_fontSize.toString() + "px",
                 fontWeight: "bold",
                 fill: color2string(textColor)
             });
@@ -131,6 +129,16 @@ namespace SciViGraph
                 text.anchor.set(0.0, 0.5);
             }
             this.addChild(text);
+        }
+
+        get fontSize(): number
+        {
+            return this.m_fontSize;
+        }
+
+        set fontSize(fs: number)
+        {
+            this.m_fontSize = fs;
         }
     }
 }

@@ -4,7 +4,8 @@
   "description": "Circular graph visualization module of SciVi",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc && uglifyjs build/scivi-cgraph.js -o ../demo/cgraph/lib/scivi-cgraph.min.js"
+    "debug": "tsc && cp build/scivi-cgraph.js ../demo/cgraph/lib/scivi-cgraph.min.js",
+    "release": "tsc && uglifyjs build/scivi-cgraph.js -o ../demo/cgraph/lib/scivi-cgraph.min.js"
   },
   "author": "",
   "license": "",

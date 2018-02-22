@@ -74,8 +74,12 @@ namespace SciViGraph
         private m_statistics: Stats;
         private m_nodesList: List;
         private m_zoomTimerID: any;
+        private m_nodesFontSize: number;
+        private m_ringScaleFontSize: number;
 
         static readonly m_ringScaleWidth = 30;
+        static readonly m_minFontSize = 5;
+        static readonly m_maxFontSize = 50;
 
         constructor(private m_view: HTMLElement, 
                     private m_info: HTMLElement, 
@@ -87,6 +91,8 @@ namespace SciViGraph
             this.m_ringScale = null;
             this.m_zoomTimerID = null;
             this.m_dataStack = null;
+            this.m_nodesFontSize = 24;
+            this.m_ringScaleFontSize = 36;
             this.clearSelected();
         }
 
@@ -158,7 +164,6 @@ namespace SciViGraph
         private init()
         {
             this.calcWeights();
-            this.initInterface();
             this.createStage();
 
             this.m_hoveredNode = null;
@@ -175,6 +180,8 @@ namespace SciViGraph
 
             this.createGraph();
 
+            this.initInterface();
+
             this.updateRenderingCache(true);
             this.m_renderingCache.transit();
         }
@@ -187,9 +194,8 @@ namespace SciViGraph
             if (this.m_selectedNode != null && this.m_data.nodes.indexOf(this.m_selectedNode) == -1)
                 this.m_selectedNode = null;
 
-            let ww = ($("#scivi_node_wordwrap")[0] as HTMLInputElement).checked;
             this.m_data.nodes.forEach((node) => {
-                node.wordWrap = ww;
+                node.fontSize = this.m_nodesFontSize;
             });
 
             this.createGraph();
@@ -346,15 +352,26 @@ namespace SciViGraph
             this.m_view.onwheel = onWheel;
 
             this.m_settings.innerHTML = 
-            "<div>Порог отображения рёбер:&nbsp<span id='scivi_edge_treshold'>" + this.m_edgeWeight.min.toString() + " .. " + this.m_edgeWeight.max.toString() + "</span></div>" +
+            "<div>Порог отображения рёбер:&nbsp;<span id='scivi_edge_treshold'>" + this.m_edgeWeight.min.toString() + " .. " + this.m_edgeWeight.max.toString() + "</span></div>" +
             "<div id='scivi_edge_treshold_slider' style='margin: 10px 10px 10px 5px'></div>" +
-            "<div>Порог отображения вершин:&nbsp<span id='scivi_node_treshold'>" + this.m_nodeWeight.min.toString() + " .. " + this.m_nodeWeight.max.toString() + "</span></div>" +
+            "<div>Порог отображения вершин:&nbsp;<span id='scivi_node_treshold'>" + this.m_nodeWeight.min.toString() + " .. " + this.m_nodeWeight.max.toString() + "</span></div>" +
             "<div id='scivi_node_treshold_slider' style='margin: 10px 10px 10px 5px'></div><br/><hr/><br/>" +
-            "<div>Яркость невыделенных вершин:&nbsp<span id='scivi_node_alpha'>" + Node.passiveTextAlpha.toString() + "</span></div>" +
+            "<div>Яркость невыделенных вершин:&nbsp;<span id='scivi_node_alpha'>" + Node.passiveTextAlpha.toString() + "</span></div>" +
             "<div id='scivi_node_alpha_slider' style='margin: 10px 10px 10px 5px'></div>" +
-            "<div>Яркость невыделенных рёбер:&nbsp<span id='scivi_edge_alpha'>" + Edge.passiveEdgeAlpha.toString() + "</span></div>" +
+            "<div>Яркость невыделенных рёбер:&nbsp;<span id='scivi_edge_alpha'>" + Edge.passiveEdgeAlpha.toString() + "</span></div>" +
             "<div id='scivi_edge_alpha_slider' style='margin: 10px 10px 10px 5px'></div><br/><hr/><br/>" +
-            "<div><span><input id='scivi_node_wordwrap' type='checkbox'/>&nbspПеренос слов в вершинах</span></div>";
+            "<table><tr><td>" +
+            "  <table>" +
+            "    <tr><td>Размер шрифта вершин:</td><td><input id='scivi_nodes_font' style='width:50px' type='number' min='" +
+                    Renderer.m_minFontSize.toString() + "' max='" + Renderer.m_maxFontSize.toString() +
+                    "' value='" + this.m_nodesFontSize.toString() + "' required/></td></tr>" +
+            "    <tr><td>Размер шрифта круговой шкалы:</td><td><input id='scivi_ring_font' style='width:50px' type='number' min='" +
+                    Renderer.m_minFontSize.toString() + "' max='" + Renderer.m_maxFontSize.toString() +
+                    "' value='" + this.m_ringScaleFontSize.toString() + "' required/></td></tr>" +
+            "  </table>" +
+            "</td><td>" +
+            "  <input id='scivi_apply_fonts' type='button' value='Применить'/>" +
+            "</td></tr></table>";
 
             $("#scivi_edge_treshold_slider").slider({
                 min: this.m_edgeWeight.min,
@@ -392,9 +409,20 @@ namespace SciViGraph
                 slide: (event, ui) => { this.changeEdgeAlpha(ui.value); }
             });
 
-            let wwInput = $("#scivi_node_wordwrap")[0] as HTMLInputElement;
-            wwInput.onchange = () => {
-                this.reinit();
+            let applyFonts = $("#scivi_apply_fonts")[0];
+            let nodesFSInput = $("#scivi_nodes_font")[0] as HTMLInputElement;
+            let ringFSInput = $("#scivi_ring_font")[0] as HTMLInputElement;
+            applyFonts.onclick = () => {
+                console.log(ringFSInput.value);
+                let nodesFS = parseFloat(nodesFSInput.value);
+                let ringFS = parseFloat(ringFSInput.value);
+                if (!isNaN(nodesFS) && !isNaN(ringFS) &&
+                    nodesFS >= Renderer.m_minFontSize && nodesFS <= Renderer.m_maxFontSize && nodesFS === Math.round(nodesFS) &&
+                    ringFS >= Renderer.m_minFontSize && ringFS <= Renderer.m_maxFontSize && ringFS === Math.round(ringFS)) {
+                    this.m_nodesFontSize = nodesFS;
+                    this.m_ringScaleFontSize = ringFS;
+                    this.reinit();
+                }
             };
         }
 
@@ -413,8 +441,6 @@ namespace SciViGraph
                 this.m_maxTextLength = 50;
 
             this.m_maxTextLength += 20;
-
-            console.log("max text heigt = " + maxTextHeight);
 
             this.m_radius = (Math.max(this.m_data.nodes.length * maxTextHeight, 1500)) / (2.0 * Math.PI);
             this.m_totalRadius = this.m_radius + this.m_maxTextLength + (this.m_scale ? Renderer.m_ringScaleWidth : 0.0);
@@ -486,7 +512,7 @@ namespace SciViGraph
 
             let segment = { from: undefined, id: undefined, index: 0 };
 
-            this.m_ringScale = new RingScale(this.m_radius, radius, Renderer.m_ringScaleWidth, this.m_view);
+            this.m_ringScale = new RingScale(this.m_radius, radius, Renderer.m_ringScaleWidth, this.m_ringScaleFontSize, this.m_view);
             this.m_stage.addChild(this.m_ringScale);
 
             this.m_data.nodes.forEach((node: Node, i: number) => {

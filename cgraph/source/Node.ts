@@ -325,5 +325,15 @@ namespace SciViGraph
         {
             this.m_text.style.wordWrap = ww;
         }
+
+        get fontSize(): number
+        {
+            return parseInt(this.m_text.style.fontSize as string);
+        }
+
+        set fontSize(fs: number)
+        {
+            this.m_text.style.fontSize = fs + "px";
+        }
     }
 }
