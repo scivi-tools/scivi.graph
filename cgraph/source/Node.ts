@@ -361,6 +361,8 @@ namespace SciViCGraph
             const offset = 20;
             if (hoveredEdge) {
                 if (this.m_hoveredEdge !== hoveredEdge) {
+                    if (this.m_hoveredEdge)
+                        this.m_hoveredEdge.isGlowing = false;
                     this.m_hoveredEdge = hoveredEdge;
                     this.m_hoveredEdge.isGlowing = true;
                     $(".scivi_graph_tooltip").html("TOOLTIP FOR EDGE");

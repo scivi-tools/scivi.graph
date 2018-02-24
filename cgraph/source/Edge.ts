@@ -6,6 +6,7 @@ namespace SciViCGraph
         private m_toColor: number;
         private m_alpha: number;
         private m_batch: EdgeBatch;
+        private m_glow: Curve;
         private m_highlight: HighlightType;
         private m_visible: boolean;
         private m_thickness: number;
@@ -22,7 +23,8 @@ namespace SciViCGraph
             this.m_fromColor = 0;
             this.m_toColor = 0;
             this.m_alpha = 0;
-            this.m_batch = undefined;
+            this.m_batch = null;
+            this.m_glow = null;
             this.m_highlight = undefined;
             this.m_visible = true;
             this.m_thickness = 0.0;
@@ -222,6 +224,12 @@ namespace SciViCGraph
 
         set isGlowing(g: boolean)
         {
+            if (this.m_batch) {
+                if (this.m_glow)
+                    this.m_glow.visible = g;
+                else
+                    this.m_glow = this.m_batch.createGlow(this);
+            }
         }
 
         private hitTestWithBBox(p: Point, c1: Point, c2: Point, c3: Point): boolean

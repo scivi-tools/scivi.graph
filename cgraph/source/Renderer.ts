@@ -312,12 +312,13 @@ namespace SciViCGraph
                     let y = e.clientY - this.m_renderingCache.y;
                     let s = this.m_renderingCache.currentScale();
                     this.m_hoveredNode = this.getNodeByPosition(x, y, s);
+                    let f1 = false
                     if (this.m_selectedNode)
-                        this.m_selectedNode.handleCursorMove(x, y, s, e.clientX, e.clientY);
-                    let f = false;
+                        f1 = this.m_selectedNode.handleCursorMove(x, y, s, e.clientX, e.clientY);
+                    let f2 = false;
                     if (this.m_ringScale)
-                        f = this.m_ringScale.handleCursorMove(x, y, s, e.clientX, e.clientY);
-                    this.render(f, true);
+                        f2 = this.m_ringScale.handleCursorMove(x, y, s, e.clientX, e.clientY);
+                    this.render(f1 || f2, true);
                 }
             };
 

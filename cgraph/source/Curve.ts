@@ -420,5 +420,10 @@ namespace SciViCGraph
 
             return this;
         }
+
+        public addColor(c: { from: number, to: number, alpha: number })
+        {
+            this.m_colors.push(c);
+        }
     }
 }

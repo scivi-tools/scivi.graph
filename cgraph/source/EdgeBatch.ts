@@ -91,6 +91,17 @@ namespace SciViCGraph
             }
         }
 
+        public createGlow(edge: Edge): Curve
+        {
+            let result = new Curve();
+            this.addChild(result);
+            result.moveTo(edge.source.x, edge.source.y);
+            result.lineStyle(edge.thickness * 2.0, 0x0, 1);
+            result.addColor({ from: 0xFF0000, to: 0xFF0000, alpha: 0.5 });
+            result.quadraticCurveTo(0, 0, edge.target.x, edge.target.y);
+            return result;
+        }
+
         get isFull(): boolean
         {
             return this.m_edges.length == 10;
