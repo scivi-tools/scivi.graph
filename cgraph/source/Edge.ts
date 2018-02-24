@@ -18,7 +18,7 @@ namespace SciViCGraph
         public static readonly minThickness = 1.5;
         public static readonly maxThickness = 10.0;
 
-        constructor(public source: Node, public target: Node, public weight: number)
+        constructor(public source: Node, public target: Node, public weight: number, public tooltip: string)
         {
             this.m_fromColor = 0;
             this.m_toColor = 0;

@@ -25,7 +25,7 @@ namespace SciViCGraph
             nodes.forEach((node) => {
                 let g = node.group !== undefined ? node.group : 0;
                 let w = node.weight !== undefined ? node.weight : 0;
-                let n = node.nmb !== undefined ? node.nmb : 0
+                let n = node.nmb !== undefined ? node.nmb : 0;
                 let d = node.date !== undefined ? new Date(node.date) : null;
                 this.m_nodes[node.id] = new Node(node.id, node.label, g, w, n, d);
             });
@@ -34,7 +34,8 @@ namespace SciViCGraph
         private processEdges(edges: any[])
         {
             edges.forEach(edge => {
-                this.m_edges.push(new Edge(this.m_nodes[edge.source], this.m_nodes[edge.target], edge.weight));
+                let tt = edge.tooltip !== undefined ? edge.tooltip : null;
+                this.m_edges.push(new Edge(this.m_nodes[edge.source], this.m_nodes[edge.target], edge.weight, tt));
             });
         }
 

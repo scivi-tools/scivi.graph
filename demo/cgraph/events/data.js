@@ -1242,15942 +1242,19130 @@ var g_data =
         {
             "source": 161,
             "target": 91,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "выставка"
         },
         {
             "source": 161,
             "target": 199,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 161,
             "target": 134,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 161,
             "target": 32,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 161,
             "target": 181,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 161,
             "target": 200,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 161,
             "target": 8,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 161,
             "target": 2,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 161,
             "target": 73,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 161,
             "target": 57,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 161,
             "target": 41,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "компания"
         },
         {
             "source": 161,
             "target": 116,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 161,
             "target": 165,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 161,
             "target": 142,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 161,
             "target": 45,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "компания"
         },
         {
             "source": 161,
             "target": 11,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 161,
             "target": 78,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 161,
             "target": 153,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 161,
             "target": 72,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 161,
             "target": 150,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 161,
             "target": 17,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 161,
             "target": 20,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 161,
             "target": 27,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 161,
             "target": 52,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 161,
             "target": 63,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 161,
             "target": 33,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>компания"
         },
         {
             "source": 161,
             "target": 206,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 161,
             "target": 14,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Екатеринбург"
         },
         {
             "source": 161,
             "target": 186,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 161,
             "target": 159,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 161,
             "target": 18,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 161,
             "target": 131,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 161,
             "target": 103,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 161,
             "target": 126,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 161,
             "target": 12,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 161,
             "target": 205,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 161,
             "target": 193,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 91,
             "target": 161,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "выставка"
         },
         {
             "source": 91,
             "target": 40,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "музей"
         },
         {
             "source": 91,
             "target": 7,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "билет"
         },
         {
             "source": 91,
             "target": 88,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "музей"
         },
         {
             "source": 111,
             "target": 166,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "игра"
         },
         {
             "source": 111,
             "target": 105,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "игра"
         },
         {
             "source": 111,
             "target": 87,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "кит"
         },
         {
             "source": 111,
             "target": 109,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "сеть"
         },
         {
             "source": 111,
             "target": 157,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "игра"
         },
         {
             "source": 111,
             "target": 143,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "игра"
         },
         {
             "source": 111,
             "target": 27,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "смерть"
         },
         {
             "source": 111,
             "target": 169,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "смерть"
         },
         {
             "source": 111,
             "target": 201,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "смерть"
         },
         {
             "source": 111,
             "target": 106,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "смерть"
         },
         {
             "source": 111,
             "target": 82,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "игра"
         },
         {
             "source": 117,
             "target": 130,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "март"
         },
         {
             "source": 117,
             "target": 120,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "март"
         },
         {
             "source": 117,
             "target": 116,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "март"
         },
         {
             "source": 117,
             "target": 144,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 117,
             "target": 156,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "праздник<br/>поздравить"
         },
         {
             "source": 117,
             "target": 104,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "подарок<br/>поздравить<br/>поздравление"
         },
         {
             "source": 117,
             "target": 172,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 117,
             "target": 67,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 117,
             "target": 177,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 117,
             "target": 93,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 117,
             "target": 58,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 117,
             "target": 133,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 117,
             "target": 128,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "март"
         },
         {
             "source": 117,
             "target": 193,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "поздравить"
         },
         {
             "source": 47,
             "target": 149,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пострадавший"
         },
         {
             "source": 47,
             "target": 15,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Ту-154"
         },
         {
             "source": 47,
             "target": 121,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "посадка"
         },
         {
             "source": 47,
             "target": 54,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Ту-154"
         },
         {
             "source": 47,
             "target": 64,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "посёлок"
         },
         {
             "source": 47,
             "target": 46,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пострадавший"
         },
         {
             "source": 47,
             "target": 60,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "посёлок"
         },
         {
             "source": 47,
             "target": 56,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Якутия"
         },
         {
             "source": 47,
             "target": 4,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Ту-154"
         },
         {
             "source": 47,
             "target": 183,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пострадавший"
         },
         {
             "source": 24,
             "target": 127,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Роскосмос"
         },
         {
             "source": 24,
             "target": 110,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "авария"
         },
         {
             "source": 24,
             "target": 160,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "грузовик<br/>авария"
         },
         {
             "source": 24,
             "target": 165,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "корабль"
         },
         {
             "source": 24,
             "target": 65,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "грузовик<br/>авария"
         },
         {
             "source": 24,
             "target": 64,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "грузовой"
         },
         {
             "source": 24,
             "target": 56,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "грузовик"
         },
         {
             "source": 24,
             "target": 48,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "грузовик"
         },
         {
             "source": 36,
             "target": 120,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пост"
         },
         {
             "source": 36,
             "target": 29,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "кандидат"
         },
         {
             "source": 36,
             "target": 200,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "кандидат"
         },
         {
             "source": 36,
             "target": 9,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "кандидат"
         },
         {
             "source": 36,
             "target": 8,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "кандидат"
         },
         {
             "source": 36,
             "target": 2,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "Трамп<br/>США<br/>кандидат"
         },
         {
             "source": 36,
             "target": 73,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "пост<br/>кандидат"
         },
         {
             "source": 36,
             "target": 57,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 36,
             "target": 195,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 36,
             "target": 112,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "глава"
         },
         {
             "source": 36,
             "target": 107,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 36,
             "target": 184,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "кандидат"
         },
         {
             "source": 36,
             "target": 42,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 36,
             "target": 196,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Трамп<br/>США"
         },
         {
             "source": 36,
             "target": 11,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пост"
         },
         {
             "source": 36,
             "target": 78,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "глава"
         },
         {
             "source": 36,
             "target": 72,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Трамп"
         },
         {
             "source": 36,
             "target": 63,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "Трамп<br/>США<br/>избранный"
         },
         {
             "source": 36,
             "target": 66,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "США<br/>глава"
         },
         {
             "source": 36,
             "target": 186,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Трамп<br/>США"
         },
         {
             "source": 36,
             "target": 162,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "администрация"
         },
         {
             "source": 36,
             "target": 131,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пост"
         },
         {
             "source": 36,
             "target": 126,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "глава<br/>кандидат"
         },
         {
             "source": 36,
             "target": 4,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Трамп"
         },
         {
             "source": 36,
             "target": 12,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Трамп<br/>США"
         },
         {
             "source": 36,
             "target": 183,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 36,
             "target": 31,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пост"
         },
         {
             "source": 36,
             "target": 205,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "пост<br/>кандидат"
         },
         {
             "source": 36,
             "target": 94,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Трамп"
         },
         {
             "source": 36,
             "target": 175,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Трамп<br/>США"
         },
         {
             "source": 203,
             "target": 130,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "акция"
         },
         {
             "source": 203,
             "target": 73,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Франция"
         },
         {
             "source": 203,
             "target": 144,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "акция"
         },
         {
             "source": 203,
             "target": 25,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "банк"
         },
         {
             "source": 203,
             "target": 108,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "акция"
         },
         {
             "source": 203,
             "target": 204,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "здание"
         },
         {
             "source": 203,
             "target": 45,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "банк"
         },
         {
             "source": 203,
             "target": 33,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "акция"
         },
         {
             "source": 203,
             "target": 140,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "здание"
         },
         {
             "source": 203,
             "target": 162,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "банк"
         },
         {
             "source": 203,
             "target": 128,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "здание"
         },
         {
             "source": 203,
             "target": 61,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "здание"
         },
         {
             "source": 203,
             "target": 135,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "акция"
         },
         {
             "source": 130,
             "target": 117,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "март"
         },
         {
             "source": 130,
             "target": 203,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "акция"
         },
         {
             "source": 130,
             "target": 120,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "март"
         },
         {
             "source": 130,
             "target": 149,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "задержать"
         },
         {
             "source": 130,
             "target": 84,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "митинг"
         },
         {
             "source": 130,
             "target": 116,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "март"
         },
         {
             "source": 130,
             "target": 144,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "акция"
         },
         {
             "source": 130,
             "target": 108,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "акция"
         },
         {
             "source": 130,
             "target": 123,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "согласовать"
         },
         {
             "source": 130,
             "target": 33,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "акция"
         },
         {
             "source": 130,
             "target": 182,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "митинг"
         },
         {
             "source": 130,
             "target": 75,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "город"
         },
         {
             "source": 130,
             "target": 128,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "март"
         },
         {
             "source": 130,
             "target": 61,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "город"
         },
         {
             "source": 130,
             "target": 138,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "город"
         },
         {
             "source": 130,
             "target": 135,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "акция<br/>город"
         },
         {
             "source": 130,
             "target": 13,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "задержать"
         },
         {
             "source": 130,
             "target": 205,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Навальный"
         },
         {
             "source": 62,
             "target": 187,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Минздрав"
         },
         {
             "source": 62,
             "target": 33,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "продажа"
         },
         {
             "source": 62,
             "target": 114,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "запрет"
         },
         {
             "source": 62,
             "target": 97,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Минздрав"
         },
         {
             "source": 166,
             "target": 111,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "игра"
         },
         {
             "source": 166,
             "target": 101,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "конкурс"
         },
         {
             "source": 166,
             "target": 105,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "игра<br/>соревнование"
         },
         {
             "source": 166,
             "target": 7,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "конкурс"
         },
         {
             "source": 166,
             "target": 157,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "команда<br/>игра"
         },
         {
             "source": 166,
             "target": 143,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "команда<br/>игра"
         },
         {
             "source": 166,
             "target": 153,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "международный"
         },
         {
             "source": 166,
             "target": 31,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "команда"
         },
         {
             "source": 166,
             "target": 28,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "полигон"
         },
         {
             "source": 166,
             "target": 145,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "команда"
         },
         {
             "source": 166,
             "target": 82,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "игра"
         },
         {
             "source": 199,
             "target": 161,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 199,
             "target": 134,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 199,
             "target": 32,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 199,
             "target": 181,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 199,
             "target": 8,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "парламент"
         },
         {
             "source": 199,
             "target": 116,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 199,
             "target": 165,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 199,
             "target": 74,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "открытие"
         },
         {
             "source": 199,
             "target": 153,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 199,
             "target": 10,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "парламент"
         },
         {
             "source": 199,
             "target": 72,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 199,
             "target": 123,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Матвиенко"
         },
         {
             "source": 199,
             "target": 20,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 199,
             "target": 27,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 199,
             "target": 52,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 199,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 199,
             "target": 33,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 199,
             "target": 206,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 199,
             "target": 186,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 199,
             "target": 18,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 199,
             "target": 140,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "спикер<br/>парламент"
         },
         {
             "source": 199,
             "target": 103,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 199,
             "target": 23,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "парламент"
         },
         {
             "source": 199,
             "target": 128,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "парламент"
         },
         {
             "source": 199,
             "target": 106,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "союз"
         },
         {
             "source": 199,
             "target": 205,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 199,
             "target": 193,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 192,
             "target": 101,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "фестиваль"
         },
         {
             "source": 192,
             "target": 194,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "фестиваль"
         },
         {
             "source": 192,
             "target": 160,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 192,
             "target": 156,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "фестиваль"
         },
         {
             "source": 192,
             "target": 189,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "погибнуть<br/>жертва"
         },
         {
             "source": 192,
             "target": 65,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 192,
             "target": 119,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 192,
             "target": 163,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ранение"
         },
         {
             "source": 192,
             "target": 59,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "стрельба"
         },
         {
             "source": 192,
             "target": 60,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 192,
             "target": 75,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "стрельба<br/>погибнуть"
         },
         {
             "source": 192,
             "target": 180,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "стрельба"
         },
         {
             "source": 192,
             "target": 48,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 192,
             "target": 128,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "жертва"
         },
         {
             "source": 192,
             "target": 138,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 192,
             "target": 175,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "жертва"
         },
         {
             "source": 124,
             "target": 125,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 124,
             "target": 57,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "российский<br/>санкция"
         },
         {
             "source": 124,
             "target": 41,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 124,
             "target": 107,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Украина<br/>украинский<br/>украинский"
         },
         {
             "source": 124,
             "target": 40,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 124,
             "target": 37,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "российский"
         },
         {
             "source": 124,
             "target": 19,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 124,
             "target": 7,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 124,
             "target": 25,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Сбербанк"
         },
         {
             "source": 124,
             "target": 204,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 124,
             "target": 11,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 124,
             "target": 176,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 124,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 124,
             "target": 66,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "российский"
         },
         {
             "source": 124,
             "target": 3,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "российский"
         },
         {
             "source": 124,
             "target": 22,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "санкция"
         },
         {
             "source": 124,
             "target": 12,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "санкция"
         },
         {
             "source": 124,
             "target": 129,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 124,
             "target": 49,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "российский"
         },
         {
             "source": 124,
             "target": 188,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 124,
             "target": 193,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "российский"
         },
         {
             "source": 101,
             "target": 166,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "конкурс"
         },
         {
             "source": 101,
             "target": 192,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "фестиваль"
         },
         {
             "source": 101,
             "target": 194,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "фестиваль"
         },
         {
             "source": 101,
             "target": 30,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "программа"
         },
         {
             "source": 101,
             "target": 156,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "фестиваль"
         },
         {
             "source": 101,
             "target": 7,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "конкурс"
         },
         {
             "source": 101,
             "target": 56,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "медведь"
         },
         {
             "source": 101,
             "target": 103,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "программа"
         },
         {
             "source": 101,
             "target": 48,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Берлин"
         },
         {
             "source": 101,
             "target": 69,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "программа"
         },
         {
             "source": 101,
             "target": 132,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "программа"
         },
         {
             "source": 125,
             "target": 124,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 125,
             "target": 38,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ЛНР"
         },
         {
             "source": 125,
             "target": 41,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 125,
             "target": 107,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 125,
             "target": 40,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 125,
             "target": 167,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Захарченко"
         },
         {
             "source": 125,
             "target": 19,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Украина<br/>Киев"
         },
         {
             "source": 125,
             "target": 7,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Украина<br/>Киев"
         },
         {
             "source": 125,
             "target": 204,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Украина<br/>Киев"
         },
         {
             "source": 125,
             "target": 11,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 125,
             "target": 176,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Украина<br/>Киев"
         },
         {
             "source": 125,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 125,
             "target": 76,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ЛНР"
         },
         {
             "source": 125,
             "target": 129,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Украина<br/>Киев"
         },
         {
             "source": 125,
             "target": 1,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "ДНР<br/>Захарченко"
         },
         {
             "source": 125,
             "target": 188,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 120,
             "target": 117,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "март"
         },
         {
             "source": 120,
             "target": 36,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пост"
         },
         {
             "source": 120,
             "target": 130,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "март"
         },
         {
             "source": 120,
             "target": 73,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пост"
         },
         {
             "source": 120,
             "target": 116,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "март"
         },
         {
             "source": 120,
             "target": 67,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "православный"
         },
         {
             "source": 120,
             "target": 93,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "неделя"
         },
         {
             "source": 120,
             "target": 11,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пост"
         },
         {
             "source": 120,
             "target": 133,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "православный<br/>Пасха"
         },
         {
             "source": 120,
             "target": 131,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пост"
         },
         {
             "source": 120,
             "target": 128,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "март"
         },
         {
             "source": 120,
             "target": 31,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пост"
         },
         {
             "source": 120,
             "target": 205,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пост"
         },
         {
             "source": 149,
             "target": 47,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пострадавший"
         },
         {
             "source": 149,
             "target": 130,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "задержать"
         },
         {
             "source": 149,
             "target": 51,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "взрыв<br/>произойти"
         },
         {
             "source": 149,
             "target": 41,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "газ"
         },
         {
             "source": 149,
             "target": 44,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "газ"
         },
         {
             "source": 149,
             "target": 115,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "дом"
         },
         {
             "source": 149,
             "target": 189,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "произойти"
         },
         {
             "source": 149,
             "target": 46,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пострадавший"
         },
         {
             "source": 149,
             "target": 60,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "дом"
         },
         {
             "source": 149,
             "target": 103,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "дом"
         },
         {
             "source": 149,
             "target": 23,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "газ"
         },
         {
             "source": 149,
             "target": 76,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "взрыв"
         },
         {
             "source": 149,
             "target": 151,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "взрыв<br/>произойти"
         },
         {
             "source": 149,
             "target": 61,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "взрыв"
         },
         {
             "source": 149,
             "target": 138,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "взрыв"
         },
         {
             "source": 149,
             "target": 13,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "задержать"
         },
         {
             "source": 149,
             "target": 183,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пострадавший"
         },
         {
             "source": 51,
             "target": 149,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "взрыв<br/>произойти"
         },
         {
             "source": 51,
             "target": 134,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "станция<br/>метро"
         },
         {
             "source": 51,
             "target": 189,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "произойти"
         },
         {
             "source": 51,
             "target": 108,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Москва"
         },
         {
             "source": 51,
             "target": 103,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Москва"
         },
         {
             "source": 51,
             "target": 137,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Москва"
         },
         {
             "source": 51,
             "target": 76,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "взрыв"
         },
         {
             "source": 51,
             "target": 151,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "взрыв<br/>произойти"
         },
         {
             "source": 51,
             "target": 34,
-            "weight": 4
+            "weight": 4,
+            "tooltip": "станция<br/>метро<br/>переход<br/>газовый"
         },
         {
             "source": 51,
             "target": 61,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "взрыв"
         },
         {
             "source": 51,
             "target": 138,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "взрыв"
         },
         {
             "source": 51,
             "target": 152,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Москва"
         },
         {
             "source": 134,
             "target": 161,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 134,
             "target": 199,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 134,
             "target": 51,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "метро<br/>станция"
         },
         {
             "source": 134,
             "target": 32,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 134,
             "target": 181,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 134,
             "target": 116,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 134,
             "target": 165,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Петербург<br/>Путин"
         },
         {
             "source": 134,
             "target": 156,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "площадь"
         },
         {
             "source": 134,
             "target": 153,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "петербургский<br/>Путин"
         },
         {
             "source": 134,
             "target": 72,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 134,
             "target": 20,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 134,
             "target": 27,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 134,
             "target": 52,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 134,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 134,
             "target": 33,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 134,
             "target": 206,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 134,
             "target": 186,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 134,
             "target": 18,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 134,
             "target": 103,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 134,
             "target": 137,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "вагон"
         },
         {
             "source": 134,
             "target": 34,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "метро<br/>станция"
         },
         {
             "source": 134,
             "target": 205,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 134,
             "target": 193,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 32,
             "target": 161,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 32,
             "target": 199,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 32,
             "target": 134,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 32,
             "target": 181,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 32,
             "target": 57,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 32,
             "target": 87,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "остров"
         },
         {
             "source": 32,
             "target": 112,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 32,
             "target": 30,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Япония"
         },
         {
             "source": 32,
             "target": 116,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 32,
             "target": 165,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 32,
             "target": 156,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 32,
             "target": 95,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "Япония<br/>Абэ<br/>японский"
         },
         {
             "source": 32,
             "target": 157,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 32,
             "target": 89,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "остров"
         },
         {
             "source": 32,
             "target": 197,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "остров"
         },
         {
             "source": 32,
             "target": 92,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "остров"
         },
         {
             "source": 32,
             "target": 153,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 32,
             "target": 72,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 32,
             "target": 20,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 32,
             "target": 27,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 32,
             "target": 52,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 32,
             "target": 63,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>Россия"
         },
         {
             "source": 32,
             "target": 66,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 32,
             "target": 33,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 32,
             "target": 206,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>Россия"
         },
         {
             "source": 32,
             "target": 186,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 32,
             "target": 3,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 32,
             "target": 159,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "встреча"
         },
         {
             "source": 32,
             "target": 18,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "Путин<br/>сотрудничество<br/>встреча"
         },
         {
             "source": 32,
             "target": 178,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "встреча"
         },
         {
             "source": 32,
             "target": 22,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 32,
             "target": 131,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "встреча"
         },
         {
             "source": 32,
             "target": 103,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 32,
             "target": 39,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 32,
             "target": 49,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 32,
             "target": 106,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 32,
             "target": 183,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "остров"
         },
         {
             "source": 32,
             "target": 205,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 32,
             "target": 188,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 32,
             "target": 193,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 179,
             "target": 146,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "вирус"
         },
         {
             "source": 179,
             "target": 121,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Турция"
         },
         {
             "source": 179,
             "target": 119,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Турция"
         },
         {
             "source": 179,
             "target": 163,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "турист"
         },
         {
             "source": 179,
             "target": 59,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Турция"
         },
         {
             "source": 179,
             "target": 114,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "вирус"
         },
         {
             "source": 179,
             "target": 23,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Турция"
         },
         {
             "source": 179,
             "target": 34,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Турция"
         },
         {
             "source": 179,
             "target": 61,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Турция"
         },
         {
             "source": 179,
             "target": 49,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Турция"
         },
         {
             "source": 6,
             "target": 15,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Сирия<br/>боевик"
         },
         {
             "source": 6,
             "target": 105,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "военный"
         },
         {
             "source": 6,
             "target": 68,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Сирия<br/>сирийский"
         },
         {
             "source": 6,
             "target": 4,
-            "weight": 5
+            "weight": 5,
+            "tooltip": "Алеппо<br/>Сирия<br/>провинция<br/>боевик<br/>сирийский"
         },
         {
             "source": 38,
             "target": 125,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ЛНР"
         },
         {
             "source": 38,
             "target": 76,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ЛНР"
         },
         {
             "source": 15,
             "target": 47,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Ту-154"
         },
         {
             "source": 15,
             "target": 6,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Сирия<br/>боевик"
         },
         {
             "source": 15,
             "target": 181,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Корея"
         },
         {
             "source": 15,
             "target": 170,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "проект"
         },
         {
             "source": 15,
             "target": 95,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "КНДР"
         },
         {
             "source": 15,
             "target": 54,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Ту-154"
         },
         {
             "source": 15,
             "target": 153,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "проект"
         },
         {
             "source": 15,
             "target": 68,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Сирия"
         },
         {
             "source": 15,
             "target": 4,
-            "weight": 4
+            "weight": 4,
+            "tooltip": "Ту-154<br/>Сирия<br/>боевик<br/>террорист"
         },
         {
             "source": 15,
             "target": 23,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "проект"
         },
         {
             "source": 15,
             "target": 34,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "террорист"
         },
         {
             "source": 15,
             "target": 154,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "террорист"
         },
         {
             "source": 181,
             "target": 161,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>Путин"
         },
         {
             "source": 181,
             "target": 199,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 181,
             "target": 134,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 181,
             "target": 32,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 181,
             "target": 15,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Корея"
         },
         {
             "source": 181,
             "target": 200,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 181,
             "target": 8,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 181,
             "target": 2,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 181,
             "target": 73,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 181,
             "target": 57,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 181,
             "target": 148,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Восток<br/>дальний"
         },
         {
             "source": 181,
             "target": 116,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 181,
             "target": 165,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 181,
             "target": 142,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 181,
             "target": 11,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 181,
             "target": 78,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 181,
             "target": 153,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "форум<br/>Путин<br/>экономический"
         },
         {
             "source": 181,
             "target": 72,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>Путин"
         },
         {
             "source": 181,
             "target": 150,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 181,
             "target": 17,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 181,
             "target": 20,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 181,
             "target": 27,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>Путин"
         },
         {
             "source": 181,
             "target": 52,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>Путин"
         },
         {
             "source": 181,
             "target": 63,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>Путин"
         },
         {
             "source": 181,
             "target": 33,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 181,
             "target": 206,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>Путин"
         },
         {
             "source": 181,
             "target": 186,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>Путин"
         },
         {
             "source": 181,
             "target": 159,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 181,
             "target": 18,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>экономический"
         },
         {
             "source": 181,
             "target": 131,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 181,
             "target": 103,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 181,
             "target": 126,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 181,
             "target": 12,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 181,
             "target": 16,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "экономический"
         },
         {
             "source": 181,
             "target": 205,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>Путин"
         },
         {
             "source": 181,
             "target": 193,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>Путин"
         },
         {
             "source": 146,
             "target": 179,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "вирус"
         },
         {
             "source": 146,
             "target": 71,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "водительский"
         },
         {
             "source": 146,
             "target": 25,
-            "weight": 5
+            "weight": 5,
+            "tooltip": "атака<br/>хакер<br/>кибератака<br/>система<br/>хакерский"
         },
         {
             "source": 146,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "хакерский"
         },
         {
             "source": 146,
             "target": 114,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "вирус"
         },
         {
             "source": 146,
             "target": 154,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "атака"
         },
         {
             "source": 105,
             "target": 111,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "игра"
         },
         {
             "source": 105,
             "target": 166,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "игра<br/>соревнование"
         },
         {
             "source": 105,
             "target": 6,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "военный"
         },
         {
             "source": 105,
             "target": 194,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "всемирный<br/>Сочи"
         },
         {
             "source": 105,
             "target": 74,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "зимний"
         },
         {
             "source": 105,
             "target": 54,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Сочи"
         },
         {
             "source": 105,
             "target": 157,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "игра"
         },
         {
             "source": 105,
             "target": 143,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "игра<br/>ЦСКА"
         },
         {
             "source": 105,
             "target": 31,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ЦСКА"
         },
         {
             "source": 105,
             "target": 82,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "игра"
         },
         {
             "source": 194,
             "target": 192,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "фестиваль"
         },
         {
             "source": 194,
             "target": 101,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "фестиваль"
         },
         {
             "source": 194,
             "target": 105,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "всемирный<br/>Сочи"
         },
         {
             "source": 194,
             "target": 156,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "фестиваль"
         },
         {
             "source": 194,
             "target": 54,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Сочи"
         },
         {
             "source": 194,
             "target": 202,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "октябрь"
         },
         {
             "source": 194,
             "target": 108,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "участник"
         },
         {
             "source": 194,
             "target": 68,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "делегация"
         },
         {
             "source": 194,
             "target": 114,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "страна"
         },
         {
             "source": 194,
             "target": 178,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "страна"
         },
         {
             "source": 194,
             "target": 191,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "октябрь"
         },
         {
             "source": 194,
             "target": 98,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "страна"
         },
         {
             "source": 194,
             "target": 155,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "страна"
         },
         {
             "source": 194,
             "target": 201,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "октябрь"
         },
         {
             "source": 29,
             "target": 36,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "кандидат"
         },
         {
             "source": 29,
             "target": 200,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "выборы<br/>кандидат"
         },
         {
             "source": 29,
             "target": 9,
-            "weight": 5
+            "weight": 5,
+            "tooltip": "партия<br/>выборы<br/>президентский<br/>кандидат<br/>голос"
         },
         {
             "source": 29,
             "target": 8,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "выборы<br/>кандидат"
         },
         {
             "source": 29,
             "target": 2,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "кандидат"
         },
         {
             "source": 29,
             "target": 73,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "выборы<br/>кандидат"
         },
         {
             "source": 29,
             "target": 99,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "партия"
         },
         {
             "source": 29,
             "target": 184,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "партия<br/>выборы<br/>кандидат"
         },
         {
             "source": 29,
             "target": 10,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "партия<br/>выборы"
         },
         {
             "source": 29,
             "target": 126,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "выборы<br/>кандидат"
         },
         {
             "source": 29,
             "target": 205,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "выборы<br/>кандидат"
         },
         {
             "source": 200,
             "target": 161,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 200,
             "target": 36,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "кандидат"
         },
         {
             "source": 200,
             "target": 181,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 200,
             "target": 29,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "выборы<br/>кандидат"
         },
         {
             "source": 200,
             "target": 9,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "выборы<br/>кандидат"
         },
         {
             "source": 200,
             "target": 8,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "президент<br/>выборы<br/>кандидат"
         },
         {
             "source": 200,
             "target": 2,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>кандидат"
         },
         {
             "source": 200,
             "target": 73,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "президент<br/>выборы<br/>кандидат"
         },
         {
             "source": 200,
             "target": 57,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 200,
             "target": 184,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "выборы<br/>кандидат"
         },
         {
             "source": 200,
             "target": 74,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Казахстан"
         },
         {
             "source": 200,
             "target": 142,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 200,
             "target": 64,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Киргизия<br/>Бишкек"
         },
         {
             "source": 200,
             "target": 60,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Казахстан"
         },
         {
             "source": 200,
             "target": 11,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 200,
             "target": 78,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 200,
             "target": 10,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "выборы"
         },
         {
             "source": 200,
             "target": 72,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 200,
             "target": 68,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Казахстан"
         },
         {
             "source": 200,
             "target": 150,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 200,
             "target": 17,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Киргизия<br/>президент"
         },
         {
             "source": 200,
             "target": 27,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 200,
             "target": 52,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 200,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 200,
             "target": 206,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 200,
             "target": 186,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 200,
             "target": 159,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 200,
             "target": 131,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 200,
             "target": 126,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "президент<br/>выборы<br/>кандидат"
         },
         {
             "source": 200,
             "target": 12,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 200,
             "target": 205,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "президент<br/>выборы<br/>кандидат"
         },
         {
             "source": 200,
             "target": 193,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 9,
             "target": 36,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "кандидат"
         },
         {
             "source": 9,
             "target": 29,
-            "weight": 5
+            "weight": 5,
+            "tooltip": "выборы<br/>кандидат<br/>партия<br/>голос<br/>президентский"
         },
         {
             "source": 9,
             "target": 200,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "выборы<br/>кандидат"
         },
         {
             "source": 9,
             "target": 8,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "выборы<br/>кандидат"
         },
         {
             "source": 9,
             "target": 2,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "кандидат"
         },
         {
             "source": 9,
             "target": 73,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "выборы<br/>кандидат<br/>тур"
         },
         {
             "source": 9,
             "target": 99,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "партия"
         },
         {
             "source": 9,
             "target": 156,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Молдавия<br/>Додон"
         },
         {
             "source": 9,
             "target": 184,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "выборы<br/>кандидат<br/>партия"
         },
         {
             "source": 9,
             "target": 10,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "выборы<br/>партия"
         },
         {
             "source": 9,
             "target": 72,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "лидер"
         },
         {
             "source": 9,
             "target": 96,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "лидер"
         },
         {
             "source": 9,
             "target": 126,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "выборы<br/>кандидат"
         },
         {
             "source": 9,
             "target": 205,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "выборы<br/>кандидат"
         },
         {
             "source": 9,
             "target": 193,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "лидер"
         },
         {
             "source": 8,
             "target": 161,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 8,
             "target": 36,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "кандидат"
         },
         {
             "source": 8,
             "target": 199,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "парламент"
         },
         {
             "source": 8,
             "target": 181,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 8,
             "target": 29,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "выборы<br/>кандидат"
         },
         {
             "source": 8,
             "target": 200,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "президент<br/>выборы<br/>кандидат"
         },
         {
             "source": 8,
             "target": 9,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "выборы<br/>кандидат"
         },
         {
             "source": 8,
             "target": 2,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>кандидат"
         },
         {
             "source": 8,
             "target": 73,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "президент<br/>выборы<br/>кандидат"
         },
         {
             "source": 8,
             "target": 57,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 8,
             "target": 184,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "выборы<br/>кандидат"
         },
         {
             "source": 8,
             "target": 142,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 8,
             "target": 11,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 8,
             "target": 78,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 8,
             "target": 10,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "выборы<br/>парламент"
         },
         {
             "source": 8,
             "target": 72,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 8,
             "target": 150,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 8,
             "target": 17,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 8,
             "target": 27,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 8,
             "target": 52,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 8,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 8,
             "target": 206,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 8,
             "target": 186,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 8,
             "target": 159,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 8,
             "target": 140,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "парламент"
         },
         {
             "source": 8,
             "target": 131,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 8,
             "target": 126,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "президент<br/>выборы<br/>кандидат"
         },
         {
             "source": 8,
             "target": 23,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "парламент"
         },
         {
             "source": 8,
             "target": 128,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "парламент"
         },
         {
             "source": 8,
             "target": 12,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 8,
             "target": 205,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "президент<br/>выборы<br/>кандидат"
         },
         {
             "source": 8,
             "target": 193,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 2,
             "target": 161,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 2,
             "target": 36,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "Трамп<br/>США<br/>кандидат"
         },
         {
             "source": 2,
             "target": 181,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 2,
             "target": 29,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "кандидат"
         },
         {
             "source": 2,
             "target": 200,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "кандидат<br/>президент"
         },
         {
             "source": 2,
             "target": 9,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "кандидат"
         },
         {
             "source": 2,
             "target": 8,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "кандидат<br/>президент"
         },
         {
             "source": 2,
             "target": 73,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "кандидат<br/>президент"
         },
         {
             "source": 2,
             "target": 57,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "США<br/>президент<br/>Обама"
         },
         {
             "source": 2,
             "target": 195,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 2,
             "target": 115,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "расследование"
         },
         {
             "source": 2,
             "target": 107,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 2,
             "target": 184,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "кандидат"
         },
         {
             "source": 2,
             "target": 42,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 2,
             "target": 196,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Трамп<br/>США"
         },
         {
             "source": 2,
             "target": 142,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 2,
             "target": 11,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 2,
             "target": 78,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 2,
             "target": 72,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Трамп<br/>президент"
         },
         {
             "source": 2,
             "target": 150,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 2,
             "target": 17,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 2,
             "target": 27,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 2,
             "target": 52,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 2,
             "target": 63,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "Трамп<br/>США<br/>президент"
         },
         {
             "source": 2,
             "target": 66,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 2,
             "target": 206,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 2,
             "target": 186,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "Трамп<br/>США<br/>президент"
         },
         {
             "source": 2,
             "target": 159,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 2,
             "target": 131,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 2,
             "target": 126,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "кандидат<br/>президент"
         },
         {
             "source": 2,
             "target": 4,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Трамп"
         },
         {
             "source": 2,
             "target": 12,
-            "weight": 4
+            "weight": 4,
+            "tooltip": "Клинтон<br/>Трамп<br/>США<br/>президент"
         },
         {
             "source": 2,
             "target": 183,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 2,
             "target": 205,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "кандидат<br/>президент"
         },
         {
             "source": 2,
             "target": 94,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Трамп"
         },
         {
             "source": 2,
             "target": 175,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Трамп<br/>США"
         },
         {
             "source": 2,
             "target": 193,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 73,
             "target": 161,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 73,
             "target": 36,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "кандидат<br/>пост"
         },
         {
             "source": 73,
             "target": 203,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Франция"
         },
         {
             "source": 73,
             "target": 120,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пост"
         },
         {
             "source": 73,
             "target": 181,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 73,
             "target": 29,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "кандидат<br/>выборы"
         },
         {
             "source": 73,
             "target": 200,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "кандидат<br/>президент<br/>выборы"
         },
         {
             "source": 73,
             "target": 9,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "кандидат<br/>тур<br/>выборы"
         },
         {
             "source": 73,
             "target": 8,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "кандидат<br/>президент<br/>выборы"
         },
         {
             "source": 73,
             "target": 2,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "кандидат<br/>президент"
         },
         {
             "source": 73,
             "target": 57,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 73,
             "target": 115,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Фийон"
         },
         {
             "source": 73,
             "target": 40,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Крым"
         },
         {
             "source": 73,
             "target": 184,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "кандидат<br/>выборы"
         },
         {
             "source": 73,
             "target": 142,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 73,
             "target": 11,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>пост"
         },
         {
             "source": 73,
             "target": 78,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 73,
             "target": 10,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "выборы"
         },
         {
             "source": 73,
             "target": 72,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 73,
             "target": 150,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 73,
             "target": 17,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 73,
             "target": 27,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 73,
             "target": 52,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 73,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 73,
             "target": 206,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 73,
             "target": 186,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 73,
             "target": 159,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 73,
             "target": 131,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>пост"
         },
         {
             "source": 73,
             "target": 126,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "кандидат<br/>президент<br/>выборы"
         },
         {
             "source": 73,
             "target": 135,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пройти"
         },
         {
             "source": 73,
             "target": 12,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 73,
             "target": 13,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Крым"
         },
         {
             "source": 73,
             "target": 31,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пост"
         },
         {
             "source": 73,
             "target": 205,
-            "weight": 4
+            "weight": 4,
+            "tooltip": "кандидат<br/>президент<br/>выборы<br/>пост"
         },
         {
             "source": 73,
             "target": 193,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 57,
             "target": 161,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 57,
             "target": 36,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 57,
             "target": 124,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "санкция<br/>российский"
         },
         {
             "source": 57,
             "target": 32,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 57,
             "target": 181,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 57,
             "target": 200,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 57,
             "target": 8,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 57,
             "target": 2,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "США<br/>Обама<br/>президент"
         },
         {
             "source": 57,
             "target": 73,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 57,
             "target": 195,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 57,
             "target": 112,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 57,
             "target": 107,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 57,
             "target": 156,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 57,
             "target": 37,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "российский"
         },
         {
             "source": 57,
             "target": 42,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 57,
             "target": 196,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 57,
             "target": 142,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "американский<br/>президент"
         },
         {
             "source": 57,
             "target": 157,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 57,
             "target": 11,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 57,
             "target": 78,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 57,
             "target": 72,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 57,
             "target": 68,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Лавров"
         },
         {
             "source": 57,
             "target": 150,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 57,
             "target": 17,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 57,
             "target": 27,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 57,
             "target": 52,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 57,
             "target": 63,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "США<br/>Россия<br/>президент"
         },
         {
             "source": 57,
             "target": 66,
-            "weight": 5
+            "weight": 5,
+            "tooltip": "дипломат<br/>США<br/>российский<br/>Россия<br/>Лавров"
         },
         {
             "source": 57,
             "target": 206,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Россия<br/>президент"
         },
         {
             "source": 57,
             "target": 186,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "США<br/>президент"
         },
         {
             "source": 57,
             "target": 3,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "российский<br/>Россия"
         },
         {
             "source": 57,
             "target": 159,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 57,
             "target": 22,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "санкция<br/>Россия"
         },
         {
             "source": 57,
             "target": 98,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Лавров"
         },
         {
             "source": 57,
             "target": 131,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 57,
             "target": 126,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 57,
             "target": 39,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 57,
             "target": 12,
-            "weight": 4
+            "weight": 4,
+            "tooltip": "США<br/>санкция<br/>американский<br/>президент"
         },
         {
             "source": 57,
             "target": 49,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "российский<br/>Россия"
         },
         {
             "source": 57,
             "target": 106,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 57,
             "target": 183,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 57,
             "target": 205,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 57,
             "target": 188,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 57,
             "target": 175,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 57,
             "target": 193,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "российский<br/>президент"
         },
         {
             "source": 195,
             "target": 36,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 195,
             "target": 2,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 195,
             "target": 57,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 195,
             "target": 81,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Израиль<br/>решение"
         },
         {
             "source": 195,
             "target": 107,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 195,
             "target": 40,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "решение"
         },
         {
             "source": 195,
             "target": 42,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 195,
             "target": 196,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "США<br/>Вашингтон"
         },
         {
             "source": 195,
             "target": 142,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "выход"
         },
         {
             "source": 195,
             "target": 68,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ООН"
         },
         {
             "source": 195,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 195,
             "target": 66,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 195,
             "target": 186,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "США<br/>ООН"
         },
         {
             "source": 195,
             "target": 102,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ООН"
         },
         {
             "source": 195,
             "target": 12,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 195,
             "target": 183,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 195,
             "target": 175,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 41,
             "target": 161,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "компания"
         },
         {
             "source": 41,
             "target": 124,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 41,
             "target": 125,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 41,
             "target": 149,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "газ"
         },
         {
             "source": 41,
             "target": 44,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "газ"
         },
         {
             "source": 41,
             "target": 107,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 41,
             "target": 40,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 41,
             "target": 19,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 41,
             "target": 7,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 41,
             "target": 198,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "доллар"
         },
         {
             "source": 41,
             "target": 85,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "доллар"
         },
         {
             "source": 41,
             "target": 204,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 41,
             "target": 45,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "компания"
         },
         {
             "source": 41,
             "target": 11,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 41,
             "target": 176,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 41,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 41,
             "target": 33,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "компания"
         },
         {
             "source": 41,
             "target": 174,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "доллар"
         },
         {
             "source": 41,
             "target": 23,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "газ"
         },
         {
             "source": 41,
             "target": 129,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 41,
             "target": 188,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 44,
             "target": 149,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "газ"
         },
         {
             "source": 44,
             "target": 41,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "газ"
         },
         {
             "source": 44,
             "target": 81,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Белоруссия<br/>Минск"
         },
         {
             "source": 44,
             "target": 142,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "нефть"
         },
         {
             "source": 44,
             "target": 85,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "нефть"
         },
         {
             "source": 44,
             "target": 70,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "нефть"
         },
         {
             "source": 44,
             "target": 190,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "долг"
         },
         {
             "source": 44,
             "target": 23,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "газ"
         },
         {
             "source": 87,
             "target": 111,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "кит"
         },
         {
             "source": 87,
             "target": 32,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "остров"
         },
         {
             "source": 87,
             "target": 157,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Зеландия<br/>новая"
         },
         {
             "source": 87,
             "target": 89,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "остров"
         },
         {
             "source": 87,
             "target": 197,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "остров"
         },
         {
             "source": 87,
             "target": 92,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Зеландия<br/>остров"
         },
         {
             "source": 87,
             "target": 183,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "остров"
         },
         {
             "source": 127,
             "target": 24,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Роскосмос"
         },
         {
             "source": 112,
             "target": 36,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "глава"
         },
         {
             "source": 112,
             "target": 32,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 112,
             "target": 57,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 112,
             "target": 164,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "дело"
         },
         {
             "source": 112,
             "target": 55,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "дело"
         },
         {
             "source": 112,
             "target": 84,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "уголовный"
         },
         {
             "source": 112,
             "target": 170,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "дело<br/>миллион"
         },
         {
             "source": 112,
             "target": 71,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "прокуратура"
         },
         {
             "source": 112,
             "target": 118,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "рубли<br/>дело"
         },
         {
             "source": 112,
             "target": 156,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 112,
             "target": 19,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "дело"
         },
         {
             "source": 112,
             "target": 157,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 112,
             "target": 35,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "премия"
         },
         {
             "source": 112,
             "target": 78,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "глава"
         },
         {
             "source": 112,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 112,
             "target": 66,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Россия<br/>глава"
         },
         {
             "source": 112,
             "target": 77,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "уголовный"
         },
         {
             "source": 112,
             "target": 206,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 112,
             "target": 174,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "миллион"
         },
         {
             "source": 112,
             "target": 3,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 112,
             "target": 22,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 112,
             "target": 126,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "глава"
         },
         {
             "source": 112,
             "target": 39,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 112,
             "target": 49,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 112,
             "target": 16,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "дело"
         },
         {
             "source": 112,
             "target": 106,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 112,
             "target": 94,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "премия"
         },
         {
             "source": 112,
             "target": 188,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 30,
             "target": 101,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "программа"
         },
         {
             "source": 30,
             "target": 32,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Япония"
         },
         {
             "source": 30,
             "target": 95,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Япония"
         },
         {
             "source": 30,
             "target": 103,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "программа"
         },
         {
             "source": 30,
             "target": 69,
-            "weight": 5
+            "weight": 5,
+            "tooltip": "катание<br/>фигурный<br/>программа<br/>балл<br/>короткий"
         },
         {
             "source": 30,
             "target": 132,
-            "weight": 4
+            "weight": 4,
+            "tooltip": "катание<br/>фигурный<br/>программа<br/>балл"
         },
         {
             "source": 148,
             "target": 181,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Восток<br/>дальний"
         },
         {
             "source": 148,
             "target": 81,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "гражданин"
         },
         {
             "source": 148,
             "target": 107,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "земельный"
         },
         {
             "source": 148,
             "target": 198,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "тысяча"
         },
         {
             "source": 148,
             "target": 171,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "тысяча"
         },
         {
             "source": 148,
             "target": 77,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "тысяча"
         },
         {
             "source": 148,
             "target": 3,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "гражданин"
         },
         {
             "source": 148,
             "target": 100,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "тысяча"
         },
         {
             "source": 148,
             "target": 5,
-            "weight": 4
+            "weight": 4,
+            "tooltip": "гектар<br/>дальневосточный<br/>участок<br/>земля"
         },
         {
             "source": 55,
             "target": 112,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "дело"
         },
         {
             "source": 55,
             "target": 164,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "дело"
         },
         {
             "source": 55,
             "target": 50,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "суд<br/>приговор"
         },
         {
             "source": 55,
             "target": 84,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 55,
             "target": 170,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "дело"
         },
         {
             "source": 55,
             "target": 71,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 55,
             "target": 116,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "приговор"
         },
         {
             "source": 55,
             "target": 107,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 55,
             "target": 118,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "суд<br/>дело"
         },
         {
             "source": 55,
             "target": 40,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 55,
             "target": 19,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "суд<br/>дело"
         },
         {
             "source": 55,
             "target": 7,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 55,
             "target": 56,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "убийство"
         },
         {
             "source": 55,
             "target": 5,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "приморский"
         },
         {
             "source": 55,
             "target": 61,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 55,
             "target": 79,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "убийство"
         },
         {
             "source": 55,
             "target": 129,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "убийство"
         },
         {
             "source": 55,
             "target": 1,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "убийство"
         },
         {
             "source": 55,
             "target": 16,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "суд<br/>дело"
         },
         {
             "source": 50,
             "target": 55,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "суд<br/>приговор"
         },
         {
             "source": 50,
             "target": 84,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "суд<br/>колония"
         },
         {
             "source": 50,
             "target": 71,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 50,
             "target": 116,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "приговор"
         },
         {
             "source": 50,
             "target": 107,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 50,
             "target": 118,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 50,
             "target": 40,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 50,
             "target": 19,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 50,
             "target": 7,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 50,
             "target": 98,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "попытка"
         },
         {
             "source": 50,
             "target": 61,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 50,
             "target": 16,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 99,
             "target": 29,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "партия"
         },
         {
             "source": 99,
             "target": 9,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "партия"
         },
         {
             "source": 99,
             "target": 184,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "партия<br/>депутат"
         },
         {
             "source": 99,
             "target": 10,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "партия"
         },
         {
             "source": 99,
             "target": 3,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "гражданство"
         },
         {
             "source": 99,
             "target": 140,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "депутат"
         },
         {
             "source": 99,
             "target": 129,
-            "weight": 4
+            "weight": 4,
+            "tooltip": "Вороненков<br/>депутат<br/>Госдума<br/>экс-депутат"
         },
         {
             "source": 84,
             "target": 130,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "митинг"
         },
         {
             "source": 84,
             "target": 112,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "уголовный"
         },
         {
             "source": 84,
             "target": 55,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 84,
             "target": 50,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "суд<br/>колония"
         },
         {
             "source": 84,
             "target": 71,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 84,
             "target": 107,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 84,
             "target": 118,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 84,
             "target": 40,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 84,
             "target": 19,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 84,
             "target": 7,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "суд<br/>проведение"
         },
         {
             "source": 84,
             "target": 77,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "уголовный"
         },
         {
             "source": 84,
             "target": 182,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "митинг"
         },
         {
             "source": 84,
             "target": 61,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 84,
             "target": 138,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ответственность"
         },
         {
             "source": 84,
             "target": 16,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 170,
             "target": 15,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "проект"
         },
         {
             "source": 170,
             "target": 112,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "дело<br/>миллион"
         },
         {
             "source": 170,
             "target": 164,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "дело"
         },
         {
             "source": 170,
             "target": 55,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "дело"
         },
         {
             "source": 170,
             "target": 118,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "дело"
         },
         {
             "source": 170,
             "target": 19,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "дело"
         },
         {
             "source": 170,
             "target": 70,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "деньги"
         },
         {
             "source": 170,
             "target": 153,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "проект"
         },
         {
             "source": 170,
             "target": 174,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "миллион"
         },
         {
             "source": 170,
             "target": 83,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "режиссёр"
         },
         {
             "source": 170,
             "target": 169,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "режиссёр"
         },
         {
             "source": 170,
             "target": 39,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "режиссёр"
         },
         {
             "source": 170,
             "target": 23,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "проект"
         },
         {
             "source": 170,
             "target": 16,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "дело"
         },
         {
             "source": 81,
             "target": 195,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Израиль<br/>решение"
         },
         {
             "source": 81,
             "target": 44,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Белоруссия<br/>Минск"
         },
         {
             "source": 81,
             "target": 148,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "гражданин"
         },
         {
             "source": 81,
             "target": 107,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "экстрадиция"
         },
         {
             "source": 81,
             "target": 40,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "решение"
         },
         {
             "source": 81,
             "target": 3,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "гражданин"
         },
         {
             "source": 71,
             "target": 146,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "водительский"
         },
         {
             "source": 71,
             "target": 112,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "прокуратура"
         },
         {
             "source": 71,
             "target": 55,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 71,
             "target": 50,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 71,
             "target": 84,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 71,
             "target": 107,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 71,
             "target": 118,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 71,
             "target": 40,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 71,
             "target": 19,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 71,
             "target": 7,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 71,
             "target": 88,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "иск"
         },
         {
             "source": 71,
             "target": 61,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 71,
             "target": 16,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 71,
             "target": 21,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "штраф"
         },
         {
             "source": 40,
             "target": 91,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "музей"
         },
         {
             "source": 40,
             "target": 124,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 40,
             "target": 125,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 40,
             "target": 73,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Крым"
         },
         {
             "source": 40,
             "target": 195,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "решение"
         },
         {
             "source": 40,
             "target": 41,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 40,
             "target": 55,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 40,
             "target": 50,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 40,
             "target": 84,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 40,
             "target": 81,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "решение"
         },
         {
             "source": 40,
             "target": 71,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 40,
             "target": 107,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "суд<br/>Украина"
         },
         {
             "source": 40,
             "target": 118,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 40,
             "target": 19,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "суд<br/>Украина"
         },
         {
             "source": 40,
             "target": 7,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "суд<br/>Украина"
         },
         {
             "source": 40,
             "target": 204,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 40,
             "target": 11,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 40,
             "target": 88,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "музей"
         },
         {
             "source": 40,
             "target": 176,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 40,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 40,
             "target": 61,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 40,
             "target": 129,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 40,
             "target": 16,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 40,
             "target": 13,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Крым"
         },
         {
             "source": 40,
             "target": 188,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 116,
             "target": 161,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 116,
             "target": 117,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "март"
         },
         {
             "source": 116,
             "target": 130,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "март"
         },
         {
             "source": 116,
             "target": 199,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 116,
             "target": 120,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "март"
         },
         {
             "source": 116,
             "target": 134,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 116,
             "target": 32,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 116,
             "target": 181,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 116,
             "target": 55,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "приговор"
         },
         {
             "source": 116,
             "target": 50,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "приговор"
         },
         {
             "source": 116,
             "target": 165,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 116,
             "target": 153,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 116,
             "target": 72,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 116,
             "target": 20,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 116,
             "target": 27,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 116,
             "target": 52,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 116,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 116,
             "target": 33,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 116,
             "target": 77,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "указ"
         },
         {
             "source": 116,
             "target": 206,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 116,
             "target": 186,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 116,
             "target": 18,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 116,
             "target": 103,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 116,
             "target": 128,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "март"
         },
         {
             "source": 116,
             "target": 205,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 116,
             "target": 193,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 113,
             "target": 160,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Татарстан"
         },
         {
             "source": 113,
             "target": 45,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Татфондбанк<br/>лицензия"
         },
         {
             "source": 113,
             "target": 52,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "декабрь"
         },
         {
             "source": 115,
             "target": 149,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "дом"
         },
         {
             "source": 115,
             "target": 2,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "расследование"
         },
         {
             "source": 115,
             "target": 73,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Фийон"
         },
         {
             "source": 115,
             "target": 60,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "дом"
         },
         {
             "source": 115,
             "target": 159,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "полиция"
         },
         {
             "source": 115,
             "target": 96,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "полиция"
         },
         {
             "source": 115,
             "target": 103,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "дом"
         },
         {
             "source": 115,
             "target": 48,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "полиция"
         },
         {
             "source": 115,
             "target": 154,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "полиция"
         },
         {
             "source": 107,
             "target": 36,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 107,
             "target": 124,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "украинский<br/>Украина"
         },
         {
             "source": 107,
             "target": 125,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 107,
             "target": 2,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 107,
             "target": 57,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 107,
             "target": 195,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 107,
             "target": 41,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 107,
             "target": 148,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "земельный"
         },
         {
             "source": 107,
             "target": 55,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 107,
             "target": 50,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 107,
             "target": 84,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 107,
             "target": 81,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "экстрадиция"
         },
         {
             "source": 107,
             "target": 71,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 107,
             "target": 118,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 107,
             "target": 40,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "суд<br/>Украина"
         },
         {
             "source": 107,
             "target": 19,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "суд<br/>Украина"
         },
         {
             "source": 107,
             "target": 7,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "суд<br/>Украина"
         },
         {
             "source": 107,
             "target": 42,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 107,
             "target": 196,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 107,
             "target": 204,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 107,
             "target": 11,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 107,
             "target": 176,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 107,
             "target": 63,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "США<br/>Украина"
         },
         {
             "source": 107,
             "target": 66,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 107,
             "target": 186,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 107,
             "target": 61,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 107,
             "target": 12,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 107,
             "target": 129,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 107,
             "target": 16,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 107,
             "target": 183,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 107,
             "target": 188,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 107,
             "target": 175,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 118,
             "target": 112,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "дело<br/>рубли"
         },
         {
             "source": 118,
             "target": 164,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "дело"
         },
         {
             "source": 118,
             "target": 55,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "суд<br/>дело"
         },
         {
             "source": 118,
             "target": 50,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 118,
             "target": 84,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 118,
             "target": 170,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "дело"
         },
         {
             "source": 118,
             "target": 71,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 118,
             "target": 107,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 118,
             "target": 40,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 118,
             "target": 19,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "суд<br/>дело"
         },
         {
             "source": 118,
             "target": 7,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 118,
             "target": 60,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "область"
         },
         {
             "source": 118,
             "target": 11,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "область"
         },
         {
             "source": 118,
             "target": 153,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "область"
         },
         {
             "source": 118,
             "target": 141,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "область"
         },
         {
             "source": 118,
             "target": 171,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "область"
         },
         {
             "source": 118,
             "target": 61,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 118,
             "target": 16,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "взятка<br/>суд<br/>дело"
         },
         {
             "source": 167,
             "target": 125,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Захарченко"
         },
         {
             "source": 167,
             "target": 104,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "мужчина"
         },
         {
             "source": 167,
             "target": 54,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "журналист"
         },
         {
             "source": 167,
             "target": 176,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "журналист"
         },
         {
             "source": 167,
             "target": 1,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Захарченко"
         },
         {
             "source": 165,
             "target": 161,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 165,
             "target": 24,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "корабль"
         },
         {
             "source": 165,
             "target": 199,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 165,
             "target": 134,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Петербург<br/>Путин"
         },
         {
             "source": 165,
             "target": 32,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 165,
             "target": 181,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 165,
             "target": 116,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 165,
             "target": 144,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "парад"
         },
         {
             "source": 165,
             "target": 173,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "судно"
         },
         {
             "source": 165,
             "target": 153,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 165,
             "target": 72,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 165,
             "target": 20,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 165,
             "target": 27,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 165,
             "target": 52,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 165,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 165,
             "target": 33,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 165,
             "target": 206,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 165,
             "target": 186,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 165,
             "target": 18,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 165,
             "target": 103,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 165,
             "target": 205,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 165,
             "target": 193,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 104,
             "target": 117,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "подарок<br/>поздравление<br/>поздравить"
         },
         {
             "source": 104,
             "target": 167,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "мужчина"
         },
         {
             "source": 104,
             "target": 156,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "поздравить"
         },
         {
             "source": 104,
             "target": 193,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "поздравить"
         },
         {
             "source": 172,
             "target": 117,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 172,
             "target": 144,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 172,
             "target": 156,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 172,
             "target": 67,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 172,
             "target": 177,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Курбан-байрам<br/>праздник"
         },
         {
             "source": 172,
             "target": 93,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 172,
             "target": 58,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 172,
             "target": 133,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 172,
             "target": 52,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "перенести"
         },
         {
             "source": 172,
             "target": 180,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "школа"
         },
         {
             "source": 172,
             "target": 28,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "сентябрь"
         },
         {
             "source": 144,
             "target": 117,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 144,
             "target": 203,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "акция"
         },
         {
             "source": 144,
             "target": 130,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "акция"
         },
         {
             "source": 144,
             "target": 165,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "парад"
         },
         {
             "source": 144,
             "target": 156,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 144,
             "target": 172,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 144,
             "target": 67,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 144,
             "target": 177,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 144,
             "target": 108,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "акция"
         },
         {
             "source": 144,
             "target": 93,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 144,
             "target": 58,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 144,
             "target": 133,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 144,
             "target": 33,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "акция"
         },
         {
             "source": 144,
             "target": 135,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "акция"
         },
         {
             "source": 144,
             "target": 12,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "победа"
         },
         {
             "source": 144,
             "target": 152,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "май"
         },
         {
             "source": 144,
             "target": 145,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "май"
         },
         {
             "source": 144,
             "target": 21,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "победа"
         },
         {
             "source": 156,
             "target": 117,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "праздник<br/>поздравить"
         },
         {
             "source": 156,
             "target": 192,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "фестиваль"
         },
         {
             "source": 156,
             "target": 101,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "фестиваль"
         },
         {
             "source": 156,
             "target": 134,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "площадь"
         },
         {
             "source": 156,
             "target": 32,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 156,
             "target": 194,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "фестиваль"
         },
         {
             "source": 156,
             "target": 9,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Молдавия<br/>Додон"
         },
         {
             "source": 156,
             "target": 57,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 156,
             "target": 112,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 156,
             "target": 144,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 156,
             "target": 104,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "поздравить"
         },
         {
             "source": 156,
             "target": 172,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 156,
             "target": 67,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 156,
             "target": 157,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 156,
             "target": 177,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 156,
             "target": 93,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 156,
             "target": 58,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 156,
             "target": 133,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 156,
             "target": 52,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "мероприятие"
         },
         {
             "source": 156,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 156,
             "target": 66,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 156,
             "target": 206,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 156,
             "target": 3,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 156,
             "target": 22,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 156,
             "target": 39,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 156,
             "target": 49,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 156,
             "target": 106,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 156,
             "target": 188,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 156,
             "target": 193,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "поздравить"
         },
         {
             "source": 37,
             "target": 124,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "российский"
         },
         {
             "source": 37,
             "target": 57,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "российский"
         },
         {
             "source": 37,
             "target": 66,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "российский"
         },
         {
             "source": 37,
             "target": 3,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "российский"
         },
         {
             "source": 37,
             "target": 97,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "комиссия"
         },
         {
             "source": 37,
             "target": 49,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "российский"
         },
         {
             "source": 37,
             "target": 193,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "российский"
         },
         {
             "source": 19,
             "target": 124,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 19,
             "target": 125,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Украина<br/>Киев"
         },
         {
             "source": 19,
             "target": 41,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 19,
             "target": 112,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "дело"
         },
         {
             "source": 19,
             "target": 164,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "дело"
         },
         {
             "source": 19,
             "target": 55,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "суд<br/>дело"
         },
         {
             "source": 19,
             "target": 50,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 19,
             "target": 84,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 19,
             "target": 170,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "дело"
         },
         {
             "source": 19,
             "target": 71,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 19,
             "target": 107,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "суд<br/>Украина"
         },
         {
             "source": 19,
             "target": 118,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "суд<br/>дело"
         },
         {
             "source": 19,
             "target": 40,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "суд<br/>Украина"
         },
         {
             "source": 19,
             "target": 7,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "суд<br/>Украина<br/>Киев"
         },
         {
             "source": 19,
             "target": 204,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Украина<br/>Киев"
         },
         {
             "source": 19,
             "target": 11,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 19,
             "target": 176,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Украина<br/>Киев"
         },
         {
             "source": 19,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 19,
             "target": 206,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "заседание"
         },
         {
             "source": 19,
             "target": 61,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 19,
             "target": 129,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Украина<br/>Киев"
         },
         {
             "source": 19,
             "target": 16,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "суд<br/>дело"
         },
         {
             "source": 19,
             "target": 188,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 164,
             "target": 112,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "дело"
         },
         {
             "source": 164,
             "target": 110,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ДТП"
         },
         {
             "source": 164,
             "target": 160,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ДТП"
         },
         {
             "source": 164,
             "target": 55,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "дело"
         },
         {
             "source": 164,
             "target": 170,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "дело"
         },
         {
             "source": 164,
             "target": 118,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "дело"
         },
         {
             "source": 164,
             "target": 19,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "дело"
         },
         {
             "source": 164,
             "target": 65,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ДТП"
         },
         {
             "source": 164,
             "target": 133,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "апрель"
         },
         {
             "source": 164,
             "target": 135,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "апрель"
         },
         {
             "source": 164,
             "target": 16,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "дело"
         },
         {
             "source": 160,
             "target": 24,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "авария<br/>грузовик"
         },
         {
             "source": 160,
             "target": 192,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 160,
             "target": 164,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ДТП"
         },
         {
             "source": 160,
             "target": 110,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "ДТП<br/>авария"
         },
         {
             "source": 160,
             "target": 113,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Татарстан"
         },
         {
             "source": 160,
             "target": 189,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 160,
             "target": 65,
-            "weight": 4
+            "weight": 4,
+            "tooltip": "ДТП<br/>авария<br/>грузовик<br/>погибнуть"
         },
         {
             "source": 160,
             "target": 119,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "погибший<br/>погибнуть"
         },
         {
             "source": 160,
             "target": 59,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибший"
         },
         {
             "source": 160,
             "target": 60,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 160,
             "target": 56,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "грузовик"
         },
         {
             "source": 160,
             "target": 137,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "столкнуться<br/>пассажирский"
         },
         {
             "source": 160,
             "target": 75,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 160,
             "target": 48,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "грузовик<br/>погибнуть"
         },
         {
             "source": 160,
             "target": 138,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 110,
             "target": 24,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "авария"
         },
         {
             "source": 110,
             "target": 164,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ДТП"
         },
         {
             "source": 110,
             "target": 160,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "ДТП<br/>авария"
         },
         {
             "source": 110,
             "target": 65,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "ДТП<br/>авария"
         },
         {
             "source": 110,
             "target": 119,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "находиться"
         },
         {
             "source": 110,
             "target": 201,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "артист"
         },
         {
             "source": 110,
             "target": 158,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "актёр<br/>артист<br/>Склифосовский"
         },
         {
             "source": 110,
             "target": 5,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "актёр"
         },
         {
             "source": 110,
             "target": 106,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "актёр<br/>артист"
         },
         {
             "source": 7,
             "target": 91,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "билет"
         },
         {
             "source": 7,
             "target": 166,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "конкурс"
         },
         {
             "source": 7,
             "target": 124,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 7,
             "target": 101,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "конкурс"
         },
         {
             "source": 7,
             "target": 125,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Украина<br/>Киев"
         },
         {
             "source": 7,
             "target": 41,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 7,
             "target": 55,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 7,
             "target": 50,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 7,
             "target": 84,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "проведение<br/>суд"
         },
         {
             "source": 7,
             "target": 71,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 7,
             "target": 107,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Украина<br/>суд"
         },
         {
             "source": 7,
             "target": 118,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 7,
             "target": 40,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Украина<br/>суд"
         },
         {
             "source": 7,
             "target": 19,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "Украина<br/>Киев<br/>суд"
         },
         {
             "source": 7,
             "target": 204,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Украина<br/>Киев"
         },
         {
             "source": 7,
             "target": 11,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 7,
             "target": 176,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Украина<br/>Киев"
         },
         {
             "source": 7,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 7,
             "target": 61,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 7,
             "target": 129,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Украина<br/>Киев"
         },
         {
             "source": 7,
             "target": 16,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 7,
             "target": 188,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 184,
             "target": 36,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "кандидат"
         },
         {
             "source": 184,
             "target": 29,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "выборы<br/>кандидат<br/>партия"
         },
         {
             "source": 184,
             "target": 200,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "выборы<br/>кандидат"
         },
         {
             "source": 184,
             "target": 9,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "выборы<br/>кандидат<br/>партия"
         },
         {
             "source": 184,
             "target": 8,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "выборы<br/>кандидат"
         },
         {
             "source": 184,
             "target": 2,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "кандидат"
         },
         {
             "source": 184,
             "target": 73,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "выборы<br/>кандидат"
         },
         {
             "source": 184,
             "target": 99,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "партия<br/>депутат"
         },
         {
             "source": 184,
             "target": 10,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "выборы<br/>партия"
         },
         {
             "source": 184,
             "target": 68,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "оппозиция"
         },
         {
             "source": 184,
             "target": 191,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "голосование"
         },
         {
             "source": 184,
             "target": 140,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "депутат"
         },
         {
             "source": 184,
             "target": 126,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "выборы<br/>кандидат"
         },
         {
             "source": 184,
             "target": 129,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "депутат"
         },
         {
             "source": 184,
             "target": 205,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "выборы<br/>кандидат"
         },
         {
             "source": 42,
             "target": 36,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 42,
             "target": 2,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 42,
             "target": 57,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 42,
             "target": 195,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 42,
             "target": 107,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 42,
             "target": 53,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "захватить"
         },
         {
             "source": 42,
             "target": 196,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 42,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 42,
             "target": 66,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 42,
             "target": 186,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 42,
             "target": 178,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Китай"
         },
         {
             "source": 42,
             "target": 12,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 42,
             "target": 183,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 42,
             "target": 175,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 53,
             "target": 42,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "захватить"
         },
         {
             "source": 53,
             "target": 121,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "самолёт"
         },
         {
             "source": 53,
             "target": 119,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "борт"
         },
         {
             "source": 53,
             "target": 190,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пассажир"
         },
         {
             "source": 189,
             "target": 192,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "погибнуть<br/>жертва"
         },
         {
             "source": 189,
             "target": 149,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "произойти"
         },
         {
             "source": 189,
             "target": 51,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "произойти"
         },
         {
             "source": 189,
             "target": 160,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 189,
             "target": 65,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 189,
             "target": 119,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 189,
             "target": 60,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 189,
             "target": 70,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Мексика"
         },
         {
             "source": 189,
             "target": 86,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "землетрясение"
         },
         {
             "source": 189,
             "target": 75,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 189,
             "target": 48,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 189,
             "target": 128,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "жертва"
         },
         {
             "source": 189,
             "target": 151,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "произойти"
         },
         {
             "source": 189,
             "target": 138,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 189,
             "target": 183,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "штат"
         },
         {
             "source": 189,
             "target": 152,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "столица"
         },
         {
             "source": 189,
             "target": 175,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "штат<br/>жертва"
         },
         {
             "source": 74,
             "target": 199,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "открытие"
         },
         {
             "source": 74,
             "target": 105,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "зимний"
         },
         {
             "source": 74,
             "target": 200,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Казахстан"
         },
         {
             "source": 74,
             "target": 60,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Казахстан"
         },
         {
             "source": 74,
             "target": 68,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Казахстан"
         },
         {
             "source": 74,
             "target": 94,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "церемония"
         },
         {
             "source": 196,
             "target": 36,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "США<br/>Трамп"
         },
         {
             "source": 196,
             "target": 2,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "США<br/>Трамп"
         },
         {
             "source": 196,
             "target": 57,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 196,
             "target": 195,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "США<br/>Вашингтон"
         },
         {
             "source": 196,
             "target": 107,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 196,
             "target": 42,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 196,
             "target": 72,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Трамп"
         },
         {
             "source": 196,
             "target": 63,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "США<br/>Трамп<br/>заявить"
         },
         {
             "source": 196,
             "target": 66,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 196,
             "target": 33,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "сделка"
         },
         {
             "source": 196,
             "target": 206,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "заявить"
         },
         {
             "source": 196,
             "target": 186,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "США<br/>Трамп"
         },
         {
             "source": 196,
             "target": 4,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Трамп"
         },
         {
             "source": 196,
             "target": 23,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "соглашение"
         },
         {
             "source": 196,
             "target": 12,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "Иран<br/>США<br/>Трамп"
         },
         {
             "source": 196,
             "target": 183,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 196,
             "target": 94,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Трамп"
         },
         {
             "source": 196,
             "target": 175,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "США<br/>Трамп"
         },
         {
             "source": 95,
             "target": 32,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "Япония<br/>японский<br/>Абэ"
         },
         {
             "source": 95,
             "target": 15,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "КНДР"
         },
         {
             "source": 95,
             "target": 30,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Япония"
         },
         {
             "source": 109,
             "target": 111,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "сеть"
         },
         {
             "source": 25,
             "target": 203,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "банк"
         },
         {
             "source": 25,
             "target": 124,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Сбербанк"
         },
         {
             "source": 25,
             "target": 146,
-            "weight": 5
+            "weight": 5,
+            "tooltip": "кибератака<br/>атака<br/>хакер<br/>система<br/>хакерский"
         },
         {
             "source": 25,
             "target": 139,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ФСБ"
         },
         {
             "source": 25,
             "target": 45,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "банк"
         },
         {
             "source": 25,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "хакерский"
         },
         {
             "source": 25,
             "target": 162,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "банк"
         },
         {
             "source": 25,
             "target": 154,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "атака"
         },
         {
             "source": 25,
             "target": 13,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ФСБ"
         },
         {
             "source": 121,
             "target": 47,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "посадка"
         },
         {
             "source": 121,
             "target": 179,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Турция"
         },
         {
             "source": 121,
             "target": 53,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "самолёт"
         },
         {
             "source": 121,
             "target": 119,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Турция"
         },
         {
             "source": 121,
             "target": 64,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "турецкий"
         },
         {
             "source": 121,
             "target": 59,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Турция"
         },
         {
             "source": 121,
             "target": 66,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "министр<br/>МИД"
         },
         {
             "source": 121,
             "target": 23,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Турция<br/>турецкий"
         },
         {
             "source": 121,
             "target": 34,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Турция"
         },
         {
             "source": 121,
             "target": 61,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Турция<br/>турецкий"
         },
         {
             "source": 121,
             "target": 49,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Турция<br/>МИД"
         },
         {
             "source": 121,
             "target": 16,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "министр"
         },
         {
             "source": 67,
             "target": 117,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 67,
             "target": 120,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "православный"
         },
         {
             "source": 67,
             "target": 144,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 67,
             "target": 156,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 67,
             "target": 172,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 67,
             "target": 177,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "праздник<br/>традиция"
         },
         {
             "source": 67,
             "target": 93,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "праздник<br/>традиция"
         },
         {
             "source": 67,
             "target": 58,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 67,
             "target": 60,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "январь"
         },
         {
             "source": 67,
             "target": 133,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "праздник<br/>православный"
         },
         {
             "source": 67,
             "target": 72,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "январь"
         },
         {
             "source": 67,
             "target": 88,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "январь"
         },
         {
             "source": 67,
             "target": 138,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "храм"
         },
         {
             "source": 142,
             "target": 161,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 142,
             "target": 181,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 142,
             "target": 200,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 142,
             "target": 8,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 142,
             "target": 2,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 142,
             "target": 73,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 142,
             "target": 57,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>американский"
         },
         {
             "source": 142,
             "target": 195,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "выход"
         },
         {
             "source": 142,
             "target": 44,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "нефть"
         },
         {
             "source": 142,
             "target": 85,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "нефть"
         },
         {
             "source": 142,
             "target": 70,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "нефть"
         },
         {
             "source": 142,
             "target": 11,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 142,
             "target": 78,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 142,
             "target": 72,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 142,
             "target": 150,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 142,
             "target": 17,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 142,
             "target": 20,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "государство"
         },
         {
             "source": 142,
             "target": 27,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 142,
             "target": 52,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 142,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 142,
             "target": 206,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "государство<br/>президент"
         },
         {
             "source": 142,
             "target": 186,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "организация<br/>президент"
         },
         {
             "source": 142,
             "target": 159,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 142,
             "target": 178,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "государство"
         },
         {
             "source": 142,
             "target": 191,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "государство"
         },
         {
             "source": 142,
             "target": 83,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "организация"
         },
         {
             "source": 142,
             "target": 131,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "организация<br/>президент"
         },
         {
             "source": 142,
             "target": 126,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 142,
             "target": 12,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>американский"
         },
         {
             "source": 142,
             "target": 205,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 142,
             "target": 193,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 198,
             "target": 41,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "доллар"
         },
         {
             "source": 198,
             "target": 148,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "тысяча"
         },
         {
             "source": 198,
             "target": 85,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "курс<br/>доллар<br/>биржа"
         },
         {
             "source": 198,
             "target": 171,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "тысяча"
         },
         {
             "source": 198,
             "target": 77,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "тысяча"
         },
         {
             "source": 198,
             "target": 174,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "доллар"
         },
         {
             "source": 198,
             "target": 100,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "тысяча"
         },
         {
             "source": 65,
             "target": 24,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "авария<br/>грузовик"
         },
         {
             "source": 65,
             "target": 192,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 65,
             "target": 164,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ДТП"
         },
         {
             "source": 65,
             "target": 110,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "ДТП<br/>авария"
         },
         {
             "source": 65,
             "target": 160,
-            "weight": 4
+            "weight": 4,
+            "tooltip": "ДТП<br/>погибнуть<br/>авария<br/>грузовик"
         },
         {
             "source": 65,
             "target": 189,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 65,
             "target": 119,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 65,
             "target": 60,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 65,
             "target": 56,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "грузовик"
         },
         {
             "source": 65,
             "target": 75,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 65,
             "target": 48,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "погибнуть<br/>водитель<br/>грузовик"
         },
         {
             "source": 65,
             "target": 76,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "автомобиль"
         },
         {
             "source": 65,
             "target": 138,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 119,
             "target": 192,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 119,
             "target": 179,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Турция"
         },
         {
             "source": 119,
             "target": 110,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "находиться"
         },
         {
             "source": 119,
             "target": 160,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "погибший<br/>погибнуть"
         },
         {
             "source": 119,
             "target": 53,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "борт"
         },
         {
             "source": 119,
             "target": 189,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 119,
             "target": 121,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Турция"
         },
         {
             "source": 119,
             "target": 65,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 119,
             "target": 64,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "крушение"
         },
         {
             "source": 119,
             "target": 59,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "Стамбул<br/>Турция<br/>погибший"
         },
         {
             "source": 119,
             "target": 60,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 119,
             "target": 75,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 119,
             "target": 23,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Турция"
         },
         {
             "source": 119,
             "target": 48,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 119,
             "target": 34,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Стамбул<br/>Турция"
         },
         {
             "source": 119,
             "target": 61,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Турция"
         },
         {
             "source": 119,
             "target": 138,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 119,
             "target": 49,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Турция"
         },
         {
             "source": 54,
             "target": 47,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Ту-154"
         },
         {
             "source": 54,
             "target": 15,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Ту-154"
         },
         {
             "source": 54,
             "target": 105,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Сочи"
         },
         {
             "source": 54,
             "target": 194,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Сочи"
         },
         {
             "source": 54,
             "target": 167,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "журналист"
         },
         {
             "source": 54,
             "target": 176,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "канал<br/>журналист"
         },
         {
             "source": 54,
             "target": 4,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Ту-154"
         },
         {
             "source": 64,
             "target": 47,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "посёлок"
         },
         {
             "source": 64,
             "target": 24,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "грузовой"
         },
         {
             "source": 64,
             "target": 200,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Бишкек<br/>Киргизия"
         },
         {
             "source": 64,
             "target": 121,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "турецкий"
         },
         {
             "source": 64,
             "target": 119,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "крушение"
         },
         {
             "source": 64,
             "target": 60,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "посёлок"
         },
         {
             "source": 64,
             "target": 141,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "МЧС"
         },
         {
             "source": 64,
             "target": 17,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Киргизия"
         },
         {
             "source": 64,
             "target": 171,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "МЧС"
         },
         {
             "source": 64,
             "target": 86,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "МЧС"
         },
         {
             "source": 64,
             "target": 23,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "турецкий"
         },
         {
             "source": 64,
             "target": 61,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "турецкий"
         },
         {
             "source": 173,
             "target": 165,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "судно"
         },
         {
             "source": 173,
             "target": 128,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "мост"
         },
         {
             "source": 173,
             "target": 154,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "мост"
         },
         {
             "source": 157,
             "target": 111,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "игра"
         },
         {
             "source": 157,
             "target": 166,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "игра<br/>команда"
         },
         {
             "source": 157,
             "target": 32,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 157,
             "target": 105,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "игра"
         },
         {
             "source": 157,
             "target": 57,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 157,
             "target": 87,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Зеландия<br/>новая"
         },
         {
             "source": 157,
             "target": 112,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 157,
             "target": 156,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 157,
             "target": 202,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "кубок"
         },
         {
             "source": 157,
             "target": 143,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "матч<br/>игра<br/>команда"
         },
         {
             "source": 157,
             "target": 92,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Зеландия"
         },
         {
             "source": 157,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 157,
             "target": 66,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 157,
             "target": 206,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 157,
             "target": 3,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 157,
             "target": 22,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 157,
             "target": 39,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 157,
             "target": 49,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 157,
             "target": 106,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 157,
             "target": 31,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "матч<br/>команда"
         },
         {
             "source": 157,
             "target": 145,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "матч<br/>сборная<br/>команда"
         },
         {
             "source": 157,
             "target": 82,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "игра"
         },
         {
             "source": 157,
             "target": 188,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 157,
             "target": 21,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "матч"
         },
         {
             "source": 202,
             "target": 194,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "октябрь"
         },
         {
             "source": 202,
             "target": 157,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "кубок"
         },
         {
             "source": 202,
             "target": 18,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Кремль"
         },
         {
             "source": 202,
             "target": 191,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "октябрь"
         },
         {
             "source": 202,
             "target": 201,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "октябрь"
         },
         {
             "source": 177,
             "target": 117,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 177,
             "target": 144,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 177,
             "target": 156,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 177,
             "target": 172,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Курбан-байрам<br/>праздник"
         },
         {
             "source": 177,
             "target": 67,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "праздник<br/>традиция"
         },
         {
             "source": 177,
             "target": 93,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "праздник<br/>традиция"
         },
         {
             "source": 177,
             "target": 58,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 177,
             "target": 133,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 177,
             "target": 182,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "мусульманин"
         },
         {
             "source": 177,
             "target": 75,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "мечеть"
         },
         {
             "source": 89,
             "target": 32,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "остров"
         },
         {
             "source": 89,
             "target": 87,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "остров"
         },
         {
             "source": 89,
             "target": 197,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "остров"
         },
         {
             "source": 89,
             "target": 92,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "остров"
         },
         {
             "source": 89,
             "target": 183,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "остров"
         },
         {
             "source": 85,
             "target": 41,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "доллар"
         },
         {
             "source": 85,
             "target": 44,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "нефть"
         },
         {
             "source": 85,
             "target": 142,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "нефть"
         },
         {
             "source": 85,
             "target": 198,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "курс<br/>доллар<br/>биржа"
         },
         {
             "source": 85,
             "target": 93,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "февраль"
         },
         {
             "source": 85,
             "target": 70,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "нефть"
         },
         {
             "source": 85,
             "target": 33,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "рубль"
         },
         {
             "source": 85,
             "target": 174,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "доллар"
         },
         {
             "source": 85,
             "target": 106,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "февраль"
         },
         {
             "source": 143,
             "target": 111,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "игра"
         },
         {
             "source": 143,
             "target": 166,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "команда<br/>игра"
         },
         {
             "source": 143,
             "target": 105,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "ЦСКА<br/>игра"
         },
         {
             "source": 143,
             "target": 157,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "матч<br/>команда<br/>игра"
         },
         {
             "source": 143,
             "target": 139,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "клуб"
         },
         {
             "source": 143,
             "target": 59,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "клуб"
         },
         {
             "source": 143,
             "target": 206,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "клуб"
         },
         {
             "source": 143,
             "target": 31,
-            "weight": 4
+            "weight": 4,
+            "tooltip": "матч<br/>ЦСКА<br/>команда<br/>клуб"
         },
         {
             "source": 143,
             "target": 145,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "матч<br/>команда"
         },
         {
             "source": 143,
             "target": 82,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "игра"
         },
         {
             "source": 143,
             "target": 21,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "матч<br/>чемпион"
         },
         {
             "source": 108,
             "target": 203,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "акция"
         },
         {
             "source": 108,
             "target": 130,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "акция"
         },
         {
             "source": 108,
             "target": 51,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Москва"
         },
         {
             "source": 108,
             "target": 194,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "участник"
         },
         {
             "source": 108,
             "target": 144,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "акция"
         },
         {
             "source": 108,
             "target": 33,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "акция"
         },
         {
             "source": 108,
             "target": 103,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Москва"
         },
         {
             "source": 108,
             "target": 137,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Москва"
         },
         {
             "source": 108,
             "target": 135,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "акция"
         },
         {
             "source": 108,
             "target": 152,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Москва"
         },
         {
             "source": 93,
             "target": 117,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 93,
             "target": 120,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "неделя"
         },
         {
             "source": 93,
             "target": 144,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 93,
             "target": 156,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 93,
             "target": 172,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 93,
             "target": 67,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "праздник<br/>традиция"
         },
         {
             "source": 93,
             "target": 177,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "праздник<br/>традиция"
         },
         {
             "source": 93,
             "target": 85,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "февраль"
         },
         {
             "source": 93,
             "target": 58,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "2017<br/>праздник"
         },
         {
             "source": 93,
             "target": 133,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "2017<br/>праздник"
         },
         {
             "source": 93,
             "target": 106,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "февраль"
         },
         {
             "source": 46,
             "target": 47,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пострадавший"
         },
         {
             "source": 46,
             "target": 149,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пострадавший"
         },
         {
             "source": 46,
             "target": 183,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пострадавший"
         },
         {
             "source": 185,
             "target": 72,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "телефонный"
         },
         {
             "source": 185,
             "target": 17,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "телефонный"
         },
         {
             "source": 185,
             "target": 83,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "угроза"
         },
         {
             "source": 204,
             "target": 203,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "здание"
         },
         {
             "source": 204,
             "target": 124,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 204,
             "target": 125,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Украина<br/>Киев"
         },
         {
             "source": 204,
             "target": 41,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 204,
             "target": 107,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 204,
             "target": 40,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 204,
             "target": 19,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Украина<br/>Киев"
         },
         {
             "source": 204,
             "target": 7,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Украина<br/>Киев"
         },
         {
             "source": 204,
             "target": 11,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "Саакашвили<br/>Порошенко<br/>Украина"
         },
         {
             "source": 204,
             "target": 17,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Порошенко"
         },
         {
             "source": 204,
             "target": 176,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Украина<br/>Киев"
         },
         {
             "source": 204,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 204,
             "target": 140,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "здание<br/>протестовать"
         },
         {
             "source": 204,
             "target": 128,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "здание"
         },
         {
             "source": 204,
             "target": 61,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "здание"
         },
         {
             "source": 204,
             "target": 129,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Украина<br/>Киев"
         },
         {
             "source": 204,
             "target": 188,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Саакашвили<br/>Украина"
         },
         {
             "source": 168,
             "target": 78,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "край"
         },
         {
             "source": 168,
             "target": 141,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "режим"
         },
         {
             "source": 168,
             "target": 171,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пункт"
         },
         {
             "source": 168,
             "target": 5,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Приморье"
         },
         {
             "source": 168,
             "target": 86,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "край"
         },
         {
             "source": 163,
             "target": 192,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ранение"
         },
         {
             "source": 163,
             "target": 179,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "турист"
         },
         {
             "source": 163,
             "target": 139,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "нападение"
         },
         {
             "source": 163,
             "target": 59,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "нападение"
         },
         {
             "source": 163,
             "target": 123,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Египет"
         },
         {
             "source": 163,
             "target": 75,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "нападение"
         },
         {
             "source": 163,
             "target": 180,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "нападение"
         },
         {
             "source": 163,
             "target": 138,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Египет"
         },
         {
             "source": 163,
             "target": 49,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "нападение"
         },
         {
             "source": 59,
             "target": 192,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "стрельба"
         },
         {
             "source": 59,
             "target": 179,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Турция"
         },
         {
             "source": 59,
             "target": 160,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибший"
         },
         {
             "source": 59,
             "target": 121,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Турция"
         },
         {
             "source": 59,
             "target": 119,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "Стамбул<br/>Турция<br/>погибший"
         },
         {
             "source": 59,
             "target": 143,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "клуб"
         },
         {
             "source": 59,
             "target": 163,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "нападение"
         },
         {
             "source": 59,
             "target": 139,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "клуб<br/>нападение"
         },
         {
             "source": 59,
             "target": 58,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "новогодний"
         },
         {
             "source": 59,
             "target": 206,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "клуб"
         },
         {
             "source": 59,
             "target": 75,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "нападение<br/>стрельба"
         },
         {
             "source": 59,
             "target": 180,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "нападение<br/>стрельба"
         },
         {
             "source": 59,
             "target": 23,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Турция"
         },
         {
             "source": 59,
             "target": 48,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "теракт"
         },
         {
             "source": 59,
             "target": 128,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "теракт"
         },
         {
             "source": 59,
             "target": 151,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "теракт"
         },
         {
             "source": 59,
             "target": 34,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "Стамбул<br/>теракт<br/>Турция"
         },
         {
             "source": 59,
             "target": 61,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "теракт<br/>Турция"
         },
         {
             "source": 59,
             "target": 154,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "теракт"
         },
         {
             "source": 59,
             "target": 79,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "теракт"
         },
         {
             "source": 59,
             "target": 49,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "нападение<br/>Турция"
         },
         {
             "source": 59,
             "target": 31,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "клуб"
         },
         {
             "source": 139,
             "target": 25,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ФСБ"
         },
         {
             "source": 139,
             "target": 143,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "клуб"
         },
         {
             "source": 139,
             "target": 163,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "нападение"
         },
         {
             "source": 139,
             "target": 59,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "нападение<br/>клуб"
         },
         {
             "source": 139,
             "target": 206,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "клуб"
         },
         {
             "source": 139,
             "target": 75,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "нападение"
         },
         {
             "source": 139,
             "target": 180,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "нападение"
         },
         {
             "source": 139,
             "target": 49,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "нападение"
         },
         {
             "source": 139,
             "target": 13,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ФСБ"
         },
         {
             "source": 139,
             "target": 31,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "клуб"
         },
         {
             "source": 35,
             "target": 112,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "премия"
         },
         {
             "source": 35,
             "target": 94,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "премия"
         },
         {
             "source": 197,
             "target": 32,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "остров"
         },
         {
             "source": 197,
             "target": 87,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "остров"
         },
         {
             "source": 197,
             "target": 89,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "остров"
         },
         {
             "source": 197,
             "target": 92,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "остров"
         },
         {
             "source": 197,
             "target": 183,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "остров"
         },
         {
             "source": 58,
             "target": 117,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 58,
             "target": 144,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 58,
             "target": 156,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 58,
             "target": 172,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 58,
             "target": 67,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 58,
             "target": 177,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 58,
             "target": 93,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "2017<br/>праздник"
         },
         {
             "source": 58,
             "target": 59,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "новогодний"
         },
         {
             "source": 58,
             "target": 92,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "новый"
         },
         {
             "source": 58,
             "target": 133,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "2017<br/>праздник"
         },
         {
             "source": 60,
             "target": 47,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "посёлок"
         },
         {
             "source": 60,
             "target": 192,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 60,
             "target": 149,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "дом"
         },
         {
             "source": 60,
             "target": 200,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Казахстан"
         },
         {
             "source": 60,
             "target": 160,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 60,
             "target": 115,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "дом"
         },
         {
             "source": 60,
             "target": 118,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "область"
         },
         {
             "source": 60,
             "target": 189,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 60,
             "target": 74,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Казахстан"
         },
         {
             "source": 60,
             "target": 67,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "январь"
         },
         {
             "source": 60,
             "target": 65,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 60,
             "target": 119,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 60,
             "target": 64,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "посёлок"
         },
         {
             "source": 60,
             "target": 11,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "область"
         },
         {
             "source": 60,
             "target": 153,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "область"
         },
         {
             "source": 60,
             "target": 72,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "январь"
         },
         {
             "source": 60,
             "target": 68,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Казахстан"
         },
         {
             "source": 60,
             "target": 88,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "январь"
         },
         {
             "source": 60,
             "target": 141,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "область"
         },
         {
             "source": 60,
             "target": 171,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "область"
         },
         {
             "source": 60,
             "target": 103,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "дом"
         },
         {
             "source": 60,
             "target": 75,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 60,
             "target": 48,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 60,
             "target": 138,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 45,
             "target": 161,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "компания"
         },
         {
             "source": 45,
             "target": 203,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "банк"
         },
         {
             "source": 45,
             "target": 41,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "компания"
         },
         {
             "source": 45,
             "target": 113,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "лицензия<br/>Татфондбанк"
         },
         {
             "source": 45,
             "target": 25,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "банк"
         },
         {
             "source": 45,
             "target": 187,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "страхование"
         },
         {
             "source": 45,
             "target": 33,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "компания"
         },
         {
             "source": 45,
             "target": 162,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "банк"
         },
         {
             "source": 187,
             "target": 62,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Минздрав"
         },
         {
             "source": 187,
             "target": 45,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "страхование"
         },
         {
             "source": 187,
             "target": 14,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "здравоохранение"
         },
         {
             "source": 187,
             "target": 97,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Минздрав"
         },
         {
             "source": 92,
             "target": 32,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "остров"
         },
         {
             "source": 92,
             "target": 87,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Зеландия<br/>остров"
         },
         {
             "source": 92,
             "target": 157,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Зеландия"
         },
         {
             "source": 92,
             "target": 89,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "остров"
         },
         {
             "source": 92,
             "target": 197,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "остров"
         },
         {
             "source": 92,
             "target": 58,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "новый"
         },
         {
             "source": 92,
             "target": 61,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "объект"
         },
         {
             "source": 92,
             "target": 183,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "остров"
         },
         {
             "source": 70,
             "target": 44,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "нефть"
         },
         {
             "source": 70,
             "target": 170,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "деньги"
         },
         {
             "source": 70,
             "target": 189,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Мексика"
         },
         {
             "source": 70,
             "target": 142,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "нефть"
         },
         {
             "source": 70,
             "target": 85,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "нефть"
         },
         {
             "source": 70,
             "target": 23,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "строительство"
         },
         {
             "source": 11,
             "target": 161,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 11,
             "target": 36,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пост"
         },
         {
             "source": 11,
             "target": 124,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 11,
             "target": 125,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 11,
             "target": 120,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пост"
         },
         {
             "source": 11,
             "target": 181,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 11,
             "target": 200,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 11,
             "target": 8,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 11,
             "target": 2,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 11,
             "target": 73,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "пост<br/>президент"
         },
         {
             "source": 11,
             "target": 57,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 11,
             "target": 41,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 11,
             "target": 107,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 11,
             "target": 118,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "область"
         },
         {
             "source": 11,
             "target": 40,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 11,
             "target": 19,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 11,
             "target": 7,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 11,
             "target": 142,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 11,
             "target": 204,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "Саакашвили<br/>Порошенко<br/>Украина"
         },
         {
             "source": 11,
             "target": 60,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "область"
         },
         {
             "source": 11,
             "target": 78,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "отставка<br/>губернатор<br/>президент"
         },
         {
             "source": 11,
             "target": 153,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "область"
         },
         {
             "source": 11,
             "target": 72,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 11,
             "target": 141,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "область"
         },
         {
             "source": 11,
             "target": 150,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 11,
             "target": 17,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Порошенко<br/>президент"
         },
         {
             "source": 11,
             "target": 176,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 11,
             "target": 27,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 11,
             "target": 52,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 11,
             "target": 63,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Украина<br/>президент"
         },
         {
             "source": 11,
             "target": 171,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "область"
         },
         {
             "source": 11,
             "target": 26,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "отставка"
         },
         {
             "source": 11,
             "target": 206,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 11,
             "target": 186,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 11,
             "target": 159,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 11,
             "target": 131,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "отставка<br/>пост<br/>президент"
         },
         {
             "source": 11,
             "target": 126,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 11,
             "target": 12,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 11,
             "target": 129,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 11,
             "target": 31,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пост"
         },
         {
             "source": 11,
             "target": 205,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "пост<br/>президент"
         },
         {
             "source": 11,
             "target": 188,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "Саакашвили<br/>Грузия<br/>Украина"
         },
         {
             "source": 11,
             "target": 193,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 78,
             "target": 161,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 78,
             "target": 36,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "глава"
         },
         {
             "source": 78,
             "target": 181,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 78,
             "target": 200,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 78,
             "target": 8,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 78,
             "target": 2,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 78,
             "target": 73,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 78,
             "target": 57,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 78,
             "target": 112,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "глава"
         },
         {
             "source": 78,
             "target": 142,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 78,
             "target": 168,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "край"
         },
         {
             "source": 78,
             "target": 11,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "отставка<br/>губернатор<br/>президент"
         },
         {
             "source": 78,
             "target": 72,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>Песков"
         },
         {
             "source": 78,
             "target": 150,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 78,
             "target": 17,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 78,
             "target": 27,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 78,
             "target": 52,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>Песков"
         },
         {
             "source": 78,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 78,
             "target": 66,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "глава"
         },
         {
             "source": 78,
             "target": 26,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "отставка"
         },
         {
             "source": 78,
             "target": 206,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 78,
             "target": 186,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 78,
             "target": 159,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 78,
             "target": 131,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "отставка<br/>президент"
         },
         {
             "source": 78,
             "target": 126,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>глава"
         },
         {
             "source": 78,
             "target": 86,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "край"
         },
         {
             "source": 78,
             "target": 12,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 78,
             "target": 205,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 78,
             "target": 193,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 10,
             "target": 199,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "парламент"
         },
         {
             "source": 10,
             "target": 29,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "партия<br/>выборы"
         },
         {
             "source": 10,
             "target": 200,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "выборы"
         },
         {
             "source": 10,
             "target": 9,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "партия<br/>выборы"
         },
         {
             "source": 10,
             "target": 8,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "выборы<br/>парламент"
         },
         {
             "source": 10,
             "target": 73,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "выборы"
         },
         {
             "source": 10,
             "target": 99,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "партия"
         },
         {
             "source": 10,
             "target": 184,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "партия<br/>выборы"
         },
         {
             "source": 10,
             "target": 140,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "парламент"
         },
         {
             "source": 10,
             "target": 100,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Германия<br/>Меркель"
         },
         {
             "source": 10,
             "target": 169,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Германия"
         },
         {
             "source": 10,
             "target": 126,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "выборы"
         },
         {
             "source": 10,
             "target": 23,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "парламент"
         },
         {
             "source": 10,
             "target": 48,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Германия"
         },
         {
             "source": 10,
             "target": 128,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "парламент"
         },
         {
             "source": 10,
             "target": 205,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "выборы"
         },
         {
             "source": 10,
             "target": 145,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Германия"
         },
         {
             "source": 133,
             "target": 117,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 133,
             "target": 120,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Пасха<br/>православный"
         },
         {
             "source": 133,
             "target": 164,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "апрель"
         },
         {
             "source": 133,
             "target": 144,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 133,
             "target": 156,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 133,
             "target": 172,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 133,
             "target": 67,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "праздник<br/>православный"
         },
         {
             "source": 133,
             "target": 177,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "праздник"
         },
         {
             "source": 133,
             "target": 93,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "2017<br/>праздник"
         },
         {
             "source": 133,
             "target": 58,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "2017<br/>праздник"
         },
         {
             "source": 133,
             "target": 135,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "апрель"
         },
         {
             "source": 68,
             "target": 6,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Сирия<br/>сирийский"
         },
         {
             "source": 68,
             "target": 15,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Сирия"
         },
         {
             "source": 68,
             "target": 194,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "делегация"
         },
         {
             "source": 68,
             "target": 200,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Казахстан"
         },
         {
             "source": 68,
             "target": 57,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Лавров"
         },
         {
             "source": 68,
             "target": 195,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ООН"
         },
         {
             "source": 68,
             "target": 184,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "оппозиция"
         },
         {
             "source": 68,
             "target": 74,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Казахстан"
         },
         {
             "source": 68,
             "target": 60,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Казахстан"
         },
         {
             "source": 68,
             "target": 72,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "переговоры"
         },
         {
             "source": 68,
             "target": 66,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Лавров"
         },
         {
             "source": 68,
             "target": 186,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ООН"
         },
         {
             "source": 68,
             "target": 178,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пригласить"
         },
         {
             "source": 68,
             "target": 98,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Лавров"
         },
         {
             "source": 68,
             "target": 102,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ООН"
         },
         {
             "source": 68,
             "target": 4,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Сирия<br/>сирийский"
         },
         {
             "source": 72,
             "target": 161,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 72,
             "target": 36,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Трамп"
         },
         {
             "source": 72,
             "target": 199,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 72,
             "target": 134,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 72,
             "target": 32,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 72,
             "target": 181,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 72,
             "target": 200,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 72,
             "target": 9,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "лидер"
         },
         {
             "source": 72,
             "target": 8,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 72,
             "target": 2,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Трамп<br/>президент"
         },
         {
             "source": 72,
             "target": 73,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 72,
             "target": 57,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 72,
             "target": 116,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 72,
             "target": 165,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 72,
             "target": 196,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Трамп"
         },
         {
             "source": 72,
             "target": 67,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "январь"
         },
         {
             "source": 72,
             "target": 142,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 72,
             "target": 185,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "телефонный"
         },
         {
             "source": 72,
             "target": 60,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "январь"
         },
         {
             "source": 72,
             "target": 11,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 72,
             "target": 78,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>Песков"
         },
         {
             "source": 72,
             "target": 153,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 72,
             "target": 68,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "переговоры"
         },
         {
             "source": 72,
             "target": 88,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "январь"
         },
         {
             "source": 72,
             "target": 150,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 72,
             "target": 17,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "разговор<br/>телефонный<br/>президент"
         },
         {
             "source": 72,
             "target": 20,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 72,
             "target": 27,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 72,
             "target": 52,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "Путин<br/>президент<br/>Песков"
         },
         {
             "source": 72,
             "target": 63,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "Путин<br/>Трамп<br/>президент"
         },
         {
             "source": 72,
             "target": 33,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 72,
             "target": 122,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Пенс"
         },
         {
             "source": 72,
             "target": 206,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 72,
             "target": 186,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "Путин<br/>Трамп<br/>президент"
         },
         {
             "source": 72,
             "target": 159,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 72,
             "target": 18,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 72,
             "target": 131,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 72,
             "target": 96,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "лидер"
         },
         {
             "source": 72,
             "target": 103,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 72,
             "target": 126,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 72,
             "target": 4,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Трамп"
         },
         {
             "source": 72,
             "target": 12,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Трамп<br/>президент"
         },
         {
             "source": 72,
             "target": 205,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 72,
             "target": 94,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Трамп"
         },
         {
             "source": 72,
             "target": 175,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Трамп"
         },
         {
             "source": 72,
             "target": 193,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "Путин<br/>президент<br/>лидер"
         },
         {
             "source": 88,
             "target": 91,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "музей"
         },
         {
             "source": 88,
             "target": 71,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "иск"
         },
         {
             "source": 88,
             "target": 40,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "музей"
         },
         {
             "source": 88,
             "target": 67,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "январь"
         },
         {
             "source": 88,
             "target": 60,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "январь"
         },
         {
             "source": 88,
             "target": 72,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "январь"
         },
         {
             "source": 88,
             "target": 138,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "церковь"
         },
         {
             "source": 153,
             "target": 161,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 153,
             "target": 166,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "международный"
         },
         {
             "source": 153,
             "target": 199,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 153,
             "target": 134,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>петербургский"
         },
         {
             "source": 153,
             "target": 32,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 153,
             "target": 15,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "проект"
         },
         {
             "source": 153,
             "target": 181,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "форум<br/>Путин<br/>экономический"
         },
         {
             "source": 153,
             "target": 170,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "проект"
         },
         {
             "source": 153,
             "target": 116,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 153,
             "target": 118,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "область"
         },
         {
             "source": 153,
             "target": 165,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 153,
             "target": 60,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "область"
         },
         {
             "source": 153,
             "target": 11,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "область"
         },
         {
             "source": 153,
             "target": 72,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 153,
             "target": 141,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "область"
         },
         {
             "source": 153,
             "target": 20,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 153,
             "target": 27,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 153,
             "target": 52,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 153,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 153,
             "target": 171,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "область"
         },
         {
             "source": 153,
             "target": 33,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 153,
             "target": 206,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 153,
             "target": 186,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 153,
             "target": 18,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>экономический"
         },
         {
             "source": 153,
             "target": 103,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 153,
             "target": 23,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "проект"
         },
         {
             "source": 153,
             "target": 12,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "экономика"
         },
         {
             "source": 153,
             "target": 16,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "экономический"
         },
         {
             "source": 153,
             "target": 205,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 153,
             "target": 193,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 141,
             "target": 118,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "область"
         },
         {
             "source": 141,
             "target": 64,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "МЧС"
         },
         {
             "source": 141,
             "target": 168,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "режим"
         },
         {
             "source": 141,
             "target": 60,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "область"
         },
         {
             "source": 141,
             "target": 11,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "область"
         },
         {
             "source": 141,
             "target": 153,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "область"
         },
         {
             "source": 141,
             "target": 171,
-            "weight": 4
+            "weight": 4,
+            "tooltip": "пожар<br/>область<br/>МЧС<br/>огонь"
         },
         {
             "source": 141,
             "target": 86,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "МЧС"
         },
         {
             "source": 123,
             "target": 130,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "согласовать"
         },
         {
             "source": 123,
             "target": 199,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Матвиенко"
         },
         {
             "source": 123,
             "target": 163,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Египет"
         },
         {
             "source": 123,
             "target": 138,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Египет"
         },
         {
             "source": 150,
             "target": 161,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 150,
             "target": 181,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 150,
             "target": 200,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 150,
             "target": 8,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 150,
             "target": 2,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 150,
             "target": 73,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 150,
             "target": 57,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 150,
             "target": 142,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 150,
             "target": 11,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 150,
             "target": 78,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 150,
             "target": 72,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 150,
             "target": 17,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 150,
             "target": 27,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 150,
             "target": 52,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 150,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 150,
             "target": 122,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "вице-президент"
         },
         {
             "source": 150,
             "target": 206,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 150,
             "target": 186,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 150,
             "target": 159,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "Бразилия<br/>Темер<br/>президент"
         },
         {
             "source": 150,
             "target": 131,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 150,
             "target": 126,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 150,
             "target": 12,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 150,
             "target": 205,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 150,
             "target": 193,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 17,
             "target": 161,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 17,
             "target": 181,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 17,
             "target": 200,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>Киргизия"
         },
         {
             "source": 17,
             "target": 8,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 17,
             "target": 2,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 17,
             "target": 73,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 17,
             "target": 57,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 17,
             "target": 142,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 17,
             "target": 64,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Киргизия"
         },
         {
             "source": 17,
             "target": 185,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "телефонный"
         },
         {
             "source": 17,
             "target": 204,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Порошенко"
         },
         {
             "source": 17,
             "target": 11,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Порошенко<br/>президент"
         },
         {
             "source": 17,
             "target": 78,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 17,
             "target": 72,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "разговор<br/>президент<br/>телефонный"
         },
         {
             "source": 17,
             "target": 150,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 17,
             "target": 27,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 17,
             "target": 52,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 17,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 17,
             "target": 206,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 17,
             "target": 186,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 17,
             "target": 159,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 17,
             "target": 131,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 17,
             "target": 126,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 17,
             "target": 12,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 17,
             "target": 205,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 17,
             "target": 193,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 20,
             "target": 161,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 20,
             "target": 199,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 20,
             "target": 134,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 20,
             "target": 32,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 20,
             "target": 181,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 20,
             "target": 116,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 20,
             "target": 165,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 20,
             "target": 142,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "государство"
         },
         {
             "source": 20,
             "target": 153,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 20,
             "target": 72,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 20,
             "target": 27,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 20,
             "target": 52,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 20,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 20,
             "target": 33,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 20,
             "target": 206,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>государство"
         },
         {
             "source": 20,
             "target": 186,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 20,
             "target": 18,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 20,
             "target": 178,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "государство"
         },
         {
             "source": 20,
             "target": 191,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "государство"
         },
         {
             "source": 20,
             "target": 103,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 20,
             "target": 205,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 20,
             "target": 193,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 176,
             "target": 124,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 176,
             "target": 125,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Киев<br/>Украина"
         },
         {
             "source": 176,
             "target": 41,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 176,
             "target": 107,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 176,
             "target": 40,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 176,
             "target": 167,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "журналист"
         },
         {
             "source": 176,
             "target": 19,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Киев<br/>Украина"
         },
         {
             "source": 176,
             "target": 7,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Киев<br/>Украина"
         },
         {
             "source": 176,
             "target": 54,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "канал<br/>журналист"
         },
         {
             "source": 176,
             "target": 204,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Киев<br/>Украина"
         },
         {
             "source": 176,
             "target": 11,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 176,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 176,
             "target": 129,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Киев<br/>Украина"
         },
         {
             "source": 176,
             "target": 188,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 27,
             "target": 161,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 27,
             "target": 111,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "смерть"
         },
         {
             "source": 27,
             "target": 199,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 27,
             "target": 134,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 27,
             "target": 32,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 27,
             "target": 181,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 27,
             "target": 200,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 27,
             "target": 8,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 27,
             "target": 2,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 27,
             "target": 73,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 27,
             "target": 57,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 27,
             "target": 116,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 27,
             "target": 165,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 27,
             "target": 142,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 27,
             "target": 11,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 27,
             "target": 78,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 27,
             "target": 153,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 27,
             "target": 72,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 27,
             "target": 150,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 27,
             "target": 17,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 27,
             "target": 20,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 27,
             "target": 52,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 27,
             "target": 63,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 27,
             "target": 33,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 27,
             "target": 206,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 27,
             "target": 186,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 27,
             "target": 159,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 27,
             "target": 18,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 27,
             "target": 131,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 27,
             "target": 169,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "смерть"
         },
         {
             "source": 27,
             "target": 201,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "смерть"
         },
         {
             "source": 27,
             "target": 103,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 27,
             "target": 126,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 27,
             "target": 12,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 27,
             "target": 106,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "смерть"
         },
         {
             "source": 27,
             "target": 205,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 27,
             "target": 193,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 52,
             "target": 161,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 52,
             "target": 199,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 52,
             "target": 134,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 52,
             "target": 32,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 52,
             "target": 181,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 52,
             "target": 200,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 52,
             "target": 8,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 52,
             "target": 2,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 52,
             "target": 73,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 52,
             "target": 57,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 52,
             "target": 116,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 52,
             "target": 113,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "декабрь"
         },
         {
             "source": 52,
             "target": 165,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 52,
             "target": 156,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "мероприятие"
         },
         {
             "source": 52,
             "target": 172,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "перенести"
         },
         {
             "source": 52,
             "target": 142,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 52,
             "target": 11,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 52,
             "target": 78,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>Песков"
         },
         {
             "source": 52,
             "target": 153,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 52,
             "target": 72,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "Путин<br/>президент<br/>Песков"
         },
         {
             "source": 52,
             "target": 150,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 52,
             "target": 17,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 52,
             "target": 20,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 52,
             "target": 27,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 52,
             "target": 63,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 52,
             "target": 33,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 52,
             "target": 206,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 52,
             "target": 186,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 52,
             "target": 159,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 52,
             "target": 18,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 52,
             "target": 131,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 52,
             "target": 96,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "убитый"
         },
         {
             "source": 52,
             "target": 103,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 52,
             "target": 126,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 52,
             "target": 12,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 52,
             "target": 79,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "убитый"
         },
         {
             "source": 52,
             "target": 49,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "посол<br/>Карлов"
         },
         {
             "source": 52,
             "target": 205,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 52,
             "target": 193,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 63,
             "target": 161,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>Путин"
         },
         {
             "source": 63,
             "target": 36,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "Трамп<br/>США<br/>избранный"
         },
         {
             "source": 63,
             "target": 199,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 63,
             "target": 124,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 63,
             "target": 125,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 63,
             "target": 134,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 63,
             "target": 32,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>Россия"
         },
         {
             "source": 63,
             "target": 181,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>Путин"
         },
         {
             "source": 63,
             "target": 146,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "хакерский"
         },
         {
             "source": 63,
             "target": 200,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 63,
             "target": 8,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 63,
             "target": 2,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "Трамп<br/>США<br/>президент"
         },
         {
             "source": 63,
             "target": 73,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 63,
             "target": 57,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "США<br/>президент<br/>Россия"
         },
         {
             "source": 63,
             "target": 195,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 63,
             "target": 41,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 63,
             "target": 112,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 63,
             "target": 116,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 63,
             "target": 107,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "США<br/>Украина"
         },
         {
             "source": 63,
             "target": 40,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 63,
             "target": 165,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 63,
             "target": 156,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 63,
             "target": 19,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 63,
             "target": 7,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 63,
             "target": 42,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 63,
             "target": 196,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "Трамп<br/>США<br/>заявить"
         },
         {
             "source": 63,
             "target": 25,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "хакерский"
         },
         {
             "source": 63,
             "target": 142,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 63,
             "target": 157,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 63,
             "target": 204,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 63,
             "target": 11,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>Украина"
         },
         {
             "source": 63,
             "target": 78,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 63,
             "target": 153,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 63,
             "target": 72,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "Трамп<br/>президент<br/>Путин"
         },
         {
             "source": 63,
             "target": 150,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 63,
             "target": 17,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 63,
             "target": 20,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 63,
             "target": 176,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 63,
             "target": 27,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>Путин"
         },
         {
             "source": 63,
             "target": 52,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>Путин"
         },
         {
             "source": 63,
             "target": 66,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "США<br/>Россия"
         },
         {
             "source": 63,
             "target": 33,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 63,
             "target": 206,
-            "weight": 4
+            "weight": 4,
+            "tooltip": "президент<br/>заявить<br/>Путин<br/>Россия"
         },
         {
             "source": 63,
             "target": 186,
-            "weight": 4
+            "weight": 4,
+            "tooltip": "Трамп<br/>США<br/>президент<br/>Путин"
         },
         {
             "source": 63,
             "target": 3,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 63,
             "target": 159,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 63,
             "target": 18,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 63,
             "target": 22,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "отношение<br/>Россия"
         },
         {
             "source": 63,
             "target": 131,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 63,
             "target": 103,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 63,
             "target": 126,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 63,
             "target": 4,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Трамп"
         },
         {
             "source": 63,
             "target": 39,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 63,
             "target": 12,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "Трамп<br/>США<br/>президент"
         },
         {
             "source": 63,
             "target": 129,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 63,
             "target": 49,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 63,
             "target": 106,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 63,
             "target": 183,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 63,
             "target": 205,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>Путин"
         },
         {
             "source": 63,
             "target": 94,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Трамп"
         },
         {
             "source": 63,
             "target": 188,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Россия<br/>Украина"
         },
         {
             "source": 63,
             "target": 175,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Трамп<br/>США"
         },
         {
             "source": 63,
             "target": 193,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>Путин"
         },
         {
             "source": 66,
             "target": 36,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "США<br/>глава"
         },
         {
             "source": 66,
             "target": 124,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "российский"
         },
         {
             "source": 66,
             "target": 32,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 66,
             "target": 2,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 66,
             "target": 57,
-            "weight": 5
+            "weight": 5,
+            "tooltip": "Лавров<br/>дипломат<br/>США<br/>российский<br/>Россия"
         },
         {
             "source": 66,
             "target": 195,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 66,
             "target": 112,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "глава<br/>Россия"
         },
         {
             "source": 66,
             "target": 107,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 66,
             "target": 156,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 66,
             "target": 37,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "российский"
         },
         {
             "source": 66,
             "target": 42,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 66,
             "target": 196,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 66,
             "target": 121,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "министр<br/>МИД"
         },
         {
             "source": 66,
             "target": 157,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 66,
             "target": 78,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "глава"
         },
         {
             "source": 66,
             "target": 68,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Лавров"
         },
         {
             "source": 66,
             "target": 63,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "США<br/>Россия"
         },
         {
             "source": 66,
             "target": 206,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 66,
             "target": 186,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 66,
             "target": 3,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "российский<br/>Россия"
         },
         {
             "source": 66,
             "target": 22,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 66,
             "target": 98,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Лавров"
         },
         {
             "source": 66,
             "target": 126,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "глава"
         },
         {
             "source": 66,
             "target": 39,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 66,
             "target": 12,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 66,
             "target": 49,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "российский<br/>МИД<br/>Россия"
         },
         {
             "source": 66,
             "target": 16,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "министр"
         },
         {
             "source": 66,
             "target": 106,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 66,
             "target": 183,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 66,
             "target": 188,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 66,
             "target": 175,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 66,
             "target": 193,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "российский"
         },
         {
             "source": 171,
             "target": 148,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "тысяча"
         },
         {
             "source": 171,
             "target": 118,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "область"
         },
         {
             "source": 171,
             "target": 198,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "тысяча"
         },
         {
             "source": 171,
             "target": 64,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "МЧС"
         },
         {
             "source": 171,
             "target": 168,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пункт"
         },
         {
             "source": 171,
             "target": 60,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "область"
         },
         {
             "source": 171,
             "target": 11,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "область"
         },
         {
             "source": 171,
             "target": 153,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "область"
         },
         {
             "source": 171,
             "target": 141,
-            "weight": 4
+            "weight": 4,
+            "tooltip": "пожар<br/>область<br/>МЧС<br/>огонь"
         },
         {
             "source": 171,
             "target": 77,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "тысяча"
         },
         {
             "source": 171,
             "target": 100,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "тысяча"
         },
         {
             "source": 171,
             "target": 86,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "МЧС"
         },
         {
             "source": 26,
             "target": 11,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "отставка"
         },
         {
             "source": 26,
             "target": 78,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "отставка"
         },
         {
             "source": 26,
             "target": 77,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "правительство"
         },
         {
             "source": 26,
             "target": 186,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "реформа"
         },
         {
             "source": 26,
             "target": 191,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "правительство"
         },
         {
             "source": 26,
             "target": 131,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "отставка"
         },
         {
             "source": 33,
             "target": 161,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "компания<br/>Путин"
         },
         {
             "source": 33,
             "target": 203,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "акция"
         },
         {
             "source": 33,
             "target": 130,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "акция"
         },
         {
             "source": 33,
             "target": 62,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "продажа"
         },
         {
             "source": 33,
             "target": 199,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 33,
             "target": 134,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 33,
             "target": 32,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 33,
             "target": 181,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 33,
             "target": 41,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "компания"
         },
         {
             "source": 33,
             "target": 116,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 33,
             "target": 165,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 33,
             "target": 144,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "акция"
         },
         {
             "source": 33,
             "target": 196,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "сделка"
         },
         {
             "source": 33,
             "target": 85,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "рубль"
         },
         {
             "source": 33,
             "target": 108,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "акция"
         },
         {
             "source": 33,
             "target": 45,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "компания"
         },
         {
             "source": 33,
             "target": 153,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 33,
             "target": 72,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 33,
             "target": 20,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 33,
             "target": 27,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 33,
             "target": 52,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 33,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 33,
             "target": 206,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 33,
             "target": 174,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "миллиард"
         },
         {
             "source": 33,
             "target": 186,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 33,
             "target": 18,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 33,
             "target": 162,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "миллиард"
         },
         {
             "source": 33,
             "target": 103,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 33,
             "target": 135,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "акция"
         },
         {
             "source": 33,
             "target": 16,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Роснефть<br/>Сечин"
         },
         {
             "source": 33,
             "target": 205,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 33,
             "target": 193,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 77,
             "target": 112,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "уголовный"
         },
         {
             "source": 77,
             "target": 148,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "тысяча"
         },
         {
             "source": 77,
             "target": 84,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "уголовный"
         },
         {
             "source": 77,
             "target": 116,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "указ"
         },
         {
             "source": 77,
             "target": 198,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "тысяча"
         },
         {
             "source": 77,
             "target": 171,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "тысяча"
         },
         {
             "source": 77,
             "target": 26,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "правительство"
         },
         {
             "source": 77,
             "target": 191,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "правительство"
         },
         {
             "source": 77,
             "target": 100,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "тысяча"
         },
         {
             "source": 114,
             "target": 62,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "запрет"
         },
         {
             "source": 114,
             "target": 179,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "вирус"
         },
         {
             "source": 114,
             "target": 146,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "вирус"
         },
         {
             "source": 114,
             "target": 194,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "страна"
         },
         {
             "source": 114,
             "target": 178,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "страна"
         },
         {
             "source": 114,
             "target": 98,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "страна"
         },
         {
             "source": 114,
             "target": 155,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "страна"
         },
         {
             "source": 122,
             "target": 72,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Пенс"
         },
         {
             "source": 122,
             "target": 150,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "вице-президент"
         },
         {
             "source": 122,
             "target": 188,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ЦРУ"
         },
         {
             "source": 206,
             "target": 161,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 206,
             "target": 199,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 206,
             "target": 134,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 206,
             "target": 32,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>Россия"
         },
         {
             "source": 206,
             "target": 181,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 206,
             "target": 200,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 206,
             "target": 8,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 206,
             "target": 2,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 206,
             "target": 73,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 206,
             "target": 57,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>Россия"
         },
         {
             "source": 206,
             "target": 112,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 206,
             "target": 116,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 206,
             "target": 165,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 206,
             "target": 156,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 206,
             "target": 19,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "заседание"
         },
         {
             "source": 206,
             "target": 196,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "заявить"
         },
         {
             "source": 206,
             "target": 142,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>государство"
         },
         {
             "source": 206,
             "target": 157,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 206,
             "target": 143,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "клуб"
         },
         {
             "source": 206,
             "target": 139,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "клуб"
         },
         {
             "source": 206,
             "target": 59,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "клуб"
         },
         {
             "source": 206,
             "target": 11,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 206,
             "target": 78,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 206,
             "target": 153,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 206,
             "target": 72,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 206,
             "target": 150,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 206,
             "target": 17,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 206,
             "target": 20,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>государство"
         },
         {
             "source": 206,
             "target": 27,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 206,
             "target": 52,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 206,
             "target": 63,
-            "weight": 4
+            "weight": 4,
+            "tooltip": "Путин<br/>президент<br/>Россия<br/>заявить"
         },
         {
             "source": 206,
             "target": 66,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 206,
             "target": 33,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 206,
             "target": 186,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 206,
             "target": 3,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 206,
             "target": 159,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 206,
             "target": 18,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 206,
             "target": 178,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "государство"
         },
         {
             "source": 206,
             "target": 22,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Россия<br/>Запад"
         },
         {
             "source": 206,
             "target": 191,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "государство"
         },
         {
             "source": 206,
             "target": 131,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 206,
             "target": 103,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 206,
             "target": 126,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 206,
             "target": 39,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 206,
             "target": 12,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 206,
             "target": 49,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 206,
             "target": 106,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 206,
             "target": 31,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "клуб"
         },
         {
             "source": 206,
             "target": 205,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 206,
             "target": 188,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 206,
             "target": 193,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 56,
             "target": 47,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Якутия"
         },
         {
             "source": 56,
             "target": 24,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "грузовик"
         },
         {
             "source": 56,
             "target": 101,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "медведь"
         },
         {
             "source": 56,
             "target": 160,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "грузовик"
         },
         {
             "source": 56,
             "target": 55,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "убийство"
         },
         {
             "source": 56,
             "target": 65,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "грузовик"
         },
         {
             "source": 56,
             "target": 48,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "грузовик"
         },
         {
             "source": 56,
             "target": 79,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "убийство"
         },
         {
             "source": 56,
             "target": 129,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "убийство"
         },
         {
             "source": 56,
             "target": 1,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "убийство"
         },
         {
             "source": 14,
             "target": 161,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Екатеринбург"
         },
         {
             "source": 14,
             "target": 187,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "здравоохранение"
         },
         {
             "source": 174,
             "target": 41,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "доллар"
         },
         {
             "source": 174,
             "target": 112,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "миллион"
         },
         {
             "source": 174,
             "target": 170,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "миллион"
         },
         {
             "source": 174,
             "target": 198,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "доллар"
         },
         {
             "source": 174,
             "target": 85,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "доллар"
         },
         {
             "source": 174,
             "target": 33,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "миллиард"
         },
         {
             "source": 174,
             "target": 162,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "миллиард"
         },
         {
             "source": 174,
             "target": 158,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "состояние"
         },
         {
             "source": 186,
             "target": 161,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 186,
             "target": 36,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Трамп<br/>США"
         },
         {
             "source": 186,
             "target": 199,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 186,
             "target": 134,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 186,
             "target": 32,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 186,
             "target": 181,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 186,
             "target": 200,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 186,
             "target": 8,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 186,
             "target": 2,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "Трамп<br/>США<br/>президент"
         },
         {
             "source": 186,
             "target": 73,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 186,
             "target": 57,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "США<br/>президент"
         },
         {
             "source": 186,
             "target": 195,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "ООН<br/>США"
         },
         {
             "source": 186,
             "target": 116,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 186,
             "target": 107,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 186,
             "target": 165,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 186,
             "target": 42,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 186,
             "target": 196,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Трамп<br/>США"
         },
         {
             "source": 186,
             "target": 142,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "организация<br/>президент"
         },
         {
             "source": 186,
             "target": 11,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 186,
             "target": 78,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 186,
             "target": 153,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 186,
             "target": 72,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "Трамп<br/>Путин<br/>президент"
         },
         {
             "source": 186,
             "target": 68,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ООН"
         },
         {
             "source": 186,
             "target": 150,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 186,
             "target": 17,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 186,
             "target": 20,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 186,
             "target": 27,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 186,
             "target": 52,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 186,
             "target": 63,
-            "weight": 4
+            "weight": 4,
+            "tooltip": "Трамп<br/>Путин<br/>США<br/>президент"
         },
         {
             "source": 186,
             "target": 66,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 186,
             "target": 26,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "реформа"
         },
         {
             "source": 186,
             "target": 33,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 186,
             "target": 206,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 186,
             "target": 159,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 186,
             "target": 18,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 186,
             "target": 83,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "организация"
         },
         {
             "source": 186,
             "target": 131,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "организация<br/>президент"
         },
         {
             "source": 186,
             "target": 102,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ООН"
         },
         {
             "source": 186,
             "target": 103,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 186,
             "target": 126,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 186,
             "target": 4,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Трамп"
         },
         {
             "source": 186,
             "target": 12,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "Трамп<br/>США<br/>президент"
         },
         {
             "source": 186,
             "target": 183,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 186,
             "target": 205,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 186,
             "target": 94,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Трамп"
         },
         {
             "source": 186,
             "target": 175,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Трамп<br/>США"
         },
         {
             "source": 186,
             "target": 193,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 3,
             "target": 124,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "российский"
         },
         {
             "source": 3,
             "target": 32,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 3,
             "target": 57,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Россия<br/>российский"
         },
         {
             "source": 3,
             "target": 112,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 3,
             "target": 148,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "гражданин"
         },
         {
             "source": 3,
             "target": 99,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "гражданство"
         },
         {
             "source": 3,
             "target": 81,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "гражданин"
         },
         {
             "source": 3,
             "target": 156,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 3,
             "target": 37,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "российский"
         },
         {
             "source": 3,
             "target": 157,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 3,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 3,
             "target": 66,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Россия<br/>российский"
         },
         {
             "source": 3,
             "target": 206,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 3,
             "target": 22,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 3,
             "target": 201,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "актер"
         },
         {
             "source": 3,
             "target": 39,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 3,
             "target": 5,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Сигал"
         },
         {
             "source": 3,
             "target": 49,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Россия<br/>российский"
         },
         {
             "source": 3,
             "target": 106,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 3,
             "target": 145,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "чемпионат"
         },
         {
             "source": 3,
             "target": 69,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "чемпионат"
         },
         {
             "source": 3,
             "target": 82,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "чемпионат"
         },
         {
             "source": 3,
             "target": 132,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "чемпионат"
         },
         {
             "source": 3,
             "target": 188,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Россия<br/>чемпионат"
         },
         {
             "source": 3,
             "target": 193,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "российский"
         },
         {
             "source": 18,
             "target": 161,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 18,
             "target": 199,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 18,
             "target": 134,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 18,
             "target": 32,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "Путин<br/>сотрудничество<br/>встреча"
         },
         {
             "source": 18,
             "target": 181,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>экономический"
         },
         {
             "source": 18,
             "target": 116,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 18,
             "target": 165,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 18,
             "target": 202,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Кремль"
         },
         {
             "source": 18,
             "target": 153,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>экономический"
         },
         {
             "source": 18,
             "target": 72,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 18,
             "target": 20,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 18,
             "target": 27,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 18,
             "target": 52,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 18,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 18,
             "target": 33,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 18,
             "target": 206,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 18,
             "target": 186,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 18,
             "target": 159,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "саммит<br/>встреча"
         },
         {
             "source": 18,
             "target": 178,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "саммит<br/>встреча"
         },
         {
             "source": 18,
             "target": 131,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "встреча"
         },
         {
             "source": 18,
             "target": 103,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 18,
             "target": 16,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "экономический"
         },
         {
             "source": 18,
             "target": 205,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 18,
             "target": 193,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 178,
             "target": 32,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "встреча"
         },
         {
             "source": 178,
             "target": 194,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "страна"
         },
         {
             "source": 178,
             "target": 42,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Китай"
         },
         {
             "source": 178,
             "target": 142,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "государство"
         },
         {
             "source": 178,
             "target": 68,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пригласить"
         },
         {
             "source": 178,
             "target": 20,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "государство"
         },
         {
             "source": 178,
             "target": 114,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "страна"
         },
         {
             "source": 178,
             "target": 206,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "государство"
         },
         {
             "source": 178,
             "target": 159,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "саммит<br/>встреча"
         },
         {
             "source": 178,
             "target": 18,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "саммит<br/>встреча"
         },
         {
             "source": 178,
             "target": 191,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "государство"
         },
         {
             "source": 178,
             "target": 98,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "страна"
         },
         {
             "source": 178,
             "target": 155,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "страна"
         },
         {
             "source": 178,
             "target": 131,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "встреча"
         },
         {
             "source": 159,
             "target": 161,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 159,
             "target": 32,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "встреча"
         },
         {
             "source": 159,
             "target": 181,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 159,
             "target": 200,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 159,
             "target": 8,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 159,
             "target": 2,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 159,
             "target": 73,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 159,
             "target": 57,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 159,
             "target": 115,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "полиция"
         },
         {
             "source": 159,
             "target": 142,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 159,
             "target": 11,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 159,
             "target": 78,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 159,
             "target": 72,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 159,
             "target": 150,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "Бразилия<br/>Темер<br/>президент"
         },
         {
             "source": 159,
             "target": 17,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 159,
             "target": 27,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 159,
             "target": 52,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 159,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 159,
             "target": 206,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 159,
             "target": 186,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 159,
             "target": 18,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "саммит<br/>встреча"
         },
         {
             "source": 159,
             "target": 178,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "саммит<br/>встреча"
         },
         {
             "source": 159,
             "target": 98,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "обвинение"
         },
         {
             "source": 159,
             "target": 131,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>встреча"
         },
         {
             "source": 159,
             "target": 96,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "полиция"
         },
         {
             "source": 159,
             "target": 126,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 159,
             "target": 48,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "полиция"
         },
         {
             "source": 159,
             "target": 154,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "полиция"
         },
         {
             "source": 159,
             "target": 12,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 159,
             "target": 205,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 159,
             "target": 193,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 22,
             "target": 124,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "санкция"
         },
         {
             "source": 22,
             "target": 32,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 22,
             "target": 57,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "санкция<br/>Россия"
         },
         {
             "source": 22,
             "target": 112,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 22,
             "target": 156,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 22,
             "target": 157,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 22,
             "target": 63,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Россия<br/>отношение"
         },
         {
             "source": 22,
             "target": 66,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 22,
             "target": 206,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Россия<br/>Запад"
         },
         {
             "source": 22,
             "target": 3,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 22,
             "target": 162,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ввести"
         },
         {
             "source": 22,
             "target": 39,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 22,
             "target": 12,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "санкция"
         },
         {
             "source": 22,
             "target": 49,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 22,
             "target": 106,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 22,
             "target": 188,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 191,
             "target": 194,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "октябрь"
         },
         {
             "source": 191,
             "target": 184,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "голосование"
         },
         {
             "source": 191,
             "target": 142,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "государство"
         },
         {
             "source": 191,
             "target": 202,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "октябрь"
         },
         {
             "source": 191,
             "target": 20,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "государство"
         },
         {
             "source": 191,
             "target": 26,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "правительство"
         },
         {
             "source": 191,
             "target": 77,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "правительство"
         },
         {
             "source": 191,
             "target": 206,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "государство"
         },
         {
             "source": 191,
             "target": 178,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "государство"
         },
         {
             "source": 191,
             "target": 201,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "октябрь"
         },
         {
             "source": 140,
             "target": 203,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "здание"
         },
         {
             "source": 140,
             "target": 199,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "парламент<br/>спикер"
         },
         {
             "source": 140,
             "target": 8,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "парламент"
         },
         {
             "source": 140,
             "target": 99,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "депутат"
         },
         {
             "source": 140,
             "target": 184,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "депутат"
         },
         {
             "source": 140,
             "target": 204,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "протестовать<br/>здание"
         },
         {
             "source": 140,
             "target": 10,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "парламент"
         },
         {
             "source": 140,
             "target": 23,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "парламент"
         },
         {
             "source": 140,
             "target": 128,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "парламент<br/>здание"
         },
         {
             "source": 140,
             "target": 61,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "здание"
         },
         {
             "source": 140,
             "target": 129,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "депутат"
         },
         {
             "source": 98,
             "target": 194,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "страна"
         },
         {
             "source": 98,
             "target": 57,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Лавров"
         },
         {
             "source": 98,
             "target": 50,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "попытка"
         },
         {
             "source": 98,
             "target": 68,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Лавров"
         },
         {
             "source": 98,
             "target": 66,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Лавров"
         },
         {
             "source": 98,
             "target": 114,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "страна"
         },
         {
             "source": 98,
             "target": 159,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "обвинение"
         },
         {
             "source": 98,
             "target": 178,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "страна"
         },
         {
             "source": 98,
             "target": 155,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "страна"
         },
         {
             "source": 162,
             "target": 36,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "администрация"
         },
         {
             "source": 162,
             "target": 203,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "банк"
         },
         {
             "source": 162,
             "target": 25,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "банк"
         },
         {
             "source": 162,
             "target": 45,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "банк"
         },
         {
             "source": 162,
             "target": 33,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "миллиард"
         },
         {
             "source": 162,
             "target": 174,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "миллиард"
         },
         {
             "source": 162,
             "target": 22,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ввести"
         },
         {
             "source": 190,
             "target": 44,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "долг"
         },
         {
             "source": 190,
             "target": 53,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пассажир"
         },
         {
             "source": 190,
             "target": 96,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "аэропорт"
         },
         {
             "source": 155,
             "target": 194,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "страна"
         },
         {
             "source": 155,
             "target": 114,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "страна"
         },
         {
             "source": 155,
             "target": 178,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "страна"
         },
         {
             "source": 155,
             "target": 98,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "страна"
         },
         {
             "source": 83,
             "target": 170,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "режиссёр"
         },
         {
             "source": 83,
             "target": 142,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "организация"
         },
         {
             "source": 83,
             "target": 185,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "угроза"
         },
         {
             "source": 83,
             "target": 186,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "организация"
         },
         {
             "source": 83,
             "target": 131,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "организация"
         },
         {
             "source": 83,
             "target": 169,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "режиссёр"
         },
         {
             "source": 83,
             "target": 39,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "режиссёр"
         },
         {
             "source": 100,
             "target": 148,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "тысяча"
         },
         {
             "source": 100,
             "target": 198,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "тысяча"
         },
         {
             "source": 100,
             "target": 10,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Германия<br/>Меркель"
         },
         {
             "source": 100,
             "target": 171,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "тысяча"
         },
         {
             "source": 100,
             "target": 77,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "тысяча"
         },
         {
             "source": 100,
             "target": 169,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Германия"
         },
         {
             "source": 100,
             "target": 48,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Германия"
         },
         {
             "source": 100,
             "target": 145,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Германия"
         },
         {
             "source": 100,
             "target": 69,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Европа"
         },
         {
             "source": 131,
             "target": 161,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 131,
             "target": 36,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пост"
         },
         {
             "source": 131,
             "target": 120,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пост"
         },
         {
             "source": 131,
             "target": 32,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "встреча"
         },
         {
             "source": 131,
             "target": 181,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 131,
             "target": 200,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 131,
             "target": 8,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 131,
             "target": 2,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 131,
             "target": 73,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>пост"
         },
         {
             "source": 131,
             "target": 57,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 131,
             "target": 142,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>организация"
         },
         {
             "source": 131,
             "target": 11,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "отставка<br/>президент<br/>пост"
         },
         {
             "source": 131,
             "target": 78,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "отставка<br/>президент"
         },
         {
             "source": 131,
             "target": 72,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 131,
             "target": 150,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 131,
             "target": 17,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 131,
             "target": 27,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 131,
             "target": 52,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 131,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 131,
             "target": 26,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "отставка"
         },
         {
             "source": 131,
             "target": 206,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 131,
             "target": 186,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>организация"
         },
         {
             "source": 131,
             "target": 159,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>встреча"
         },
         {
             "source": 131,
             "target": 18,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "встреча"
         },
         {
             "source": 131,
             "target": 178,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "встреча"
         },
         {
             "source": 131,
             "target": 83,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "организация"
         },
         {
             "source": 131,
             "target": 126,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 131,
             "target": 12,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 131,
             "target": 31,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пост"
         },
         {
             "source": 131,
             "target": 205,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>пост"
         },
         {
             "source": 131,
             "target": 193,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 169,
             "target": 111,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "смерть"
         },
         {
             "source": 169,
             "target": 170,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "режиссёр"
         },
         {
             "source": 169,
             "target": 10,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Германия"
         },
         {
             "source": 169,
             "target": 27,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "смерть"
         },
         {
             "source": 169,
             "target": 83,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "режиссёр"
         },
         {
             "source": 169,
             "target": 100,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Германия"
         },
         {
             "source": 169,
             "target": 102,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "соболезнование<br/>скончаться"
         },
         {
             "source": 169,
             "target": 201,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "смерть<br/>скончаться"
         },
         {
             "source": 169,
             "target": 39,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "режиссёр"
         },
         {
             "source": 169,
             "target": 48,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Германия"
         },
         {
             "source": 169,
             "target": 151,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "соболезнование"
         },
         {
             "source": 169,
             "target": 106,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "смерть<br/>скончаться"
         },
         {
             "source": 169,
             "target": 145,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Германия"
         },
         {
             "source": 96,
             "target": 9,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "лидер"
         },
         {
             "source": 96,
             "target": 115,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "полиция"
         },
         {
             "source": 96,
             "target": 72,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "лидер"
         },
         {
             "source": 96,
             "target": 52,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "убитый"
         },
         {
             "source": 96,
             "target": 159,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "полиция"
         },
         {
             "source": 96,
             "target": 190,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "аэропорт"
         },
         {
             "source": 96,
             "target": 48,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "полиция"
         },
         {
             "source": 96,
             "target": 154,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "полиция"
         },
         {
             "source": 96,
             "target": 79,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "убитый"
         },
         {
             "source": 96,
             "target": 193,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "лидер"
         },
         {
             "source": 102,
             "target": 195,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ООН"
         },
         {
             "source": 102,
             "target": 68,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ООН"
         },
         {
             "source": 102,
             "target": 186,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ООН"
         },
         {
             "source": 102,
             "target": 169,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "скончаться<br/>соболезнование"
         },
         {
             "source": 102,
             "target": 201,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "скончаться"
         },
         {
             "source": 102,
             "target": 151,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "соболезнование"
         },
         {
             "source": 102,
             "target": 12,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Чуркин"
         },
         {
             "source": 102,
             "target": 106,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "скончаться<br/>скоропостижно"
         },
         {
             "source": 201,
             "target": 111,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "смерть"
         },
         {
             "source": 201,
             "target": 194,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "октябрь"
         },
         {
             "source": 201,
             "target": 110,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "артист"
         },
         {
             "source": 201,
             "target": 202,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "октябрь"
         },
         {
             "source": 201,
             "target": 27,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "смерть"
         },
         {
             "source": 201,
             "target": 3,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "актер"
         },
         {
             "source": 201,
             "target": 191,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "октябрь"
         },
         {
             "source": 201,
             "target": 169,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "смерть<br/>скончаться"
         },
         {
             "source": 201,
             "target": 102,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "скончаться"
         },
         {
             "source": 201,
             "target": 158,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "артист"
         },
         {
             "source": 201,
             "target": 106,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "смерть<br/>артист<br/>скончаться"
         },
         {
             "source": 103,
             "target": 161,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 103,
             "target": 199,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 103,
             "target": 101,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "программа"
         },
         {
             "source": 103,
             "target": 149,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "дом"
         },
         {
             "source": 103,
             "target": 51,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Москва"
         },
         {
             "source": 103,
             "target": 134,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 103,
             "target": 32,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 103,
             "target": 181,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 103,
             "target": 30,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "программа"
         },
         {
             "source": 103,
             "target": 116,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 103,
             "target": 115,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "дом"
         },
         {
             "source": 103,
             "target": 165,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 103,
             "target": 108,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Москва"
         },
         {
             "source": 103,
             "target": 60,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "дом"
         },
         {
             "source": 103,
             "target": 153,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 103,
             "target": 72,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 103,
             "target": 20,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 103,
             "target": 27,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 103,
             "target": 52,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 103,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 103,
             "target": 33,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 103,
             "target": 206,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 103,
             "target": 186,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 103,
             "target": 18,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 103,
             "target": 137,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Москва"
         },
         {
             "source": 103,
             "target": 152,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Москва"
         },
         {
             "source": 103,
             "target": 205,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 103,
             "target": 69,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "программа"
         },
         {
             "source": 103,
             "target": 132,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "программа"
         },
         {
             "source": 103,
             "target": 193,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 126,
             "target": 161,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 126,
             "target": 36,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "глава<br/>кандидат"
         },
         {
             "source": 126,
             "target": 181,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 126,
             "target": 29,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "выборы<br/>кандидат"
         },
         {
             "source": 126,
             "target": 200,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "выборы<br/>президент<br/>кандидат"
         },
         {
             "source": 126,
             "target": 9,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "выборы<br/>кандидат"
         },
         {
             "source": 126,
             "target": 8,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "выборы<br/>президент<br/>кандидат"
         },
         {
             "source": 126,
             "target": 2,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>кандидат"
         },
         {
             "source": 126,
             "target": 73,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "выборы<br/>президент<br/>кандидат"
         },
         {
             "source": 126,
             "target": 57,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 126,
             "target": 112,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "глава"
         },
         {
             "source": 126,
             "target": 184,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "выборы<br/>кандидат"
         },
         {
             "source": 126,
             "target": 142,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 126,
             "target": 11,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 126,
             "target": 78,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>глава"
         },
         {
             "source": 126,
             "target": 10,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "выборы"
         },
         {
             "source": 126,
             "target": 72,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 126,
             "target": 150,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 126,
             "target": 17,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 126,
             "target": 27,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 126,
             "target": 52,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 126,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 126,
             "target": 66,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "глава"
         },
         {
             "source": 126,
             "target": 206,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 126,
             "target": 186,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 126,
             "target": 159,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 126,
             "target": 131,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 126,
             "target": 97,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "РАН<br/>академия<br/>наука"
         },
         {
             "source": 126,
             "target": 12,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 126,
             "target": 205,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "выборы<br/>президент<br/>кандидат"
         },
         {
             "source": 126,
             "target": 193,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 158,
             "target": 110,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "актёр<br/>артист<br/>Склифосовский"
         },
         {
             "source": 158,
             "target": 174,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "состояние"
         },
         {
             "source": 158,
             "target": 201,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "артист"
         },
         {
             "source": 158,
             "target": 5,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "актёр"
         },
         {
             "source": 158,
             "target": 106,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "актёр<br/>артист"
         },
         {
             "source": 4,
             "target": 47,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Ту-154"
         },
         {
             "source": 4,
             "target": 36,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Трамп"
         },
         {
             "source": 4,
             "target": 6,
-            "weight": 5
+            "weight": 5,
+            "tooltip": "Алеппо<br/>боевик<br/>Сирия<br/>провинция<br/>сирийский"
         },
         {
             "source": 4,
             "target": 15,
-            "weight": 4
+            "weight": 4,
+            "tooltip": "боевик<br/>Сирия<br/>террорист<br/>Ту-154"
         },
         {
             "source": 4,
             "target": 2,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Трамп"
         },
         {
             "source": 4,
             "target": 196,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Трамп"
         },
         {
             "source": 4,
             "target": 54,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Ту-154"
         },
         {
             "source": 4,
             "target": 72,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Трамп"
         },
         {
             "source": 4,
             "target": 68,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Сирия<br/>сирийский"
         },
         {
             "source": 4,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Трамп"
         },
         {
             "source": 4,
             "target": 186,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Трамп"
         },
         {
             "source": 4,
             "target": 34,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "террорист"
         },
         {
             "source": 4,
             "target": 154,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "террорист"
         },
         {
             "source": 4,
             "target": 12,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Трамп"
         },
         {
             "source": 4,
             "target": 94,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Трамп"
         },
         {
             "source": 4,
             "target": 175,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Трамп"
         },
         {
             "source": 39,
             "target": 32,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 39,
             "target": 57,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 39,
             "target": 112,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 39,
             "target": 170,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "режиссёр"
         },
         {
             "source": 39,
             "target": 156,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 39,
             "target": 157,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 39,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 39,
             "target": 66,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 39,
             "target": 206,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 39,
             "target": 3,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 39,
             "target": 22,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 39,
             "target": 83,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "режиссёр"
         },
         {
             "source": 39,
             "target": 169,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "режиссёр"
         },
         {
             "source": 39,
             "target": 129,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "центр"
         },
         {
             "source": 39,
             "target": 49,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 39,
             "target": 106,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 39,
             "target": 188,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 97,
             "target": 62,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Минздрав"
         },
         {
             "source": 97,
             "target": 37,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "комиссия"
         },
         {
             "source": 97,
             "target": 187,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Минздрав"
         },
         {
             "source": 97,
             "target": 126,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "РАН<br/>наука<br/>академия"
         },
         {
             "source": 5,
             "target": 110,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "актёр"
         },
         {
             "source": 5,
             "target": 148,
-            "weight": 4
+            "weight": 4,
+            "tooltip": "гектар<br/>дальневосточный<br/>участок<br/>земля"
         },
         {
             "source": 5,
             "target": 55,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "приморский"
         },
         {
             "source": 5,
             "target": 168,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Приморье"
         },
         {
             "source": 5,
             "target": 3,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Сигал"
         },
         {
             "source": 5,
             "target": 158,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "актёр"
         },
         {
             "source": 5,
             "target": 16,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "получение"
         },
         {
             "source": 5,
             "target": 106,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "актёр"
         },
         {
             "source": 86,
             "target": 189,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "землетрясение"
         },
         {
             "source": 86,
             "target": 64,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "МЧС"
         },
         {
             "source": 86,
             "target": 168,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "край"
         },
         {
             "source": 86,
             "target": 78,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "край"
         },
         {
             "source": 86,
             "target": 141,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "МЧС"
         },
         {
             "source": 86,
             "target": 171,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "МЧС"
         },
         {
             "source": 86,
             "target": 152,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ветер"
         },
         {
             "source": 137,
             "target": 51,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Москва"
         },
         {
             "source": 137,
             "target": 134,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "вагон"
         },
         {
             "source": 137,
             "target": 160,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "столкнуться<br/>пассажирский"
         },
         {
             "source": 137,
             "target": 108,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Москва"
         },
         {
             "source": 137,
             "target": 103,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Москва"
         },
         {
             "source": 137,
             "target": 152,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Москва"
         },
         {
             "source": 182,
             "target": 130,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "митинг"
         },
         {
             "source": 182,
             "target": 84,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "митинг"
         },
         {
             "source": 182,
             "target": 177,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "мусульманин"
         },
         {
             "source": 75,
             "target": 130,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "город"
         },
         {
             "source": 75,
             "target": 192,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "стрельба<br/>погибнуть"
         },
         {
             "source": 75,
             "target": 160,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 75,
             "target": 189,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 75,
             "target": 65,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 75,
             "target": 119,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 75,
             "target": 177,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "мечеть"
         },
         {
             "source": 75,
             "target": 163,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "нападение"
         },
         {
             "source": 75,
             "target": 139,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "нападение"
         },
         {
             "source": 75,
             "target": 59,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "стрельба<br/>нападение"
         },
         {
             "source": 75,
             "target": 60,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 75,
             "target": 180,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "стрельба<br/>нападение"
         },
         {
             "source": 75,
             "target": 48,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 75,
             "target": 61,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "город"
         },
         {
             "source": 75,
             "target": 138,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "город<br/>погибнуть"
         },
         {
             "source": 75,
             "target": 135,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "город"
         },
         {
             "source": 75,
             "target": 49,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "нападение"
         },
         {
             "source": 180,
             "target": 192,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "стрельба"
         },
         {
             "source": 180,
             "target": 172,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "школа"
         },
         {
             "source": 180,
             "target": 163,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "нападение"
         },
         {
             "source": 180,
             "target": 139,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "нападение"
         },
         {
             "source": 180,
             "target": 59,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "стрельба<br/>нападение"
         },
         {
             "source": 180,
             "target": 75,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "стрельба<br/>нападение"
         },
         {
             "source": 180,
             "target": 49,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "нападение"
         },
         {
             "source": 23,
             "target": 199,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "парламент"
         },
         {
             "source": 23,
             "target": 149,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "газ"
         },
         {
             "source": 23,
             "target": 179,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Турция"
         },
         {
             "source": 23,
             "target": 15,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "проект"
         },
         {
             "source": 23,
             "target": 8,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "парламент"
         },
         {
             "source": 23,
             "target": 41,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "газ"
         },
         {
             "source": 23,
             "target": 44,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "газ"
         },
         {
             "source": 23,
             "target": 170,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "проект"
         },
         {
             "source": 23,
             "target": 196,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "соглашение"
         },
         {
             "source": 23,
             "target": 121,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Турция<br/>турецкий"
         },
         {
             "source": 23,
             "target": 119,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Турция"
         },
         {
             "source": 23,
             "target": 64,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "турецкий"
         },
         {
             "source": 23,
             "target": 59,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Турция"
         },
         {
             "source": 23,
             "target": 70,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "строительство"
         },
         {
             "source": 23,
             "target": 153,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "проект"
         },
         {
             "source": 23,
             "target": 10,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "парламент"
         },
         {
             "source": 23,
             "target": 140,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "парламент"
         },
         {
             "source": 23,
             "target": 128,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "парламент"
         },
         {
             "source": 23,
             "target": 34,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Турция"
         },
         {
             "source": 23,
             "target": 61,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Турция<br/>турецкий"
         },
         {
             "source": 23,
             "target": 49,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Турция"
         },
         {
             "source": 48,
             "target": 24,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "грузовик"
         },
         {
             "source": 48,
             "target": 192,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 48,
             "target": 101,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Берлин"
         },
         {
             "source": 48,
             "target": 160,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "грузовик<br/>погибнуть"
         },
         {
             "source": 48,
             "target": 115,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "полиция"
         },
         {
             "source": 48,
             "target": 189,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 48,
             "target": 65,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "грузовик<br/>водитель<br/>погибнуть"
         },
         {
             "source": 48,
             "target": 119,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 48,
             "target": 59,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "теракт"
         },
         {
             "source": 48,
             "target": 60,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 48,
             "target": 10,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Германия"
         },
         {
             "source": 48,
             "target": 56,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "грузовик"
         },
         {
             "source": 48,
             "target": 159,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "полиция"
         },
         {
             "source": 48,
             "target": 100,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Германия"
         },
         {
             "source": 48,
             "target": 169,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Германия"
         },
         {
             "source": 48,
             "target": 96,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "полиция"
         },
         {
             "source": 48,
             "target": 75,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 48,
             "target": 128,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "теракт"
         },
         {
             "source": 48,
             "target": 151,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "теракт"
         },
         {
             "source": 48,
             "target": 34,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "теракт"
         },
         {
             "source": 48,
             "target": 61,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "теракт"
         },
         {
             "source": 48,
             "target": 138,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 48,
             "target": 154,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "теракт<br/>полиция"
         },
         {
             "source": 48,
             "target": 79,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "теракт"
         },
         {
             "source": 48,
             "target": 145,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Германия"
         },
         {
             "source": 128,
             "target": 117,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "март"
         },
         {
             "source": 128,
             "target": 203,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "здание"
         },
         {
             "source": 128,
             "target": 130,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "март"
         },
         {
             "source": 128,
             "target": 199,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "парламент"
         },
         {
             "source": 128,
             "target": 192,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "жертва"
         },
         {
             "source": 128,
             "target": 120,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "март"
         },
         {
             "source": 128,
             "target": 8,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "парламент"
         },
         {
             "source": 128,
             "target": 116,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "март"
         },
         {
             "source": 128,
             "target": 189,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "жертва"
         },
         {
             "source": 128,
             "target": 173,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "мост"
         },
         {
             "source": 128,
             "target": 204,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "здание"
         },
         {
             "source": 128,
             "target": 59,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "теракт"
         },
         {
             "source": 128,
             "target": 10,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "парламент"
         },
         {
             "source": 128,
             "target": 140,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "парламент<br/>здание"
         },
         {
             "source": 128,
             "target": 23,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "парламент"
         },
         {
             "source": 128,
             "target": 48,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "теракт"
         },
         {
             "source": 128,
             "target": 151,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "теракт<br/>Великобритания"
         },
         {
             "source": 128,
             "target": 34,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "теракт"
         },
         {
             "source": 128,
             "target": 61,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "теракт<br/>здание"
         },
         {
             "source": 128,
             "target": 154,
-            "weight": 4
+            "weight": 4,
+            "tooltip": "Лондон<br/>теракт<br/>Великобритания<br/>мост"
         },
         {
             "source": 128,
             "target": 79,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "теракт"
         },
         {
             "source": 128,
             "target": 175,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "жертва"
         },
         {
             "source": 76,
             "target": 125,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ЛНР"
         },
         {
             "source": 76,
             "target": 149,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "взрыв"
         },
         {
             "source": 76,
             "target": 51,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "взрыв"
         },
         {
             "source": 76,
             "target": 38,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ЛНР"
         },
         {
             "source": 76,
             "target": 65,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "автомобиль"
         },
         {
             "source": 76,
             "target": 151,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "взрыв"
         },
         {
             "source": 76,
             "target": 61,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "взрыв"
         },
         {
             "source": 76,
             "target": 138,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "взрыв"
         },
         {
             "source": 151,
             "target": 149,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "взрыв<br/>произойти"
         },
         {
             "source": 151,
             "target": 51,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "взрыв<br/>произойти"
         },
         {
             "source": 151,
             "target": 189,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "произойти"
         },
         {
             "source": 151,
             "target": 59,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "теракт"
         },
         {
             "source": 151,
             "target": 169,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "соболезнование"
         },
         {
             "source": 151,
             "target": 102,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "соболезнование"
         },
         {
             "source": 151,
             "target": 48,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "теракт"
         },
         {
             "source": 151,
             "target": 128,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "теракт<br/>Великобритания"
         },
         {
             "source": 151,
             "target": 76,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "взрыв"
         },
         {
             "source": 151,
             "target": 34,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "теракт<br/>стадион"
         },
         {
             "source": 151,
             "target": 61,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "теракт<br/>взрыв"
         },
         {
             "source": 151,
             "target": 138,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "взрыв"
         },
         {
             "source": 151,
             "target": 154,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "теракт<br/>Великобритания"
         },
         {
             "source": 151,
             "target": 79,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "теракт"
         },
         {
             "source": 34,
             "target": 51,
-            "weight": 4
+            "weight": 4,
+            "tooltip": "станция<br/>метро<br/>переход<br/>газовый"
         },
         {
             "source": 34,
             "target": 134,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "станция<br/>метро"
         },
         {
             "source": 34,
             "target": 179,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Турция"
         },
         {
             "source": 34,
             "target": 15,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "террорист"
         },
         {
             "source": 34,
             "target": 121,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Турция"
         },
         {
             "source": 34,
             "target": 119,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Стамбул<br/>Турция"
         },
         {
             "source": 34,
             "target": 59,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "Стамбул<br/>теракт<br/>Турция"
         },
         {
             "source": 34,
             "target": 4,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "террорист"
         },
         {
             "source": 34,
             "target": 23,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Турция"
         },
         {
             "source": 34,
             "target": 48,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "теракт"
         },
         {
             "source": 34,
             "target": 128,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "теракт"
         },
         {
             "source": 34,
             "target": 151,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "теракт<br/>стадион"
         },
         {
             "source": 34,
             "target": 61,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "теракт<br/>Турция"
         },
         {
             "source": 34,
             "target": 154,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "теракт<br/>террорист"
         },
         {
             "source": 34,
             "target": 79,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "теракт"
         },
         {
             "source": 34,
             "target": 49,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Турция"
         },
         {
             "source": 61,
             "target": 203,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "здание"
         },
         {
             "source": 61,
             "target": 130,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "город"
         },
         {
             "source": 61,
             "target": 149,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "взрыв"
         },
         {
             "source": 61,
             "target": 51,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "взрыв"
         },
         {
             "source": 61,
             "target": 179,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Турция"
         },
         {
             "source": 61,
             "target": 55,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 61,
             "target": 50,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 61,
             "target": 84,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 61,
             "target": 71,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 61,
             "target": 107,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 61,
             "target": 118,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 61,
             "target": 40,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 61,
             "target": 19,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 61,
             "target": 7,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 61,
             "target": 121,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "турецкий<br/>Турция"
         },
         {
             "source": 61,
             "target": 119,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Турция"
         },
         {
             "source": 61,
             "target": 64,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "турецкий"
         },
         {
             "source": 61,
             "target": 204,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "здание"
         },
         {
             "source": 61,
             "target": 59,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Турция<br/>теракт"
         },
         {
             "source": 61,
             "target": 92,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "объект"
         },
         {
             "source": 61,
             "target": 140,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "здание"
         },
         {
             "source": 61,
             "target": 75,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "город"
         },
         {
             "source": 61,
             "target": 23,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "турецкий<br/>Турция"
         },
         {
             "source": 61,
             "target": 48,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "теракт"
         },
         {
             "source": 61,
             "target": 128,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "здание<br/>теракт"
         },
         {
             "source": 61,
             "target": 76,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "взрыв"
         },
         {
             "source": 61,
             "target": 151,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "взрыв<br/>теракт"
         },
         {
             "source": 61,
             "target": 34,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Турция<br/>теракт"
         },
         {
             "source": 61,
             "target": 138,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "взрыв<br/>город"
         },
         {
             "source": 61,
             "target": 154,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "теракт"
         },
         {
             "source": 61,
             "target": 135,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "город"
         },
         {
             "source": 61,
             "target": 79,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "теракт"
         },
         {
             "source": 61,
             "target": 49,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Турция"
         },
         {
             "source": 61,
             "target": 16,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 138,
             "target": 130,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "город"
         },
         {
             "source": 138,
             "target": 192,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 138,
             "target": 149,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "взрыв"
         },
         {
             "source": 138,
             "target": 51,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "взрыв"
         },
         {
             "source": 138,
             "target": 160,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 138,
             "target": 84,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ответственность"
         },
         {
             "source": 138,
             "target": 189,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 138,
             "target": 67,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "храм"
         },
         {
             "source": 138,
             "target": 65,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 138,
             "target": 119,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 138,
             "target": 163,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Египет"
         },
         {
             "source": 138,
             "target": 60,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 138,
             "target": 88,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "церковь"
         },
         {
             "source": 138,
             "target": 123,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Египет"
         },
         {
             "source": 138,
             "target": 75,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "город<br/>погибнуть"
         },
         {
             "source": 138,
             "target": 48,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "погибнуть"
         },
         {
             "source": 138,
             "target": 76,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "взрыв"
         },
         {
             "source": 138,
             "target": 151,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "взрыв"
         },
         {
             "source": 138,
             "target": 61,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "взрыв<br/>город"
         },
         {
             "source": 138,
             "target": 135,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "город"
         },
         {
             "source": 154,
             "target": 15,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "террорист"
         },
         {
             "source": 154,
             "target": 146,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "атака"
         },
         {
             "source": 154,
             "target": 115,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "полиция"
         },
         {
             "source": 154,
             "target": 25,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "атака"
         },
         {
             "source": 154,
             "target": 173,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "мост"
         },
         {
             "source": 154,
             "target": 59,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "теракт"
         },
         {
             "source": 154,
             "target": 159,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "полиция"
         },
         {
             "source": 154,
             "target": 96,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "полиция"
         },
         {
             "source": 154,
             "target": 4,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "террорист"
         },
         {
             "source": 154,
             "target": 48,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "теракт<br/>полиция"
         },
         {
             "source": 154,
             "target": 128,
-            "weight": 4
+            "weight": 4,
+            "tooltip": "Лондон<br/>теракт<br/>мост<br/>Великобритания"
         },
         {
             "source": 154,
             "target": 151,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "теракт<br/>Великобритания"
         },
         {
             "source": 154,
             "target": 34,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "теракт<br/>террорист"
         },
         {
             "source": 154,
             "target": 61,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "теракт"
         },
         {
             "source": 154,
             "target": 79,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "теракт"
         },
         {
             "source": 135,
             "target": 203,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "акция"
         },
         {
             "source": 135,
             "target": 130,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "акция<br/>город"
         },
         {
             "source": 135,
             "target": 73,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пройти"
         },
         {
             "source": 135,
             "target": 164,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "апрель"
         },
         {
             "source": 135,
             "target": 144,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "акция"
         },
         {
             "source": 135,
             "target": 108,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "акция"
         },
         {
             "source": 135,
             "target": 133,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "апрель"
         },
         {
             "source": 135,
             "target": 33,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "акция"
         },
         {
             "source": 135,
             "target": 75,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "город"
         },
         {
             "source": 135,
             "target": 61,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "город"
         },
         {
             "source": 135,
             "target": 138,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "город"
         },
         {
             "source": 12,
             "target": 161,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 12,
             "target": 36,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Трамп<br/>США"
         },
         {
             "source": 12,
             "target": 124,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "санкция"
         },
         {
             "source": 12,
             "target": 181,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 12,
             "target": 200,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 12,
             "target": 8,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 12,
             "target": 2,
-            "weight": 4
+            "weight": 4,
+            "tooltip": "Трамп<br/>Клинтон<br/>США<br/>президент"
         },
         {
             "source": 12,
             "target": 73,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 12,
             "target": 57,
-            "weight": 4
+            "weight": 4,
+            "tooltip": "США<br/>американский<br/>президент<br/>санкция"
         },
         {
             "source": 12,
             "target": 195,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 12,
             "target": 107,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 12,
             "target": 144,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "победа"
         },
         {
             "source": 12,
             "target": 42,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 12,
             "target": 196,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "Трамп<br/>США<br/>Иран"
         },
         {
             "source": 12,
             "target": 142,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "американский<br/>президент"
         },
         {
             "source": 12,
             "target": 11,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 12,
             "target": 78,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 12,
             "target": 153,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "экономика"
         },
         {
             "source": 12,
             "target": 72,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Трамп<br/>президент"
         },
         {
             "source": 12,
             "target": 150,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 12,
             "target": 17,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 12,
             "target": 27,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 12,
             "target": 52,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 12,
             "target": 63,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "Трамп<br/>США<br/>президент"
         },
         {
             "source": 12,
             "target": 66,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 12,
             "target": 206,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 12,
             "target": 186,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "Трамп<br/>США<br/>президент"
         },
         {
             "source": 12,
             "target": 159,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 12,
             "target": 22,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "санкция"
         },
         {
             "source": 12,
             "target": 131,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 12,
             "target": 102,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Чуркин"
         },
         {
             "source": 12,
             "target": 126,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 12,
             "target": 4,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Трамп"
         },
         {
             "source": 12,
             "target": 183,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 12,
             "target": 205,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 12,
             "target": 94,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Трамп"
         },
         {
             "source": 12,
             "target": 21,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "победа"
         },
         {
             "source": 12,
             "target": 175,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Трамп<br/>США"
         },
         {
             "source": 12,
             "target": 193,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 79,
             "target": 55,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "убийство"
         },
         {
             "source": 79,
             "target": 59,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "теракт"
         },
         {
             "source": 79,
             "target": 52,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "убитый"
         },
         {
             "source": 79,
             "target": 56,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "убийство"
         },
         {
             "source": 79,
             "target": 96,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "убитый"
         },
         {
             "source": 79,
             "target": 48,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "теракт"
         },
         {
             "source": 79,
             "target": 128,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "теракт"
         },
         {
             "source": 79,
             "target": 151,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "теракт"
         },
         {
             "source": 79,
             "target": 34,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "теракт"
         },
         {
             "source": 79,
             "target": 61,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "теракт"
         },
         {
             "source": 79,
             "target": 154,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "теракт"
         },
         {
             "source": 79,
             "target": 129,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "убийство"
         },
         {
             "source": 79,
             "target": 1,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "командир<br/>убийство"
         },
         {
             "source": 129,
             "target": 124,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 129,
             "target": 125,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Киев<br/>Украина"
         },
         {
             "source": 129,
             "target": 41,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 129,
             "target": 55,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "убийство"
         },
         {
             "source": 129,
             "target": 99,
-            "weight": 4
+            "weight": 4,
+            "tooltip": "Вороненков<br/>Госдума<br/>экс-депутат<br/>депутат"
         },
         {
             "source": 129,
             "target": 107,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 129,
             "target": 40,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 129,
             "target": 19,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Киев<br/>Украина"
         },
         {
             "source": 129,
             "target": 7,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Киев<br/>Украина"
         },
         {
             "source": 129,
             "target": 184,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "депутат"
         },
         {
             "source": 129,
             "target": 204,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Киев<br/>Украина"
         },
         {
             "source": 129,
             "target": 11,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 129,
             "target": 176,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Киев<br/>Украина"
         },
         {
             "source": 129,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 129,
             "target": 56,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "убийство"
         },
         {
             "source": 129,
             "target": 140,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "депутат"
         },
         {
             "source": 129,
             "target": 39,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "центр"
         },
         {
             "source": 129,
             "target": 79,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "убийство"
         },
         {
             "source": 129,
             "target": 1,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "убийство"
         },
         {
             "source": 129,
             "target": 188,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 1,
             "target": 125,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "ДНР<br/>Захарченко"
         },
         {
             "source": 1,
             "target": 55,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "убийство"
         },
         {
             "source": 1,
             "target": 167,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Захарченко"
         },
         {
             "source": 1,
             "target": 56,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "убийство"
         },
         {
             "source": 1,
             "target": 79,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "убийство<br/>командир"
         },
         {
             "source": 1,
             "target": 129,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "убийство"
         },
         {
             "source": 49,
             "target": 124,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "российский"
         },
         {
             "source": 49,
             "target": 32,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 49,
             "target": 179,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Турция"
         },
         {
             "source": 49,
             "target": 57,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "российский<br/>Россия"
         },
         {
             "source": 49,
             "target": 112,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 49,
             "target": 156,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 49,
             "target": 37,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "российский"
         },
         {
             "source": 49,
             "target": 121,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Турция<br/>МИД"
         },
         {
             "source": 49,
             "target": 119,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Турция"
         },
         {
             "source": 49,
             "target": 157,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 49,
             "target": 163,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "нападение"
         },
         {
             "source": 49,
             "target": 139,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "нападение"
         },
         {
             "source": 49,
             "target": 59,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Турция<br/>нападение"
         },
         {
             "source": 49,
             "target": 52,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "посол<br/>Карлов"
         },
         {
             "source": 49,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 49,
             "target": 66,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "российский<br/>МИД<br/>Россия"
         },
         {
             "source": 49,
             "target": 206,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 49,
             "target": 3,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "российский<br/>Россия"
         },
         {
             "source": 49,
             "target": 22,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 49,
             "target": 39,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 49,
             "target": 75,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "нападение"
         },
         {
             "source": 49,
             "target": 180,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "нападение"
         },
         {
             "source": 49,
             "target": 23,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Турция"
         },
         {
             "source": 49,
             "target": 34,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Турция"
         },
         {
             "source": 49,
             "target": 61,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Турция"
         },
         {
             "source": 49,
             "target": 106,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 49,
             "target": 188,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 49,
             "target": 193,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "российский"
         },
         {
             "source": 16,
             "target": 181,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "экономический"
         },
         {
             "source": 16,
             "target": 112,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "дело"
         },
         {
             "source": 16,
             "target": 164,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "дело"
         },
         {
             "source": 16,
             "target": 55,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "суд<br/>дело"
         },
         {
             "source": 16,
             "target": 50,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 16,
             "target": 84,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 16,
             "target": 170,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "дело"
         },
         {
             "source": 16,
             "target": 71,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 16,
             "target": 107,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 16,
             "target": 118,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "взятка<br/>суд<br/>дело"
         },
         {
             "source": 16,
             "target": 40,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 16,
             "target": 19,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "суд<br/>дело"
         },
         {
             "source": 16,
             "target": 7,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 16,
             "target": 121,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "министр"
         },
         {
             "source": 16,
             "target": 153,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "экономический"
         },
         {
             "source": 16,
             "target": 66,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "министр"
         },
         {
             "source": 16,
             "target": 33,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Роснефть<br/>Сечин"
         },
         {
             "source": 16,
             "target": 18,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "экономический"
         },
         {
             "source": 16,
             "target": 5,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "получение"
         },
         {
             "source": 16,
             "target": 61,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "суд"
         },
         {
             "source": 13,
             "target": 130,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "задержать<br/>задержать"
         },
         {
             "source": 13,
             "target": 149,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "задержать<br/>задержать"
         },
         {
             "source": 13,
             "target": 73,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Крым"
         },
         {
             "source": 13,
             "target": 40,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Крым"
         },
         {
             "source": 13,
             "target": 25,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ФСБ"
         },
         {
             "source": 13,
             "target": 139,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ФСБ"
         },
         {
             "source": 106,
             "target": 111,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "смерть"
         },
         {
             "source": 106,
             "target": 199,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "союз"
         },
         {
             "source": 106,
             "target": 32,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 106,
             "target": 57,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 106,
             "target": 112,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 106,
             "target": 110,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "актёр<br/>артист"
         },
         {
             "source": 106,
             "target": 156,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 106,
             "target": 157,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 106,
             "target": 85,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "февраль"
         },
         {
             "source": 106,
             "target": 93,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "февраль"
         },
         {
             "source": 106,
             "target": 27,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "смерть"
         },
         {
             "source": 106,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 106,
             "target": 66,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 106,
             "target": 206,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 106,
             "target": 3,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 106,
             "target": 22,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 106,
             "target": 169,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "скончаться<br/>смерть"
         },
         {
             "source": 106,
             "target": 102,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "скончаться<br/>скоропостижно"
         },
         {
             "source": 106,
             "target": 201,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "скончаться<br/>артист<br/>смерть"
         },
         {
             "source": 106,
             "target": 158,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "актёр<br/>артист"
         },
         {
             "source": 106,
             "target": 39,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 106,
             "target": 5,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "актёр"
         },
         {
             "source": 106,
             "target": 49,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 106,
             "target": 188,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 183,
             "target": 47,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пострадавший"
         },
         {
             "source": 183,
             "target": 36,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 183,
             "target": 149,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пострадавший"
         },
         {
             "source": 183,
             "target": 32,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "остров"
         },
         {
             "source": 183,
             "target": 2,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 183,
             "target": 57,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 183,
             "target": 195,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 183,
             "target": 87,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "остров"
         },
         {
             "source": 183,
             "target": 107,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 183,
             "target": 42,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 183,
             "target": 189,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "штат"
         },
         {
             "source": 183,
             "target": 196,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 183,
             "target": 89,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "остров"
         },
         {
             "source": 183,
             "target": 46,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пострадавший"
         },
         {
             "source": 183,
             "target": 197,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "остров"
         },
         {
             "source": 183,
             "target": 92,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "остров"
         },
         {
             "source": 183,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 183,
             "target": 66,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 183,
             "target": 186,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 183,
             "target": 12,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 183,
             "target": 152,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ураган"
         },
         {
             "source": 183,
             "target": 175,
-            "weight": 4
+            "weight": 4,
+            "tooltip": "ураган<br/>Харви<br/>штат<br/>США"
         },
         {
             "source": 152,
             "target": 51,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Москва"
         },
         {
             "source": 152,
             "target": 144,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "май"
         },
         {
             "source": 152,
             "target": 189,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "столица"
         },
         {
             "source": 152,
             "target": 108,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Москва"
         },
         {
             "source": 152,
             "target": 103,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Москва"
         },
         {
             "source": 152,
             "target": 86,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ветер"
         },
         {
             "source": 152,
             "target": 137,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Москва"
         },
         {
             "source": 152,
             "target": 183,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ураган"
         },
         {
             "source": 152,
             "target": 145,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "май"
         },
         {
             "source": 152,
             "target": 175,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ураган"
         },
         {
             "source": 31,
             "target": 36,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пост"
         },
         {
             "source": 31,
             "target": 166,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "команда"
         },
         {
             "source": 31,
             "target": 120,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пост"
         },
         {
             "source": 31,
             "target": 105,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ЦСКА"
         },
         {
             "source": 31,
             "target": 73,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пост"
         },
         {
             "source": 31,
             "target": 157,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "матч<br/>команда"
         },
         {
             "source": 31,
             "target": 143,
-            "weight": 4
+            "weight": 4,
+            "tooltip": "ЦСКА<br/>клуб<br/>матч<br/>команда"
         },
         {
             "source": 31,
             "target": 139,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "клуб"
         },
         {
             "source": 31,
             "target": 59,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "клуб"
         },
         {
             "source": 31,
             "target": 11,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пост"
         },
         {
             "source": 31,
             "target": 206,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "клуб"
         },
         {
             "source": 31,
             "target": 131,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пост"
         },
         {
             "source": 31,
             "target": 205,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пост"
         },
         {
             "source": 31,
             "target": 145,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "матч<br/>команда"
         },
         {
             "source": 31,
             "target": 21,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "уход<br/>матч"
         },
         {
             "source": 205,
             "target": 161,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>Путин"
         },
         {
             "source": 205,
             "target": 36,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "кандидат<br/>пост"
         },
         {
             "source": 205,
             "target": 130,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Навальный"
         },
         {
             "source": 205,
             "target": 199,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 205,
             "target": 120,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пост"
         },
         {
             "source": 205,
             "target": 134,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 205,
             "target": 32,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 205,
             "target": 181,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>Путин"
         },
         {
             "source": 205,
             "target": 29,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "кандидат<br/>выборы"
         },
         {
             "source": 205,
             "target": 200,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "президент<br/>кандидат<br/>выборы"
         },
         {
             "source": 205,
             "target": 9,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "кандидат<br/>выборы"
         },
         {
             "source": 205,
             "target": 8,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "президент<br/>кандидат<br/>выборы"
         },
         {
             "source": 205,
             "target": 2,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>кандидат"
         },
         {
             "source": 205,
             "target": 73,
-            "weight": 4
+            "weight": 4,
+            "tooltip": "президент<br/>кандидат<br/>выборы<br/>пост"
         },
         {
             "source": 205,
             "target": 57,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 205,
             "target": 116,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 205,
             "target": 165,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 205,
             "target": 184,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "кандидат<br/>выборы"
         },
         {
             "source": 205,
             "target": 142,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 205,
             "target": 11,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>пост"
         },
         {
             "source": 205,
             "target": 78,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 205,
             "target": 153,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 205,
             "target": 10,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "выборы"
         },
         {
             "source": 205,
             "target": 72,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>Путин"
         },
         {
             "source": 205,
             "target": 150,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 205,
             "target": 17,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 205,
             "target": 20,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 205,
             "target": 27,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>Путин"
         },
         {
             "source": 205,
             "target": 52,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>Путин"
         },
         {
             "source": 205,
             "target": 63,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>Путин"
         },
         {
             "source": 205,
             "target": 33,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 205,
             "target": 206,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>Путин"
         },
         {
             "source": 205,
             "target": 186,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>Путин"
         },
         {
             "source": 205,
             "target": 159,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 205,
             "target": 18,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 205,
             "target": 131,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>пост"
         },
         {
             "source": 205,
             "target": 103,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 205,
             "target": 126,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "президент<br/>кандидат<br/>выборы"
         },
         {
             "source": 205,
             "target": 12,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 205,
             "target": 31,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "пост"
         },
         {
             "source": 205,
             "target": 193,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>Путин"
         },
         {
             "source": 28,
             "target": 166,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "полигон"
         },
         {
             "source": 28,
             "target": 172,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "сентябрь"
         },
         {
             "source": 94,
             "target": 36,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Трамп"
         },
         {
             "source": 94,
             "target": 2,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Трамп"
         },
         {
             "source": 94,
             "target": 112,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "премия"
         },
         {
             "source": 94,
             "target": 74,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "церемония"
         },
         {
             "source": 94,
             "target": 196,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Трамп"
         },
         {
             "source": 94,
             "target": 35,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "премия"
         },
         {
             "source": 94,
             "target": 72,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Трамп"
         },
         {
             "source": 94,
             "target": 63,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Трамп"
         },
         {
             "source": 94,
             "target": 186,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Трамп"
         },
         {
             "source": 94,
             "target": 4,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Трамп"
         },
         {
             "source": 94,
             "target": 12,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Трамп"
         },
         {
             "source": 94,
             "target": 175,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Трамп"
         },
         {
             "source": 69,
             "target": 101,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "программа"
         },
         {
             "source": 69,
             "target": 30,
-            "weight": 5
+            "weight": 5,
+            "tooltip": "балл<br/>катание<br/>фигурный<br/>программа<br/>короткий"
         },
         {
             "source": 69,
             "target": 3,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "чемпионат"
         },
         {
             "source": 69,
             "target": 100,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Европа"
         },
         {
             "source": 69,
             "target": 103,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "программа"
         },
         {
             "source": 69,
             "target": 145,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "чемпионат"
         },
         {
             "source": 69,
             "target": 82,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "чемпионат"
         },
         {
             "source": 69,
             "target": 132,
-            "weight": 5
+            "weight": 5,
+            "tooltip": "балл<br/>катание<br/>фигурный<br/>программа<br/>чемпионат"
         },
         {
             "source": 69,
             "target": 188,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "чемпионат"
         },
         {
             "source": 82,
             "target": 111,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "игра"
         },
         {
             "source": 82,
             "target": 166,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "игра"
         },
         {
             "source": 82,
             "target": 105,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "игра"
         },
         {
             "source": 82,
             "target": 157,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "игра"
         },
         {
             "source": 82,
             "target": 143,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "игра"
         },
         {
             "source": 82,
             "target": 3,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "чемпионат"
         },
         {
             "source": 82,
             "target": 145,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "чемпионат"
         },
         {
             "source": 82,
             "target": 69,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "чемпионат"
         },
         {
             "source": 82,
             "target": 132,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "чемпионат"
         },
         {
             "source": 82,
             "target": 188,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "чемпионат"
         },
         {
             "source": 132,
             "target": 101,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "программа"
         },
         {
             "source": 132,
             "target": 30,
-            "weight": 4
+            "weight": 4,
+            "tooltip": "программа<br/>катание<br/>фигурный<br/>балл"
         },
         {
             "source": 132,
             "target": 3,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "чемпионат"
         },
         {
             "source": 132,
             "target": 103,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "программа"
         },
         {
             "source": 132,
             "target": 145,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "чемпионат<br/>мир"
         },
         {
             "source": 132,
             "target": 69,
-            "weight": 5
+            "weight": 5,
+            "tooltip": "чемпионат<br/>программа<br/>катание<br/>фигурный<br/>балл"
         },
         {
             "source": 132,
             "target": 82,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "чемпионат"
         },
         {
             "source": 132,
             "target": 188,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "чемпионат"
         },
         {
             "source": 188,
             "target": 124,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 188,
             "target": 125,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 188,
             "target": 32,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 188,
             "target": 57,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 188,
             "target": 41,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 188,
             "target": 112,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 188,
             "target": 107,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 188,
             "target": 40,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 188,
             "target": 156,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 188,
             "target": 19,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 188,
             "target": 7,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 188,
             "target": 157,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 188,
             "target": 204,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Саакашвили<br/>Украина"
         },
         {
             "source": 188,
             "target": 11,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "Саакашвили<br/>Грузия<br/>Украина"
         },
         {
             "source": 188,
             "target": 176,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 188,
             "target": 63,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Россия<br/>Украина"
         },
         {
             "source": 188,
             "target": 66,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 188,
             "target": 122,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ЦРУ"
         },
         {
             "source": 188,
             "target": 206,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 188,
             "target": 3,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Россия<br/>чемпионат"
         },
         {
             "source": 188,
             "target": 22,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 188,
             "target": 39,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 188,
             "target": 129,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Украина"
         },
         {
             "source": 188,
             "target": 49,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 188,
             "target": 106,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Россия"
         },
         {
             "source": 188,
             "target": 145,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "чемпионат"
         },
         {
             "source": 188,
             "target": 69,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "чемпионат"
         },
         {
             "source": 188,
             "target": 82,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "чемпионат"
         },
         {
             "source": 188,
             "target": 132,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "чемпионат"
         },
         {
             "source": 21,
             "target": 71,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "штраф"
         },
         {
             "source": 21,
             "target": 144,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "победа"
         },
         {
             "source": 21,
             "target": 157,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "матч"
         },
         {
             "source": 21,
             "target": 143,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "чемпион<br/>матч"
         },
         {
             "source": 21,
             "target": 12,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "победа"
         },
         {
             "source": 21,
             "target": 31,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "уход<br/>матч"
         },
         {
             "source": 21,
             "target": 145,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "матч"
         },
         {
             "source": 145,
             "target": 166,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "команда"
         },
         {
             "source": 145,
             "target": 144,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "май"
         },
         {
             "source": 145,
             "target": 157,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "матч<br/>сборная<br/>команда"
         },
         {
             "source": 145,
             "target": 143,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "матч<br/>команда"
         },
         {
             "source": 145,
             "target": 10,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Германия"
         },
         {
             "source": 145,
             "target": 3,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "чемпионат"
         },
         {
             "source": 145,
             "target": 100,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Германия"
         },
         {
             "source": 145,
             "target": 169,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Германия"
         },
         {
             "source": 145,
             "target": 48,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Германия"
         },
         {
             "source": 145,
             "target": 152,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "май"
         },
         {
             "source": 145,
             "target": 31,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "матч<br/>команда"
         },
         {
             "source": 145,
             "target": 69,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "чемпионат"
         },
         {
             "source": 145,
             "target": 82,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "чемпионат"
         },
         {
             "source": 145,
             "target": 132,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "чемпионат<br/>мир"
         },
         {
             "source": 145,
             "target": 188,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "чемпионат"
         },
         {
             "source": 145,
             "target": 21,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "матч"
         },
         {
             "source": 175,
             "target": 36,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Трамп<br/>США"
         },
         {
             "source": 175,
             "target": 192,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "жертва"
         },
         {
             "source": 175,
             "target": 2,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Трамп<br/>США"
         },
         {
             "source": 175,
             "target": 57,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 175,
             "target": 195,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 175,
             "target": 107,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 175,
             "target": 42,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 175,
             "target": 189,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "штат<br/>жертва"
         },
         {
             "source": 175,
             "target": 196,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Трамп<br/>США"
         },
         {
             "source": 175,
             "target": 72,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Трамп"
         },
         {
             "source": 175,
             "target": 63,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Трамп<br/>США"
         },
         {
             "source": 175,
             "target": 66,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "США"
         },
         {
             "source": 175,
             "target": 186,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Трамп<br/>США"
         },
         {
             "source": 175,
             "target": 4,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Трамп"
         },
         {
             "source": 175,
             "target": 128,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "жертва"
         },
         {
             "source": 175,
             "target": 12,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Трамп<br/>США"
         },
         {
             "source": 175,
             "target": 183,
-            "weight": 4
+            "weight": 4,
+            "tooltip": "Харви<br/>ураган<br/>штат<br/>США"
         },
         {
             "source": 175,
             "target": 152,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "ураган"
         },
         {
             "source": 175,
             "target": 94,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Трамп"
         },
         {
             "source": 193,
             "target": 161,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 193,
             "target": 117,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "поздравить"
         },
         {
             "source": 193,
             "target": 199,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 193,
             "target": 124,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "российский"
         },
         {
             "source": 193,
             "target": 134,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 193,
             "target": 32,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 193,
             "target": 181,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 193,
             "target": 200,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 193,
             "target": 9,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "лидер"
         },
         {
             "source": 193,
             "target": 8,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 193,
             "target": 2,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 193,
             "target": 73,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 193,
             "target": 57,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "президент<br/>российский"
         },
         {
             "source": 193,
             "target": 116,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 193,
             "target": 165,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 193,
             "target": 156,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "поздравить"
         },
         {
             "source": 193,
             "target": 104,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "поздравить"
         },
         {
             "source": 193,
             "target": 37,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "российский"
         },
         {
             "source": 193,
             "target": 142,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 193,
             "target": 11,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 193,
             "target": 78,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 193,
             "target": 153,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 193,
             "target": 72,
-            "weight": 3
+            "weight": 3,
+            "tooltip": "Путин<br/>президент<br/>лидер"
         },
         {
             "source": 193,
             "target": 150,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 193,
             "target": 17,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 193,
             "target": 20,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 193,
             "target": 27,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 193,
             "target": 52,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 193,
             "target": 63,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 193,
             "target": 66,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "российский"
         },
         {
             "source": 193,
             "target": 33,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 193,
             "target": 206,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 193,
             "target": 186,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
         {
             "source": 193,
             "target": 3,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "российский"
         },
         {
             "source": 193,
             "target": 159,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 193,
             "target": 18,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 193,
             "target": 131,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 193,
             "target": 96,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "лидер"
         },
         {
             "source": 193,
             "target": 103,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "Путин"
         },
         {
             "source": 193,
             "target": 126,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 193,
             "target": 12,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "президент"
         },
         {
             "source": 193,
             "target": 49,
-            "weight": 1
+            "weight": 1,
+            "tooltip": "российский"
         },
         {
             "source": 193,
             "target": 205,
-            "weight": 2
+            "weight": 2,
+            "tooltip": "Путин<br/>президент"
         },
     ]
 };

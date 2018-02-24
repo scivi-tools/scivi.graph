@@ -364,10 +364,12 @@ namespace SciViCGraph
                         this.m_hoveredEdge.isGlowing = false;
                     this.m_hoveredEdge = hoveredEdge;
                     this.m_hoveredEdge.isGlowing = true;
-                    $(".scivi_graph_tooltip").html("TOOLTIP FOR EDGE");
-                    $(".scivi_graph_tooltip").css({top: gy, left: gx + offset});
-                    $(".scivi_graph_tooltip").stop(true);
-                    $(".scivi_graph_tooltip").fadeIn(100);
+                    if (this.m_hoveredEdge.tooltip) {
+                        $(".scivi_graph_tooltip").html(this.m_hoveredEdge.tooltip);
+                        $(".scivi_graph_tooltip").css({top: gy, left: gx + offset});
+                        $(".scivi_graph_tooltip").stop(true);
+                        $(".scivi_graph_tooltip").fadeIn(100);
+                    }
                     return true;
                 }
                 $(".scivi_graph_tooltip").css({top: gy, left: gx + offset, position: "absolute"});
