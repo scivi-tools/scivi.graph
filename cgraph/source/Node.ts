@@ -344,11 +344,10 @@ namespace SciViCGraph
                 return null;
             const d = x * x + y * y;
             const r = this.m_svRenderer.radius;
-            s *= s;
-            const inRing = r * r * s;
+            const inRing = r * r * s * s;
             if (d < inRing) {
                 for (let i = this.m_edges.length - 1; i >= 0; --i) {
-                    if (this.m_edges[i].visible && this.m_edges[i].hitTest(x, y))
+                    if (this.m_edges[i].visible && this.m_edges[i].hitTest(x / s, y / s))
                         return this.m_edges[i];
                 }
             }
