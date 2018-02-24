@@ -623,24 +623,14 @@ namespace SciViCGraph
             if (this.m_selectedNode) {
                 let focusGroup = this.m_selectedNode.groupID;
                 this.m_stage.colors[focusGroup] = string2color(newColor);
-                this.m_data.nodes.forEach((node) => {
-                    if (node.groupID == focusGroup)
-                        node.invalidate();
-                });
-                this.m_statistics.buildChart(this.m_data.nodes, this.m_stage.colors);
-                this.render(false, true);
+                this.reinit(false);
             }
         }
 
         public changeGroupColor(focusGroup: number, newColor: string)
         {
             this.m_stage.colors[focusGroup] = string2color(newColor);
-            this.m_data.nodes.forEach((node) => {
-                if (node.groupID == focusGroup)
-                    node.invalidate();
-            });
-            this.m_statistics.buildChart(this.m_data.nodes, this.m_stage.colors);
-            this.render(false, true);
+            this.reinit(false);
         }
 
         public quasiZoomIn(groupID: number)

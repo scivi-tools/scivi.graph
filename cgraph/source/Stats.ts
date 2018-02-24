@@ -17,6 +17,8 @@ namespace SciViCGraph
         private m_nodes: Node[];
         private m_tooltip: HTMLElement;
         private m_list: HTMLElement;
+        private m_clInput: HTMLInputElement;
+        private m_selectedGroupIndex: number;
 
         constructor(private m_stats: HTMLElement, private m_svRenderer)
         {
@@ -37,6 +39,12 @@ namespace SciViCGraph
                 datasets: [],
                 labels: []
             };
+
+            this.m_nodes = null;
+            this.m_tooltip = null;
+            this.m_list = null;
+            this.m_clInput = null;
+            this.m_selectedGroupIndex = -1;
         }
 
         private color2rgb(c: number): string
@@ -99,21 +107,23 @@ namespace SciViCGraph
         private chartClicked(points)
         {
             if (points.length > 0) {
-                let clLabel = document.createElement("span");
-                clLabel.innerHTML = "Группа: " + (points[0]._index + 1) + ". Цвет:&nbsp;";
+                this.m_selectedGroupIndex = points[0]._index;
 
-                let clInput = document.createElement("input");
-                clInput.type = "color";
-                clInput.value = this.rgbString2color(points[0]._view.backgroundColor);
-                clInput.onchange = () => {
-                    this.m_svRenderer.changeGroupColor(points[0]._index, clInput.value);
-                    points[0]._view.backgroundColor = this.color2RGBString(clInput.value);
+                let clLabel = document.createElement("span");
+                clLabel.innerHTML = "Группа: " + (this.m_selectedGroupIndex + 1) + ". Цвет:&nbsp;";
+
+                this.m_clInput = document.createElement("input");
+                this.m_clInput.type = "color";
+                this.m_clInput.value = this.rgbString2color(points[0]._view.backgroundColor);
+                this.m_clInput.onchange = () => {
+                    this.m_svRenderer.changeGroupColor(this.m_selectedGroupIndex, this.m_clInput.value);
+                    points[0]._view.backgroundColor = this.color2RGBString(this.m_clInput.value);
                 };
 
                 let qZoomIn = document.createElement("button");
                 qZoomIn.innerHTML = "Перейти к группе";
                 qZoomIn.onclick = () => {
-                    this.m_svRenderer.quasiZoomIn(points[0]._index);
+                    this.m_svRenderer.quasiZoomIn(this.m_selectedGroupIndex);
                     this.chartClicked(points);
                 };
                 if (!this.m_svRenderer.canQuasiZoomIn())
@@ -142,7 +152,7 @@ namespace SciViCGraph
                     this.m_list.removeChild(this.m_list.firstChild);
 
                 this.m_list.appendChild(clLabel);
-                this.m_list.appendChild(clInput);
+                this.m_list.appendChild(this.m_clInput);
                 this.m_list.appendChild(qZoomIn);
                 this.m_list.appendChild(qZoomOut);
                 this.m_list.appendChild(listHolder);
@@ -160,6 +170,9 @@ namespace SciViCGraph
                 this.m_list.removeChild(this.m_list.firstChild);
 
             this.m_list.appendChild(hint);
+
+            this.m_clInput = null;
+            this.m_selectedGroupIndex = -1;
         }
 
         public buildChart(nodes: Node[], colors: number[])
@@ -171,6 +184,9 @@ namespace SciViCGraph
                 backgroundColor: this.convertColors(colors, data.length)
             }];
             this.m_data.labels = this.generateGroupNames(data.length)
+
+            if (this.m_selectedGroupIndex >= 0)
+                this.m_clInput.value = color2string(colors[this.m_selectedGroupIndex]);
 
             if (this.m_chart)
                 this.m_chart.update();
