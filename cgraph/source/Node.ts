@@ -51,18 +51,34 @@ namespace SciViCGraph
         public postInfo()
         {
             let header = document.createElement("div");
-            header.innerHTML = "<b style=\"color:red\">" + this.label + "</b>";
+            let name = document.createElement("input");
+            name.type = "text";
+            name.value = this.label;
+            name.style.fontWeight = "bold";
+            name.style.width = "300px";
+            name.style.marginRight = "5px";
+            let changeName = document.createElement("button");
+            changeName.innerHTML = "Изменить";
+            changeName.onclick = () => {
+                this.label = name.value;
+                this.m_svRenderer.updateNodeNames();
+            };
+            header.appendChild(name);
+            header.appendChild(changeName);
 
-            if (this.date != null)
-                header.innerHTML += "&nbsp;&nbsp;&nbsp;(" + this.date.toLocaleDateString() + ")";
+            if (this.date != null) {
+                let dateLabel = document.createElement("span");
+                dateLabel.innerHTML = "&nbsp;&nbsp;&nbsp;(" + this.date.toLocaleDateString() + ")";
+                header.appendChild(dateLabel);
+            }
 
-            let clLabel = document.createElement("span");
-            clLabel.innerHTML = "Группа: " + (this.groupID + 1) + ". Цвет:&nbsp;";
+            let colorLabel = document.createElement("span");
+            colorLabel.innerHTML = "Группа: " + (this.groupID + 1) + ". Цвет:&nbsp;";
 
-            let clInput = document.createElement("input");
-            clInput.type = "color";
-            clInput.value = color2string(this.groupColor);
-            clInput.onchange = () => { this.m_svRenderer.changeActiveGroupColor(clInput.value); };
+            let colorInput = document.createElement("input");
+            colorInput.type = "color";
+            colorInput.value = color2string(this.groupColor);
+            colorInput.onchange = () => { this.m_svRenderer.changeActiveGroupColor(colorInput.value); };
 
             let qZoomIn = document.createElement("button");
             qZoomIn.innerHTML = "Перейти к группе";
@@ -82,7 +98,7 @@ namespace SciViCGraph
             if (!this.m_svRenderer.canQuasiZoomOut())
                 qZoomOut.disabled = true;
 
-            let nList = document.createElement("div");
+            let nodesList = document.createElement("div");
             let connList = "<div>Связанные вершины:</div><ul>";
             this.m_edges.forEach((edge) => {
                 if (edge.visible) {
@@ -93,17 +109,17 @@ namespace SciViCGraph
                 }
             });
             connList += "</ul>";
-            nList.innerHTML = connList;
+            nodesList.innerHTML = connList;
 
             while (this.m_info.firstChild)
                 this.m_info.removeChild(this.m_info.firstChild);
 
             this.m_info.appendChild(header);
-            this.m_info.appendChild(clLabel);
-            this.m_info.appendChild(clInput);
+            this.m_info.appendChild(colorLabel);
+            this.m_info.appendChild(colorInput);
             this.m_info.appendChild(qZoomIn);
             this.m_info.appendChild(qZoomOut);
-            this.m_info.appendChild(nList);
+            this.m_info.appendChild(nodesList);
         }
 
         public postListItem(list: HTMLElement)

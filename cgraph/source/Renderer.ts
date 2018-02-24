@@ -797,6 +797,11 @@ namespace SciViCGraph
             this.updateNodesVisibility();
         }
 
+        public updateNodeNames()
+        {
+            this.reinit(false);
+        }
+
         get radius(): number
         {
             return this.m_radius;
