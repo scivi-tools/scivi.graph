@@ -347,7 +347,7 @@ namespace SciViCGraph
             s *= s;
             const inRing = r * r * s;
             if (d < inRing) {
-                for (let i = 0; i < this.m_edges.length; ++i) {
+                for (let i = this.m_edges.length - 1; i >= 0; --i) {
                     if (this.m_edges[i].visible && this.m_edges[i].hitTest(x, y))
                         return this.m_edges[i];
                 }
