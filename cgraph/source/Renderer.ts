@@ -188,7 +188,7 @@ namespace SciViCGraph
             this.m_renderingCache.transit();
         }
 
-        private reinit()
+        private reinit(animated: boolean)
         {
             this.calcWeights();
             this.createStage();
@@ -206,13 +206,17 @@ namespace SciViCGraph
                 node.invalidate();
             });
 
-            this.updateRenderingCache(true);
-            this.m_renderingCache.transit();
+            if (animated) {
+                this.updateRenderingCache(true);
+                this.m_renderingCache.transit();
+            } else {
+                this.render(true, true);
+            }
             if (this.m_selectedNode != null)
                 this.m_selectedNode.postInfo();
         }
 
-        private getNodeByPosition(x: number, y: number, s: number): Node
+        private getNodeByPosition(x: number, y: number, s: number, isInRing?: boolean[]): Node
         {
             let d = x * x + y * y;
             let r = this.m_radius;
@@ -220,6 +224,8 @@ namespace SciViCGraph
             let inRing = r * r * s;
             r += this.m_maxTextLength;
             let outRing = r * r * s;
+            if (isInRing)
+                isInRing[0] = d < inRing;
             if (d > inRing && d < outRing) {
                 let a = Math.atan2(y, x);
                 if (a < 0.0)
@@ -344,10 +350,13 @@ namespace SciViCGraph
                 if (!this.m_panning) {
                     e = e || window.event;
                     this.m_clickCaught = true;
+                    let isInRing = [ false ];
                     let node = this.getNodeByPosition(e.clientX - this.m_renderingCache.x, 
                                                       e.clientY - this.m_renderingCache.y,
-                                                      this.m_renderingCache.currentScale());
-                    this.selectNode(node);
+                                                      this.m_renderingCache.currentScale(),
+                                                      isInRing);
+                    if (!isInRing[0])
+                        this.selectNode(node);
                 }
                 this.m_panning = false;
             };
@@ -428,7 +437,7 @@ namespace SciViCGraph
                     ringFS >= Renderer.m_minFontSize && ringFS <= Renderer.m_maxFontSize && ringFS === Math.round(ringFS)) {
                     this.m_nodesFontSize = nodesFS;
                     this.m_ringScaleFontSize = ringFS;
-                    this.reinit();
+                    this.reinit(false);
                 }
             };
         }
@@ -649,14 +658,14 @@ namespace SciViCGraph
             this.m_dataStack.push(this.m_data);
             this.m_data = new GraphData(newNodes, newEdges);
 
-            this.reinit();
+            this.reinit(true);
         }
 
         public quasiZoomOut()
         {
             this.m_data = this.m_dataStack.pop();
 
-            this.reinit();
+            this.reinit(true);
         }
 
         public canQuasiZoomIn(): boolean
