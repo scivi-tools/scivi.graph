@@ -446,7 +446,9 @@ namespace SciViCGraph
         {
             this.m_maxTextLength = 0;
             let maxTextHeight = 0;
+            let ww = this.m_data.nodes.length < 40;
             this.m_data.nodes.forEach((node) => {
+                node.wordWrap = ww;
                 let s = node.labelSize();
                 if (s.width > this.m_maxTextLength)
                     this.m_maxTextLength = s.width;
@@ -484,9 +486,11 @@ namespace SciViCGraph
                 if (node.rotation > Math.PI / 2) {
                     node.scale.set(-0.5, -0.5);
                     node.setAnchor(1.0, 0.5, this.m_maxTextLength);
+                    node.align = "right";
                 } else {
                     node.scale.set(0.5, 0.5);
                     node.setAnchor(0.0, 0.5, this.m_maxTextLength);
+                    node.align = "left";
                 }
 
                 node.highlight = HighlightType.None;

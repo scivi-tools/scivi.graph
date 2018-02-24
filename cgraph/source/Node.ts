@@ -338,6 +338,11 @@ namespace SciViCGraph
             this.m_text.style.fontSize = fs + "px";
         }
 
+        set align(a: string)
+        {
+            this.m_text.style.align = a;
+        }
+
         private getEdgeByPosition(x: number, y: number, s: number): Edge
         {
             if (isNaN(x) || isNaN(y))
