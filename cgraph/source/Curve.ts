@@ -425,5 +425,23 @@ namespace SciViCGraph
         {
             this.m_colors.push(c);
         }
+
+        public bringToFront()
+        {
+            let p = this.parent;
+            if (p) {
+                p.removeChild(this);
+                p.addChild(this);
+            }
+        }
+
+        public bringToBack()
+        {
+            let p = this.parent;
+            if (p) {
+                p.removeChild(this);
+                p.addChildAt(this, 0);
+            }
+        }
     }
 }

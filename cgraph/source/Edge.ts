@@ -225,10 +225,13 @@ namespace SciViCGraph
         set isGlowing(g: boolean)
         {
             if (this.m_batch) {
-                if (this.m_glow)
+                if (this.m_glow) {
                     this.m_glow.visible = g;
-                else
+                    if (g)
+                        this.m_glow.bringToFront()
+                } else {
                     this.m_glow = this.m_batch.createGlow(this);
+                }
             }
         }
 
