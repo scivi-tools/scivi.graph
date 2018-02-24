@@ -130,15 +130,5 @@ namespace SciViCGraph
             }
             this.addChild(text);
         }
-
-        get fontSize(): number
-        {
-            return this.m_fontSize;
-        }
-
-        set fontSize(fs: number)
-        {
-            this.m_fontSize = fs;
-        }
     }
 }

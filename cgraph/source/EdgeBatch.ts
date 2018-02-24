@@ -43,8 +43,9 @@ namespace SciViCGraph
 
             this.m_edges.forEach((edge) => {
                 if (edge.visible) {
+                    edge.thickness = Edge.minThickness + (Edge.maxThickness - Edge.minThickness) * edge.weight / p.maxEdgeWeight;
                     this.moveTo(edge.source.x, edge.source.y);
-                    this.lineStyle(Edge.minThickness + (Edge.maxThickness - Edge.minThickness) * edge.weight / p.maxEdgeWeight, 0x0, 1);
+                    this.lineStyle(edge.thickness, 0x0, 1);
                     this.m_colors.push({ from: edge.fromColor, to: edge.toColor, alpha: edge.alpha });
                     this.quadraticCurveTo(0, 0, edge.target.x, edge.target.y);
                 }

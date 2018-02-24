@@ -8,6 +8,7 @@ namespace SciViCGraph
         private m_batch: EdgeBatch;
         private m_highlight: HighlightType;
         private m_visible: boolean;
+        private m_thickness: number;
 
         public static passiveEdgeAlpha = 0.1;
         private static readonly m_hoveredEdgeAlpha = 1.0;
@@ -24,6 +25,7 @@ namespace SciViCGraph
             this.m_batch = undefined;
             this.m_highlight = undefined;
             this.m_visible = true;
+            this.m_thickness = 0.0;
         }
 
         private rgb2hsv(rgb: number): number[]
@@ -203,9 +205,44 @@ namespace SciViCGraph
             return this.m_alpha;
         }
 
+        get thickness(): number
+        {
+            return this.m_thickness;
+        }
+
+        set thickness(th: number)
+        {
+            this.m_thickness = th;
+        }
+
         public invalidate()
         {
             this.m_highlight = undefined;
+        }
+
+        set isGlowing(g: boolean)
+        {
+        }
+
+        private hitTestWithBBox(p: Point, c1: Point, c2: Point, c3: Point): boolean
+        {
+            const minC = { x: Math.min(c1.x, c2.x, c3.x) - this.m_thickness, y: Math.min(c1.y, c2.y, c3.y) - this.m_thickness };
+            const maxC = { x: Math.max(c1.x, c2.x, c3.x) + this.m_thickness, y: Math.max(c1.y, c2.y, c3.y) + this.m_thickness };
+            return p.x >= minC.x && p.x <= maxC.x && p.y >= minC.y && p.y <= maxC.y;
+        }
+
+        private hitTestWithCurve(p: Point, c1: Point, c2: Point, c3: Point): boolean
+        {
+            return Geometry.distanceToQuadCurve(p, c1, c2, c3) <= this.m_thickness;
+        }
+
+        public hitTest(x: number, y: number): boolean
+        {
+            const p = { x: x, y: y };
+            const c1 = { x: this.source.x, y: this.source.y };
+            const c2 = { x: 0.0, y: 0.0 };
+            const c3 = { x: this.target.x, y: this.target.y };
+            return this.hitTestWithBBox(p, c1, c2, c3) && this.hitTestWithCurve(p, c1, c2, c3);
         }
     }
 }

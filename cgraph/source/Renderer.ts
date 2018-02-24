@@ -46,6 +46,8 @@ namespace SciViCGraph
         constructor(public nodes: Node[], public edges: Edge[]){}
     };
 
+    type Range = { min: number, max: number };
+
     export class Renderer
     {
         private m_renderer: PIXI.SystemRenderer;
@@ -55,8 +57,8 @@ namespace SciViCGraph
         private m_dataStack: GraphData[];
         private m_colors: number[];
         private m_edgeBatches: EdgeBatch[];
-        private m_nodeWeight: { min: number, max: number };
-        private m_edgeWeight: { min: number, max: number };
+        private m_nodeWeight: Range;
+        private m_edgeWeight: Range;
         private m_radius: number;
         private m_totalRadius: number;
         private m_hoveredNode: Node;
@@ -232,6 +234,8 @@ namespace SciViCGraph
 
         private clearSelected()
         {
+            if (this.m_selectedNode)
+                this.m_selectedNode.handleCursorMove(NaN, NaN, NaN, NaN, NaN);
             this.m_selectedNode = null;
             while (this.m_info.firstChild)
                 this.m_info.removeChild(this.m_info.firstChild);
@@ -308,6 +312,8 @@ namespace SciViCGraph
                     let y = e.clientY - this.m_renderingCache.y;
                     let s = this.m_renderingCache.currentScale();
                     this.m_hoveredNode = this.getNodeByPosition(x, y, s);
+                    if (this.m_selectedNode)
+                        this.m_selectedNode.handleCursorMove(x, y, s, e.clientX, e.clientY);
                     let f = false;
                     if (this.m_ringScale)
                         f = this.m_ringScale.handleCursorMove(x, y, s, e.clientX, e.clientY);
@@ -785,6 +791,11 @@ namespace SciViCGraph
                 node.isShown = show;
             });
             this.updateNodesVisibility();
+        }
+
+        get radius(): number
+        {
+            return this.m_radius;
         }
     }
 }

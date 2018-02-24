@@ -14,6 +14,7 @@ namespace SciViCGraph
         private m_isShown: boolean;
         private m_listLabel: HTMLSpanElement;
         private m_cbInput: HTMLInputElement;
+        private m_hoveredEdge: Edge;
 
         public static passiveTextAlpha = 0.3;
         private static readonly m_hoveredTextAlpha = 1.0;
@@ -44,6 +45,7 @@ namespace SciViCGraph
             this.m_isShown = true;
             this.m_listLabel = null;
             this.m_cbInput = null;
+            this.m_hoveredEdge = null;
         }
 
         public postInfo()
@@ -334,6 +336,51 @@ namespace SciViCGraph
         set fontSize(fs: number)
         {
             this.m_text.style.fontSize = fs + "px";
+        }
+
+        private getEdgeByPosition(x: number, y: number, s: number): Edge
+        {
+            if (isNaN(x) || isNaN(y))
+                return null;
+            const d = x * x + y * y;
+            const r = this.m_svRenderer.radius;
+            s *= s;
+            const inRing = r * r * s;
+            if (d < inRing) {
+                for (let i = 0; i < this.m_edges.length; ++i) {
+                    if (this.m_edges[i].visible && this.m_edges[i].hitTest(x, y))
+                        return this.m_edges[i];
+                }
+            }
+            return null;
+        }
+
+        public handleCursorMove(x: number, y: number, s: number, gx: number, gy: number): boolean
+        {
+            let hoveredEdge = this.getEdgeByPosition(x, y, s);
+            const offset = 20;
+            if (hoveredEdge) {
+                if (this.m_hoveredEdge !== hoveredEdge) {
+                    this.m_hoveredEdge = hoveredEdge;
+                    this.m_hoveredEdge.isGlowing = true;
+                    $(".scivi_graph_tooltip").html("TOOLTIP FOR EDGE");
+                    $(".scivi_graph_tooltip").css({top: gy, left: gx + offset});
+                    $(".scivi_graph_tooltip").stop(true);
+                    $(".scivi_graph_tooltip").fadeIn(100);
+                    return true;
+                }
+                $(".scivi_graph_tooltip").css({top: gy, left: gx + offset, position: "absolute"});
+                return false;
+            } else {
+                if (this.m_hoveredEdge) {
+                    this.m_hoveredEdge.isGlowing = false;
+                    this.m_hoveredEdge = null;
+                    $(".scivi_graph_tooltip").stop(true);
+                    $(".scivi_graph_tooltip").fadeOut(100);
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
