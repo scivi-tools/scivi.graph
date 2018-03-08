@@ -24,4 +24,12 @@ var g_loc_ru = {
     "LOC_NODEFONT": "Размер шрифта вершин:",
     "LOC_RINGFONT": "Размер шрифта круговой шкалы:",
     "LOC_APPLY": "Применить",
+    "LOC_SHOWALL": "Показать все",
+    "LOC_HIDEALL": "Скрыть все",
+    "LOC_CHANGE": "Изменить",
+    "LOC_GROUP": "Группа",
+    "LOC_COLOR": "Цвет",
+    "LOC_ENTERGROUP": "Перейти к группе",
+    "LOC_LEAVEGROUP": "Выйти из группы",
+    "LOC_LINKEDNODES": "Связанные вершины:",
 };

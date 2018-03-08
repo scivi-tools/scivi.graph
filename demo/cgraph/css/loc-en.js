@@ -24,4 +24,12 @@ var g_loc_en = {
     "LOC_NODEFONT": "Nodes font size:",
     "LOC_RINGFONT": "Ring scale font size:",
     "LOC_APPLY": "Apply",
+    "LOC_SHOWALL": "Show all",
+    "LOC_HIDEALL": "Hide all",
+    "LOC_CHANGE": "Change",
+    "LOC_GROUP": "Group",
+    "LOC_COLOR": "Color",
+    "LOC_ENTERGROUP": "Enter group",
+    "LOC_LEAVEGROUP": "Leave group",
+    "LOC_LINKEDNODES": "Linked nodes:",
 };

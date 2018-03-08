@@ -23,7 +23,12 @@ namespace SciViCGraph
         private static readonly m_columnMinHeight = 2.0;
         private static readonly m_textPadding = 15.0;
 
-        constructor(public id: number, public label: string, public groupID: number, public weight: number, public nmb: number, public date: Date)
+        constructor(public id: number,
+                    public label: string,
+                    public groupID: number,
+                    public weight: number,
+                    public nmb: number,
+                    public date: Date)
         {
             super();
 
@@ -58,7 +63,7 @@ namespace SciViCGraph
             name.style.width = "300px";
             name.style.marginRight = "5px";
             let changeName = document.createElement("button");
-            changeName.innerHTML = "Изменить";
+            changeName.innerHTML = this.m_svRenderer.localizer["LOC_CHANGE"];
             changeName.onclick = () => {
                 this.label = name.value;
                 this.m_svRenderer.updateNodeNames();
@@ -73,7 +78,8 @@ namespace SciViCGraph
             }
 
             let colorLabel = document.createElement("span");
-            colorLabel.innerHTML = "Группа: " + (this.groupID + 1) + ". Цвет:&nbsp;";
+            colorLabel.innerHTML = this.m_svRenderer.localizer["LOC_GROUP"] + ": " + (this.groupID + 1) + 
+                                   ". " + this.m_svRenderer.localizer["LOC_COLOR"] + ":&nbsp;";
 
             let colorInput = document.createElement("input");
             colorInput.type = "color";
@@ -81,7 +87,7 @@ namespace SciViCGraph
             colorInput.onchange = () => { this.m_svRenderer.changeActiveGroupColor(colorInput.value); };
 
             let qZoomIn = document.createElement("button");
-            qZoomIn.innerHTML = "Перейти к группе";
+            qZoomIn.innerHTML = this.m_svRenderer.localizer["LOC_ENTERGROUP"];
             qZoomIn.onclick = () => {
                 this.m_svRenderer.quasiZoomIn(this.groupID);
                 this.m_svRenderer.clearChartSelection();
@@ -90,7 +96,7 @@ namespace SciViCGraph
                 qZoomIn.disabled = true;
 
             let qZoomOut = document.createElement("button");
-            qZoomOut.innerHTML = "Выйти из группы";
+            qZoomOut.innerHTML = this.m_svRenderer.localizer["LOC_LEAVEGROUP"];
             qZoomOut.onclick = () => {
                 this.m_svRenderer.quasiZoomOut();
                 this.m_svRenderer.clearChartSelection();
@@ -99,7 +105,7 @@ namespace SciViCGraph
                 qZoomOut.disabled = true;
 
             let nodesList = document.createElement("div");
-            let connList = "<div>Связанные вершины:</div><ul>";
+            let connList = "<div>" + this.m_svRenderer.localizer["LOC_LINKEDNODES"] + "</div><ul>";
             this.m_edges.forEach((edge) => {
                 if (edge.visible) {
                     if (edge.target != this)
