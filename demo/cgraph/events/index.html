@@ -16,24 +16,41 @@
 
         <script src="data.js"></script>
         <script src="../css/colors.js"></script>
+        <script src="../css/loc-ru.js"></script>
         <script src="../css/loc-en.js"></script>
         <script src="../lib/scivi-cgraph.min.js"></script>
 
         <script>
+            function getParameterByName(name, url)
+            {
+                if (!url)
+                    url = window.location.href;
+                name = name.replace(/[\[\]]/g, "\\$&");
+                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
+                var results = regex.exec(url);
+                if (!results)
+                    return null;
+                if (!results[2])
+                    return '';
+                return decodeURIComponent(results[2].replace(/\+/g, " "));
+            }
+
             function main()
             {
+                var loc = getParameterByName("lang") === "ru" ? g_loc_ru : g_loc_en;
+
                 var parser = new SciViCGraph.Parser(g_data);
                 var renderer = new SciViCGraph.Renderer($('#view')[0], $('#info')[0],
                                                         $('#list')[0], $('#settings')[0], 
-                                                        $('#stats')[0], g_loc);
+                                                        $('#stats')[0], loc);
 
                 var nodes = parser.nodes;
                 var edges = parser.edges;
 
-                $("#lnk_info").text(g_loc["LOC_INFO"]);
-                $("#lnk_list").text(g_loc["LOC_NODES"]);
-                $("#lnk_settings").text(g_loc["LOC_SETTINGS"]);
-                $("#lnk_stats").text(g_loc["LOC_GROUPS"]);
+                $("#lnk_info").text(loc["LOC_INFO"]);
+                $("#lnk_list").text(loc["LOC_NODES"]);
+                $("#lnk_settings").text(loc["LOC_SETTINGS"]);
+                $("#lnk_stats").text(loc["LOC_GROUPS"]);
 
                 Split(['#a', '#b'], {
                       gutterSize: 8,
@@ -83,20 +100,20 @@
                 ];
                 var names = [
                     "2016-",
-                    g_loc["LOC_SEP"] + " 2016",
-                    g_loc["LOC_OCT"] + " 2016",
-                    g_loc["LOC_NOV"] + " 2016",
-                    g_loc["LOC_DEC"] + " 2016",
-                    g_loc["LOC_JAN"] + " 2017",
-                    g_loc["LOC_FEB"] + " 2017",
-                    g_loc["LOC_MAR"] + " 2017",
-                    g_loc["LOC_APR"] + " 2017",
-                    g_loc["LOC_MAY"] + " 2017",
-                    g_loc["LOC_JUN"] + " 2017",
-                    g_loc["LOC_JUL"] + " 2017",
-                    g_loc["LOC_AUG"] + " 2017",
-                    g_loc["LOC_SEP"] + " 2017",
-                    g_loc["LOC_OCT"] + " 2017",
+                    loc["LOC_SEP"] + " 2016",
+                    loc["LOC_OCT"] + " 2016",
+                    loc["LOC_NOV"] + " 2016",
+                    loc["LOC_DEC"] + " 2016",
+                    loc["LOC_JAN"] + " 2017",
+                    loc["LOC_FEB"] + " 2017",
+                    loc["LOC_MAR"] + " 2017",
+                    loc["LOC_APR"] + " 2017",
+                    loc["LOC_MAY"] + " 2017",
+                    loc["LOC_JUN"] + " 2017",
+                    loc["LOC_JUL"] + " 2017",
+                    loc["LOC_AUG"] + " 2017",
+                    loc["LOC_SEP"] + " 2017",
+                    loc["LOC_OCT"] + " 2017",
                     "2017+"
                 ];
                 var scale = new SciViCGraph.Scale(steps, colors, textColors, names, (node) => { return node.date; });

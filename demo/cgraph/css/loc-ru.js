@@ -1,4 +1,4 @@
-var g_loc = {
+var g_loc_ru = {
     "LOCALE": "ru",
     "LOC_SEP": "Сентябрь",
     "LOC_OCT": "Октябрь",
