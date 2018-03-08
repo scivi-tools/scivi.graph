@@ -16,18 +16,24 @@
 
         <script src="data.js"></script>
         <script src="../css/colors.js"></script>
+        <script src="../css/loc-en.js"></script>
         <script src="../lib/scivi-cgraph.min.js"></script>
 
         <script>
             function main()
             {
                 var parser = new SciViCGraph.Parser(g_data);
-                var renderer = new SciViCGraph.Renderer($('#view')[0], $('#info')[0], 
-                                                       $('#list')[0], $('#settings')[0], 
-                                                       $('#stats')[0]);
+                var renderer = new SciViCGraph.Renderer($('#view')[0], $('#info')[0],
+                                                        $('#list')[0], $('#settings')[0], 
+                                                        $('#stats')[0], g_loc);
 
                 var nodes = parser.nodes;
                 var edges = parser.edges;
+
+                $("#lnk_info").text(g_loc["LOC_INFO"]);
+                $("#lnk_list").text(g_loc["LOC_NODES"]);
+                $("#lnk_settings").text(g_loc["LOC_SETTINGS"]);
+                $("#lnk_stats").text(g_loc["LOC_GROUPS"]);
 
                 Split(['#a', '#b'], {
                       gutterSize: 8,
@@ -77,20 +83,20 @@
                 ];
                 var names = [
                     "2016-",
-                    "Сентябрь 2016",
-                    "Октябрь 2016",
-                    "Ноябрь 2016",
-                    "Декабрь 2016",
-                    "Январь 2017",
-                    "Февраль 2017",
-                    "Март 2017",
-                    "Апрель 2017",
-                    "Май 2017",
-                    "Июнь 2017",
-                    "Июль 2017",
-                    "Август 2017",
-                    "Сентябрь 2017",
-                    "Октябрь 2017",
+                    g_loc["LOC_SEP"] + " 2016",
+                    g_loc["LOC_OCT"] + " 2016",
+                    g_loc["LOC_NOV"] + " 2016",
+                    g_loc["LOC_DEC"] + " 2016",
+                    g_loc["LOC_JAN"] + " 2017",
+                    g_loc["LOC_FEB"] + " 2017",
+                    g_loc["LOC_MAR"] + " 2017",
+                    g_loc["LOC_APR"] + " 2017",
+                    g_loc["LOC_MAY"] + " 2017",
+                    g_loc["LOC_JUN"] + " 2017",
+                    g_loc["LOC_JUL"] + " 2017",
+                    g_loc["LOC_AUG"] + " 2017",
+                    g_loc["LOC_SEP"] + " 2017",
+                    g_loc["LOC_OCT"] + " 2017",
                     "2017+"
                 ];
                 var scale = new SciViCGraph.Scale(steps, colors, textColors, names, (node) => { return node.date; });
@@ -110,10 +116,10 @@
         <div id="b" class="split split-horizontal">
             <div id="tabs">
                 <ul>
-                    <li><a href="#info">Информация о вершине</a></li>
-                    <li><a href="#list">Вершины</a></li>
-                    <li><a href="#settings">Настройки</a></li>
-                    <li><a href="#stats">Группы</a></li>
+                    <li><a id="lnk_info" href="#info"></a></li>
+                    <li><a id="lnk_list" href="#list"></a></li>
+                    <li><a id="lnk_settings" href="#settings"></a></li>
+                    <li><a id="lnk_stats" href="#stats"></a></li>
                 </ul>
                 <div id="info"></div>
                 <div id="list"></div>

@@ -87,7 +87,8 @@ namespace SciViCGraph
                     private m_info: HTMLElement, 
                     private m_list: HTMLElement,
                     private m_settings: HTMLElement,
-                    private m_stats: HTMLElement)
+                    private m_stats: HTMLElement,
+                    private m_localizer: {})
         {
             this.m_scale = null;
             this.m_ringScale = null;
@@ -246,7 +247,7 @@ namespace SciViCGraph
             while (this.m_info.firstChild)
                 this.m_info.removeChild(this.m_info.firstChild);
             let dv = document.createElement("div");
-            dv.innerHTML = "Кликните на вершину, чтобы получить информацию о ней";
+            dv.innerHTML = this.m_localizer["LOC_SELSTUB"];
             this.m_info.appendChild(dv);
         }
 
@@ -368,26 +369,30 @@ namespace SciViCGraph
             this.m_view.onwheel = onWheel;
 
             this.m_settings.innerHTML = 
-            "<div>Порог отображения рёбер:&nbsp;<span id='scivi_edge_treshold'>" + this.m_edgeWeight.min.toString() + " .. " + this.m_edgeWeight.max.toString() + "</span></div>" +
-            "<div id='scivi_edge_treshold_slider' style='margin: 10px 10px 10px 5px'></div>" +
-            "<div>Порог отображения вершин:&nbsp;<span id='scivi_node_treshold'>" + this.m_nodeWeight.min.toString() + " .. " + this.m_nodeWeight.max.toString() + "</span></div>" +
-            "<div id='scivi_node_treshold_slider' style='margin: 10px 10px 10px 5px'></div><br/><hr/><br/>" +
-            "<div>Яркость невыделенных вершин:&nbsp;<span id='scivi_node_alpha'>" + Node.passiveTextAlpha.toString() + "</span></div>" +
-            "<div id='scivi_node_alpha_slider' style='margin: 10px 10px 10px 5px'></div>" +
-            "<div>Яркость невыделенных рёбер:&nbsp;<span id='scivi_edge_alpha'>" + Edge.passiveEdgeAlpha.toString() + "</span></div>" +
-            "<div id='scivi_edge_alpha_slider' style='margin: 10px 10px 10px 5px'></div><br/><hr/><br/>" +
+            "<div>" + this.m_localizer["LOC_EDGETHRESHOLD"] + "&nbsp;<span id='scivi_edge_treshold'>" +
+                this.m_edgeWeight.min.toString() + " .. " + this.m_edgeWeight.max.toString() + "</span></div>" +
+                "<div id='scivi_edge_treshold_slider' style='margin: 10px 10px 10px 5px'></div>" +
+            "<div>" + this.m_localizer["LOC_NODETHRESHOLD"] + "&nbsp;<span id='scivi_node_treshold'>" +
+                this.m_nodeWeight.min.toString() + " .. " + this.m_nodeWeight.max.toString() + "</span></div>" +
+                "<div id='scivi_node_treshold_slider' style='margin: 10px 10px 10px 5px'></div><br/><hr/><br/>" +
+            "<div>" + this.m_localizer["LOC_PASSIVETEXTALPHA"] + "&nbsp;<span id='scivi_node_alpha'>" +
+                Node.passiveTextAlpha.toString() + "</span></div>" +
+                "<div id='scivi_node_alpha_slider' style='margin: 10px 10px 10px 5px'></div>" +
+            "<div>" + this.m_localizer["LOC_PASSIVEEDGEALPHA"] + "&nbsp;<span id='scivi_edge_alpha'>" +
+                Edge.passiveEdgeAlpha.toString() + "</span></div>" +
+                "<div id='scivi_edge_alpha_slider' style='margin: 10px 10px 10px 5px'></div><br/><hr/><br/>" +
             "<table><tr><td>" +
-            "  <table>" +
-            "    <tr><td>Размер шрифта вершин:</td><td><input id='scivi_nodes_font' style='width:50px' type='number' min='" +
-                    Renderer.m_minFontSize.toString() + "' max='" + Renderer.m_maxFontSize.toString() +
-                    "' value='" + this.m_nodesFontSize.toString() + "' required/></td></tr>" +
-            "    <tr><td>Размер шрифта круговой шкалы:</td><td><input id='scivi_ring_font' style='width:50px' type='number' min='" +
-                    Renderer.m_minFontSize.toString() + "' max='" + Renderer.m_maxFontSize.toString() +
-                    "' value='" + this.m_ringScaleFontSize.toString() + "' required/></td></tr>" +
-            "  </table>" +
-            "</td><td>" +
-            "  <input id='scivi_apply_fonts' type='button' value='Применить'/>" +
-            "</td></tr></table>";
+                "<table>" +
+                    "<tr><td>" + this.m_localizer["LOC_NODEFONT"] + "</td><td><input id='scivi_nodes_font' style='width:50px' type='number' min='" +
+                        Renderer.m_minFontSize.toString() + "' max='" + Renderer.m_maxFontSize.toString() +
+                        "' value='" + this.m_nodesFontSize.toString() + "' required/></td></tr>" +
+                    "<tr><td>" + this.m_localizer["LOC_RINGFONT"] + "</td><td><input id='scivi_ring_font' style='width:50px' type='number' min='" +
+                        Renderer.m_minFontSize.toString() + "' max='" + Renderer.m_maxFontSize.toString() +
+                        "' value='" + this.m_ringScaleFontSize.toString() + "' required/></td></tr>" +
+                "</table>" +
+                    "</td><td>" +
+                        "<input id='scivi_apply_fonts' type='button' value='" + this.m_localizer["LOC_APPLY"] + "'/>" +
+                "</td></tr></table>";
 
             $("#scivi_edge_treshold_slider").slider({
                 min: this.m_edgeWeight.min,
