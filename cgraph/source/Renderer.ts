@@ -121,7 +121,7 @@ namespace SciViCGraph
 
             this.m_renderer['plugins']['interaction']['moveWhenInside'] = true;
 
-            this.m_nodesList = new List(this.m_list, this.m_localizer);
+            this.m_nodesList = new List(this.m_list);
             this.m_statistics = new Stats(this.m_stats, this);
 
             this.init();

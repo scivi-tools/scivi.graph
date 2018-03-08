@@ -32,4 +32,6 @@ var g_loc_en = {
     "LOC_ENTERGROUP": "Enter group",
     "LOC_LEAVEGROUP": "Leave group",
     "LOC_LINKEDNODES": "Linked nodes:",
+    "LOC_STATSTUB": "Click on the pie sector to get info about corresponding group",
+    "LOC_STATCAPTION": "Groups statistics (number of groups: ",
 };

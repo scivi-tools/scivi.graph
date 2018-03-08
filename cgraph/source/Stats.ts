@@ -95,7 +95,7 @@ namespace SciViCGraph
         {
             let result = [];
             for (let i = 1; i <= n; ++i)
-                result.push("Группа " + i);
+                result.push(this.m_svRenderer.localizer["LOC_GROUP"] + " " + i);
             return result;
         }
 
@@ -110,7 +110,8 @@ namespace SciViCGraph
                 this.m_selectedGroupIndex = points[0]._index;
 
                 let clLabel = document.createElement("span");
-                clLabel.innerHTML = "Группа: " + (this.m_selectedGroupIndex + 1) + ". Цвет:&nbsp;";
+                clLabel.innerHTML = this.m_svRenderer.localizer["LOC_GROUP"] + ": " + (this.m_selectedGroupIndex + 1) + ". " +
+                                    this.m_svRenderer.localizer["LOC_COLOR"] + ":&nbsp;";
 
                 this.m_clInput = document.createElement("input");
                 this.m_clInput.type = "color";
@@ -121,7 +122,7 @@ namespace SciViCGraph
                 };
 
                 let qZoomIn = document.createElement("button");
-                qZoomIn.innerHTML = "Перейти к группе";
+                qZoomIn.innerHTML = this.m_svRenderer.localizer["LOC_ENTERGROUP"];
                 qZoomIn.onclick = () => {
                     this.m_svRenderer.quasiZoomIn(this.m_selectedGroupIndex);
                     this.chartClicked(points);
@@ -130,7 +131,7 @@ namespace SciViCGraph
                     qZoomIn.disabled = true;
 
                 let qZoomOut = document.createElement("button");
-                qZoomOut.innerHTML = "Выйти из группы";
+                qZoomOut.innerHTML = this.m_svRenderer.localizer["LOC_LEAVEGROUP"];
                 qZoomOut.onclick = () => {
                     this.m_svRenderer.quasiZoomOut();
                     this.clearSelection();
@@ -164,7 +165,7 @@ namespace SciViCGraph
         public clearSelection()
         {
             let hint = document.createElement("div");
-            hint.innerHTML = "Кликните на сектор диаграммы, для получения информации по соответствующей группе";
+            hint.innerHTML = this.m_svRenderer.localizer["LOC_STATSTUB"];
 
             while (this.m_list.firstChild)
                 this.m_list.removeChild(this.m_list.firstChild);
@@ -215,7 +216,7 @@ namespace SciViCGraph
                         responsive: true,
                         title: {
                             display: true,
-                            text: "Статистика по группам (число групп: " + data.length + ")"
+                            text: this.m_svRenderer.localizer["LOC_STATCAPTION"] + data.length + ")"
                         },
                         legend: {
                             display: false
