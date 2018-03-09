@@ -249,7 +249,7 @@ namespace SciViCGraph
         {
             this.m_edges.push(edge);
 
-            let batch
+            let batch = null;
             if (this.m_edgeBatches.length == 0 || 
                 this.m_edgeBatches[this.m_edgeBatches.length - 1].isFull) {
                 batch = new EdgeBatch();
