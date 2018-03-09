@@ -39,13 +39,12 @@
             {
                 var loc = getParameterByName("lang") === "ru" ? g_loc_ru : g_loc_en;
 
-                var parser = new SciViCGraph.Parser(g_data);
+                var parser = new SciViCGraph.StatesParser(g_data);
                 var renderer = new SciViCGraph.Renderer($('#view')[0], $('#info')[0],
                                                         $('#list')[0], $('#settings')[0], 
                                                         $('#stats')[0], loc);
 
-                var nodes = parser.nodes;
-                var edges = parser.edges;
+                var states = parser.graphDataStates;
 
                 $("#lnk_info").text(loc["LOC_INFO"]);
                 $("#lnk_list").text(loc["LOC_NODES"]);
@@ -60,10 +59,12 @@
 
                 $("#tabs").tabs({heightStyle: "fill"});
 
-                console.log("Number of nodes: " + nodes.length);
-                console.log("Number of edges: " + edges.length);
+                console.log("Number of states: " + states.length);
+                console.log("Number of nodes: " + states[0].nodes.length);
+                for (var i = 0; i < states.length; ++i)
+                    console.log("Number of edges in state " + i + ": " + states[i].edges.length);
 
-                renderer.setInput(nodes, edges, g_colors);
+                renderer.setInput(states, g_colors);
                 renderer.run();
             }
         </script>
