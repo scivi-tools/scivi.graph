@@ -41,11 +41,6 @@ namespace SciViCGraph
         return result;
     }
 
-    class GraphData
-    {
-        constructor(public nodes: Node[], public edges: Edge[]){}
-    };
-
     type Range = { min: number, max: number };
 
     export class Renderer
@@ -101,9 +96,9 @@ namespace SciViCGraph
             this.clearSelected();
         }
 
-        public setInput(nodes: Node[], edges: Edge[], colors: number[])
+        public setInput(states: GraphData[], colors: number[])
         {
-            this.m_data = [ new GraphData(nodes, edges) ];
+            this.m_data = states;
             this.m_colors = colors;
         }
 
@@ -662,7 +657,7 @@ namespace SciViCGraph
                         newEdges.push(edge);
                 });
 
-                newData.push(new GraphData(newNodes, newEdges));
+                newData.push(new GraphData(state.label, newNodes, newEdges));
             });
 
             if (this.m_dataStack == null)

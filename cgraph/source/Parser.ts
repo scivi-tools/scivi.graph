@@ -1,18 +1,31 @@
 namespace SciViCGraph
 {
+    export class GraphData
+    {
+        constructor(public label: string, public nodes: Node[], public edges: Edge[]){}
+    };
+
     export class IJsonFormat
     {
-        nodes: Node[];
-        edges: Edge[];
+        label: string;
+        nodes: any[];
+        edges: any[];
+    }
+
+    export class IJsonStatesFormat
+    {
+        states: IJsonFormat[];
     }
 
     export class Parser
     {
+        private m_label: string;
         private m_nodes: { [id: number]: Node };
         private m_edges: Edge[];
         
         constructor(jsonData: IJsonFormat)
         {
+            this.m_label = jsonData.label;
             this.m_nodes = [];
             this.m_edges = [];
 
@@ -39,19 +52,32 @@ namespace SciViCGraph
             });
         }
 
-        get nodes(): Node[]
+        get graphData(): GraphData
         {
-            let result: Node[] = [];
-            for (let key in this.m_nodes) {
-                result.push(this.m_nodes[key]);
-            }
+            let nodes = [];
+            for (let key in this.m_nodes)
+                nodes.push(this.m_nodes[key]);
 
-            return result;
+            return new GraphData(this.m_label, nodes, this.m_edges);
+        }
+    }
+
+    export class StatesParser
+    {
+        private m_states: GraphData[];
+
+        constructor(jsonData: IJsonStatesFormat)
+        {
+            this.m_states = [];
+            jsonData.states.forEach((state) => {
+                let parser = new Parser(state);
+                this.m_states.push(parser.graphData);
+            });
         }
 
-        get edges(): Edge[]
+        get graphDataStates(): GraphData[]
         {
-            return this.m_edges;
+            return this.m_states;
         }
     }
 }

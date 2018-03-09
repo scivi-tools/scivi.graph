@@ -44,8 +44,7 @@
                                                         $('#list')[0], $('#settings')[0], 
                                                         $('#stats')[0], loc);
 
-                var nodes = parser.nodes;
-                var edges = parser.edges;
+                var g = parser.graphData;
 
                 $("#lnk_info").text(loc["LOC_INFO"]);
                 $("#lnk_list").text(loc["LOC_NODES"]);
@@ -60,10 +59,10 @@
 
                 $("#tabs").tabs({heightStyle: "fill"});
 
-                console.log("Number of nodes: " + nodes.length);
-                console.log("Number of edges: " + edges.length);
+                console.log("Number of nodes: " + g.nodes.length);
+                console.log("Number of edges: " + g.edges.length);
 
-                nodes.sort((x1, x2) => {
+                g.nodes.sort((x1, x2) => {
                     if (x1.date < x2.date)
                         return -1;
                     else if (x1.date > x2.date)
@@ -72,7 +71,7 @@
                         return 0; 
                 });
 
-                Louvain.detectClusters({nodes: nodes, edges: edges});
+                Louvain.detectClusters({nodes: g.nodes, edges: g.edges});
 
                 var steps = [
                     new Date("09/01/2016"),
@@ -118,7 +117,7 @@
                 ];
                 var scale = new SciViCGraph.Scale(steps, colors, textColors, names, (node) => { return node.date; });
 
-                renderer.setInput(nodes, edges, g_colors);
+                renderer.setInput([g], g_colors);
                 renderer.scale = scale;
                 renderer.run();
             }
