@@ -84,6 +84,7 @@ namespace SciViCGraph
                     private m_list: HTMLElement,
                     private m_settings: HTMLElement,
                     private m_stats: HTMLElement,
+                    private m_stateline: HTMLElement,
                     private m_localizer: {})
         {
             this.m_scale = null;
@@ -447,6 +448,23 @@ namespace SciViCGraph
                     this.reinit(false);
                 }
             };
+
+            if (this.m_stateline)
+            {
+                this.m_stateline.innerHTML = "<div id='scivi_stateline_slider' class='scivi_stateline' style='width=100%'></div>";
+                $("#scivi_stateline_slider").slider({
+                    value: 0,
+                    min: 0,
+                    max: this.m_data.length - 1,
+                    step: 1
+                }).each(() => {
+                    let n = this.m_data.length - 1;
+                    for (let i = 0; i <= n; ++i) {
+                        let el = $("<label><span style='color: #c5c5c5;'>|</span><br/>" + this.m_data[i].label + "</label>").css("left", (i / n * 100) + "%");
+                        $("#scivi_stateline_slider").append(el);
+                    }
+                });
+            }
         }
 
         private calcMaxTextLength()

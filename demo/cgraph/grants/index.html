@@ -41,8 +41,9 @@
 
                 var parser = new SciViCGraph.StatesParser(g_data);
                 var renderer = new SciViCGraph.Renderer($('#view')[0], $('#info')[0],
-                                                        $('#list')[0], $('#settings')[0], 
-                                                        $('#stats')[0], loc);
+                                                        $('#list')[0], $('#settings')[0],
+                                                        $('#stats')[0], $('#stateline')[0],
+                                                        loc);
 
                 var states = parser.graphDataStates;
 
@@ -73,7 +74,8 @@
     <body onload="main();">
 
         <div id="a" class="split split-horizontal">
-            <div id="view"></div>
+            <div id="view" style="height: calc(100vh - 70px);"></div>
+            <div id="stateline"></div>
         </div>
         <div id="b" class="split split-horizontal">
             <div id="tabs">

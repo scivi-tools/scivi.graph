@@ -47,6 +47,13 @@ ul
     font: 12px Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
+#stateline
+{
+    padding: 20px;
+    font: 12px Helvetica Neue, Helvetica, Arial, sans-serif;
+    color: #333333;
+}
+
 .split 
 {
     -webkit-box-sizing: border-box;
@@ -97,4 +104,27 @@ ul
     border-radius: 5px;
     border: 1px solid #333333;
     padding: 3px;
+}
+
+.scivi_stateline label {
+    position: absolute;
+    width: 30px;
+    margin-left: -15px;
+    text-align: center;
+    margin-top: 8px;
+}
+
+.ui-slider .ui-slider-handle
+{
+    position: absolute;
+    z-index: 2;
+    width: 15px;
+    height: 15px;
+    cursor: default;
+}
+
+.ui-slider-horizontal .ui-slider-handle
+{
+    top: -4px;
+    margin-left: -8.5px;
 }
