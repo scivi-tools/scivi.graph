@@ -190,10 +190,10 @@ namespace SciViCGraph
 
                     case HighlightType.Selection: {
                         this.m_text.style.fontWeight = "bold";
-                        this.m_text.text = "[ " + this.label + " ]";
+                        this.m_text.text = "[-" + this.label + "-]";
                         if (this.m_listLabel) {
                             this.m_listLabel.style.fontWeight = "bold";
-                            this.m_listLabel.innerHTML = "[ " + this.label + " ]";
+                            this.m_listLabel.innerHTML = "[-" + this.label + "-]";
                         }
                         this.alpha = Node.m_selectedTextAlpha;
                         break;
@@ -340,7 +340,7 @@ namespace SciViCGraph
                 this.m_text.text = this.label;
                 w = this.m_text.width;
                 this.m_text.style.fontWeight = "bold";
-                this.m_text.text = "[ " + this.label + " ]";
+                this.m_text.text = "[-" + this.label + "-]";
             }
             return { width: w / 2.0 + Node.m_textPadding, height: this.m_text.height / 2.0 - 4.5 };
         }
