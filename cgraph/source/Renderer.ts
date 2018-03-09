@@ -453,10 +453,11 @@ namespace SciViCGraph
             {
                 this.m_stateline.innerHTML = "<div id='scivi_stateline_slider' class='scivi_stateline' style='width=100%'></div>";
                 $("#scivi_stateline_slider").slider({
-                    value: 0,
+                    value: this.m_currentState,
                     min: 0,
                     max: this.m_data.length - 1,
-                    step: 1
+                    step: 1,
+                    slide: (event, ui) => { this.changeCurrentState(ui.value); }
                 }).each(() => {
                     let n = this.m_data.length - 1;
                     for (let i = 0; i <= n; ++i) {
@@ -841,6 +842,12 @@ namespace SciViCGraph
         get localizer(): {}
         {
             return this.m_localizer;
+        }
+
+        private changeCurrentState(cs: number)
+        {
+            this.m_currentState = cs;
+            this.reinit(false);
         }
     }
 }
