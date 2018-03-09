@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>SciVi-CGraph</title>
+        
+        <script src="../lib/pixi.js"></script>
+        <script src="../lib/jquery.min.js"></script>
+        <script src="../lib/jquery-ui.min.js"></script>
+        <script src="../lib/split.min.js"></script>
+        <script src="../lib/louvain.min.js"></script>
+        <script src="../lib/chart.min.js"></script>
+
+        <link rel="stylesheet" href="../css/jquery-ui.css"/>
+        <link rel="stylesheet" href="../css/default.css"/>
+
+        <script src="data.js"></script>
+        <script src="../css/colors.js"></script>
+        <script src="../css/loc-ru.js"></script>
+        <script src="../css/loc-en.js"></script>
+        <script src="../lib/scivi-cgraph.min.js"></script>
+
+        <script>
+            function getParameterByName(name, url)
+            {
+                if (!url)
+                    url = window.location.href;
+                name = name.replace(/[\[\]]/g, "\\$&");
+                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
+                var results = regex.exec(url);
+                if (!results)
+                    return null;
+                if (!results[2])
+                    return '';
+                return decodeURIComponent(results[2].replace(/\+/g, " "));
+            }
+
+            function main()
+            {
+                var loc = getParameterByName("lang") === "ru" ? g_loc_ru : g_loc_en;
+
+                var parser = new SciViCGraph.Parser(g_data);
+                var renderer = new SciViCGraph.Renderer($('#view')[0], $('#info')[0],
+                                                        $('#list')[0], $('#settings')[0], 
+                                                        $('#stats')[0], loc);
+
+                var nodes = parser.nodes;
+                var edges = parser.edges;
+
+                $("#lnk_info").text(loc["LOC_INFO"]);
+                $("#lnk_list").text(loc["LOC_NODES"]);
+                $("#lnk_settings").text(loc["LOC_SETTINGS"]);
+                $("#lnk_stats").text(loc["LOC_GROUPS"]);
+
+                Split(['#a', '#b'], {
+                      gutterSize: 8,
+                      cursor: 'col-resize',
+                      onDrag: () => { renderer.reshape(); }
+                });
+
+                $("#tabs").tabs({heightStyle: "fill"});
+
+                console.log("Number of nodes: " + nodes.length);
+                console.log("Number of edges: " + edges.length);
+
+                renderer.setInput(nodes, edges, g_colors);
+                renderer.run();
+            }
+        </script>
+    </head>
+
+    <body onload="main();">
+
+        <div id="a" class="split split-horizontal">
+            <div id="view"></div>
+        </div>
+        <div id="b" class="split split-horizontal">
+            <div id="tabs">
+                <ul>
+                    <li><a id="lnk_info" href="#info"></a></li>
+                    <li><a id="lnk_list" href="#list"></a></li>
+                    <li><a id="lnk_settings" href="#settings"></a></li>
+                    <li><a id="lnk_stats" href="#stats"></a></li>
+                </ul>
+                <div id="info"></div>
+                <div id="list"></div>
+                <div id="settings"></div>
+                <div id="stats"></div>
+            </div>
+        </div>
+        
+    </body>
+</html>

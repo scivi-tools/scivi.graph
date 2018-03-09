@@ -53,8 +53,9 @@ namespace SciViCGraph
         private m_renderer: PIXI.SystemRenderer;
         private m_stage: Scene;
         private m_renderingCache: RenderingCache;
-        private m_data: GraphData;
-        private m_dataStack: GraphData[];
+        private m_currentState: number;
+        private m_data: GraphData[];
+        private m_dataStack: GraphData[][];
         private m_colors: number[];
         private m_edgeBatches: EdgeBatch[];
         private m_nodeWeight: Range;
@@ -96,12 +97,13 @@ namespace SciViCGraph
             this.m_dataStack = null;
             this.m_nodesFontSize = 24;
             this.m_ringScaleFontSize = 36;
+            this.m_currentState = 0;
             this.clearSelected();
         }
 
         public setInput(nodes: Node[], edges: Edge[], colors: number[])
         {
-            this.m_data = new GraphData(nodes, edges);
+            this.m_data = [ new GraphData(nodes, edges) ];
             this.m_colors = colors;
         }
 
@@ -127,18 +129,23 @@ namespace SciViCGraph
             this.init();
         }
 
+        private currentData(): GraphData
+        {
+            return this.m_data[this.m_currentState];
+        }
+
         private calcWeights()
         {
             this.m_nodeWeight = { min: undefined, max: undefined };
             this.m_edgeWeight = { min: undefined, max: undefined };
 
-            this.m_data.nodes.forEach((node) => {
+            this.currentData().nodes.forEach((node) => {
                 if (this.m_nodeWeight.min === undefined || this.m_nodeWeight.min > node.weight)
                     this.m_nodeWeight.min = node.weight;
                 if (this.m_nodeWeight.max === undefined || this.m_nodeWeight.max < node.weight)
                     this.m_nodeWeight.max = node.weight;
             });
-            this.m_data.edges.forEach((edge) => {
+            this.currentData().edges.forEach((edge) => {
                 if (this.m_edgeWeight.min === undefined || this.m_edgeWeight.min > edge.weight)
                     this.m_edgeWeight.min = edge.weight;
                 if (this.m_edgeWeight.max === undefined || this.m_edgeWeight.max < edge.weight)
@@ -160,8 +167,8 @@ namespace SciViCGraph
             this.createEdges();
             this.createCache();
 
-            this.m_nodesList.buildList(this.m_data.nodes, this);
-            this.m_statistics.buildChart(this.m_data.nodes, this.m_stage.colors);
+            this.m_nodesList.buildList(this.currentData().nodes, this);
+            this.m_statistics.buildChart(this.currentData().nodes, this.m_stage.colors);
         }
 
         private init()
@@ -194,16 +201,16 @@ namespace SciViCGraph
             this.calcWeights();
             this.createStage();
             
-            if (this.m_selectedNode != null && this.m_data.nodes.indexOf(this.m_selectedNode) == -1)
+            if (this.m_selectedNode != null && this.currentData().nodes.indexOf(this.m_selectedNode) == -1)
                 this.m_selectedNode = null;
 
-            this.m_data.nodes.forEach((node) => {
+            this.currentData().nodes.forEach((node) => {
                 node.fontSize = this.m_nodesFontSize;
             });
 
             this.createGraph();
 
-            this.m_data.nodes.forEach((node) => {
+            this.currentData().nodes.forEach((node) => {
                 node.invalidate();
             });
 
@@ -231,10 +238,10 @@ namespace SciViCGraph
                 let a = Math.atan2(y, x);
                 if (a < 0.0)
                     a += 2.0 * Math.PI;
-                let index = Math.round(a * this.m_data.nodes.length / (2.0 * Math.PI));
-                if (index < 0 || index >= this.m_data.nodes.length)
+                let index = Math.round(a * this.currentData().nodes.length / (2.0 * Math.PI));
+                if (index < 0 || index >= this.currentData().nodes.length)
                     index = 0;
-                return this.m_data.nodes[index];
+                return this.currentData().nodes[index];
             }
             return null;
         }
@@ -451,8 +458,8 @@ namespace SciViCGraph
         {
             this.m_maxTextLength = 0;
             let maxTextHeight = 0;
-            let ww = this.m_data.nodes.length < 40;
-            this.m_data.nodes.forEach((node) => {
+            let ww = this.currentData().nodes.length < 40;
+            this.currentData().nodes.forEach((node) => {
                 node.wordWrap = ww;
                 let s = node.labelSize();
                 if (s.width > this.m_maxTextLength)
@@ -465,13 +472,13 @@ namespace SciViCGraph
 
             this.m_maxTextLength += 20;
 
-            this.m_radius = (Math.max(this.m_data.nodes.length * maxTextHeight, 1500)) / (2.0 * Math.PI);
+            this.m_radius = (Math.max(this.currentData().nodes.length * maxTextHeight, 1500)) / (2.0 * Math.PI);
             this.m_totalRadius = this.m_radius + this.m_maxTextLength + (this.m_scale ? Renderer.m_ringScaleWidth : 0.0);
         }
 
         private createNodes()
         {
-            const angleStep = 2.0 * Math.PI / this.m_data.nodes.length;
+            const angleStep = 2.0 * Math.PI / this.currentData().nodes.length;
             const radius = Math.min(this.m_view.offsetWidth, this.m_view.offsetHeight) / 2.0;
 
             let s = radius / this.m_totalRadius;
@@ -479,7 +486,7 @@ namespace SciViCGraph
                 s = 1.0;
             this.m_stage.scale.set(s, s);
 
-            this.m_data.nodes.forEach((node: Node, i: number) => {
+            this.currentData().nodes.forEach((node: Node, i: number) => {
                 let x = this.m_radius * Math.cos(i * angleStep);
                 let y = this.m_radius * Math.sin(i * angleStep);
 
@@ -506,23 +513,23 @@ namespace SciViCGraph
 
         private createEdges()
         {
-            this.m_data.nodes.forEach((node) => {
+            this.currentData().nodes.forEach((node) => {
                 node.clearEdges();
             });
 
-            this.m_data.edges.forEach((edge) => {
+            this.currentData().edges.forEach((edge) => {
                 edge.source.addEdge(edge);
             });
 
             this.m_edgeBatches = [];
-            this.m_data.nodes.forEach((node) => {
+            this.currentData().nodes.forEach((node) => {
                 node.edgeBatches.forEach((batch) => {
                     this.m_stage.addChild(batch);
                     this.m_edgeBatches.push(batch);
                 });
             });
 
-            this.m_data.edges.forEach((edge) => {
+            this.currentData().edges.forEach((edge) => {
                 edge.highlight = HighlightType.None;
             });
         }
@@ -532,7 +539,7 @@ namespace SciViCGraph
             if (this.m_scale == null)
                 return;
 
-            const angleStep = 2.0 * Math.PI / this.m_data.nodes.length;
+            const angleStep = 2.0 * Math.PI / this.currentData().nodes.length;
             const radius = this.m_radius + this.m_maxTextLength + Renderer.m_ringScaleWidth / 2.0;
 
             let segment = { from: undefined, id: undefined, index: 0 };
@@ -540,7 +547,7 @@ namespace SciViCGraph
             this.m_ringScale = new RingScale(this.m_radius, radius, Renderer.m_ringScaleWidth, this.m_ringScaleFontSize, this.m_view);
             this.m_stage.addChild(this.m_ringScale);
 
-            this.m_data.nodes.forEach((node: Node, i: number) => {
+            this.currentData().nodes.forEach((node: Node, i: number) => {
                 let stepID = this.m_scale.getStepID(node);
                 if (stepID != segment.id) {
                     let a = (i - 0.5) * angleStep;
@@ -586,7 +593,7 @@ namespace SciViCGraph
                 this.m_hoveredNode.setHighlightForEdgesAndTargetNodes(HighlightType.Hover);
             }
 
-            this.m_data.nodes.forEach((node) => {
+            this.currentData().nodes.forEach((node) => {
                 if (node.visible) {
                     if (node != this.m_selectedNode && node != this.m_hoveredNode) {
                         node.setHighlightForEdges(HighlightType.None);
@@ -640,22 +647,28 @@ namespace SciViCGraph
 
         public quasiZoomIn(groupID: number)
         {
-            let newNodes = [];
-            this.m_data.nodes.forEach((node) => {
-                if (node.groupID == groupID)
-                    newNodes.push(node);
-            });
+            let newData = [];
 
-            let newEdges = [];
-            this.m_data.edges.forEach((edge) => {
-                if (edge.source.groupID == groupID  && edge.target.groupID == groupID)
-                    newEdges.push(edge);
+            this.m_data.forEach((state) => {
+                let newNodes = [];
+                state.nodes.forEach((node) => {
+                    if (node.groupID == groupID)
+                        newNodes.push(node);
+                });
+
+                let newEdges = [];
+                state.edges.forEach((edge) => {
+                    if (edge.source.groupID == groupID  && edge.target.groupID == groupID)
+                        newEdges.push(edge);
+                });
+
+                newData.push(new GraphData(newNodes, newEdges));
             });
 
             if (this.m_dataStack == null)
                 this.m_dataStack = [];
             this.m_dataStack.push(this.m_data);
-            this.m_data = new GraphData(newNodes, newEdges);
+            this.m_data = newData;
 
             this.reinit(true);
         }
@@ -691,7 +704,7 @@ namespace SciViCGraph
         private filterEdges(): boolean
         {
             let result = false;
-            this.m_data.edges.forEach((edge) => {
+            this.currentData().edges.forEach((edge) => {
                 let vis = edge.source.visible && edge.target.visible
                             && edge.weight >= this.m_edgeWeight.min
                             && edge.weight <= this.m_edgeWeight.max;
@@ -708,7 +721,7 @@ namespace SciViCGraph
         private filterNodes(): boolean
         {
             let result = false;
-            this.m_data.nodes.forEach((node) => {
+            this.currentData().nodes.forEach((node) => {
                 let vis = node.isShown &&
                           node.weight >= this.m_nodeWeight.min &&
                           node.weight <= this.m_nodeWeight.max;
@@ -743,7 +756,7 @@ namespace SciViCGraph
         {
             $("#scivi_node_alpha").text(value);
             Node.passiveTextAlpha = value;
-            this.m_data.nodes.forEach((node) => {
+            this.currentData().nodes.forEach((node) => {
                 node.invalidate();
             });
             this.render(true, true);
@@ -753,7 +766,7 @@ namespace SciViCGraph
         {
             $("#scivi_edge_alpha").text(value);
             Edge.passiveEdgeAlpha = value;
-            this.m_data.nodes.forEach((node) => {
+            this.currentData().nodes.forEach((node) => {
                 node.invalidate();
             });
             this.render(true, true);
@@ -796,7 +809,7 @@ namespace SciViCGraph
 
         public showAllNodes(show: boolean)
         {
-            this.m_data.nodes.forEach((node) => {
+            this.currentData().nodes.forEach((node) => {
                 node.isShown = show;
             });
             this.updateNodesVisibility();
