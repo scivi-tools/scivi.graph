@@ -167,10 +167,10 @@ namespace SciViCGraph
                 this.color = this.groupColor;
                 switch (this.m_highlight) {
                     case HighlightType.None: {
-                        this.m_text.style.fontWeight = "";
+                        this.m_text.style.fontWeight = "normal";
                         this.m_text.text = this.label;
                         if (this.m_listLabel) {
-                            this.m_listLabel.style.fontWeight = "";
+                            this.m_listLabel.style.fontWeight = "normal";
                             this.m_listLabel.innerHTML = this.label;
                         }
                         this.alpha = Node.passiveTextAlpha;
@@ -178,10 +178,10 @@ namespace SciViCGraph
                     }
 
                     case HighlightType.Hover: {
-                        this.m_text.style.fontWeight = "";
+                        this.m_text.style.fontWeight = "normal";
                         this.m_text.text = this.label;
                         if (this.m_listLabel) {
-                            this.m_listLabel.style.fontWeight = "";
+                            this.m_listLabel.style.fontWeight = "normal";
                             this.m_listLabel.innerHTML = this.label;
                         }
                         this.alpha = Node.m_hoveredTextAlpha;
@@ -230,7 +230,7 @@ namespace SciViCGraph
             if (this.m_cbInput)
                 this.m_cbInput.checked = shown; // Does not invoke onChange.
             if (!this.m_isShown) {
-                this.m_listLabel.style.fontWeight = "";
+                this.m_listLabel.style.fontWeight = "normal";
                 this.m_listLabel.innerHTML = this.label;
             }
         }
@@ -333,10 +333,10 @@ namespace SciViCGraph
         public labelSize(): { width: number, height: number }
         {
             let w = 0.0;
-            if (this.m_text.style.fontWeight == "")
+            if (this.m_text.style.fontWeight === "normal")
                 w = this.m_text.width;
             else {
-                this.m_text.style.fontWeight = "";
+                this.m_text.style.fontWeight = "normal";
                 this.m_text.text = this.label;
                 w = this.m_text.width;
                 this.m_text.style.fontWeight = "bold";
