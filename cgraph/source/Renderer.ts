@@ -197,8 +197,8 @@ namespace SciViCGraph
             this.calcWeights();
             this.createStage();
             
-            if (this.m_selectedNode != null && this.currentData().nodes.indexOf(this.m_selectedNode) == -1)
-                this.m_selectedNode = null;
+            if (this.m_selectedNode != null)
+                this.m_selectedNode = this.getNodeByID(this.m_selectedNode.id);
 
             this.currentData().nodes.forEach((node) => {
                 node.fontSize = this.m_nodesFontSize;
@@ -218,6 +218,16 @@ namespace SciViCGraph
             }
             if (this.m_selectedNode != null)
                 this.m_selectedNode.postInfo();
+        }
+
+        private getNodeByID(id: number): Node
+        {
+            let nodes = this.currentData().nodes;
+            for (let i = 0, n = nodes.length; i < n; ++i) {
+                if (nodes[i].id == id)
+                    return nodes[i];
+            }
+            return null;
         }
 
         private getNodeByPosition(x: number, y: number, s: number, isInRing?: boolean[]): Node
