@@ -91,7 +91,7 @@ function toggleLabelEvent(event, show, labels) {
     labels[event.id].hidden = !show;
 }
 
-function main(container, control, data, colors) {
+export function main(container, control, data, colors) {
 
     var prevMaxWeight = 0;
     var prevMaxEventWeight = 0;
@@ -408,5 +408,3 @@ function main(container, control, data, colors) {
         layoutPaused = !layoutPaused;
     }
 }
-
-window["main"] = main;

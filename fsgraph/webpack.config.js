@@ -6,11 +6,9 @@ module.exports = {
     entry: "./tmp/main.js",
     output: {
       path: __dirname + "/dist",
-      filename: "bundle.js"
+      filename: "bundle.js",
+      library: 'SciViFSGraph'
     },
-    // node: {
-    //     vivagraphjs: true
-    // },
     resolve: {
         extensions: [ '.js' ]
     }
