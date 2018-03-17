@@ -195,10 +195,7 @@ export function main(container, control, data, colors) {
             lastNodeClicked = null;
         }
 
-        // HACK: если рендер приостановлен, надо руками перерисовать
-        if (layoutPaused) {
-            renderer.rerender();
-        }
+        renderer.rerender();
     }
 
     // Функция у нас будет отвечать за запил контролов
@@ -282,6 +279,8 @@ export function main(container, control, data, colors) {
                 allColorsValues[here.dataset.id].value = hex2rgba(cpicker.value, alphaComponent);
 
                 updateOpacityLabel(alphaComponent);
+
+                renderer.rerender();
             }
 
             // Обрабатываем таким образом выбор цвета в элементе color...
