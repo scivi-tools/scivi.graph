@@ -80,10 +80,6 @@ export default {
       webglSquare: require('vivagraphjs/src/WebGL/webglSquare.js'),
       webglImage: require('vivagraphjs/src/WebGL/webglImage.js'),
       webglGraphics: require('vivagraphjs/src/View/webglGraphics.js'),
-      // TODO: Deprecate this:
-      _webglUtil: {
-        parseColor: require('vivagraphjs/src/WebGL/parseColor.js')
-      },
   
       // TODO: move to svg namespace
       svgGraphics: require('vivagraphjs/src/View/svgGraphics.js'),

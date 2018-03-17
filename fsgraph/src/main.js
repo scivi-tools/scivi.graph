@@ -2,6 +2,7 @@
 
 import Viva from './viva-proxy';
 import newLinkProgram from './newLinkProgram';
+import ColorConverter from './ColorConverter.js';
 
 function generateDOMLabels(graph, container) 
 {
@@ -258,8 +259,8 @@ export function main(container, control, data, colors) {
             cpicker.type = 'color';
 
             // для отладочки пока что посмотрим на результаты конвертации
-            var hexRgb = num2hexcolor2(allColorsValues[index].value);
-            var alphaComponent = rgba2a(allColorsValues[index].value);
+            var hexRgb = ColorConverter.rgbaToHex(allColorsValues[index].value);
+            var alphaComponent = ColorConverter.rgba2a(allColorsValues[index].value);
             // Тупо присваиваем rgb часть цвета элементу управления
             cpicker.value = hexRgb;
 
@@ -276,7 +277,7 @@ export function main(container, control, data, colors) {
             var onColorChange = () => {
                 var here = cpicker;
 
-                allColorsValues[here.dataset.id].value = hex2rgba(cpicker.value, alphaComponent);
+                allColorsValues[here.dataset.id].value = ColorConverter.hexToRgba(cpicker.value, alphaComponent);
 
                 updateOpacityLabel(alphaComponent);
 
@@ -315,22 +316,6 @@ export function main(container, control, data, colors) {
         });
 
         control.appendChild(listColors);
-
-        // Expected format: rgba
-        function num2hexcolor2(color) {
-            return '#' + ((color >> 8) & 0xFFFFFF).toString(16).substr(-6).toUpperCase();
-        }
-
-        function hex2rgba(hexrgb, alpha) {
-            var sliced = hexrgb.slice(1);
-            var hexnum = parseInt(sliced, 16);
-
-            return ((hexnum << 8) | (alpha & 0xFF)) & 0xFFFFFFFF;
-        }
-
-        function rgba2a(color) {
-            return color & 0xFF;
-        }
     }
     
     // А эта - обработчик изменения фильтра
