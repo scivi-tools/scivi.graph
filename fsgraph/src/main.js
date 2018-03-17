@@ -344,6 +344,25 @@ export function main(container, control, data, colors) {
     }
 
     function eventTresholdChanged(unused) {
+        // Сейчас будет очень плохо
+        // ... если я чего-то понимаю в оценке сложности,
+        // то здесь мы имеем О(число событий * число связных слов)
+        // Конечно, это прикидка
+        let uselessWords = new Uint16Array(50);
+        let uselessWordsCount = 0;
+        let eliminateUselessWords = (maxDegree = 0) => {
+            let result = false;
+            for (let i = 0; i < uselessWordsCount; i++) {
+                // TODO: на этом моменте эпизодически возникает ситуация, когда
+                // связь ВНЕЗАПНО никуда не исчезла ни из графа, ни из целевой вершины-слова,
+                // однако события-то уже нет!
+                result = graphContainer.itself.getNode(uselessWords[i]).links.length > maxDegree;
+                if (!result) {
+                    result = graphContainer.itself.removeNode(uselessWords[i]);
+                }
+            }
+            uselessWordsCount = 0;
+        };
         data.nodes.forEach((event) => {
             // Первым делом берём полученное значение и выбрасываем все слова, чей вес меньше указанного
             if ((event.count >= prevMaxEventWeight) && (event.count < unused)) {
@@ -353,6 +372,15 @@ export function main(container, control, data, colors) {
                     lastNodeClicked = null;
                 }
                 toggleLabelEvent(event, false, domLabels);
+                // Грохаем все связные узлы
+                eliminateUselessWords();
+                graphContainer.itself.forEachLinkedNode(event.id, (node, link) => {
+                    uselessWords[uselessWordsCount] = node.id;
+                    uselessWordsCount++;
+                    if (uselessWordsCount >= uselessWords.length) {
+                        eliminateUselessWords(1);
+                    }
+                }, true);
                 graphContainer.itself.removeNode(event.id);
             // А вот теперь можно и в обратную сторону
             } else if ((event.count < prevMaxEventWeight) && (event.count >= unused)) {
@@ -362,14 +390,19 @@ export function main(container, control, data, colors) {
                 // Восстанавливаем все (все!) входящие сюды связи
                 data.edges.forEach((edge) => {
                     if (edge.source == event.id) {
+                        if (!graphContainer.itself.getNode(edge.target))
+                            graphContainer.createNode(data.words.find((el, ind, arr) => el.id == edge.target), colors);
                         graphContainer.createEdge(edge, colors);
                     }
                 });
             }
         });
 
+        eliminateUselessWords();
+
         prevMaxEventWeight = unused;
         updateWorWeightLabel();
+
     }
 
     function updateWorWeightLabel() {
