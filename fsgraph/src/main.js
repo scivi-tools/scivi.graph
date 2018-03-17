@@ -178,6 +178,7 @@ export function main(container, control, data, colors) {
         }
     });
 
+    window.addEventListener('resize', () => graphics.updateSize());
 
     renderer.run(0);
 
