@@ -327,13 +327,25 @@ export function main(container, control, data, colors) {
                 graphContainer.itself.removeNode(word.id);
             // А вот теперь можно и в обратную сторону
             } else if ((word.weight < prevMaxWeight) && (word.weight >= unused)) {
-                // TODO: дублирование с процедурой создания графа
-                graphContainer.createNode(word, colors);
-                domLabels[word.id].hidden = !word.showLabel;
-                // Восстанавливаем все (все!) входящие сюды связи
+                let wordNodeCreated = false;
+                // Восстанавливаем все (все!) входящие сюда связи
                 data.edges.forEach((edge) => {
                     if (edge.target == word.id) {
-                        graphContainer.createEdge(edge, colors);
+                        // Почекаем, есть ли связное событие вообще
+                        if (graphContainer.itself.getNode(edge.source)) {
+                            // отлично, тогда-то и можно создать вершину-слово!
+                            // Если ещё нет, конечно
+                            if (!wordNodeCreated) {
+                                // TODO: дублирование с процедурой создания графа
+                                graphContainer.createNode(word, colors);
+                                // TODO: абсолютно лишний мусор, рефактор по этому плачет!
+                                domLabels[word.id].hidden = !word.showLabel;
+                                wordNodeCreated = true;
+                            }
+                            // теперь-то можно спокойно восстанавливать связь, не боясь наткнутся
+                            // на остутствие связанного события
+                            graphContainer.createEdge(edge, colors);
+                        }
                     }
                 });
             }
@@ -341,6 +353,8 @@ export function main(container, control, data, colors) {
 
         prevMaxWeight = unused;
         updateWorWeightLabel();
+
+        renderer.rerender();
     }
 
     function eventTresholdChanged(unused) {
@@ -387,12 +401,17 @@ export function main(container, control, data, colors) {
                 // TODO: дублирование с процедурой создания графа
                 graphContainer.createNode2(event, colors);
                 toggleLabelEvent(event, true, domLabels);
-                // Восстанавливаем все (все!) входящие сюды связи
+                // Восстанавливаем все (все!) выходящие отсюда связи
                 data.edges.forEach((edge) => {
                     if (edge.source == event.id) {
-                        if (!graphContainer.itself.getNode(edge.target))
-                            graphContainer.createNode(data.words.find((el, ind, arr) => el.id == edge.target), colors);
-                        graphContainer.createEdge(edge, colors);
+                        // TODO: обобщить проверку условий фильтрации слов!
+                        // HACK: нечестным образом упростил вычисления индекса слова из
+                        // "сплошного" индекса вершины, надо бы учесть в будущем
+                        if (data.words[edge.target - data.nodes.length].weight >= prevMaxWeight) {
+                            if (!graphContainer.itself.getNode(edge.target))
+                                graphContainer.createNode(data.words[edge.target - data.nodes.length], colors);
+                            graphContainer.createEdge(edge, colors);
+                        }
                     }
                 });
             }
@@ -403,6 +422,7 @@ export function main(container, control, data, colors) {
         prevMaxEventWeight = unused;
         updateWorWeightLabel();
 
+        renderer.rerender();
     }
 
     function updateWorWeightLabel() {
