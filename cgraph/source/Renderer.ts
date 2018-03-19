@@ -74,6 +74,8 @@ namespace SciViCGraph
         private m_zoomTimerID: any;
         private m_nodesFontSize: number;
         private m_ringScaleFontSize: number;
+        private m_draggedNodeIndex: number;
+        private m_nodePlaceHolder: NodePlaceHolder;
 
         static readonly m_ringScaleWidth = 30;
         static readonly m_minFontSize = 5;
@@ -94,6 +96,8 @@ namespace SciViCGraph
             this.m_nodesFontSize = 24;
             this.m_ringScaleFontSize = 36;
             this.m_currentState = 0;
+            this.m_draggedNodeIndex = -1;
+            this.m_nodePlaceHolder = null;
             this.clearSelected();
         }
 
@@ -204,6 +208,8 @@ namespace SciViCGraph
                 node.fontSize = this.m_nodesFontSize;
             });
 
+            this.m_nodePlaceHolder = null;
+
             this.createGraph();
 
             this.currentData().nodes.forEach((node) => {
@@ -230,7 +236,18 @@ namespace SciViCGraph
             return null;
         }
 
-        private getNodeByPosition(x: number, y: number, s: number, isInRing?: boolean[]): Node
+        private getAngularIndex(x: number, y: number): number
+        {
+            let a = Math.atan2(y, x);
+            if (a < 0.0)
+                a += 2.0 * Math.PI;
+            let index = Math.round(a * this.currentData().nodes.length / (2.0 * Math.PI));
+            if (index < 0 || index >= this.currentData().nodes.length)
+                index = 0;
+            return index;
+        }
+
+        private getNodeIndexByPosition(x: number, y: number, s: number, isInRing?: boolean[]): number
         {
             let d = x * x + y * y;
             let r = this.m_radius;
@@ -241,15 +258,15 @@ namespace SciViCGraph
             if (isInRing)
                 isInRing[0] = d < inRing;
             if (d > inRing && d < outRing) {
-                let a = Math.atan2(y, x);
-                if (a < 0.0)
-                    a += 2.0 * Math.PI;
-                let index = Math.round(a * this.currentData().nodes.length / (2.0 * Math.PI));
-                if (index < 0 || index >= this.currentData().nodes.length)
-                    index = 0;
-                return this.currentData().nodes[index];
+                return this.getAngularIndex(x, y);
             }
-            return null;
+            return -1;
+        }
+
+        private getNodeByPosition(x: number, y: number, s: number, isInRing?: boolean[]): Node
+        {
+            const index = this.getNodeIndexByPosition(x, y, s, isInRing);
+            return index >= 0 ? this.currentData().nodes[index] : null;
         }
 
         private clearSelected()
@@ -310,35 +327,12 @@ namespace SciViCGraph
             let onMouseMove = (e) => {
                 e = e || window.event;
                 if (this.m_mousePressed) {
-                    let dx = e.clientX - this.m_panPrevX;
-                    let dy = e.clientY - this.m_panPrevY;
-                    let r = this.m_radius / 2.0;
-                    this.m_panPrevX = e.clientX;
-                    this.m_panPrevY = e.clientY;
-                    this.m_renderingCache.x += dx;
-                    this.m_renderingCache.y += dy;
-                    if (this.m_renderingCache.x < -r)
-                        this.m_renderingCache.x = -r;
-                    else if (this.m_renderingCache.x > this.m_view.offsetWidth + r)
-                        this.m_renderingCache.x = this.m_view.offsetWidth + r;
-                    if (this.m_renderingCache.y < -r)
-                        this.m_renderingCache.y = -r;
-                    else if (this.m_renderingCache.y > this.m_view.offsetHeight + r)
-                        this.m_renderingCache.y = this.m_view.offsetHeight + r;
-                    this.render(true, false);
-                    this.m_panning = true;
+                    if (this.m_draggedNodeIndex === -1)
+                        this.panGraph(e.clientX, e.clientY);
+                    else
+                        this.dragNode(e.clientX, e.clientY);
                 } else {
-                    let x = e.clientX - this.m_renderingCache.x;
-                    let y = e.clientY - this.m_renderingCache.y;
-                    let s = this.m_renderingCache.currentScale();
-                    this.m_hoveredNode = this.getNodeByPosition(x, y, s);
-                    let f1 = false
-                    if (this.m_selectedNode)
-                        f1 = this.m_selectedNode.handleCursorMove(x, y, s, e.clientX, e.clientY);
-                    let f2 = false;
-                    if (this.m_ringScale)
-                        f2 = this.m_ringScale.handleCursorMove(x, y, s, e.clientX, e.clientY);
-                    this.render(f1 || f2, true);
+                    this.hoverGraph(e.clientX, e.clientY);
                 }
             };
 
@@ -347,6 +341,10 @@ namespace SciViCGraph
                 let f = false;
                 if (this.m_ringScale)
                     f = this.m_ringScale.dropHighlight();
+                if (this.m_draggedNodeIndex !== -1) {
+                    this.stopDragNode();
+                    f = true;
+                }
                 this.m_mousePressed = false;
                 this.m_panning = false;
                 this.render(f, true);
@@ -355,22 +353,27 @@ namespace SciViCGraph
             let onMouseDown = (e) => {
                 e = e || window.event;
                 this.m_mousePressed = true;
-                this.m_panPrevX = e.clientX;
-                this.m_panPrevY = e.clientY;
+                if (!this.startDragNode(e.clientX, e.clientY)) {
+                    // If not drag, then pan.
+                    this.m_panPrevX = e.clientX;
+                    this.m_panPrevY = e.clientY;
+                }
             };
 
             let onMouseUp = (e) => {
                 this.m_mousePressed = false;
                 if (!this.m_panning) {
                     e = e || window.event;
-                    this.m_clickCaught = true;
-                    let isInRing = [ false ];
-                    let node = this.getNodeByPosition(e.clientX - this.m_renderingCache.x, 
-                                                      e.clientY - this.m_renderingCache.y,
-                                                      this.m_renderingCache.currentScale(),
-                                                      isInRing);
-                    if (!isInRing[0])
-                        this.selectNode(node);
+                    if (!this.dropNode(e.clientX, e.clientY)) {
+                        this.m_clickCaught = true;
+                        let isInRing = [ false ];
+                        let node = this.getNodeByPosition(e.clientX - this.m_renderingCache.x, 
+                                                          e.clientY - this.m_renderingCache.y,
+                                                          this.m_renderingCache.currentScale(),
+                                                          isInRing);
+                        if (!isInRing[0])
+                            this.selectNode(node);
+                    }
                 }
                 this.m_panning = false;
             };
@@ -858,6 +861,107 @@ namespace SciViCGraph
         {
             this.m_currentState = cs;
             this.reinit(false);
+        }
+
+        private panGraph(x: number, y: number)
+        {
+            let dx = x - this.m_panPrevX;
+            let dy = y - this.m_panPrevY;
+            let r = this.m_radius / 2.0;
+            this.m_panPrevX = x;
+            this.m_panPrevY = y;
+            this.m_renderingCache.x += dx;
+            this.m_renderingCache.y += dy;
+            if (this.m_renderingCache.x < -r)
+                this.m_renderingCache.x = -r;
+            else if (this.m_renderingCache.x > this.m_view.offsetWidth + r)
+                this.m_renderingCache.x = this.m_view.offsetWidth + r;
+            if (this.m_renderingCache.y < -r)
+                this.m_renderingCache.y = -r;
+            else if (this.m_renderingCache.y > this.m_view.offsetHeight + r)
+                this.m_renderingCache.y = this.m_view.offsetHeight + r;
+            this.render(true, false);
+            this.m_panning = true;
+        }
+
+        private hoverGraph(x: number, y: number)
+        {
+            let lx = x - this.m_renderingCache.x;
+            let ly = y - this.m_renderingCache.y;
+            let s = this.m_renderingCache.currentScale();
+            this.m_hoveredNode = this.getNodeByPosition(lx, ly, s);
+            let f1 = false
+            if (this.m_selectedNode)
+                f1 = this.m_selectedNode.handleCursorMove(lx, ly, s, x, y);
+            let f2 = false;
+            if (this.m_ringScale)
+                f2 = this.m_ringScale.handleCursorMove(lx, ly, s, x, y);
+            this.render(f1 || f2, true);
+        }
+
+        private startDragNode(x: number, y: number): boolean
+        {
+            const lx = x - this.m_renderingCache.x;
+            const ly = y - this.m_renderingCache.y;
+            const s = this.m_renderingCache.currentScale();
+            this.m_draggedNodeIndex = this.getNodeIndexByPosition(lx, ly, s);
+            return this.m_draggedNodeIndex !== -1;
+        }
+
+        private dragNode(x: number, y: number)
+        {
+            const offset = 20;
+            if (this.m_nodePlaceHolder && this.m_nodePlaceHolder.visible) {
+                $(".scivi_graph_tooltip").css({ top: y, left: x + offset, position: "absolute" });
+            } else {
+                let draggingNode = this.currentData().nodes[this.m_draggedNodeIndex];
+                $(".scivi_graph_tooltip").html(draggingNode.label);
+                $(".scivi_graph_tooltip").css({ top: y, left: x + offset });
+                $(".scivi_graph_tooltip").stop(true);
+                $(".scivi_graph_tooltip").fadeIn(100);
+                if (!this.m_nodePlaceHolder) {
+                    this.m_nodePlaceHolder = new NodePlaceHolder(this.m_radius, this.m_radius + this.m_maxTextLength);
+                    this.m_stage.addChild(this.m_nodePlaceHolder);
+                }
+                this.m_nodePlaceHolder.visible = true;
+            }
+            const lx = x - this.m_renderingCache.x;
+            const ly = y - this.m_renderingCache.y;
+            const idx = this.getAngularIndex(lx, ly);
+            const a = (idx - 0.5) * (2.0 * Math.PI / this.currentData().nodes.length);
+            if (this.m_nodePlaceHolder.rotation !== a) {
+                this.m_nodePlaceHolder.rotation = a;
+                this.render(true, true);
+            }
+        }
+
+        private dropNode(x: number, y: number): boolean
+        {
+            let result = false;
+            if (this.m_draggedNodeIndex !== -1 && this.m_nodePlaceHolder && this.m_nodePlaceHolder.visible) {
+                const lx = x - this.m_renderingCache.x;
+                const ly = y - this.m_renderingCache.y;
+                const idx = this.getAngularIndex(lx, ly);
+                const dNode = this.currentData().nodes[this.m_draggedNodeIndex];
+                this.currentData().nodes.splice(this.m_draggedNodeIndex, 1);
+                this.currentData().nodes.splice(idx, 0, dNode);
+                result = true;
+            }
+            this.stopDragNode();
+            if (result)
+                this.reinit(false);
+            else
+                this.render(true, true);
+            return result;
+        }
+
+        private stopDragNode()
+        {
+            if (this.m_nodePlaceHolder)
+                this.m_nodePlaceHolder.visible = false;
+            $(".scivi_graph_tooltip").stop(true);
+            $(".scivi_graph_tooltip").fadeOut(100);
+            this.m_draggedNodeIndex = -1;
         }
     }
 }
