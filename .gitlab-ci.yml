@@ -3,6 +3,7 @@ variables:
 
 stages:
   - build_cgraph
+  - build_fsgraph
   - build
   - deploy
 
@@ -21,6 +22,28 @@ build_cgraph:
     - pushd cgraph
     - NODE_ENV=production ./node_modules/typescript/bin/tsc
     - NODE_ENV=production ./node_modules/uglify-js/bin/uglifyjs ./build/scivi-cgraph.js -o ../demo/cgraph/lib/scivi-cgraph.min.js
+    - popd
+  artifacts:
+    paths:
+      - demo
+    expire_in: 1 day
+
+build_fsgraph:
+  image: node:6
+  stage: build_fsgraph
+  cache:
+    key: "npm"
+    paths:
+      - node_modules
+  before_script:
+    - pushd fsgraph
+    - npm install
+    - popd
+  script:
+    - pushd fsgraph
+    - NODE_ENV=production ./node_modules/typescript/bin/tsc -p jsconfig.json
+    - NODE_ENV=production ./node_modules/webpack/bin/webpack.js
+    - cp dist/bundle.js ../demo/fsgraph/lib/scivi-fsgraph.min.js
     - popd
   artifacts:
     paths:

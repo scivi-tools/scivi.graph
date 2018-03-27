@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "rootDir": "src",
+        "outDir": "tmp",
+        "module": "es6",
+        "target": "es5",
+        "checkJs": false,
+        "moduleResolution": "node"
+    },
+    "include": [
+        "./src/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "**/node_modules/*",
+        "tmp"
+    ],
+    "typeAcquisition": {
+        "include": [
+            "jquery",
+            "require"
+        ]
+    }
+}

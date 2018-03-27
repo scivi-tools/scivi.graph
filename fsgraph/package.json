@@ -1,0 +1,20 @@
+{
+  "name": "SciVi-FSGraph",
+  "version": "0.0.1",
+  "description": "Simple graph visualization module of SciVi",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "debug": "tsc -p jsconfig.json && webpack && cp dist/bundle.js ../demo/fsgraph/lib/scivi-fsgraph.min.js",
+    "release": "tsc -p jsconfig.json && webpack && cp dist/bundle.js ../demo/fsgraph/lib/scivi-fsgraph.min.js"
+  },
+  "author": "",
+  "license": "",
+  "dependencies": {
+    "vivagraphjs": "0.10.0"
+  },
+  "devDependencies": {
+    "typescript": "^2.7.2",
+    "webpack": "^4.0.0",
+    "webpack-cli": "^2.0.9"
+  }
+}
