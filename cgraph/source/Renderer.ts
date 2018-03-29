@@ -76,6 +76,7 @@ namespace SciViCGraph
         private m_ringScaleFontSize: number;
         private m_draggedNodeIndex: number;
         private m_nodePlaceHolder: NodePlaceHolder;
+        private m_nodeBorder: NodeBorder;
 
         static readonly m_ringScaleWidth = 30;
         static readonly m_minFontSize = 5;
@@ -98,6 +99,7 @@ namespace SciViCGraph
             this.m_currentState = 0;
             this.m_draggedNodeIndex = -1;
             this.m_nodePlaceHolder = null;
+            this.m_nodeBorder = null;
             this.clearSelected();
         }
 
@@ -209,6 +211,7 @@ namespace SciViCGraph
             });
 
             this.m_nodePlaceHolder = null;
+            this.m_nodeBorder = null;
 
             this.createGraph();
 
@@ -905,6 +908,14 @@ namespace SciViCGraph
             const ly = y - this.m_renderingCache.y;
             const s = this.m_renderingCache.currentScale();
             this.m_draggedNodeIndex = this.getNodeIndexByPosition(lx, ly, s);
+            if (this.m_draggedNodeIndex >= 0) {
+                if (this.m_nodeBorder === null) {
+                    this.m_nodeBorder = new NodeBorder();
+                    this.m_stage.addChild(this.m_nodeBorder);
+                }
+                this.m_nodeBorder.showForNode(this.currentData().nodes[this.m_draggedNodeIndex]);
+                this.render(true, true);
+            }
             return this.m_draggedNodeIndex !== -1;
         }
 
@@ -962,6 +973,8 @@ namespace SciViCGraph
             $(".scivi_graph_tooltip").stop(true);
             $(".scivi_graph_tooltip").fadeOut(100);
             this.m_draggedNodeIndex = -1;
+            if (this.m_nodeBorder !== null)
+                this.m_nodeBorder.showForNode(null);
         }
     }
 }
