@@ -435,6 +435,7 @@ namespace SciViCGraph
                         $(".scivi_graph_tooltip").css({top: gy, left: gx + offset});
                         $(".scivi_graph_tooltip").stop(true);
                         $(".scivi_graph_tooltip").fadeIn(100);
+                        $(".scivi_graph_tooltip")[0]["host"] = this;
                     }
                     return true;
                 }
@@ -444,8 +445,10 @@ namespace SciViCGraph
                 if (this.m_hoveredEdge) {
                     this.m_hoveredEdge.isGlowing = false;
                     this.m_hoveredEdge = null;
-                    $(".scivi_graph_tooltip").stop(true);
-                    $(".scivi_graph_tooltip").fadeOut(100);
+                    if ($(".scivi_graph_tooltip")[0]["host"] === this) {
+                        $(".scivi_graph_tooltip").stop(true);
+                        $(".scivi_graph_tooltip").fadeOut(100);
+                    }
                     return true;
                 }
             }

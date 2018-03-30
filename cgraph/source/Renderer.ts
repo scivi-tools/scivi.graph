@@ -101,6 +101,12 @@ namespace SciViCGraph
             this.m_nodePlaceHolder = null;
             this.m_nodeBorder = null;
             this.m_renderingCache = null;
+
+            let tooltip = document.createElement("div");
+            tooltip.className = "scivi_graph_tooltip";
+            m_view.parentElement.parentElement.appendChild(tooltip)
+            $(".scivi_graph_tooltip").hide(0);
+
             this.clearSelected();
         }
 
@@ -947,6 +953,7 @@ namespace SciViCGraph
                 $(".scivi_graph_tooltip").css({ top: y, left: x + offset });
                 $(".scivi_graph_tooltip").stop(true);
                 $(".scivi_graph_tooltip").fadeIn(100);
+                $(".scivi_graph_tooltip")[0]["host"] = this;
                 if (!this.m_nodePlaceHolder) {
                     this.m_nodePlaceHolder = new NodePlaceHolder(this.m_radius, this.m_radius + this.m_maxTextLength);
                     this.m_stage.addChild(this.m_nodePlaceHolder);
@@ -987,8 +994,10 @@ namespace SciViCGraph
         {
             if (this.m_nodePlaceHolder)
                 this.m_nodePlaceHolder.visible = false;
-            $(".scivi_graph_tooltip").stop(true);
-            $(".scivi_graph_tooltip").fadeOut(100);
+            if ($(".scivi_graph_tooltip")[0]["host"] === this) {
+                $(".scivi_graph_tooltip").stop(true);
+                $(".scivi_graph_tooltip").fadeOut(100);
+            }
             this.m_draggedNodeIndex = -1;
             if (this.m_nodeBorder !== null)
                 this.m_nodeBorder.showForNode(null);

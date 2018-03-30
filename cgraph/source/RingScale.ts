@@ -14,11 +14,6 @@ namespace SciViCGraph
             this.m_highlights = [];
             this.m_highlightedSegment = -1;
             this.m_names = [];
-
-            let tooltip = document.createElement("div");
-            tooltip.className = "scivi_graph_tooltip";
-            m_container.parentElement.parentElement.appendChild(tooltip)
-            $(".scivi_graph_tooltip").hide(0);
         }
 
         public addSegment(from: number, to: number, color: number, textColor: number, name: string)
@@ -86,6 +81,7 @@ namespace SciViCGraph
                             $(".scivi_graph_tooltip").css({top: gy, left: gx + offset});
                             $(".scivi_graph_tooltip").stop(true);
                             $(".scivi_graph_tooltip").fadeIn(100);
+                            $(".scivi_graph_tooltip")[0]["host"] = this;
                             return true;
                         }
                         $(".scivi_graph_tooltip").css({top: gy, left: gx + offset, position: "absolute"});
@@ -103,8 +99,10 @@ namespace SciViCGraph
             if (this.m_highlightedSegment != -1) {
                 this.m_highlights[this.m_highlightedSegment].visible = false;
                 this.m_highlightedSegment = -1;
-                $(".scivi_graph_tooltip").stop(true);
-                $(".scivi_graph_tooltip").fadeOut(100);
+                if ($(".scivi_graph_tooltip")[0]["host"] === this) {
+                    $(".scivi_graph_tooltip").stop(true);
+                    $(".scivi_graph_tooltip").fadeOut(100);
+                }
                 return true;
             }
             return false;
