@@ -36,11 +36,7 @@ namespace SciViCGraph
         private processNodes(nodes: any[])
         {
             nodes.forEach((node) => {
-                let g = node.group !== undefined ? node.group : 0;
-                let w = node.weight !== undefined ? node.weight : 0;
-                let n = node.nmb !== undefined ? node.nmb : 0;
-                let d = node.date !== undefined ? new Date(node.date) : null;
-                this.m_nodes[node.id] = new Node(node.id, node.label, g, w, n, d);
+                this.m_nodes[node.id] = new Node(node);
             });
         }
 
