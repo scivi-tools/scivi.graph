@@ -100,6 +100,7 @@ namespace SciViCGraph
             this.m_draggedNodeIndex = -1;
             this.m_nodePlaceHolder = null;
             this.m_nodeBorder = null;
+            this.m_renderingCache = null;
             this.clearSelected();
         }
 
