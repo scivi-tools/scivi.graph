@@ -67,8 +67,8 @@ namespace SciViCGraph
         private m_panPrevX: number;
         private m_panPrevY: number;
         private m_maxTextLength: number;
-        private m_scale: Scale;
-        private m_ringScale: RingScale;
+        private m_scaleLevels: Scale[];
+        private m_ringScales: RingScale[];
         private m_statistics: Stats;
         private m_nodesList: List;
         private m_zoomTimerID: any;
@@ -90,8 +90,8 @@ namespace SciViCGraph
                     private m_stateline: HTMLElement,
                     private m_localizer: {})
         {
-            this.m_scale = null;
-            this.m_ringScale = null;
+            this.m_scaleLevels = null;
+            this.m_ringScales = null;
             this.m_zoomTimerID = null;
             this.m_dataStack = null;
             this.m_nodesFontSize = 24;
@@ -343,8 +343,12 @@ namespace SciViCGraph
             let onMouseOut = () => {
                 this.m_hoveredNode = null;
                 let f = false;
-                if (this.m_ringScale)
-                    f = this.m_ringScale.dropHighlight();
+                if (this.m_ringScales) {
+                    this.m_ringScales.forEach((rs) => {
+                        const rsf = rs.dropHighlight();
+                        f = f || rsf;
+                    });
+                }
                 if (this.m_draggedNodeIndex !== -1) {
                     this.stopDragNode();
                     f = true;
@@ -504,7 +508,8 @@ namespace SciViCGraph
             this.m_maxTextLength += 20;
 
             this.m_radius = (Math.max(this.currentData().nodes.length * maxTextHeight, 1500)) / (2.0 * Math.PI);
-            this.m_totalRadius = this.m_radius + this.m_maxTextLength + (this.m_scale ? Renderer.m_ringScaleWidth : 0.0);
+            let rsWidth = this.m_scaleLevels ? Renderer.m_ringScaleWidth * this.m_scaleLevels.length : 0.0;
+            this.m_totalRadius = this.m_radius + this.m_maxTextLength + rsWidth;
         }
 
         private createNodes()
@@ -567,38 +572,45 @@ namespace SciViCGraph
 
         private createRingScale()
         {
-            if (this.m_scale == null)
+            if (this.m_scaleLevels === null || this.m_scaleLevels.length === 0)
                 return;
 
             const angleStep = 2.0 * Math.PI / this.currentData().nodes.length;
-            const radius = this.m_radius + this.m_maxTextLength + Renderer.m_ringScaleWidth / 2.0;
+            let radius = this.m_radius + this.m_maxTextLength + Renderer.m_ringScaleWidth / 2.0;
 
-            let segment = { from: undefined, id: undefined, index: 0 };
+            this.m_ringScales = [];
 
-            this.m_ringScale = new RingScale(this.m_radius, radius, Renderer.m_ringScaleWidth, this.m_ringScaleFontSize, this.m_view);
-            this.m_stage.addChild(this.m_ringScale);
+            this.m_scaleLevels.forEach((scale) => {
+                let segment = { from: undefined, id: undefined, index: 0 };
 
-            this.currentData().nodes.forEach((node: Node, i: number) => {
-                let stepID = this.m_scale.getStepID(node);
-                if (stepID != segment.id) {
-                    let a = (i - 0.5) * angleStep;
-                    if (segment.id !== undefined) {
-                        this.m_ringScale.addSegment(segment.from, a, 
-                                                    this.m_scale.getColor(segment.index),
-                                                    this.m_scale.getTextColor(segment.index),
-                                                    this.m_scale.getName(segment.id));
-                        segment.index++;
+                let rs = new RingScale(this.m_radius, radius, Renderer.m_ringScaleWidth, this.m_ringScaleFontSize, this.m_view);
+                this.m_stage.addChild(rs);
+                this.m_ringScales.push(rs);
+
+                this.currentData().nodes.forEach((node: Node, i: number) => {
+                    let stepID = scale.getStepID(node);
+                    if (stepID != segment.id) {
+                        let a = (i - 0.5) * angleStep;
+                        if (segment.id !== undefined) {
+                            rs.addSegment(segment.from, a, 
+                                          scale.getColor(segment.index),
+                                          scale.getTextColor(segment.index),
+                                          scale.getName(segment.id));
+                            segment.index++;
+                        }
+                        segment.from = a;
+                        segment.id = stepID;
                     }
-                    segment.from = a;
-                    segment.id = stepID;
+                });
+                if (segment.id !== undefined) {
+                    rs.addSegment(segment.from, 2.0 * Math.PI - 0.5 * angleStep,
+                                  scale.getColor(segment.index),
+                                  scale.getTextColor(segment.index),
+                                  scale.getName(segment.id));
                 }
+
+                radius += Renderer.m_ringScaleWidth;
             });
-            if (segment.id !== undefined) {
-                this.m_ringScale.addSegment(segment.from, 2.0 * Math.PI - 0.5 * angleStep,
-                                            this.m_scale.getColor(segment.index),
-                                            this.m_scale.getTextColor(segment.index),
-                                            this.m_scale.getName(segment.id));
-            }
         }
 
         private createCache()
@@ -803,14 +815,14 @@ namespace SciViCGraph
             this.render(true, true);
         }
 
-        get scale(): Scale
+        get scaleLevels(): Scale[]
         {
-            return this.m_scale;
+            return this.m_scaleLevels;
         }
 
-        set scale(s: Scale)
+        set scaleLevels(s: Scale[])
         {
-            this.m_scale = s;
+            this.m_scaleLevels = s;
         }
 
         public hoverNode(node: Node)
@@ -898,8 +910,12 @@ namespace SciViCGraph
             if (this.m_selectedNode)
                 f1 = this.m_selectedNode.handleCursorMove(lx, ly, s, x, y);
             let f2 = false;
-            if (this.m_ringScale)
-                f2 = this.m_ringScale.handleCursorMove(lx, ly, s, x, y);
+            if (this.m_ringScales) {
+                this.m_ringScales.forEach((rs) => {
+                    const rsf = rs.handleCursorMove(lx, ly, s, x, y);
+                    f2 = f2 || rsf;
+                });
+            }
             this.render(f1 || f2, true);
         }
 
