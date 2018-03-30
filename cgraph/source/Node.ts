@@ -23,12 +23,7 @@ namespace SciViCGraph
         private static readonly m_columnMinHeight = 2.0;
         private static readonly m_textPadding = 15.0;
 
-        constructor(public id: number,
-                    public label: string,
-                    public groupID: number,
-                    public weight: number,
-                    public nmb: number,
-                    public date: Date)
+        constructor(private m_dict: {})
         {
             super();
 
@@ -36,7 +31,7 @@ namespace SciViCGraph
             this.m_column.beginFill(0xFFCB35, 1.0);
             this.addChild(this.m_column);
 
-            this.m_text = new PIXI.Text(label);
+            this.m_text = new PIXI.Text(this.label);
             this.m_text.style = new PIXI.TextStyle({
                 fontFamily: "Helvetica Neue, Helvetica, Arial, sans-serif",
                 fontSize: "24px",
@@ -51,6 +46,50 @@ namespace SciViCGraph
             this.m_listLabel = null;
             this.m_cbInput = null;
             this.m_hoveredEdge = null;
+        }
+
+        get id(): number
+        {
+            return this.m_dict["id"];
+        }
+
+        get label(): string
+        {
+            return this.m_dict["label"];
+        }
+
+        set label(lbl: string)
+        {
+            this.m_dict["label"] = lbl;
+        }
+
+        get groupID(): number
+        {
+            return this.m_dict["group"] !== undefined ? this.m_dict["group"] : 0;
+        }
+
+        set groupID(gID: number)
+        {
+            this.m_dict["group"] = gID;
+        }
+
+        get weight(): number
+        {
+            return this.m_dict["weight"] !== undefined ? this.m_dict["weight"] : 0;
+        }
+
+        get date(): Date
+        {
+            if (this.m_dict["date"] === undefined)
+                return null;
+            else if (typeof this.m_dict["date"].getMonth !== "function")
+                this.m_dict["date"] = new Date(this.m_dict["date"]);
+            return this.m_dict["date"];
+        }
+
+        get custom(): {}
+        {
+            return this.m_dict;
         }
 
         public postInfo()

@@ -41,8 +41,9 @@
 
                 var parser = new SciViCGraph.Parser(g_data);
                 var renderer = new SciViCGraph.Renderer($('#view')[0], $('#info')[0],
-                                                        $('#list')[0], $('#settings')[0], 
-                                                        $('#stats')[0], null, loc);
+                                                        $('#list')[0], $('#settings')[0],
+                                                        $('#stats')[0], null,
+                                                        loc);
 
                 var g = parser.graphData;
 
@@ -63,62 +64,34 @@
                 console.log("Number of edges: " + g.edges.length);
 
                 g.nodes.sort((x1, x2) => {
-                    if (x1.date < x2.date)
+                    if (x1.custom["building"] < x2.custom["building"])
                         return -1;
-                    else if (x1.date > x2.date)
+                    else if (x1.custom["building"] > x2.custom["building"])
                         return 1;
-                    else
-                        return 0; 
+                    else {
+                        if (x1.custom["hall"] < x2.custom["hall"])
+                            return -1;
+                        else if (x1.custom["hall"] > x2.custom["hall"])
+                            return 1;
+                        else
+                            return 0;
+                    }
                 });
 
-                Louvain.detectClusters({nodes: g.nodes, edges: g.edges});
+                var textColors1 = [ 0xffffff, 0x000000 ];
+                var colors1 = [ 0xdd1111, 0x5dc8cd ];
+                var steps1 = [ 0, 1 ];
+                var names1 = [ "None", "Building A", "Building B", "None" ];
+                var scale1 = new SciViCGraph.Scale(steps1, colors1, textColors1, names1, (node) => { return node.custom["building"]; });
 
-                var steps = [
-                    new Date("09/01/2016"),
-                    new Date("10/01/2016"),
-                    new Date("11/01/2016"),
-                    new Date("12/01/2016"),
-                    new Date("01/01/2017"),
-                    new Date("02/01/2017"),
-                    new Date("03/01/2017"),
-                    new Date("04/01/2017"),
-                    new Date("05/01/2017"),
-                    new Date("06/01/2017"),
-                    new Date("07/01/2017"),
-                    new Date("08/01/2017"),
-                    new Date("09/01/2017"),
-                    new Date("10/01/2017"),
-                ];
-                var colors = [
-                    0xdd1111,
-                    0x5dc8cd
-                ];
-                var textColors = [
-                    0xffffff,
-                    0x000000
-                ];
-                var names = [
-                    "2016-",
-                    loc["LOC_SEP"] + " 2016",
-                    loc["LOC_OCT"] + " 2016",
-                    loc["LOC_NOV"] + " 2016",
-                    loc["LOC_DEC"] + " 2016",
-                    loc["LOC_JAN"] + " 2017",
-                    loc["LOC_FEB"] + " 2017",
-                    loc["LOC_MAR"] + " 2017",
-                    loc["LOC_APR"] + " 2017",
-                    loc["LOC_MAY"] + " 2017",
-                    loc["LOC_JUN"] + " 2017",
-                    loc["LOC_JUL"] + " 2017",
-                    loc["LOC_AUG"] + " 2017",
-                    loc["LOC_SEP"] + " 2017",
-                    loc["LOC_OCT"] + " 2017",
-                    "2017+"
-                ];
-                var scale = new SciViCGraph.Scale(steps, colors, textColors, names, (node) => { return node.date; });
+                var textColors2 = [ 0xffffff ];
+                var colors2 = [ 0xB4762A, 0x0371AB ];
+                var steps2 = [ 0, 1, 2, 3, 4 ];
+                var names2 = [ "None", "Hall 1", "Hall 2", "Hall 3", "Hall 4", "Hall 5", "None" ];
+                var scale2 = new SciViCGraph.Scale(steps2, colors2, textColors2, names2, (node) => { return node.custom["hall"]; });
 
-                renderer.setInput([g], g_colors);
-                renderer.scaleLevels = [scale];
+                renderer.setInput([ g ], g_colors);
+                renderer.scaleLevels = [ scale2, scale1 ];
                 renderer.run();
             }
         </script>
