@@ -118,7 +118,7 @@
                 var scale = new SciViCGraph.Scale(steps, colors, textColors, names, (node) => { return node.date; });
 
                 renderer.setInput([g], g_colors);
-                renderer.scale = scale;
+                renderer.scaleLevels = [scale];
                 renderer.run();
             }
         </script>
