@@ -44,7 +44,7 @@ namespace SciViCGraph
             for (let i = 0; i < n; ++i) {
                 let a = phi;
                 if (flipFlop)
-                    a += i * aStep - (aStep * n) * 0.5 + aStep;
+                    a += i * aStep - (aStep * n) * 0.5 + aStep * 0.75;
                 else
                     a -= i * aStep - (aStep * n) * 0.5 + aStep * 0.25;
                 this.addText(name.charAt(i), a, flipFlop, this.m_outRadius, textColor);

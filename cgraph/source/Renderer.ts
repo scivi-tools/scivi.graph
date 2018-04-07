@@ -582,11 +582,13 @@ namespace SciViCGraph
                 return;
 
             const angleStep = 2.0 * Math.PI / this.currentData().nodes.length;
-            let radius = this.m_radius + this.m_maxTextLength + Renderer.m_ringScaleWidth / 2.0;
+            let radius = this.m_radius + this.m_maxTextLength + (this.m_scaleLevels.length - 0.5) * Renderer.m_ringScaleWidth;
 
             this.m_ringScales = [];
 
-            this.m_scaleLevels.forEach((scale) => {
+            for (let i = this.m_scaleLevels.length - 1; i >= 0; --i) {
+                let scale = this.m_scaleLevels[i];
+
                 let segment = { from: undefined, id: undefined, index: 0 };
 
                 let rs = new RingScale(this.m_radius, radius, Renderer.m_ringScaleWidth, this.m_ringScaleFontSize, this.m_view);
@@ -615,8 +617,8 @@ namespace SciViCGraph
                                   scale.getName(segment.id));
                 }
 
-                radius += Renderer.m_ringScaleWidth;
-            });
+                radius -= Renderer.m_ringScaleWidth;
+            };
         }
 
         private createCache()
