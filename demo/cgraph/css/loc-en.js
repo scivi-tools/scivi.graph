@@ -34,4 +34,8 @@ var g_loc_en = {
     "LOC_LINKEDNODES": "Linked nodes:",
     "LOC_STATSTUB": "Click on the pie sector to get info about corresponding group",
     "LOC_STATCAPTION": "Groups statistics (number of groups: ",
+    "LOC_MALE": "m",
+    "LOC_FEMALE": "f",
+    "LOC_EDUCATION_MIDDLE": "m",
+    "LOC_EDUCATION_HIGH": "h"
 };

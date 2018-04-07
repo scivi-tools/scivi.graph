@@ -34,4 +34,8 @@ var g_loc_ru = {
     "LOC_LINKEDNODES": "Связанные вершины:",
     "LOC_STATSTUB": "Кликните на сектор диаграммы, для получения информации по соответствующей группе",
     "LOC_STATCAPTION": "Статистика по группам (число групп: ",
+    "LOC_MALE": "м",
+    "LOC_FEMALE": "ж",
+    "LOC_EDUCATION_MIDDLE": "с",
+    "LOC_EDUCATION_HIGH": "в"
 };
