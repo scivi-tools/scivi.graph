@@ -1,3 +1,5 @@
+// @ts-check
+import Viva from './viva-proxy';
 import { GraphState } from './GraphState';
 
 export class GraphController {
@@ -32,18 +34,18 @@ export class GraphController {
             cs.addEdge(edge.source, edge.target, edge.weight);
         });
 
-        currentStateId++;
+        this.currentStateId++;
     };
 
     /**
      * @returns {GraphState}
      */
     get currentState() {
-        return this.states[currentStateId];
+        return this.states[this.currentStateId];
     };
 
     set currentState(value) {
-        this.states[currentStateId] = value;
+        this.states[this.currentStateId] = value;
     }
 
     static fromJson(json) {

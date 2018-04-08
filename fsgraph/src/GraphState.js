@@ -1,4 +1,5 @@
-import { Viva } from './viva-proxy';
+//@ts-nocheck
+import Viva from './viva-proxy';
 import { Node } from './Node';
 import { Edge } from './Edge';
 

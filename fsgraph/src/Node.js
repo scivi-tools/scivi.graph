@@ -1,3 +1,5 @@
+//@ts-check
+
 export class Node {
     constructor(id, groupId, label, weight, data) {
         this.id = id;
@@ -15,7 +17,7 @@ export class Node {
     };
 
     addEdge(edge) {
-       edges.push(edge);
+       this.edges.push(edge);
     };
 
     buildDetailedInfo() {
@@ -35,11 +37,11 @@ export class Node {
         header.appendChild(name);
         header.appendChild(changeName);
 
-        if (this.realNode.date) {
+        /*if (this.realNode.date) {
             let dateLabel = document.createElement("span");
             dateLabel.innerHTML = "&nbsp;&nbsp;&nbsp;(" + this.date.toLocaleDateString() + ")";
             header.appendChild(dateLabel);
-        }
+        }*/
 
         let nodesList = document.createElement("div");
         let connList = "<div>Linked nodes:</div><ul>";
@@ -58,8 +60,6 @@ export class Node {
             this.detailedInfoHTML.removeChild(this.detailedInfoHTML.firstChild);
 
         this.detailedInfoHTML.appendChild(header);
-        this.detailedInfoHTML.appendChild(qZoomIn);
-        this.detailedInfoHTML.appendChild(qZoomOut);
         this.detailedInfoHTML.appendChild(nodesList);
     };
 };

@@ -1,4 +1,4 @@
-import { Viva } from './viva-proxy';
+import Viva from './viva-proxy';
 import { Node } from './Node'
 import { VivaBaseUI } from './VivaBaseUI'
 

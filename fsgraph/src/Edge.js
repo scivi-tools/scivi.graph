@@ -1,3 +1,5 @@
+// @ts-check
+
 export class Edge {
     constructor(fromId, toId) {
         this.fromId = fromId;
