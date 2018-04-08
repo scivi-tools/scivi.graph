@@ -4,8 +4,8 @@
   "description": "Simple graph visualization module of SciVi",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "debug": "tsc -p jsconfig.json && webpack && cp dist/bundle.js ../demo/fsgraph/lib/scivi-fsgraph.min.js",
-    "release": "tsc -p jsconfig.json && webpack && cp dist/bundle.js ../demo/fsgraph/lib/scivi-fsgraph.min.js"
+    "debug": "tsc -p jsconfig.json && webpack --mode development && cp dist/bundle.js ../demo/fsgraph/lib/scivi-fsgraph.min.js",
+    "release": "tsc -p jsconfig.json && webpack --mode production && cp dist/bundle.js ../demo/fsgraph/lib/scivi-fsgraph.min.js"
   },
   "author": "",
   "license": "",
