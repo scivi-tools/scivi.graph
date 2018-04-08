@@ -4,25 +4,26 @@ import { GraphState } from './GraphState';
 
 export class GraphController {
     constructor(statesCount) {
+        /** @type {GraphState[]} */
         this.states = [];
-        // TODO: store it in states.length
-        this._statesCount = statesCount;
-        this.currentStateId = 0;
+        this.states.length = statesCount;
+        this._currentStateId = 0;
 
+        // TODO: добавить возможность отказаться от уникальных индексов связей
         this._graph = Viva.Graph.graph();
+        // TODO: эти два должны передаваться через сеттеры, ну и это будут как минимум объекты-обёртки
         this._layout = null;
         this._renderer = null;
-    };
+    }
 
     parseJsonState(state) {
-        if (this.currentStateId >= this._statesCount) {
-            // TODO: throm exception
-            return;
+        if (this._currentStateId >= this.states.length) {
+            throw new Error("Not enough states in graph controller!");
         }
-        let cs = this.currentState;
+        let cs = this.states[this._currentStateId];
         if (!cs) {
             cs = new GraphState();
-            this.currentState = cs;
+            this.states[this._currentStateId] = cs;
         }
         // ...
         state.nodes.forEach(node => {
@@ -34,24 +35,36 @@ export class GraphController {
             cs.addEdge(edge.source, edge.target, edge.weight);
         });
 
-        this.currentStateId++;
-    };
+        this._currentStateId++;
+    }
 
-    /**
-     * @returns {GraphState}
-     */
-    get currentState() {
-        return this.states[this.currentStateId];
-    };
+    get currentStateId() {
+        return this._currentStateId;
+    }
 
-    set currentState(value) {
-        this.states[this.currentStateId] = value;
+    set currentStateId(value) {
+        throw new Error("currentStateId Not implemented!");
+        // TODO: здесь мы должны переключать граф путём перезаполнения ngraph.graph
+        // при этом предыдущее состояние запоминает всякие позиции вершин...
     }
 
     static fromJson(json) {
         let controller = new GraphController(1);
+
         controller.parseJsonState(json);
         controller.currentStateId = 0;
         return controller;
-    };
-};
+    }
+
+    static fromStatedJson(json) {
+        /** @type {any[]} */
+        let states = json["states"];
+        let controller = new GraphController(states.length);
+
+        for (let state in states) {
+            controller.parseJsonState(state);
+        }
+        controller.currentStateId = 0;
+        return controller;
+    }
+}
