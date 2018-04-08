@@ -1,7 +1,7 @@
 
 import Viva from './viva-proxy';
 
-export default class ColorConverter {
+export class ColorConverter {
     /**
      * Expected format: rgba 
      * @param {number} color
