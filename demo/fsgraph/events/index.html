@@ -6,6 +6,7 @@
 
     <script src="../../cgraph/lib/jquery.min.js"></script>
     <script src="../../cgraph/lib/jquery-ui.min.js"></script>
+    <script src="../../cgraph/lib/split.min.js"></script>
 
     <link rel="stylesheet" href="../../cgraph/css/jquery-ui.css"/>
     <link rel="stylesheet" href="../../cgraph/css/default.css"/>
@@ -13,67 +14,47 @@
     <script src="data.js"></script>
     <script src="../css/colors.js"></script>
     <script src="../lib/scivi-fsgraph.min.js"></script>
-    
+    <script src="main.js"></script>
+
     <style>
-        body 
-        { 
-            height: 100%;
-            width: 100%;
-            position: absolute;
-            overflow: hidden; 
-            margin: 0; 
-            padding: 0;
-        }
         .node-label 
         {
             position: absolute;
             pointer-events: none;
             color: black;
+            z-index: 1;
+        }
+        #tabs
+        {
             z-index: 10;
-        }
-
-        #ctr {
-            position: absolute;
-            overflow: hidden;
-            height: 100%;
-            width: 70%;
-            border-right: 3px double black;
-        }
-
-        #info {
-            font: 12px Helvetica Neue, Helvetica, Arial, sans-serif;
-            position: absolute;
-            overflow: hidden;
-            /*overflow-y: auto;*/
-            /*padding: 10px 10px 10px 20px;*/
-            margin-left: 70%;
-            height: 50%;
-            width: 30%;
-        }
-
-        #control {
-            font: 12px Helvetica Neue, Helvetica, Arial, sans-serif;
-            position: absolute;
-            overflow: hidden;
-            border-top: 3px double black;
-            margin-left: 70%;
-            /*margin-top: 50%;*/
-            height: 50%;
-            width: 30%;
         }
     </style>
 </head>
-<body onload="SciViFSGraph.main($('#ctr')[0], $('#control')[0], g_data, g_colors);">
-
-        <div id="ctr"></div>
-        <div id="control">
-                <div>Порог отображения событий (по числу протегированных текстов):&nbsp<span id='eventTreshold'>Unknown</span></div>
-                <div id='eventTresholdSlider' style='margin: 10px 10px 10px 5px'></div>
-                <div>Порог отображения слов:&nbsp<span id='wordTreshold'>Unknown</span></div>
-                <div id='wordTresholdSlider' style='margin: 10px 10px 10px 5px'></div>
-                <button id="stopLayoutButton">Приостановить/Возобновить обновление вершин</button>
+<body onload="main();">
+        <div id="a" class="split split-horizontal">
+            <div id="view"></div>
         </div>
-        <!--<div id="info"></div>-->
-
+        <div id="b" class="split split-horizontal">
+            <div id="tabs">
+                <ul>
+                    <li><a id="lnk_control" href="#control">Управление</a></li>
+                    <!--li><a id="lnk_info" href="#info"></a></li>
+                    <li><a id="lnk_list" href="#list"></a></li>
+                    <li><a id="lnk_settings" href="#settings"></a></li>
+                    <li><a id="lnk_stats" href="#stats"></a></li-->
+                </ul>
+                <div id="control">
+                    <div>Порог отображения событий (по числу протегированных текстов):&nbsp<span id='eventTreshold'>Unknown</span></div>
+                    <div id='eventTresholdSlider' style='margin: 10px 10px 10px 5px'></div>
+                    <div>Порог отображения слов:&nbsp<span id='wordTreshold'>Unknown</span></div>
+                    <div id='wordTresholdSlider' style='margin: 10px 10px 10px 5px'></div>
+                    <button id="stopLayoutButton">Приостановить/Возобновить обновление вершин</button>
+                </div>
+                <!--div id="info"></div>
+                <div id="list"></div>
+                <div id="settings"></div>
+                <div id="stats"></div -->
+            </div>
+        </div>
 </body>
 </html>
