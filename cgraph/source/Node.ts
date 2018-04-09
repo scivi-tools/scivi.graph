@@ -343,7 +343,9 @@ namespace SciViCGraph
         public setAnchor(x: number, y: number, maxHeight: number)
         {
             let p = this.parent as Scene;
-            let w = Node.m_columnMinHeight + (maxHeight - Node.m_columnMinHeight) * this.weight / p.maxNodeWeight;
+            let w = Node.m_columnMinHeight +
+                    (maxHeight - Node.m_columnMinHeight) / (p.nodeWeight.max - p.nodeWeight.min) *
+                    (this.weight - p.nodeWeight.min);
             this.m_column.clear();
             this.m_column.drawRect(-w * x, -this.m_text.height * y, w, this.m_text.height);
             this.m_text.anchor.set(x, y);

@@ -41,7 +41,7 @@ namespace SciViCGraph
         return result;
     }
 
-    type Range = { min: number, max: number };
+    export type Range = { min: number, max: number };
 
     export class Renderer
     {
@@ -164,7 +164,7 @@ namespace SciViCGraph
 
         private createStage()
         {
-            this.m_stage = new Scene(this.m_colors, this.m_edgeWeight.max, this.m_nodeWeight.max);
+            this.m_stage = new Scene(this.m_colors, this.m_edgeWeight, this.m_nodeWeight);
             this.m_renderingCache = new RenderingCache(this.m_stage, this.m_renderer);
         }
 

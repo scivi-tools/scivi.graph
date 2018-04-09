@@ -25,7 +25,9 @@ namespace SciViCGraph
 
             this.m_edges.forEach((edge) => {
                 if (edge.visible) {
-                    edge.thickness = Edge.minThickness + (Edge.maxThickness - Edge.minThickness) * edge.weight / p.maxEdgeWeight;
+                    edge.thickness = Edge.minThickness +
+                                     (Edge.maxThickness - Edge.minThickness) / (p.edgeWeight.max - p.edgeWeight.min) *
+                                     (edge.weight - p.edgeWeight.min);
                     this.moveTo(edge.source.x, edge.source.y);
                     this.lineStyle(edge.thickness, 0x0, 1);
                     this.m_colors.push({ from: edge.fromColor, to: edge.toColor, alpha: edge.alpha });
