@@ -273,25 +273,48 @@ namespace SciViCGraph
             });
         }
 
+        private distance(x1: number, y1: number, x2: number, y2: number): number
+        {
+            const x = x2 - x1;
+            const y = y2 - y1;
+            return Math.sqrt(x * x + y * y);
+        }
+
         private quadraticCurveLength(fromX: number, fromY: number, cpX: number, cpY: number, toX: number, toY: number): number
         {
-            let ax = fromX - 2.0 * cpX + toX;
-            let ay = fromY - 2.0 * cpY + toY;
-            let bx = 2.0 * cpX - 2.0 * fromX;
-            let by = 2.0 * cpY - 2.0 * fromY;
-            let a = 4.0 * (ax * ax + ay * ay);
-            let b = 4.0 * (ax * bx + ay * by);
-            let c = bx * bx + by * by;
+            const eps = 1.0e-3;
 
-            let s = 2.0 * Math.sqrt(a + b + c);
-            let a2 = Math.sqrt(a);
-            let a32 = 2.0 * a * a2;
-            let c2 = 2.0 * Math.sqrt(c);
-            let ba = b / a2;
+            const ax = fromX - 2.0 * cpX + toX;
+            const ay = fromY - 2.0 * cpY + toY;
+            const bx = 2.0 * cpX - 2.0 * fromX;
+            const by = 2.0 * cpY - 2.0 * fromY;
+
+            const a = 4.0 * (ax * ax + ay * ay);
+            if (Math.abs(a) < eps)
+                return this.distance(fromX, fromY, toX, toY);
+
+            const b = 4.0 * (ax * bx + ay * by);
+            const c = bx * bx + by * by;
+
+            const s = 2.0 * Math.sqrt(a + b + c);
+            const a2 = Math.sqrt(a);
+            const a32 = 2.0 * a * a2;
+            const c2 = 2.0 * Math.sqrt(c);
+            const ba = b / a2;
+
+            const l1 = 2.0 * a2 + ba + s;
+            const l2 = ba + c2;
+
+            if (Math.abs(l2) < eps)
+                return this.distance(fromX, fromY, toX, toY);
+
+            const l3 = l1 / l2;
+            if (l3 < 0.0 || Math.abs(l3) < eps)
+                return this.distance(fromX, fromY, toX, toY);
 
             return (a32 * s +
                     a2 * b * (s - c2) +
-                    (4.0 * c * a - b * b) * Math.log((2.0 * a2 + ba + s) / (ba + c2))) /
+                    (4.0 * c * a - b * b) * Math.log(l3)) /
                    (4.0 * a32);
         }
 
