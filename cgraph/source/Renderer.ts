@@ -999,17 +999,23 @@ namespace SciViCGraph
         private dropNode(x: number, y: number): boolean
         {
             let result = false;
+            let needsReinit = false;
             if (this.m_draggedNodeIndex !== -1 && this.m_nodePlaceHolder && this.m_nodePlaceHolder.visible) {
                 const lx = x - this.m_renderingCache.x;
                 const ly = y - this.m_renderingCache.y;
-                const idx = this.getAngularIndex(lx, ly);
-                const dNode = this.currentData().nodes[this.m_draggedNodeIndex];
-                this.currentData().nodes.splice(this.m_draggedNodeIndex, 1);
-                this.currentData().nodes.splice(idx, 0, dNode);
+                let idx = this.getAngularIndex(lx, ly);
+                if (idx > this.m_draggedNodeIndex)
+                    --idx;
+                if (idx !== this.m_draggedNodeIndex) {
+                    const dNode = this.currentData().nodes[this.m_draggedNodeIndex];
+                    this.currentData().nodes.splice(this.m_draggedNodeIndex, 1);
+                    this.currentData().nodes.splice(idx, 0, dNode);
+                    needsReinit = true;
+                }
                 result = true;
             }
             this.stopDragNode();
-            if (result)
+            if (needsReinit)
                 this.reinit(false);
             else
                 this.render(true, true);
