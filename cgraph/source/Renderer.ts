@@ -41,7 +41,7 @@ namespace SciViCGraph
         return result;
     }
 
-    export type Range = { min: number, max: number };
+    export type Range = { min: number, max: number, step: number };
 
     export class Renderer
     {
@@ -145,21 +145,37 @@ namespace SciViCGraph
 
         private calcWeights()
         {
-            this.m_nodeWeight = { min: undefined, max: undefined };
-            this.m_edgeWeight = { min: undefined, max: undefined };
+            this.m_nodeWeight = { min: undefined, max: undefined, step: undefined };
+            const nodes = this.currentData().nodes;
+            for (let i = 0, n = nodes.length; i < n; ++i) {
+                if (this.m_nodeWeight.min === undefined || this.m_nodeWeight.min > nodes[i].weight)
+                    this.m_nodeWeight.min = nodes[i].weight;
+                if (this.m_nodeWeight.max === undefined || this.m_nodeWeight.max < nodes[i].weight)
+                    this.m_nodeWeight.max = nodes[i].weight;
+                for (let j = i + 1; j < n; ++j) {
+                    const d = Math.abs(nodes[i].weight - nodes[j].weight);
+                    if (d > 0.0 && (this.m_nodeWeight.step === undefined || this.m_nodeWeight.step > d))
+                        this.m_nodeWeight.step = d;
+                }
+            }
+            if (this.m_nodeWeight.step === undefined)
+                this.m_nodeWeight.step = 0.0;
 
-            this.currentData().nodes.forEach((node) => {
-                if (this.m_nodeWeight.min === undefined || this.m_nodeWeight.min > node.weight)
-                    this.m_nodeWeight.min = node.weight;
-                if (this.m_nodeWeight.max === undefined || this.m_nodeWeight.max < node.weight)
-                    this.m_nodeWeight.max = node.weight;
-            });
-            this.currentData().edges.forEach((edge) => {
-                if (this.m_edgeWeight.min === undefined || this.m_edgeWeight.min > edge.weight)
-                    this.m_edgeWeight.min = edge.weight;
-                if (this.m_edgeWeight.max === undefined || this.m_edgeWeight.max < edge.weight)
-                    this.m_edgeWeight.max = edge.weight;
-            });
+            this.m_edgeWeight = { min: undefined, max: undefined, step: undefined };
+            const edges = this.currentData().edges;
+            for (let i = 0, n = edges.length; i < n; ++i) {
+                if (this.m_edgeWeight.min === undefined || this.m_edgeWeight.min > edges[i].weight)
+                    this.m_edgeWeight.min = edges[i].weight;
+                if (this.m_edgeWeight.max === undefined || this.m_edgeWeight.max < edges[i].weight)
+                    this.m_edgeWeight.max = edges[i].weight;
+                for (let j = i + 1; j < n; ++j) {
+                    const d = Math.abs(edges[i].weight - edges[j].weight);
+                    if (d > 0.0 && (this.m_edgeWeight.step === undefined || this.m_edgeWeight.step > d))
+                        this.m_edgeWeight.step = d;
+                }
+            }
+            if (this.m_edgeWeight.step === undefined)
+                this.m_edgeWeight.step = 0.0;
         }
 
         private createStage()
@@ -429,7 +445,7 @@ namespace SciViCGraph
                 max: this.m_edgeWeight.max,
                 range: true,
                 values: [this.m_edgeWeight.min, this.m_edgeWeight.max],
-                step: 1,
+                step: this.m_edgeWeight.step,
                 slide: (event, ui) => { this.changeEdgeTreshold(ui.values); }
             });
 
@@ -438,7 +454,7 @@ namespace SciViCGraph
                 max: this.m_nodeWeight.max,
                 range: true,
                 values: [this.m_nodeWeight.min, this.m_nodeWeight.max],
-                step: 1,
+                step: this.m_nodeWeight.step,
                 slide: (event, ui) => { this.changeNodeTreshold(ui.values); }
             });
 

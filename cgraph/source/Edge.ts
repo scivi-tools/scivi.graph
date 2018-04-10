@@ -10,6 +10,7 @@ namespace SciViCGraph
         private m_highlight: HighlightType;
         private m_visible: boolean;
         private m_thickness: number;
+        private m_glowThickness: number;
 
         public static passiveEdgeAlpha = 0.1;
         private static readonly m_hoveredEdgeAlpha = 1.0;
@@ -28,6 +29,7 @@ namespace SciViCGraph
             this.m_highlight = undefined;
             this.m_visible = true;
             this.m_thickness = 0.0;
+            this.m_glowThickness = 0.0;
         }
 
         private rgb2hsv(rgb: number): number[]
@@ -225,12 +227,17 @@ namespace SciViCGraph
         set isGlowing(g: boolean)
         {
             if (this.m_batch) {
+                if (g && this.m_glow && this.m_glowThickness !== this.m_thickness) {
+                    this.m_glow.parent.removeChild(this.m_glow);
+                    this.m_glow = null;
+                }
                 if (this.m_glow) {
                     this.m_glow.visible = g;
                     if (g)
                         this.m_glow.bringToFront()
                 } else {
                     this.m_glow = this.m_batch.createGlow(this);
+                    this.m_glowThickness = this.m_thickness;
                 }
             }
         }
