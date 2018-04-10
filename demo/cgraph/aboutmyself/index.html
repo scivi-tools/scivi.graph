@@ -63,35 +63,14 @@
                 console.log("Number of nodes: " + g.nodes.length);
                 console.log("Number of edges: " + g.edges.length);
 
-                g.nodes.sort((x1, x2) => {
-                    if (x1.custom["age"] < x2.custom["age"])
-                        return -1;
-                    else if (x1.custom["age"] > x2.custom["age"])
-                        return 1;
-                    else {
-                        if (x1.custom["sex"] < x2.custom["sex"])
-                            return -1;
-                        else if (x1.custom["sex"] > x2.custom["sex"])
-                            return 1;
-                        else {
-                            if (x1.custom["education"] < x2.custom["education"])
-                                return -1;
-                            else if (x1.custom["education"] > x2.custom["education"])
-                                return 1;
-                            else
-                                return 0;
-                        }
-                    }
-                });
-
                 var textColors1 = [ 0xffffff, 0x000000 ];
-                var colors1 = [ 0xdd1111, 0x5dc8cd, 0xCF9D00 ];
+                var colors1 = [ 0x00B100, 0xF2B700, 0xDD1111 ];
                 var steps1 = [ 25, 35, 45, 55 ];
                 var names1 = [ "< 25", "25 - 34", "35 - 44", "45 - 55", "> 55" ];
                 var scale1 = new SciViCGraph.Scale(steps1, colors1, textColors1, names1, (node) => { return node.custom["age"]; });
 
-                var textColors2 = [ 0x000000, 0xffffff ];
-                var colors2 = [ 0xDEBB3C, 0x0371AB ];
+                var textColors2 = [ 0x000000 ];
+                var colors2 = [ 0x00BBE8, 0xFFB7CD ];
                 var steps2 = [ 0, 1 ];
                 var names2 = [ "", loc["LOC_MALE"], loc["LOC_FEMALE"], "" ];
                 var scale2 = new SciViCGraph.Scale(steps2, colors2, textColors2, names2, (node) => { return node.custom["sex"]; });
@@ -104,6 +83,7 @@
 
                 renderer.setInput([ g ], g_colors);
                 renderer.scaleLevels = [ scale3, scale2, scale1 ];
+                renderer.sortNodesByRingScale();
                 renderer.run();
             }
         </script>

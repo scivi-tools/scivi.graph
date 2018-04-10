@@ -3,7 +3,7 @@ namespace SciViCGraph
     export class Scale
     {
         constructor(private m_steps: any[], private m_colors: number[], private m_textColors: number[],
-                    private m_names: string[], private m_obtainValue: (node: Node) => any)
+                    private m_names: string[], public getValue: (node: Node) => any)
         {
             // nop
         }
@@ -13,7 +13,7 @@ namespace SciViCGraph
             let n = this.m_steps.length;
             let i = 0;
             for (; i < n; ++i) {
-                if (this.m_obtainValue(node) < this.m_steps[i])
+                if (this.getValue(node) < this.m_steps[i])
                     break;
             }
             return i;
