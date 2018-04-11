@@ -79,7 +79,7 @@ export default {
       webglLine: require('vivagraphjs/src/WebGL/webglLine.js'),
       webglSquare: require('vivagraphjs/src/WebGL/webglSquare.js'),
       webglImage: require('vivagraphjs/src/WebGL/webglImage.js'),
-      webglGraphics: require('vivagraphjs/src/View/webglGraphics.js'),
+      webglGraphics: require('./VivaMod/webglGraphics.js'),
   
       // TODO: move to svg namespace
       svgGraphics: require('vivagraphjs/src/View/svgGraphics.js'),

@@ -1,7 +1,6 @@
 // @ts-check
 
 import Viva from './viva-proxy';
-import newLinkProgram from './newLinkProgram';
 import { ColorConverter } from './ColorConverter.js';
 export * from './GraphController.js'
 export * from './VivaWebGLRenderer.js'
@@ -122,10 +121,6 @@ export function main(container, control, data, colors) {
     prepareUIControls(control);
 
     // создаём свои конструкторы вершин и связей и привязываем их к классу графона
-    // var nodeProgram = newNodeProgram();
-    var linkProgram = newLinkProgram();
-    // graphics.setNodeProgram(nodeProgram);
-    graphics.setLinkProgram(linkProgram);
 
     // function that prepares data for node creation
     graphics.node((node) => {

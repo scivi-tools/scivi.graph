@@ -70,6 +70,10 @@ export class VivaWebGLRenderer {
         return this._isManuallyPaused;
     }
 
+    get graphics() {
+        return this._graphics;
+    }
+
     set graphBackend(value) {
         this._graphBackend = value;
         // TODO: обработка событий и всё такое
@@ -202,9 +206,13 @@ export class VivaWebGLRenderer {
             },
             onDrag: function(e, offset) {
                 var oldPos = that._layoutBackend.getNodePosition(node.id);
+                var transform = that._graphics.getTransform();
+                // TODO: move matrix op-s into separate module, get rid of duplicated code
+                var newOffset = [(offset.x * transform[0] + offset.y * transform[4]), (offset.x * transform[1] + offset.y * transform[5])];
                 that._layoutBackend.setNodePosition(node.id,
-                    oldPos.x + offset.x / that._transform.scale,
-                    oldPos.y + offset.y / that._transform.scale);
+                    // offset.x / that._transform.scale
+                    oldPos.x + newOffset[0] / that._transform.scale,
+                    oldPos.y + newOffset[1] / that._transform.scale);
 
                 that._userInteraction = true;
                 that._renderGraph();
