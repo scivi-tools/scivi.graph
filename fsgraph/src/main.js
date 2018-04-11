@@ -3,6 +3,8 @@
 import Viva from './viva-proxy';
 import newLinkProgram from './newLinkProgram';
 import { ColorConverter } from './ColorConverter.js';
+export * from './GraphController.js'
+export * from './VivaWebGLRenderer.js'
 
 function generateDOMLabels(graph, container) 
 {

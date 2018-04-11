@@ -1,6 +1,7 @@
 // @ts-check
 import Viva from './viva-proxy';
 import { GraphState } from './GraphState';
+import { VivaWebGLRenderer } from './VivaWebGLRenderer'
 
 export class GraphController {
     constructor(statesCount) {
@@ -11,8 +12,22 @@ export class GraphController {
 
         // TODO: добавить возможность отказаться от уникальных индексов связей
         this._graph = Viva.Graph.graph();
-        // TODO: эти два должны передаваться через сеттеры, ну и это будут как минимум объекты-обёртки
-        this._layout = null;
+        
+        // TODO: этот должен передаваться через сеттеры,
+        // ну и это будут как минимум объекты-обёртки
+        
+        // Запилить нечто вроде layoutBuilder, который будет принимать параметры лэйаута
+        // + иметь метод а-ля getInstance(graph), который и будет вызываться здесь
+        // TODO: выбросить в рендерер?
+        this._layoutInstance = Viva.Graph.Layout.forceDirected(this._graph, {
+            springLength : 80,
+            springCoeff : 0.0008,
+            dragCoeff : 0.02,
+            gravity : -1.2,
+            // theta : 1
+        });
+        
+        /** @type {VivaWebGLRenderer} */
         this._renderer = null;
     }
 
@@ -22,7 +37,7 @@ export class GraphController {
         }
         let cs = this.states[this._currentStateId];
         if (!cs) {
-            cs = new GraphState();
+            cs = new GraphState(this, state.nodes.length, state.edges.length);
             this.states[this._currentStateId] = cs;
         }
         // ...
@@ -42,10 +57,37 @@ export class GraphController {
         return this._currentStateId;
     }
 
+    get layoutInstance() {
+        return this._layoutInstance;
+    }
+
     set currentStateId(value) {
-        throw new Error("currentStateId Not implemented!");
-        // TODO: здесь мы должны переключать граф путём перезаполнения ngraph.graph
-        // при этом предыдущее состояние запоминает всякие позиции вершин...
+        if (value != this._currentStateId) {
+            // Сохраняем всевозможную инфу в предыдущем состоянии (те же позиции вершин)
+            if (this._currentStateId < this.states.length)
+                this.states[this._currentStateId].onBeforeDisabled(this._graph, this._layoutInstance);
+
+            this._currentStateId = value;
+
+            // здесь мы должны переключать граф путём перезаполнения ngraph.graph
+            this.states[this._currentStateId].actualize(this._graph, this._layoutInstance);
+        }
+    }
+
+    set renderer(value) {
+        this._renderer = value;
+
+        this._renderer.graphBackend = this._graph;
+        // TODO: (не)передавать лейаут
+        this._renderer.layoutBackend = this.layoutInstance;
+    }
+
+    /**
+     * 
+     * @param {number} prerenderCount 
+     */
+    run(prerenderCount = 0) {
+        this._renderer.run();
     }
 
     static fromJson(json) {

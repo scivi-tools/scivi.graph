@@ -1,15 +1,16 @@
 //@ts-check
 
 export class Node {
-    constructor(id, groupId, label, weight, data) {
+    constructor(state, id, groupId, label, weight, data = null) {
+        this._state = state;
         this.id = id;
         this.label = label;
         this.groupId = groupId;
         this.weight = weight;
         this.data = data;
 
-        this.forceShowed = false;
         this.visible = true;
+        this.position = new Position(0, 0);
 
         this.edges = [];
 
@@ -19,6 +20,12 @@ export class Node {
     addEdge(edge) {
        this.edges.push(edge);
     };
+
+    onBeforeHide(layout) {
+        let layoutedPos = layout.getNodePosition(this.id);
+        this.position.x = layoutedPos.x;
+        this.position.y = layoutedPos.y;
+    }
 
     buildDetailedInfo() {
         let header = document.createElement("div");
@@ -62,4 +69,11 @@ export class Node {
         this.detailedInfoHTML.appendChild(header);
         this.detailedInfoHTML.appendChild(nodesList);
     };
-};
+}
+
+export class Position {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+}

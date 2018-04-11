@@ -1,14 +1,19 @@
 function main() {
+    var renderer = new SciViFSGraph.VivaWebGLRenderer($('#view')[0]);
 
     Split(['#a', '#b'], {
         gutterSize: 8,
         cursor: 'col-resize',
         sizes: [75, 25],
-        onDrag: () => { console.log('split resize raised!') }
+        onDrag: () => renderer.onContainerResize()
     });
 
     $("#tabs").tabs({heightStyle: "fill"});
 
+    // TODO: должно быть наоборот - это рендерер должен знать о контроллере
+    var controller = SciViFSGraph.GraphController.fromJson(g_data);
+    controller.renderer = renderer;
 
-    SciViFSGraph.main($('#view')[0], $('#control')[0], g_data, g_colors);
+    controller.run(1000);
+    //  g_colors);
 }

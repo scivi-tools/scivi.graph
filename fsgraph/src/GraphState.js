@@ -2,16 +2,20 @@
 import Viva from './viva-proxy';
 import { Node } from './Node';
 import { Edge } from './Edge';
+import { VivaStateView } from './VivaStateView'
+import { GraphController } from './GraphController'
 
 export class GraphState {
-    constructor(nodesCount, edgesCount) {
+    constructor(controller, nCount, eCount) {
+        /** type {GraphController} */
+        // this._controller = controller;
         // number[][]
         /** @type {number[][]} */
         this.groups = [];
+        /** @type {Node[]} */
         this.nodes = [];
+        /** @type {Edge[]} */
         this.edges = [];
-
-
     };
 
     addNode(id, groupId, label, weight) {
@@ -19,41 +23,126 @@ export class GraphState {
         if (!this.groups[groupId]) {
             this.groups[groupId] = []
         }
+        // TODO: count some metrics here
         this.groups[groupId].push(id);
 
-        const newNode = new Node(id, groupId, label, weight);
+        const newNode = new Node(this, id, groupId, label, weight);
         this.nodes[id] = newNode;
-
-        this.restoreNode(newNode);
-
-        // TODO: count some metrics here
     };
 
     addEdge(fromId, toId, weight) {
-        const newEdge = new Edge(fromId, toId);
+        const newEdge = new Edge(this, fromId, toId);
         this.edges.push(newEdge);
 
-        this.restoreEdge(newEdge);
-
+        this.nodes[fromId].addEdge(newEdge);
+        this.nodes[toId].addEdge(newEdge);
         // TODO: count some metrics here
     };
 
     /**
      * 
-     * @param {Node} node 
+     * @param {*} graph 
+     * @param {Node} node
      */
-    restoreNode(node) {
-        // this._graph.addNode(node.id, {
-        //     graphData: newNode
-        // });
+    restoreNode(graph, node) {
+        if (!node.visible) {
+            return;
+        }
 
-        // TODO:...
-        node.visible = true;
+        let graphNode = graph.addNode(node.id, node);
+        graphNode.position = node.position;
     };
 
-    restoreEdge(edge) {
-        // this._graph.addLink(edge.fromId, edge.toId, {
-        //     graphData: edge
-        // });
+    /**
+     * 
+     * @param {*} graph 
+     * @param {Edge} edge 
+     */
+    restoreEdge(graph, edge) {
+        if (!edge.visible) {
+            return;
+        }
+
+        // HACK: из-за недоработки ngraph.graph третий параметр (data) в этой функции не учитывается никак
+        // приходится добавлять ручками
+        let graphEdge = graph.addLink(edge.fromId, edge.toId, null);
+        graphEdge.data = edge;
     };
-};
+
+    /**
+     * Добавляем/удаляем узел в зависимости от фильтра
+     * Третьим параметром можно игнорировать изменение связей
+     * @param {*} graph 
+     * @param {Node} node 
+     * @param {boolean} softMode 
+     */
+    toggleNode(graph, layout, node, softMode = false) {
+        let prevVisible = node.visible;
+        // TODO: применяем фильтр!
+        let newVisible = true;
+        if ((newVisible != prevVisible) || (softMode)) {
+            node.visible = newVisible;
+            if (newVisible) {
+                this.restoreNode(graph, node);
+                // добавим вся связанные
+                if (!softMode) {
+                    for (let edge of node.edges) {
+                        this.toggleEdge(graph, edge);
+                    }
+                }
+            } else {
+                this.hideNode(graph, layout, node);
+                // и выбросим все связанные 
+                if (!softMode) {
+                    for (let edge of node.edges) {
+                        this.toggleEdge(graph, edge);
+                    }
+                }
+            }
+        }
+    }
+
+    hideNode(graph, layout, node) {
+        node.onBeforeHide(layout);
+        graph.removeNode(node.id);
+    }
+
+    /**
+     * 
+     * @param {*} graph 
+     * @param {Edge} edge 
+     */
+    toggleEdge(graph, edge) {
+        if (edge.visibleChanged) {
+            if (edge.visible) {
+                this.restoreEdge(graph, edge);
+            } else {
+                let graphEdge = graph.getLink(edge.fromId, edge.toId);
+                graph.removeLink(graphEdge);
+            }
+        }
+    }
+
+    actualize(graph, layout) {
+        // восстанавливаем узлы и связи, не забыв про их позиции и видимость
+        for (let n of this.nodes) {
+            // так же применяем фильтры!
+            this.toggleNode(graph, layout, n, true);
+        }
+        for (let e of this.edges) {
+            this.restoreEdge(graph, e);
+        }
+    }
+
+    onBeforeDisabled(graph, layout) {
+        // сохраняем позиции
+        graph.forEachNode((node) => {
+            node.data.onBeforeHide(layout);
+        });
+
+        // TODO: сбрасывать выделения, если есть таковое
+
+        // и чистим нафиг контейнер графа
+        graph.clean();
+    }
+}

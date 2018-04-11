@@ -8,7 +8,7 @@ import { GraphState } from './GraphState'
 import { VivaNodeUI } from './VivaNodeUI'
 
 export class VivaStateView {
-    constructor(state) {
+    constructor(state, nullnull) {
         /**
          * @type {GraphState} state
          */
