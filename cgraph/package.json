@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "debug": "tsc && echo \"module.exports = SciViCGraph;\" >> build/scivi-cgraph.js && browserify src/wrapper/cgraph.js --standalone CGraph -o ../demo/cgraph/lib/scivi-cgraph.min.js",
-    "release": "tsc && uglifyjs build/scivi-cgraph.js -o ../demo/cgraph/lib/scivi-cgraph.min.js"
+    "release": "tsc && echo \"module.exports = SciViCGraph;\" >> build/scivi-cgraph.js && browserify src/wrapper/cgraph.js --standalone CGraph -o build/scivi-cgraph-tmp.js && uglifyjs build/scivi-cgraph-tmp.js -o ../demo/cgraph/lib/scivi-cgraph.min.js"
   },
   "author": "Konstantin Ryabinin",
   "license": "",
