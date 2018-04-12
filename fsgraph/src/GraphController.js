@@ -19,13 +19,26 @@ export class GraphController {
         // Запилить нечто вроде layoutBuilder, который будет принимать параметры лэйаута
         // + иметь метод а-ля getInstance(graph), который и будет вызываться здесь
         // TODO: выбросить в рендерер?
-        this._layoutInstance = Viva.Graph.Layout.forceDirected(this._graph, {
-            springLength : 80,
-            springCoeff : 0.0008,
-            dragCoeff : 0.02,
-            gravity : -1.2,
-            // theta : 1
-        });
+        if (false) {
+            //@ts-ignore
+            this._layoutInstance = Viva.Graph.Layout.forceDirected(this._graph, {
+                springLength : 80,
+                springCoeff : 0.0008,
+                dragCoeff : 0.02,
+                gravity : -1.2,
+                // theta : 1
+            });
+        }
+        else
+            //@ts-ignore
+            this._layoutInstance = Viva.Graph.Layout.forceAtlas2(this._graph, {
+                // barnesHutOptimize : true,
+                // adjustSizes : true,
+                linLogMode : true,
+                // edgeWeightInfluence : 0.5,
+                // gravity: 2.0,
+                outboundAttractionDistribution : true
+            });
         
         /** @type {VivaWebGLRenderer} */
         this._renderer = null;

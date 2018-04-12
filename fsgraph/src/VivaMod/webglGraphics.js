@@ -532,7 +532,6 @@ function webglGraphics(options) {
         transformClientToGraphCoordinates: function (p) {
           // TODO: could be a problem when container has margins?
             // normalize
-            console.log('x ' + p.x + ' y ' + p.y + ' ==> ');
             p.x = (2 * p.x) - width;
             p.y = height - (2 * p.y);
 
@@ -547,8 +546,6 @@ function webglGraphics(options) {
             // transform to graph coordinates
             // p.x = p.x;
             p.y = -p.y;
-
-            console.log(angle + '==> x ' + p.x + ' y ' + p.y);
 
             return p;
         },

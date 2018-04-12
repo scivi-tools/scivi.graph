@@ -65,7 +65,8 @@ export default {
   
     Layout: {
       forceDirected: require('ngraph.forcelayout'),
-      constant: require('vivagraphjs/src/Layout/constant.js')
+      constant: require('vivagraphjs/src/Layout/constant.js'),
+      forceAtlas2: require('./VivaMod/forceAtlas2.js')
     },
   
     View: {
@@ -74,22 +75,13 @@ export default {
       // TODO: This should not be even exported
       webglAtlas: require('vivagraphjs/src/WebGL/webglAtlas.js'),
       webglImageNodeProgram: require('vivagraphjs/src/WebGL/webglImageNodeProgram.js'),
-      webglLinkProgram: require('vivagraphjs/src/WebGL/webglLinkProgram.js'),
-      webglNodeProgram: require('vivagraphjs/src/WebGL/webglNodeProgram.js'),
       webglLine: require('vivagraphjs/src/WebGL/webglLine.js'),
       webglSquare: require('vivagraphjs/src/WebGL/webglSquare.js'),
       webglImage: require('vivagraphjs/src/WebGL/webglImage.js'),
       webglGraphics: require('./VivaMod/webglGraphics.js'),
-  
-      // TODO: move to svg namespace
-      svgGraphics: require('vivagraphjs/src/View/svgGraphics.js'),
-  
-      renderer: require('vivagraphjs/src/View/renderer.js'),
     },
   
     Rect: require('vivagraphjs/src/Utils/rect.js'),
-  
-    svg: require('simplesvg'),
   
     // TODO: should be camelCase
     BrowserInfo: require('vivagraphjs/src/Utils/browserInfo.js')
