@@ -1,7 +1,7 @@
 {
     "compileOnSave": true,
     "compilerOptions": {
-        "rootDir": "source",
+        "rootDir": "src/core",
         "outFile": "build/scivi-cgraph.js",
         "watch": false,
         "module":"amd",

@@ -23,31 +23,31 @@ ul
     margin: 0px;
 }
 
-#view
+#scivi_cgraph_view
 {
     height: 100%;
     overflow: hidden;
 }
 
-#info, #list
+#scivi_cgraph_info, #scivi_cgraph_list
 {
     font: 12px Helvetica Neue, Helvetica, Arial, sans-serif;
     padding: 10px 10px 10px 20px;
 }
 
-#settings 
+#scivi_cgraph_settings 
 {
     padding: 10px;
     font: 12px Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
-#stats
+#scivi_cgraph_stats
 {
     padding: 10px;
     font: 12px Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
-#stateline
+#scivi_cgraph_stateline
 {
     padding: 20px;
     font: 12px Helvetica Neue, Helvetica, Arial, sans-serif;
