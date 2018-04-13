@@ -383,7 +383,7 @@ namespace SciViCGraph
                 this.m_text.style.fontWeight = "bold";
                 this.m_text.text = "[-" + this.label + "-]";
             }
-            return { width: w / 2.0 + Node.m_textPadding, height: this.m_text.height / 2.0 - 4.5 };
+            return { width: w / 2.0 + Node.m_textPadding, height: this.m_text.height / 2.0 - 5.0 };
         }
 
         set wordWrap(ww: boolean)
