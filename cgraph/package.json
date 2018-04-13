@@ -4,8 +4,8 @@
   "description": "Circular graph visualization module of SciVi",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "debug": "tsc && echo \"module.exports = SciViCGraph;\" >> build/scivi-cgraph.js && browserify src/wrapper/cgraph.js --standalone CGraph -o ../demo/cgraph/lib/scivi-cgraph.min.js",
-    "release": "tsc && echo \"module.exports = SciViCGraph;\" >> build/scivi-cgraph.js && browserify src/wrapper/cgraph.js --standalone CGraph -o build/scivi-cgraph-tmp.js && uglifyjs build/scivi-cgraph-tmp.js -o ../demo/cgraph/lib/scivi-cgraph.min.js"
+    "debug": "./build.sh debug",
+    "release": "./build.sh release"
   },
   "author": "Konstantin Ryabinin",
   "license": "",
@@ -20,18 +20,11 @@
     "ngraph.graph": "0.0.14",
     "ngraph.louvain": "^1.0.1",
     "pixi.js": "^4.7.3",
-    "split.js": "^1.3.5",
-    "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0"
+    "split.js": "^1.3.5"
   },
   "devDependencies": {
     "browserify": "^14.5.0",
     "typescript": "^2.7.2",
-    "uglify-js": "^3.3.11",
-    "del": "^3.0.0",
-    "gulp": "^3.9.1",
-    "gulp-rename": "^1.2.2",
-    "gulp-run": "^1.7.1",
-    "gulp-uglify": "^3.0.0"
+    "uglify-js": "^3.3.11"
   }
 }
