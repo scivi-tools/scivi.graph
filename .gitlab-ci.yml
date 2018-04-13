@@ -20,7 +20,7 @@ build_cgraph:
     - popd
   script: 
     - pushd cgraph
-    - NODE_ENV=production nmp run release
+    - NODE_ENV=production npm run release
     - popd
   artifacts:
     paths:
