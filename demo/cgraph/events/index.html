@@ -4,21 +4,15 @@
         <meta charset="utf-8"/>
         <title>SciVi-CGraph</title>
         
-        <script src="../lib/pixi.js"></script>
-        <script src="../lib/jquery.min.js"></script>
-        <script src="../lib/jquery-ui.min.js"></script>
-        <script src="../lib/split.min.js"></script>
+        <script src="../lib/scivi-cgraph.min.js"></script>
         <script src="../lib/louvain.min.js"></script>
-        <script src="../lib/chart.min.js"></script>
 
         <link rel="stylesheet" href="../css/jquery-ui.css"/>
         <link rel="stylesheet" href="../css/default.css"/>
 
         <script src="data.js"></script>
-        <script src="../css/colors.js"></script>
         <script src="../css/loc-ru.js"></script>
         <script src="../css/loc-en.js"></script>
-        <script src="../lib/scivi-cgraph.min.js"></script>
 
         <script>
             function getParameterByName(name, url)
@@ -39,37 +33,12 @@
             {
                 var loc = getParameterByName("lang") === "ru" ? g_loc_ru : g_loc_en;
 
-                var parser = new SciViCGraph.Parser(g_data);
-                var renderer = new SciViCGraph.Renderer($('#view')[0], $('#info')[0],
-                                                        $('#list')[0], $('#settings')[0], 
-                                                        $('#stats')[0], null, loc);
+                var graph = new CGraph();
 
-                var g = parser.graphData;
-
-                $("#lnk_info").text(loc["LOC_INFO"]);
-                $("#lnk_list").text(loc["LOC_NODES"]);
-                $("#lnk_settings").text(loc["LOC_SETTINGS"]);
-                $("#lnk_stats").text(loc["LOC_GROUPS"]);
-
-                Split(['#a', '#b'], {
-                      gutterSize: 8,
-                      cursor: 'col-resize',
-                      onDrag: () => { renderer.reshape(); }
-                });
-
-                $("#tabs").tabs({heightStyle: "fill"});
+                var g = graph.parse(g_data);
 
                 console.log("Number of nodes: " + g.nodes.length);
                 console.log("Number of edges: " + g.edges.length);
-
-                g.nodes.sort((x1, x2) => {
-                    if (x1.date < x2.date)
-                        return -1;
-                    else if (x1.date > x2.date)
-                        return 1;
-                    else
-                        return 0; 
-                });
 
                 Louvain.detectClusters({nodes: g.nodes, edges: g.edges});
 
@@ -115,34 +84,13 @@
                     loc["LOC_OCT"] + " 2017",
                     "2017+"
                 ];
-                var scale = new SciViCGraph.Scale(steps, colors, textColors, names, (node) => { return node.date; });
+                var scale = graph.createScale(steps, colors, textColors, names, (node) => { return node.date; });
 
-                renderer.setInput([g], g_colors);
-                renderer.scaleLevels = [scale];
-                renderer.run();
+                var renderer = graph.run(loc, [g], [scale]);
             }
         </script>
     </head>
 
     <body onload="main();">
-
-        <div id="a" class="split split-horizontal">
-            <div id="view"></div>
-        </div>
-        <div id="b" class="split split-horizontal">
-            <div id="tabs">
-                <ul>
-                    <li><a id="lnk_info" href="#info"></a></li>
-                    <li><a id="lnk_list" href="#list"></a></li>
-                    <li><a id="lnk_settings" href="#settings"></a></li>
-                    <li><a id="lnk_stats" href="#stats"></a></li>
-                </ul>
-                <div id="info"></div>
-                <div id="list"></div>
-                <div id="settings"></div>
-                <div id="stats"></div>
-            </div>
-        </div>
-        
     </body>
 </html>
