@@ -110,10 +110,17 @@ namespace SciViCGraph
             header.appendChild(name);
             header.appendChild(changeName);
 
-            if (this.date != null) {
-                let dateLabel = document.createElement("span");
-                dateLabel.innerHTML = "&nbsp;&nbsp;&nbsp;(" + this.date.toLocaleDateString() + ")";
-                header.appendChild(dateLabel);
+            let customPropList = "";
+            for (let prop in this.m_dict) {
+                if (prop !== "id" && prop !== "label" && prop !== "group" && prop !== "date")
+                    customPropList += "<li>" + prop + ": " + this.m_dict[prop] + "</li>";
+                else if (prop === "date")
+                    customPropList += "<li>" + prop + ": " + this.date.toLocaleDateString() + "</li>";
+            }
+            if (customPropList.length > 0) {
+                let customProps = document.createElement("div");
+                customProps.innerHTML = this.m_svRenderer.localizer["LOC_NODE_DATA"] + ":<ul>" + customPropList + "</ul>";
+                header.appendChild(customProps);
             }
 
             let colorLabel = document.createElement("span");

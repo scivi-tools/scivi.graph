@@ -37,5 +37,6 @@ var g_loc_en = {
     "LOC_MALE": "m",
     "LOC_FEMALE": "f",
     "LOC_EDUCATION_MIDDLE": "m",
-    "LOC_EDUCATION_HIGH": "h"
+    "LOC_EDUCATION_HIGH": "h",
+    "LOC_NODE_DATA": "Node data"
 };

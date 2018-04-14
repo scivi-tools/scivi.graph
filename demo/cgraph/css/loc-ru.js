@@ -37,5 +37,6 @@ var g_loc_ru = {
     "LOC_MALE": "м",
     "LOC_FEMALE": "ж",
     "LOC_EDUCATION_MIDDLE": "с",
-    "LOC_EDUCATION_HIGH": "в"
+    "LOC_EDUCATION_HIGH": "в",
+    "LOC_NODE_DATA": "Данные вершины"
 };
