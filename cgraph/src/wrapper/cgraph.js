@@ -24,6 +24,12 @@ CGraph.prototype.parse = function (data)
     return parser.graphData;
 }
 
+CGraph.prototype.parseStates = function (data)
+{
+    var parser = new SciViCGraph.StatesParser(data);
+    return parser.graphDataStates;
+}
+
 CGraph.prototype.createScale = function (steps, colors, textColors, names, getValue)
 {
     return new SciViCGraph.Scale(steps, colors, textColors, names, getValue);
@@ -31,7 +37,11 @@ CGraph.prototype.createScale = function (steps, colors, textColors, names, getVa
 
 CGraph.prototype.run = function (loc, data, scales)
 {
-    var split1 = $("<div>").html("<div id=\"scivi_cgraph_view\"></div>");
+    var split1 = $("<div>");
+    if (data.length > 1)
+        split1.html("<div id=\"scivi_cgraph_view\" style=\"height: calc(100vh - 70px);\"></div><div id=\"scivi_cgraph_stateline\"></div>");
+    else
+        split1.html("<div id=\"scivi_cgraph_view\"></div>");
     split1.attr("id", "scivi_cgraph_a");
     split1.attr("class", "split split-horizontal");
 
@@ -55,14 +65,15 @@ CGraph.prototype.run = function (loc, data, scales)
     $("body").prepend(split2);
     $("body").prepend(split1);
 
-    var renderer = new SciViCGraph.Renderer($('#scivi_cgraph_view')[0], $('#scivi_cgraph_info')[0],
-                                            $('#scivi_cgraph_list')[0], $('#scivi_cgraph_settings')[0],
-                                            $('#scivi_cgraph_stats')[0], null,
+    var renderer = new SciViCGraph.Renderer($("#scivi_cgraph_view")[0], $("#scivi_cgraph_info")[0],
+                                            $("#scivi_cgraph_list")[0], $("#scivi_cgraph_settings")[0],
+                                            $("#scivi_cgraph_stats")[0],
+                                            data.length > 1 ? $("#scivi_cgraph_stateline")[0] : null,
                                             loc);
 
-    Split(['#scivi_cgraph_a', '#scivi_cgraph_b'], {
+    Split(["#scivi_cgraph_a", "#scivi_cgraph_b"], {
         gutterSize: 8,
-        cursor: 'col-resize',
+        cursor: "col-resize",
         onDrag: function () { renderer.reshape(); }
     });
 

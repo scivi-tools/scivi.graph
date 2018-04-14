@@ -863,26 +863,28 @@ namespace SciViCGraph
 
         public sortNodesByRingScale()
         {
-            this.currentData().nodes.sort((x1, x2) => {
-                for (let i = this.m_scaleLevels.length - 1; i >= 0; --i) {
-                    const v1 = this.m_scaleLevels[i].getStepID(x1);
-                    const v2 = this.m_scaleLevels[i].getStepID(x2);
+            if (this.m_scaleLevels.length > 0) {
+                this.currentData().nodes.sort((x1, x2) => {
+                    for (let i = this.m_scaleLevels.length - 1; i >= 0; --i) {
+                        const v1 = this.m_scaleLevels[i].getStepID(x1);
+                        const v2 = this.m_scaleLevels[i].getStepID(x2);
+                        if (v1 < v2)
+                            return -1;
+                        else if (v1 > v2)
+                            return 1;
+                    }
+                    const v1 = this.m_scaleLevels[0].getValue(x1);
+                    const v2 = this.m_scaleLevels[0].getValue(x2);
                     if (v1 < v2)
                         return -1;
                     else if (v1 > v2)
                         return 1;
-                }
-                const v1 = this.m_scaleLevels[0].getValue(x1);
-                const v2 = this.m_scaleLevels[0].getValue(x2);
-                if (v1 < v2)
-                    return -1;
-                else if (v1 > v2)
-                    return 1;
-                else if (x1.label < x2.label)
-                    return -1;
-                else
-                    return 0;
-            });
+                    else if (x1.label < x2.label)
+                        return -1;
+                    else
+                        return 0;
+                });
+            }
         }
 
         public hoverNode(node: Node)

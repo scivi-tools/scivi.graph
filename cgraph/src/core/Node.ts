@@ -388,7 +388,7 @@ namespace SciViCGraph
 
         set wordWrap(ww: boolean)
         {
-            this.m_text.style.wordWrap = ww;
+            this.m_text.style.wordWrap = this.m_text.text.indexOf(" ") !== -1 && ww;
         }
 
         get fontSize(): number
