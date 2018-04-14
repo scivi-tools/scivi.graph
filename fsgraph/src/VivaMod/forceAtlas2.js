@@ -79,7 +79,6 @@ function createLayout(graph, settings) {
   });
 
   var maxForce = 10,
-      iterations = 0,
       converged = false;
   
   var minX = Infinity,
@@ -96,7 +95,9 @@ function createLayout(graph, settings) {
   initPhysics();
   listenToEvents();
 
-  var wasStable = false;
+  var wasStable = false,
+      stableLevel = 0.1,
+      prevRatio = 42.0;
 
   var api = {
     /**
@@ -108,23 +109,25 @@ function createLayout(graph, settings) {
     step: function() {
       if (bodiesCount === 0) return true; // TODO: This will never fire 'stable'
 
-      // var lastMove = physicsSimulator.step();
-      pass();
+      var lastMove = pass();
 
       // Save the movement in case if someone wants to query it in the step
       // callback.
-      api.lastMove = 42;//lastMove;
+      api.lastMove = lastMove;
 
       // Allow listeners to perform low-level actions after nodes are updated.
       api.fire('step');
 
-      // var ratio = lastMove/bodiesCount;
-      var isStableNow = false;//ratio <= 0.01; // TODO: The number is somewhat arbitrary...
+      // TODO: кто же так хардкотит проверку стабилизации укладки? Мусорка!
+      var ratio = lastMove / 2;//bodiesCount;
+      var isStableNow = (ratio < stableLevel) && (prevRatio < stableLevel);
 
-      // if (wasStable !== isStableNow) {
-      //   wasStable = isStableNow;
-      //   onStableChanged(isStableNow);
-      // }
+      if (wasStable !== isStableNow) {
+        wasStable = isStableNow;
+        onStableChanged(isStableNow);
+      }
+
+      prevRatio = ratio;
 
       return isStableNow;
     },
@@ -1150,7 +1153,10 @@ function createLayout(graph, settings) {
     var force,
         swinging,
         traction,
-        nodespeed;
+        nodespeed,
+        minDiff = Infinity,
+        maxDiff = -Infinity,
+        diff;
 
     // MATH: sqrt and square distances
     if (settings.adjustSizes) {
@@ -1188,12 +1194,23 @@ function createLayout(graph, settings) {
             0.1 * Math.log(1 + traction) / (1 + Math.sqrt(swinging));
 
           // Updating node's positon
+          diff = nodeBodies[n].dx *
+            (nodespeed / settings.slowDown);
+          if (diff > maxDiff)
+            maxDiff = diff;
+          if (diff < minDiff)
+            minDiff = diff;
           nodeBodies[n].pos.x =
-            nodeBodies[n].pos.x + nodeBodies[n].dx *
+            nodeBodies[n].pos.x + diff;
+
+          diff = nodeBodies[n].dy *
             (nodespeed / settings.slowDown);
+          if (diff > maxDiff)
+            maxDiff = diff;
+          if (diff < minDiff)
+            minDiff = diff;
           nodeBodies[n].pos.y =
-            nodeBodies[n].pos.y + nodeBodies[n].dy *
-            (nodespeed / settings.slowDown);
+            nodeBodies[n].pos.y + diff;
         }
       }
     }
@@ -1230,18 +1247,29 @@ function createLayout(graph, settings) {
             ));
 
           // Updating node's positon
+          diff = nodeBodies[n].dx *
+            (nodespeed / settings.slowDown);
+          if (diff > maxDiff)
+            maxDiff = diff;
+          if (diff < minDiff)
+            minDiff = diff;
           nodeBodies[n].pos.x =
-            nodeBodies[n].pos.x + nodeBodies[n].dx *
+            nodeBodies[n].pos.x + diff;
+
+          diff = nodeBodies[n].dy *
             (nodespeed / settings.slowDown);
+          if (diff > maxDiff)
+            maxDiff = diff;
+          if (diff < minDiff)
+            minDiff = diff;
           nodeBodies[n].pos.y =
-            nodeBodies[n].pos.y + nodeBodies[n].dy *
-            (nodespeed / settings.slowDown);
+            nodeBodies[n].pos.y + diff;
         }
       }
     }
 
-    // Counting one more iteration
-    iterations++;
+    diff = Math.max(Math.abs(minDiff), Math.abs(maxDiff));
+    return diff;
   }
 
 }
