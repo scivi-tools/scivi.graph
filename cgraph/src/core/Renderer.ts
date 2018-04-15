@@ -146,34 +146,35 @@ namespace SciViCGraph
         private calcWeights()
         {
             this.m_nodeWeight = { min: undefined, max: undefined, step: undefined };
-            const nodes = this.currentData().nodes;
-            for (let i = 0, n = nodes.length; i < n; ++i) {
-                if (this.m_nodeWeight.min === undefined || this.m_nodeWeight.min > nodes[i].weight)
-                    this.m_nodeWeight.min = nodes[i].weight;
-                if (this.m_nodeWeight.max === undefined || this.m_nodeWeight.max < nodes[i].weight)
-                    this.m_nodeWeight.max = nodes[i].weight;
-                for (let j = i + 1; j < n; ++j) {
-                    const d = Math.abs(nodes[i].weight - nodes[j].weight);
-                    if (d > 0.0 && (this.m_nodeWeight.step === undefined || this.m_nodeWeight.step > d))
-                        this.m_nodeWeight.step = d;
+            this.m_edgeWeight = { min: undefined, max: undefined, step: undefined };
+
+            this.m_data.forEach((data) => {
+                for (let i = 0, n = data.nodes.length; i < n; ++i) {
+                    if (this.m_nodeWeight.min === undefined || this.m_nodeWeight.min > data.nodes[i].weight)
+                        this.m_nodeWeight.min = data.nodes[i].weight;
+                    if (this.m_nodeWeight.max === undefined || this.m_nodeWeight.max < data.nodes[i].weight)
+                        this.m_nodeWeight.max = data.nodes[i].weight;
+                    for (let j = i + 1; j < n; ++j) {
+                        const d = Math.abs(data.nodes[i].weight - data.nodes[j].weight);
+                        if (d > 0.0 && (this.m_nodeWeight.step === undefined || this.m_nodeWeight.step > d))
+                            this.m_nodeWeight.step = d;
+                    }
                 }
-            }
+                for (let i = 0, n = data.edges.length; i < n; ++i) {
+                    if (this.m_edgeWeight.min === undefined || this.m_edgeWeight.min > data.edges[i].weight)
+                        this.m_edgeWeight.min = data.edges[i].weight;
+                    if (this.m_edgeWeight.max === undefined || this.m_edgeWeight.max < data.edges[i].weight)
+                        this.m_edgeWeight.max = data.edges[i].weight;
+                    for (let j = i + 1; j < n; ++j) {
+                        const d = Math.abs(data.edges[i].weight - data.edges[j].weight);
+                        if (d > 0.0 && (this.m_edgeWeight.step === undefined || this.m_edgeWeight.step > d))
+                            this.m_edgeWeight.step = d;
+                    }
+                }
+            });
+
             if (this.m_nodeWeight.step === undefined)
                 this.m_nodeWeight.step = 0.0;
-
-            this.m_edgeWeight = { min: undefined, max: undefined, step: undefined };
-            const edges = this.currentData().edges;
-            for (let i = 0, n = edges.length; i < n; ++i) {
-                if (this.m_edgeWeight.min === undefined || this.m_edgeWeight.min > edges[i].weight)
-                    this.m_edgeWeight.min = edges[i].weight;
-                if (this.m_edgeWeight.max === undefined || this.m_edgeWeight.max < edges[i].weight)
-                    this.m_edgeWeight.max = edges[i].weight;
-                for (let j = i + 1; j < n; ++j) {
-                    const d = Math.abs(edges[i].weight - edges[j].weight);
-                    if (d > 0.0 && (this.m_edgeWeight.step === undefined || this.m_edgeWeight.step > d))
-                        this.m_edgeWeight.step = d;
-                }
-            }
             if (this.m_edgeWeight.step === undefined)
                 this.m_edgeWeight.step = 0.0;
         }
@@ -223,7 +224,6 @@ namespace SciViCGraph
 
         private reinit(animated: boolean)
         {
-            this.calcWeights();
             this.createStage();
             
             if (this.m_selectedNode != null)
@@ -241,6 +241,9 @@ namespace SciViCGraph
             this.currentData().nodes.forEach((node) => {
                 node.invalidate();
             });
+
+            this.filterNodes();
+            this.filterEdges();
 
             if (animated) {
                 this.updateRenderingCache(true);
