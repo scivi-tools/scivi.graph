@@ -239,7 +239,7 @@ namespace SciViCGraph
             this.createGraph();
 
             this.currentData().nodes.forEach((node) => {
-                node.invalidate();
+                node.invalidate(true);
             });
 
             this.filterNodes();
@@ -529,7 +529,7 @@ namespace SciViCGraph
             let ww = this.currentData().nodes.length < 40;
             this.currentData().nodes.forEach((node) => {
                 node.wordWrap = ww;
-                let s = node.labelSize();
+                let s = node.labelSize(true);
                 if (s.width > this.m_maxTextLength)
                     this.m_maxTextLength = s.width;
                 if (s.height > maxTextHeight)
@@ -839,7 +839,7 @@ namespace SciViCGraph
             $("#scivi_node_alpha").text(value);
             Node.passiveTextAlpha = value;
             this.currentData().nodes.forEach((node) => {
-                node.invalidate();
+                node.invalidate(false);
             });
             this.render(true, true);
         }
@@ -849,7 +849,7 @@ namespace SciViCGraph
             $("#scivi_edge_alpha").text(value);
             Edge.passiveEdgeAlpha = value;
             this.currentData().nodes.forEach((node) => {
-                node.invalidate();
+                node.invalidate(false);
             });
             this.render(true, true);
         }

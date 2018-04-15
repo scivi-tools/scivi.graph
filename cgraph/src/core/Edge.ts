@@ -219,9 +219,11 @@ namespace SciViCGraph
             this.m_thickness = th;
         }
 
-        public invalidate()
+        public invalidate(wipeInternals: boolean)
         {
             this.m_highlight = undefined;
+            if (wipeInternals)
+                this.m_glow = null;
         }
 
         set isGlowing(g: boolean)

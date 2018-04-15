@@ -19,7 +19,7 @@ namespace SciViCGraph
                 this.position = node.position;
                 this.rotation = node.rotation;
 
-                let size = node.labelSize();
+                let size = node.labelSize(false);
                 size.width += NodeBorder.m_thickness;
                 size.height += NodeBorder.m_thickness;
                 const x = 0;

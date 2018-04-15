@@ -337,13 +337,13 @@ namespace SciViCGraph
             return result;
         }
 
-        public invalidate()
+        public invalidate(wipeInternals: boolean)
         {
             this.m_highlight = undefined;
             this.m_highlightSet = false;
             this.m_edges.forEach((edge) => {
                 if (edge.visible)
-                    edge.invalidate();
+                    edge.invalidate(wipeInternals);
             });
         }
 
@@ -378,10 +378,10 @@ namespace SciViCGraph
             });
         }
 
-        public labelSize(): { width: number, height: number }
+        public labelSize(normalize: boolean): { width: number, height: number }
         {
             let w = 0.0;
-            if (this.m_text.style.fontWeight === "normal")
+            if (this.m_text.style.fontWeight === "normal" || !normalize)
                 w = this.m_text.width;
             else {
                 this.m_text.style.fontWeight = "normal";
