@@ -19,7 +19,7 @@ export class GraphController {
         // Запилить нечто вроде layoutBuilder, который будет принимать параметры лэйаута
         // + иметь метод а-ля getInstance(graph), который и будет вызываться здесь
         // TODO: выбросить в рендерер?
-        if (false) {
+        if (true) {
             //@ts-ignore
             this._layoutInstance = Viva.Graph.Layout.forceDirected(this._graph, {
                 springLength : 80,

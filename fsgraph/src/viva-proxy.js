@@ -70,11 +70,7 @@ export default {
     },
   
     View: {
-      // TODO: Move `webglXXX` out to webgl namespace
-      Texture: require('vivagraphjs/src/WebGL/texture.js'),
-      // TODO: This should not be even exported
-      webglAtlas: require('vivagraphjs/src/WebGL/webglAtlas.js'),
-      webglImageNodeProgram: require('vivagraphjs/src/WebGL/webglImageNodeProgram.js'),
+      webglImageNodeProgram: require('./VivaMod/webglImageNodeProgram.js'),
       webglLine: require('vivagraphjs/src/WebGL/webglLine.js'),
       webglSquare: require('vivagraphjs/src/WebGL/webglSquare.js'),
       webglImage: require('vivagraphjs/src/WebGL/webglImage.js'),

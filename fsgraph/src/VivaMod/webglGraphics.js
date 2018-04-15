@@ -261,8 +261,8 @@ function webglGraphics(options) {
         },
 
         translateRel : function (dx, dy) {
-            transform[12] += dx * 2 * transform[10];//(2 * transform[10] * dx / width) / transform[0];
-            transform[13] -= dy * 2 * transform[10];//(2 * transform[10] * dy / height) / transform[5];
+            transform[12] += dx / transform[10];//(2 * transform[10] * dx / width) / transform[0];
+            transform[13] -= dy / transform[10];//(2 * transform[10] * dy / height) / transform[5];
             updateTransformUniform();
         },
 
