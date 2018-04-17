@@ -103,27 +103,27 @@ export class VivaImageNodeRenderer {
     position(nodeUI, pos) {
         const idx = nodeUI.id * ATTRIBUTES_PER_PRIMITIVE;
         this._nodes[idx] = pos.x - nodeUI.size;
-        this._nodes[idx + 1] = pos.y - nodeUI.size;
+        this._nodes[idx + 1] = -(pos.y - nodeUI.size);
         this._nodes[idx + 2] = nodeUI.offset * 4;
     
         this._nodes[idx + 3] = pos.x + nodeUI.size;
-        this._nodes[idx + 4] = pos.y - nodeUI.size;
+        this._nodes[idx + 4] = -(pos.y - nodeUI.size);
         this._nodes[idx + 5] = nodeUI.offset * 4 + 1;
     
         this._nodes[idx + 6] = pos.x - nodeUI.size;
-        this._nodes[idx + 7] = pos.y + nodeUI.size;
+        this._nodes[idx + 7] = -(pos.y + nodeUI.size);
         this._nodes[idx + 8] = nodeUI.offset * 4 + 2;
     
         this._nodes[idx + 9] = pos.x - nodeUI.size;
-        this._nodes[idx + 10] = pos.y + nodeUI.size;
+        this._nodes[idx + 10] = -(pos.y + nodeUI.size);
         this._nodes[idx + 11] = nodeUI.offset * 4 + 2;
     
-        this._nodes[idx + 13] = pos.y - nodeUI.size;
         this._nodes[idx + 12] = pos.x + nodeUI.size;
+        this._nodes[idx + 13] = -(pos.y - nodeUI.size);
         this._nodes[idx + 14] = nodeUI.offset * 4 + 1;
     
         this._nodes[idx + 15] = pos.x + nodeUI.size;
-        this._nodes[idx + 16] = pos.y + nodeUI.size;
+        this._nodes[idx + 16] = -(pos.y + nodeUI.size);
         this._nodes[idx + 17] = nodeUI.offset * 4 + 3;
     }
 
