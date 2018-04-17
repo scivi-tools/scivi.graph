@@ -1,5 +1,8 @@
 //@ts-check
 import Viva from './viva-proxy';
+import { VivaBaseUI } from './VivaBaseUI';
+import { VivaImageNodeUI, VivaImageNodeRenderer } from './VivaMod/VivaImageNodeRenderer';
+import { newLinkProgram } from './VivaMod/newLinkProgram';
 
 export class VivaWebGLSimpleBackend {
     constructor() {
@@ -11,17 +14,31 @@ export class VivaWebGLSimpleBackend {
             clearColor: true
         });
         this._inputListner = Viva.Graph.webglInputEvents(this._graphics);
+
+        // HACK: пока закостылим текстовые метки вершин здесь, дабы в случае чего
+        // можно было махнуть бекенд обранто на вивовский
+        /** @type {HTMLSpanElement[]} */
+        this._labels = [];
+        /** @type {HTMLElement} */
+        this._container = null;
     }
 
     /**
      * TODO: здесь обновляются шейдеры и т.п. для конкретного бакенда
      * Можно сделать этот класс бызовым для них
+     * @param {HTMLElement} container
      */
-    postInit() {
-        
+    postInit(container) {
+        this._container = container;
+
+        this._graphics.setNodeProgram(new VivaImageNodeRenderer());
+        this._graphics.setLinkProgram(newLinkProgram());
+
+        this._graphics.init(container);
 
         this._graphics.node((node) => {
-            return Viva.Graph.View.webglSquare(10, 0xccccb3ff);
+            let title = this._ensureLabelExists(node.id);
+            return new VivaImageNodeUI(node.data, title);
         });
         // HACK: обходим косяк в бэкенде,
         // связанный с недобавлением ссылки на модель ребра в её представление
@@ -30,9 +47,29 @@ export class VivaWebGLSimpleBackend {
             res.link = link;
             return res;
         });
+
+        // Устанавливаем действия при отображении примитивов
+        // TODO: задать само действие д.б. можно снаружи этого класса!
     }
 
     get graphics() {
         return this._graphics;
+    }
+
+    /**
+     * @param {any} id
+     */
+    _ensureLabelExists(id) {
+        if (!this._labels[id]) {
+            let label = document.createElement('span');
+            label.classList.add('node-label');
+            label.innerText = '--insert-text-here--';
+            label.hidden = true;
+            label.style.opacity = '0.85'
+            this._labels[id] = label;
+            this._container.appendChild(label);
+        }
+
+        return this._labels[id];
     }
 }

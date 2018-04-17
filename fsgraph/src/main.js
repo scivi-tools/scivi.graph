@@ -5,79 +5,6 @@ import { ColorConverter } from './ColorConverter.js';
 export * from './GraphController.js'
 export * from './VivaWebGLRenderer.js'
 
-function generateDOMLabels(graph, container) 
-{
-    var labels = Object.create(null);
-    graph.forEachNode((node) => {
-        var label = document.createElement('span');
-        label.classList.add('node-label');
-        label.innerText = node.data.text;
-        if (!node.data.isEvent_WTFHWhoDoesCheckingThisWay) {
-            label.hidden = true;
-        }
-        label.style.opacity = '0.85'
-        labels[node.id] = label;
-        container.appendChild(label);
-    });
-    return labels;
-}
-
-function createGraph(data, incolors)
-{
-    var result = Viva.Graph.graph();
-
-    data.nodes.forEach((node) => {
-        createNode2(node, incolors);
-    });
-
-    var maxWordWeight = 0;
-    data.words.forEach((word) => {
-        // Узнаем максимальный "вес" слова пока что тут
-        // TODO: считать макс. число вхождений одного слова для каждого события на этапе конвертации
-        if (word.weight > maxWordWeight) {
-            maxWordWeight = word.weight;
-        }
-        createNode(word, incolors);
-    });
-    data.edges.forEach((edge) => {
-        createEdge(edge, incolors);
-    });
-
-    return {
-        itself: result,
-        colors: incolors,
-        maxEventCount: data.maxEventCount,
-        maxWordWeight: maxWordWeight,
-
-        createNode: createNode,
-        createNode2: createNode2,
-        createEdge: createEdge,
-    };
-
-    function createNode(data, colors) {
-        return result.addNode(data.id, {
-            text: data.label,
-            colorSource: colors.Word,
-            size: 10
-        });
-    }
-
-    function createNode2(ndata, colors) {
-        return result.addNode(ndata.id, {
-            isEvent_WTFHWhoDoesCheckingThisWay: true,
-            text: ndata.label,
-            colorSource: colors.Node,
-            size: 10 + 50 * (ndata.count / data.maxEventCount)
-        });
-    }
-
-    function createEdge(data, colors) {
-        return result.addLink(data.source, data.target, {
-            colorSource: colors.Link,
-        });
-    }
-}
-
 function toggleRelatedWords(graph, nodeUI, labels, toggled) {
     nodeUI.data.colorSource = toggled ? graph.colors.NodeHighlighted : graph.colors.Node;
     graph.itself.forEachLinkedNode(nodeUI.id, function(node, link) {
@@ -92,7 +19,7 @@ function toggleLabelEvent(event, show, labels) {
     event.showLabel = show;
     labels[event.id].hidden = !show;
 }
-
+/*
 export function main(container, control, data, colors) {
 
     var prevMaxWeight = 0;
@@ -443,3 +370,4 @@ export function main(container, control, data, colors) {
         layoutPaused = !layoutPaused;
     }
 }
+*/

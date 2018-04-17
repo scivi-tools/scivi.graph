@@ -103,7 +103,7 @@ function webglGraphics(options) {
         fireRescaled = function (graphics) {
             graphics.fire("rescaled");
         };
-
+    
     graphicsRoot = window.document.createElement("canvas");
 
     var graphics = {

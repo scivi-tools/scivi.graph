@@ -70,11 +70,9 @@ export default {
     },
   
     View: {
-      webglImageNodeProgram: require('./VivaMod/webglImageNodeProgram.js'),
       webglLine: require('vivagraphjs/src/WebGL/webglLine.js'),
-      webglSquare: require('vivagraphjs/src/WebGL/webglSquare.js'),
-      webglImage: require('vivagraphjs/src/WebGL/webglImage.js'),
       webglGraphics: require('./VivaMod/webglGraphics.js'),
+      webglAtlas: require('vivagraphjs/src/WebGL/webglAtlas'),
     },
   
     Rect: require('vivagraphjs/src/Utils/rect.js'),

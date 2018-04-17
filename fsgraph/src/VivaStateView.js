@@ -3,7 +3,7 @@
  * Эта версия будет вива-специфичная, с использованием визуала узлов
  * с dom-надписями
  */
-//@ts-check
+//@ts-nocheck
 import { GraphState } from './GraphState'
 import { VivaNodeUI } from './VivaNodeUI'
 

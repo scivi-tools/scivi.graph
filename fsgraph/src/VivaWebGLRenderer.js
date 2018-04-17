@@ -24,7 +24,6 @@ export class VivaWebGLRenderer {
             this._backend = new VivaWebGLSimpleBackend();
         }
         this._graphics = this._backend.graphics;
-        this._backend.postInit();
 
         this._renderer = null;
 
@@ -291,7 +290,7 @@ export class VivaWebGLRenderer {
     }
 
     _initDom() {
-        this._graphics.init(this._container);
+        this._backend.postInit(this._container);
 
         this._graphBackend.forEachNode((node) => this._createNodeUi(node));
 
