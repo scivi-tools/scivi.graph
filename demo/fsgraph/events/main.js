@@ -1,5 +1,6 @@
 function main() {
-    var renderer = new SciViFSGraph.VivaWebGLRenderer($('#view')[0]);
+    var controller = SciViFSGraph.GraphController.fromJson(g_data);
+    var renderer = null;
 
     Split(['#a', '#b'], {
         gutterSize: 8,
@@ -18,16 +19,14 @@ function main() {
         value: 0,
         step: 1,
         slide: (event, ui) => {
-            renderer.graphics.rotate(ui.value * Math.PI / 180);
-            renderer.rerender();
+            renderer.angleDegrees = ui.value;
         }
     });
 
-    // TODO: должно быть наоборот - это рендерер должен знать о контроллере
-    var controller = SciViFSGraph.GraphController.fromJson(g_data);
-    controller.renderer = renderer;
-
-    controller.run(1000);
+    renderer = new SciViFSGraph.VivaWebGLRenderer($('#view')[0]);
+    
+    renderer.graphController = controller;
+    renderer.run(1000);
 
     window.mygraphics = renderer.graphics;
     window.myctrl = controller;

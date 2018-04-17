@@ -1,7 +1,6 @@
 // @ts-check
 import Viva from './viva-proxy';
 import { GraphState } from './GraphState';
-import { VivaWebGLRenderer } from './VivaWebGLRenderer'
 
 export class GraphController {
     constructor(statesCount) {
@@ -39,9 +38,6 @@ export class GraphController {
                 // gravity: 2.0,
                 outboundAttractionDistribution : true
             });
-        
-        /** @type {VivaWebGLRenderer} */
-        this._renderer = null;
     }
 
     parseJsonState(state) {
@@ -85,22 +81,6 @@ export class GraphController {
             // здесь мы должны переключать граф путём перезаполнения ngraph.graph
             this.states[this._currentStateId].actualize(this._graph, this._layoutInstance);
         }
-    }
-
-    set renderer(value) {
-        this._renderer = value;
-
-        this._renderer.graphBackend = this._graph;
-        // TODO: (не)передавать лейаут
-        this._renderer.layoutBackend = this.layoutInstance;
-    }
-
-    /**
-     * 
-     * @param {number} prerenderCount 
-     */
-    run(prerenderCount = 0) {
-        this._renderer.run();
     }
 
     static fromJson(json) {

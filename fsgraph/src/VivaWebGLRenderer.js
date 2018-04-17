@@ -1,5 +1,6 @@
 //@ts-check
 import Viva from './viva-proxy';
+import { GraphController } from './GraphController'
 import { VivaWebGLSimpleBackend } from './VivaWebGLSimpleBackend';
 
 class RendererTransform {
@@ -82,6 +83,23 @@ export class VivaWebGLRenderer {
     set layoutBackend(value) {
         this._layoutBackend = value;
         // TODO: обработка событий и всё такое?
+    }
+
+    /**
+     * @param {GraphController} value
+     */
+    set graphController(value) {
+        this.layoutBackend = value.layoutInstance;
+        // TODO: добавить нормальный геттер
+        this.graphBackend = value._graph;
+    }
+
+    /**
+     * @param {number} value
+     */
+    set angleDegrees(value) {
+        this._graphics.rotate(value * Math.PI / 180)
+        this.rerender();
     }
 
     onContainerResize() {
