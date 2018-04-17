@@ -1,7 +1,8 @@
 //@ts-check
-import Viva from './viva-proxy';
+import Viva from './viva-proxy'
 import { GraphController } from './GraphController'
-import { VivaWebGLSimpleBackend } from './VivaWebGLSimpleBackend';
+import { VivaWebGLSimpleBackend } from './VivaWebGLSimpleBackend'
+import { VivaStateView } from './VivaStateView'
 
 class RendererTransform {
     constructor(scale = 1, offsetX = 0, offsetY = 0, rot = 0) {
@@ -30,6 +31,8 @@ export class VivaWebGLRenderer {
 
         this._graphBackend = null;
         this._layoutBackend = null;
+
+        this._viewRules = null;
 
         // #region Viva-resemble API compabilities
 
@@ -86,6 +89,17 @@ export class VivaWebGLRenderer {
     }
 
     /**
+     * @param {VivaStateView} value
+     */
+    set viewRules(value) {
+        this._viewRules = value;
+
+        // Устанавливаем коллбэки из графики
+        this._backend.onRenderNodeCallback = value.onNodeRender;
+        this._backend.onRenderEdgeCallback = value.onEdgeRender;
+    }
+
+    /**
      * @param {GraphController} value
      */
     set graphController(value) {
@@ -112,10 +126,9 @@ export class VivaWebGLRenderer {
     // #region Viva-resemble API (fluent!)
 
     /**
-     * Ну хорошо, не совсем вива-подобное - 
-     * в последней параметром тут выступает число итераций отрисовки (вместо бесконечности)
+     * 
      */
-    run() {
+    run(prepareIterations = 0) {
         if (!this._isInitialized) {
             this._initDom();
             this._updateCenter();

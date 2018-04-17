@@ -1,15 +1,15 @@
 //@ts-check
-import Viva from './viva-proxy';
-import { Node } from './Node';
-import { Edge } from './Edge';
+import Viva from './viva-proxy'
+import { Node } from './Node'
+import { Edge } from './Edge'
 import { VivaStateView } from './VivaStateView'
 import { GraphController } from './GraphController'
+import { DummyMetrics } from './DummyMetrics'
 
 export class GraphState {
-    constructor(controller, nCount, eCount) {
-        /** type {GraphController} */
-        // this._controller = controller;
-        // number[][]
+    constructor(nCount, eCount) {
+
+        this._metrics = new DummyMetrics();
         /** @type {number[][]} */
         this.groups = [];
         /** @type {Node[]} */
@@ -23,10 +23,12 @@ export class GraphState {
         if (!this.groups[groupId]) {
             this.groups[groupId] = []
         }
-        // TODO: count some metrics here
         this.groups[groupId].push(id);
 
         const newNode = new Node(this, id, groupId, label, weight);
+        // TODO: count some metrics here, async
+        this._metrics.accumulate(newNode);
+
         this.nodes[id] = newNode;
     };
 

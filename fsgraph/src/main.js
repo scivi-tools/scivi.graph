@@ -1,9 +1,10 @@
 // @ts-check
 
-import Viva from './viva-proxy';
-import { ColorConverter } from './ColorConverter.js';
+import Viva from './viva-proxy'
+import { ColorConverter } from './ColorConverter.js'
 export * from './GraphController.js'
 export * from './VivaWebGLRenderer.js'
+export * from './VivaStateView'
 
 function toggleRelatedWords(graph, nodeUI, labels, toggled) {
     nodeUI.data.colorSource = toggled ? graph.colors.NodeHighlighted : graph.colors.Node;

@@ -50,6 +50,13 @@ export class VivaImageNodeUI extends VivaBaseUI {
         this.node.label = value;
         this._labelChanged = true;
     }
+
+    onRender() {
+        if (this._labelChanged) {
+            this._span.innerText = this.node.data.label;
+            this._labelChanged = false;
+        }
+    }
 };
 
 /**

@@ -563,13 +563,15 @@ function webglGraphics(options) {
             // p.x = p.x / (width / 2);
             p.y = -p.y;// / (-height / 2);
 
+            // TODO: вертим обратно
+
             // apply transform
             p.x = (p.x * transform[10]) + transform[12];
             p.y = (p.y * transform[10]) + transform[13];
 
             // denormalize
-            p.x = (p.x + 1);
-            p.y = (1 - p.y);
+            p.x = (p.x + width) / 2;
+            p.y = (height - p.y) / 2;
 
             return p;
         },

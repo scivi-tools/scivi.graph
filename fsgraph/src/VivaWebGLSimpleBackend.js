@@ -21,6 +21,11 @@ export class VivaWebGLSimpleBackend {
         this._labels = [];
         /** @type {HTMLElement} */
         this._container = null;
+
+        /** @type {function(VivaImageNodeUI) : void} */
+        this.onRenderNodeCallback = stub;
+        /** @type {function(any) : void} */
+        this.onRenderEdgeCallback = stub;
     }
 
     /**
@@ -50,6 +55,11 @@ export class VivaWebGLSimpleBackend {
 
         // Устанавливаем действия при отображении примитивов
         // TODO: задать само действие д.б. можно снаружи этого класса!
+        this._graphics.placeLink((linkUI) => this.onRenderEdgeCallback(linkUI));
+        this._graphics.placeNode((nodeUI) => {
+            this.onRenderNodeCallback(nodeUI);
+            nodeUI.onRender();
+        });
     }
 
     get graphics() {
@@ -72,4 +82,8 @@ export class VivaWebGLSimpleBackend {
 
         return this._labels[id];
     }
+}
+
+function stub() {
+    ;
 }

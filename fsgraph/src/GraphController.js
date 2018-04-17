@@ -1,6 +1,7 @@
 // @ts-check
 import Viva from './viva-proxy';
 import { GraphState } from './GraphState';
+import { DummyMetrics } from './DummyMetrics'
 
 export class GraphController {
     constructor(statesCount) {
@@ -11,6 +12,8 @@ export class GraphController {
 
         // TODO: добавить возможность отказаться от уникальных индексов связей
         this._graph = Viva.Graph.graph();
+
+        this._metrics = new DummyMetrics();
         
         // TODO: этот должен передаваться через сеттеры,
         // ну и это будут как минимум объекты-обёртки
@@ -18,7 +21,7 @@ export class GraphController {
         // Запилить нечто вроде layoutBuilder, который будет принимать параметры лэйаута
         // + иметь метод а-ля getInstance(graph), который и будет вызываться здесь
         // TODO: выбросить в рендерер?
-        if (true) {
+        if (false) {
             //@ts-ignore
             this._layoutInstance = Viva.Graph.Layout.forceDirected(this._graph, {
                 springLength : 80,
@@ -46,7 +49,7 @@ export class GraphController {
         }
         let cs = this.states[this._currentStateId];
         if (!cs) {
-            cs = new GraphState(this, state.nodes.length, state.edges.length);
+            cs = new GraphState(state.nodes.length, state.edges.length);
             this.states[this._currentStateId] = cs;
         }
         // ...
@@ -58,6 +61,9 @@ export class GraphController {
         state.edges.forEach(edge => {
             cs.addEdge(edge.source, edge.target, edge.weight);
         });
+
+        // TODO: тут тоже геттеры нужны
+        this._metrics.accumulateMetric(cs._metrics);
 
         this._currentStateId++;
     }
