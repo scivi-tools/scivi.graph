@@ -14,7 +14,8 @@ export class Node {
 
         this.edges = [];
 
-        this.detailedInfoHTML = document.createElement("div");
+        //@ts-ignore
+        this.detailedInfoHTML = $('#info')[0];
     };
 
     addEdge(edge) {
@@ -55,9 +56,9 @@ export class Node {
         this.edges.forEach((edge) => {
             if (edge.visible) {
                 if (edge.target != this.id)
-                    connList += "<li>--+ " + edge.target + "</li>";
+                    connList += "<li>--+ " + this._state.nodes[edge.toId].label + "</li>";
                 else
-                    connList += "<li>+-- " + edge.source + "</li>";
+                    connList += "<li>+-- " + this._state.nodes[edge.fromId].label + "</li>";
             }
         });
         connList += "</ul>";

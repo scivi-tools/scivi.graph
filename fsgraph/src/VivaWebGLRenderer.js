@@ -136,9 +136,9 @@ export class VivaWebGLRenderer {
             nodeUI.showLabel = nodeUI.node.data.groupId === 0;
         };
         // TODO: inverse dependency!
-        this.graphicsInputListner.click = (nodeUI) => {
+        this.graphicsInputListner.click((nodeUI) => {
             result.onNodeClick(nodeUI, this._graphBackend);
-        };
+        });
         return result;
     }
 

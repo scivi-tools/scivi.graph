@@ -82,15 +82,16 @@ function toggleRelatedWords(graph, nodeUI, labels, toggled) {
  * @param {VivaImageNodeUI} nodeUI 
  */
 function selectNode2G(nodeUI, graph) {
-    if (nodeUI.node.data.groupId === 0) {
-        if (lastNodeClicked) {
-            toggleRelatedWords(graph, lastNodeClicked, false);
-        }
-        if ((lastNodeClicked != nodeUI) && (node != null)) {
-            toggleRelatedWords(graph, nodeUI, domLabels, true);
-            lastNodeClicked = nodeUI;
-        } else {
-            lastNodeClicked = null;
-        }
+    if (nodeUI.data.groupId === 0) {
+        nodeUI.data.buildDetailedInfo();
+        // if (lastNodeClicked) {
+        //     toggleRelatedWords(graph, lastNodeClicked, false);
+        // }
+        // if ((lastNodeClicked != nodeUI) && (node != null)) {
+        //     toggleRelatedWords(graph, nodeUI, domLabels, true);
+        //     lastNodeClicked = nodeUI;
+        // } else {
+        //     lastNodeClicked = null;
+        // }
     }
 }
