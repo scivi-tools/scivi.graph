@@ -563,7 +563,11 @@ function webglGraphics(options) {
             // p.x = p.x / (width / 2);
             p.y = -p.y;// / (-height / 2);
 
-            // TODO: вертим обратно
+            // вертим обратно
+            var angle = getTransformAngle();
+            var newP = rotateIt(p.x, p.y, angle);
+            p.x = newP[0];
+            p.y = newP[1];
 
             // apply transform
             p.x = (p.x * transform[10]) + transform[12];
