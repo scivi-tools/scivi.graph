@@ -13,7 +13,6 @@ export class VivaWebGLSimpleBackend {
             // цвет (clearColorValue) оставляем стандартный - белый
             clearColor: true
         });
-        this._inputListner = Viva.Graph.webglInputEvents(this._graphics);
 
         // HACK: пока закостылим текстовые метки вершин здесь, дабы в случае чего
         // можно было махнуть бекенд обранто на вивовский
@@ -64,6 +63,11 @@ export class VivaWebGLSimpleBackend {
 
     get graphics() {
         return this._graphics;
+    }
+
+    get inputListner() {
+        // Пока можно так, ибо всё кешируется в нутрянке
+        return Viva.Graph.webglInputEvents(this._graphics);
     }
 
     /**

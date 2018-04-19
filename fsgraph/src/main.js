@@ -6,16 +6,6 @@ export * from './GraphController.js'
 export * from './VivaWebGLRenderer.js'
 export * from './VivaStateView'
 
-function toggleRelatedWords(graph, nodeUI, labels, toggled) {
-    nodeUI.data.colorSource = toggled ? graph.colors.NodeHighlighted : graph.colors.Node;
-    graph.itself.forEachLinkedNode(nodeUI.id, function(node, link) {
-        node.data.showLabel = toggled;
-        labels[node.id].hidden = !toggled;
-        node.data.colorSource = toggled ? graph.colors.WordHighlighted : graph.colors.Word;
-        link.data.colorSource = toggled ? graph.colors.LinkHighlighted : graph.colors.Link;
-    });
-}
-
 function toggleLabelEvent(event, show, labels) {
     event.showLabel = show;
     labels[event.id].hidden = !show;

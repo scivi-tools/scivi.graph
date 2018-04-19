@@ -78,6 +78,10 @@ export class VivaWebGLRenderer {
         return this._graphics;
     }
 
+    get graphicsInputListner() {
+        return this._backend.inputListner;
+    }
+
     set graphBackend(value) {
         this._graphBackend = value;
         // TODO: обработка событий и всё такое
@@ -127,8 +131,13 @@ export class VivaWebGLRenderer {
         // TODO: check for graph group count
         let result = new VivaStateView(colors, imgs);
         let metrics = this._graphController.metrics;
+        // TODO: move this shit out of here (in enherited from VStateView class)
         result.onNodeRender = (nodeUI) => {
             nodeUI.showLabel = nodeUI.node.data.groupId === 0;
+        };
+        // TODO: inverse dependency!
+        this.graphicsInputListner.click = (nodeUI) => {
+            result.onNodeClick(nodeUI, this._graphBackend);
         };
         return result;
     }
