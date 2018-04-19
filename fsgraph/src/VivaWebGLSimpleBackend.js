@@ -43,7 +43,7 @@ export class VivaWebGLSimpleBackend {
 
         this._graphics.node((node) => {
             let title = this._ensureLabelExists(node.id);
-            return new VivaImageNodeUI(node.data, title);
+            return new VivaImageNodeUI(this._graphics, node.data, title);
         });
         // HACK: обходим косяк в бэкенде,
         // связанный с недобавлением ссылки на модель ребра в её представление
@@ -56,7 +56,7 @@ export class VivaWebGLSimpleBackend {
         // Устанавливаем действия при отображении примитивов
         // TODO: задать само действие д.б. можно снаружи этого класса!
         this._graphics.placeLink((linkUI) => this.onRenderEdgeCallback(linkUI));
-        this._graphics.placeNode((nodeUI) => {
+        this._graphics.placeNode((/** @type {VivaImageNodeUI} */nodeUI) => {
             this.onRenderNodeCallback(nodeUI);
             nodeUI.onRender();
         });

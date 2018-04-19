@@ -1,21 +1,13 @@
 /**
- * Proposal: необходимо чуть более нормально хранить начальные цвета,
- * используемые для отображения различных состояний слов/событий/связей/...
- * 
- * Собственно, почему бы не сделать это так же, как в cgraph? Да и править проще...
+ * Сейчас по парам вида "невыделен - выделен";
+ * начиная от связи и продолжая всеми типами вершин по группам
  */
 
-var g_colors = {
-
-    Node : { value: 0xFFFF009F, code: 0 },
-
-    NodeHighlighted : { value: 0xFFFF00FF, code: 1 },
-
-    Link : { value: 0x0000009F, code: 2 },
-
-    LinkHighlighted : { value: 0x000000FF, code: 3 },
-
-    Word: { value: 0x5555559F, code: 4 },
-
-    WordHighlighted : { value: 0x555555FF, code: 5 }
-};
+var g_colors = [
+    // link
+    0x0000009F, 0x000000FF,
+    // node1
+    0xFFFF009F, 0xFFFF00FF,
+    // node2
+    0x5555559F, 0x555555FF
+];

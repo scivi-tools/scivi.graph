@@ -76,6 +76,10 @@ export class GraphController {
         return this._layoutInstance;
     }
 
+    get metrics() {
+        return this._metrics;
+    }
+
     set currentStateId(value) {
         if (value != this._currentStateId) {
             // Сохраняем всевозможную инфу в предыдущем состоянии (те же позиции вершин)
