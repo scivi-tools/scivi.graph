@@ -150,6 +150,16 @@ export class VivaWebGLRenderer {
      * 
      */
     run(prepareIterations = 0) {
+        if (prepareIterations > 0) {
+            setTimeout(() => {
+                const step = 250;
+                for (let i = 0; i < Math.min(step, prepareIterations); i++) {
+                    this._layoutBackend.step();
+                }
+                this.run(prepareIterations - step);
+            }, 30);
+            return;
+        }
         if (!this._isInitialized) {
             this._initDom();
             this._updateCenter();
