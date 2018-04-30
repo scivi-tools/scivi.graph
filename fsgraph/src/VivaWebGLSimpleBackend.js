@@ -3,6 +3,7 @@ import Viva from './viva-proxy';
 import { VivaBaseUI } from './VivaBaseUI';
 import { VivaImageNodeUI, VivaImageNodeRenderer } from './VivaMod/VivaImageNodeRenderer';
 import { newLinkProgram } from './VivaMod/newLinkProgram';
+import { newNodeProgram } from './VivaMod/newNodeProgram';
 
 export class VivaWebGLSimpleBackend {
     constructor() {
@@ -35,7 +36,7 @@ export class VivaWebGLSimpleBackend {
     postInit(container) {
         this._container = container;
 
-        this._graphics.setNodeProgram(new VivaImageNodeRenderer());
+        this._graphics.setNodeProgram(newNodeProgram());//new VivaImageNodeRenderer());
         this._graphics.setLinkProgram(newLinkProgram());
 
         this._graphics.init(container);

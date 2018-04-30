@@ -7,11 +7,10 @@
 // @ts-nocheck
 var glUtils= require('vivagraphjs/src/WebGL/webgl');
 
-module.exports = newNodeProgram;
 /**
  * Defines simple UI for nodes in webgl renderer. Each node is rendered as square. Color and size can be changed.
  */
-function newNodeProgram() {
+export function newNodeProgram() {
   var ATTRIBUTES_PER_PRIMITIVE = 4; // Primitive is point, x, y, size, color
   // x, y, z - floats, color = uint.
   var BYTES_PER_NODE = 3 * Float32Array.BYTES_PER_ELEMENT + Uint32Array.BYTES_PER_ELEMENT;

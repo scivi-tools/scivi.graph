@@ -135,6 +135,7 @@ export class VivaWebGLRenderer {
         result.onNodeRender = (nodeUI) => {
             nodeUI.showLabel = nodeUI.node.data.groupId === 0;
             nodeUI.size = result.getNodeUISize(nodeUI.node.data.weight, metrics.maxWeight);
+            nodeUI.color = result._colorPairs[(1 + nodeUI.node.data.groupId) * 2 + 1/*(nodeUI.selected)*/];
         };
         // TODO: inverse dependency!
         this.graphicsInputListner.click((nodeUI) => {

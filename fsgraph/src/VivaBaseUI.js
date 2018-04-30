@@ -3,6 +3,7 @@ export class VivaBaseUI {
         this._id = id;
         this.size = size;
         this.color = color;
+        this.selected = false;
     };
 
     get id() {
