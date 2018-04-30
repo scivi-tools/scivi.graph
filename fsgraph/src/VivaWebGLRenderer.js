@@ -134,6 +134,7 @@ export class VivaWebGLRenderer {
         // TODO: move this shit out of here (in enherited from VStateView class)
         result.onNodeRender = (nodeUI) => {
             nodeUI.showLabel = nodeUI.node.data.groupId === 0;
+            nodeUI.size = result.getNodeUISize(nodeUI.node.data.weight, metrics.maxWeight);
         };
         // TODO: inverse dependency!
         this.graphicsInputListner.click((nodeUI) => {
@@ -151,14 +152,14 @@ export class VivaWebGLRenderer {
      */
     run(prepareIterations = 0) {
         if (prepareIterations > 0) {
-            setTimeout(() => {
+            /*setTimeout(() => {
                 const step = 250;
                 for (let i = 0; i < Math.min(step, prepareIterations); i++) {
                     this._layoutBackend.step();
                 }
                 this.run(prepareIterations - step);
             }, 30);
-            return;
+            return;*/
         }
         if (!this._isInitialized) {
             this._initDom();

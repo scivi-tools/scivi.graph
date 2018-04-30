@@ -8,7 +8,7 @@ import { VivaImageNodeUI } from "./VivaMod/VivaImageNodeRenderer";
  */
 //@ts-check
 
-const maxNodeSizeDiap = [0, 200];
+const maxNodeSizeDiap = [1, 10];
 
 /**
  * Что-то типа ViewRules - правила отображения
