@@ -137,6 +137,10 @@ export class VivaWebGLRenderer {
             nodeUI.size = result.getNodeUISize(nodeUI.node.data.weight, metrics.maxWeight);
             nodeUI.color = result._colorPairs[(1 + nodeUI.node.data.groupId) * 2 + 1/*(nodeUI.selected)*/];
         };
+        result.onEdgeRender = (edgeUI) => {
+            // TODO: no such property "selected"!
+            edgeUI.color = result._colorPairs[0/*edgeUI.selected*/];
+        };
         // TODO: inverse dependency!
         this.graphicsInputListner.click((nodeUI) => {
             result.onNodeClick(nodeUI, this._graphBackend);
