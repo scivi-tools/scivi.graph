@@ -4,7 +4,7 @@ import { GraphState } from './GraphState';
 import { DummyMetrics } from './DummyMetrics'
 
 export class GraphController {
-    constructor(statesCount) {
+    constructor(statesCount, useForceAtlas2 = false) {
         /** @type {GraphState[]} */
         this.states = [];
         this.states.length = statesCount;
@@ -21,8 +21,7 @@ export class GraphController {
         // Запилить нечто вроде layoutBuilder, который будет принимать параметры лэйаута
         // + иметь метод а-ля getInstance(graph), который и будет вызываться здесь
         // TODO: выбросить в рендерер?
-        if (false) {
-            //@ts-ignore
+        if (!useForceAtlas2)
             this._layoutInstance = Viva.Graph.Layout.forceDirected(this._graph, {
                 springLength : 80,
                 springCoeff : 0.0008,
@@ -30,9 +29,7 @@ export class GraphController {
                 gravity : -1.2,
                 // theta : 1
             });
-        }
         else
-            //@ts-ignore
             this._layoutInstance = Viva.Graph.Layout.forceAtlas2(this._graph, {
                 // barnesHutOptimize : true,
                 // adjustSizes : true,
@@ -93,8 +90,8 @@ export class GraphController {
         }
     }
 
-    static fromJson(json) {
-        let controller = new GraphController(1);
+    static fromJson(json, useForceAtlas2 = false) {
+        let controller = new GraphController(1, useForceAtlas2);
 
         controller.parseJsonState(json);
         controller.currentStateId = 0;
