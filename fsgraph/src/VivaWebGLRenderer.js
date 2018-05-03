@@ -277,9 +277,8 @@ export class VivaWebGLRenderer {
                 // TODO: move matrix op-s into separate module, get rid of duplicated code
                 var newOffset = [(offset.x * transform[0] + offset.y * transform[4]), (offset.x * transform[1] + offset.y * transform[5])];
                 that._layoutBackend.setNodePosition(node.id,
-                    // offset.x / that._transform.scale
-                    oldPos.x + newOffset[0] / that._transform.scale,
-                    oldPos.y + newOffset[1] / that._transform.scale);
+                    oldPos.x + newOffset[0] * 2 / that._transform.scale / that._transform.scale,
+                    oldPos.y + newOffset[1] * 2 / that._transform.scale / that._transform.scale);
 
                 that._userInteraction = true;
                 that._renderGraph();
