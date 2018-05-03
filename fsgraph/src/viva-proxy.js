@@ -70,7 +70,6 @@ export default {
     },
   
     View: {
-      webglLine: require('vivagraphjs/src/WebGL/webglLine.js'),
       webglAtlas: require('vivagraphjs/src/WebGL/webglAtlas'),
     },
   

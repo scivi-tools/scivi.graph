@@ -3,6 +3,7 @@ import Viva from './viva-proxy';
 import { VivaBaseUI } from './VivaBaseUI';
 import { VivaImageNodeRenderer } from './VivaMod/VivaImageNodeRenderer';
 import { VivaImageNodeUI } from './VivaImageNodeUI';
+import { VivaLinkUI } from './VivaLinkUI';
 import { newLinkProgram } from './VivaMod/newLinkProgram';
 import { newNodeProgram } from './VivaMod/newNodeProgram';
 import { webglGraphics } from './VivaMod/webglGraphics';
@@ -47,12 +48,8 @@ export class VivaWebGLSimpleBackend {
             let title = this._ensureLabelExists(node.id);
             return new VivaImageNodeUI(this._graphics, node.data, title);
         });
-        // HACK: обходим косяк в бэкенде,
-        // связанный с недобавлением ссылки на модель ребра в её представление
         this._graphics.link((link) => {
-            var res = Viva.Graph.View.webglLine(0xb3b3b3ff);
-            res.link = link;
-            return res;
+            return new VivaLinkUI(this._graphics, link);
         });
 
         // Устанавливаем действия при отображении примитивов

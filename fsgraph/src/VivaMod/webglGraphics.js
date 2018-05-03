@@ -10,10 +10,6 @@ var webglInputManager = require('vivagraphjs/src/Input/webglInputManager.js');
 import { newLinkProgram } from './newLinkProgram'
 import { newNodeProgram } from './newNodeProgram'
 //@ts-ignore
-var webglSquare = require('vivagraphjs/src/WebGL/webglSquare.js');
-//@ts-ignore
-var webglLine = require('vivagraphjs/src/WebGL/webglLine.js');
-//@ts-ignore
 var eventify = require('ngraph.events');
 //@ts-ignore
 var merge = require('ngraph.merge');
@@ -75,12 +71,13 @@ export function webglGraphics(options) {
         nodeProgram = newNodeProgram(),
 /*jshint unused: false */
         nodeUIBuilder = function (node) {
-            //@ts-ignore
-            return webglSquare(); // Just make a square, using provided gl context (a nodeProgram);
+            console.log("No node UI builder!");
+            return null;
         },
 
         linkUIBuilder = function (link) {
-            return webglLine(0xb3b3b3ff);
+            console.log("No link UI builder!");
+            return null;
         },
 /*jshint unused: true */
         updateTransformUniform = function () {
