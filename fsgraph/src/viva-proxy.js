@@ -71,7 +71,6 @@ export default {
   
     View: {
       webglLine: require('vivagraphjs/src/WebGL/webglLine.js'),
-      webglGraphics: require('./VivaMod/webglGraphics.js'),
       webglAtlas: require('vivagraphjs/src/WebGL/webglAtlas'),
     },
   

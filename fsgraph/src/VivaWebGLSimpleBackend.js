@@ -5,10 +5,11 @@ import { VivaImageNodeRenderer } from './VivaMod/VivaImageNodeRenderer';
 import { VivaImageNodeUI } from './VivaImageNodeUI';
 import { newLinkProgram } from './VivaMod/newLinkProgram';
 import { newNodeProgram } from './VivaMod/newNodeProgram';
+import { webglGraphics } from './VivaMod/webglGraphics';
 
 export class VivaWebGLSimpleBackend {
     constructor() {
-        this._graphics = Viva.Graph.View.webglGraphics({
+        this._graphics = webglGraphics({
             // явно указываем webgl'ю не чистить backbuffer после свапа
             preserveDrawingBuffer: true,
             // не менее явно указываем виве таки вызывать gl.clear() перед рендером кадра

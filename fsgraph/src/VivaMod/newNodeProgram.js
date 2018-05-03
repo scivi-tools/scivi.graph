@@ -4,8 +4,8 @@
  *
  * @author Andrei Kashcha (aka anvaka) / https://github.com/anvaka
  */
-// @ts-nocheck
-var glUtils= require('vivagraphjs/src/WebGL/webgl');
+// @ts-check
+import glUtils from 'vivagraphjs/src/WebGL/webgl'
 
 /**
  * Defines simple UI for nodes in webgl renderer. Each node is rendered as square. Color and size can be changed.
@@ -136,12 +136,13 @@ export function newNodeProgram() {
       }
     }
 
-  function createNode() {
+  // HACK: ну что за хрень-то, почему здесь нарушается объявленный API?
+  function createNode(ui) {
     ensureEnoughStorage();
     nodesCount += 1;
   }
 
-  function replaceProperties(/* replacedNode, newNode */) {}
+  function replaceProperties(replacedNode, newNode) {}
 
   function render() {
     gl.useProgram(program);

@@ -10,6 +10,10 @@ export class VivaBaseUI {
         return this._id;
     }
 
+    set id(value) {
+        this._id = value;
+    }
+
     onPlaceUI() {
         ;
     };

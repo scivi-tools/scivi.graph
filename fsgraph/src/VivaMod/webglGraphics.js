@@ -6,13 +6,9 @@
 // @ts-check
 
 //@ts-ignore
-module.exports = webglGraphics;
-//@ts-ignore
 var webglInputManager = require('vivagraphjs/src/Input/webglInputManager.js');
-//@ts-ignore
-var webglLinkProgram = require('./newLinkProgram.js');
-//@ts-ignore
-var webglNodeProgram = require('./newNodeProgram.js');
+import { newLinkProgram } from './newLinkProgram'
+import { newNodeProgram } from './newNodeProgram'
 //@ts-ignore
 var webglSquare = require('vivagraphjs/src/WebGL/webglSquare.js');
 //@ts-ignore
@@ -32,7 +28,7 @@ var merge = require('ngraph.merge');
  *                    See https://www.khronos.org/registry/webgl/specs/1.0/#5.2
  */
 
-function webglGraphics(options) {
+export function webglGraphics(options) {
     options = merge(options, {
         enableBlending : true,
         preserveDrawingBuffer : false,
@@ -75,10 +71,8 @@ function webglGraphics(options) {
 
         allNodes = {},
         allLinks = {},
-        //@ts-ignore
-        linkProgram = webglLinkProgram(),
-        //@ts-ignore
-        nodeProgram = webglNodeProgram(),
+        linkProgram = newLinkProgram(),
+        nodeProgram = newNodeProgram(),
 /*jshint unused: false */
         nodeUIBuilder = function (node) {
             //@ts-ignore
