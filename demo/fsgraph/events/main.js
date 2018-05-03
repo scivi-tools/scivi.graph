@@ -24,7 +24,7 @@ function main() {
     });
 
     renderer = new SciViFSGraph.VivaWebGLRenderer($('#view')[0]);
-    
+        
     renderer.graphController = controller;
     renderer.viewRules = renderer.buildDefaultView(g_colors);
     renderer.run(1000);
