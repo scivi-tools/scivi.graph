@@ -594,7 +594,9 @@ function webglGraphics(options) {
             // TODO: This is poor O(N) performance.
             for (var i = 0; i < nodesCount; ++i) {
                 if (preciseCheck(nodes[i], clientPos.x, clientPos.y)) {
-                    return nodes[i].node;
+                    // HACK: нам зачем-то не давали получить визуальное представление узла...
+                    // Скорее всего, сломает совместимость с Viva
+                    return nodes[i];//.node;
                 }
             }
             return null;

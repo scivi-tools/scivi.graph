@@ -1,4 +1,4 @@
-import { VivaImageNodeUI } from "./VivaMod/VivaImageNodeRenderer";
+import { VivaImageNodeUI } from './VivaImageNodeUI'
 
 /* TODO: Пересматриваем концепцию кастомизации отображения графа
  * Теперь этот класс будет содержать инфу о том, как визуализировать связи
@@ -82,8 +82,8 @@ function toggleRelatedWords(graph, nodeUI, labels, toggled) {
  * @param {VivaImageNodeUI} nodeUI 
  */
 function selectNode2G(nodeUI, graph) {
-    if (nodeUI.data.groupId === 0) {
-        nodeUI.data.buildDetailedInfo();
+    if (nodeUI.node.data.groupId === 0) {
+        nodeUI.buildDetailedInfo();
         // if (lastNodeClicked) {
         //     toggleRelatedWords(graph, lastNodeClicked, false);
         // }

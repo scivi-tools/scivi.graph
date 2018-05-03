@@ -1,7 +1,8 @@
 //@ts-check
 import Viva from './viva-proxy';
 import { VivaBaseUI } from './VivaBaseUI';
-import { VivaImageNodeUI, VivaImageNodeRenderer } from './VivaMod/VivaImageNodeRenderer';
+import { VivaImageNodeRenderer } from './VivaMod/VivaImageNodeRenderer';
+import { VivaImageNodeUI } from './VivaImageNodeUI';
 import { newLinkProgram } from './VivaMod/newLinkProgram';
 import { newNodeProgram } from './VivaMod/newNodeProgram';
 
