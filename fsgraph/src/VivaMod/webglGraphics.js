@@ -3,15 +3,23 @@
  *
  * @author Andrei Kashcha (aka anvaka) / https://github.com/anvaka
  */
+// @ts-check
 
+//@ts-ignore
 module.exports = webglGraphics;
-
+//@ts-ignore
 var webglInputManager = require('vivagraphjs/src/Input/webglInputManager.js');
-var webglLinkProgram = require('../newLinkProgram.js');
-var webglNodeProgram = require('../newNodeProgram.js');
+//@ts-ignore
+var webglLinkProgram = require('./newLinkProgram.js');
+//@ts-ignore
+var webglNodeProgram = require('./newNodeProgram.js');
+//@ts-ignore
 var webglSquare = require('vivagraphjs/src/WebGL/webglSquare.js');
+//@ts-ignore
 var webglLine = require('vivagraphjs/src/WebGL/webglLine.js');
+//@ts-ignore
 var eventify = require('ngraph.events');
+//@ts-ignore
 var merge = require('ngraph.merge');
 
 /**
@@ -67,10 +75,13 @@ function webglGraphics(options) {
 
         allNodes = {},
         allLinks = {},
+        //@ts-ignore
         linkProgram = webglLinkProgram(),
+        //@ts-ignore
         nodeProgram = webglNodeProgram(),
 /*jshint unused: false */
         nodeUIBuilder = function (node) {
+            //@ts-ignore
             return webglSquare(); // Just make a square, using provided gl context (a nodeProgram);
         },
 
