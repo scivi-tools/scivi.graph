@@ -112,6 +112,8 @@ export class VivaWebGLRenderer {
         this.layoutBackend = value.layoutInstance;
         // TODO: добавить нормальный геттер
         this.graphBackend = value._graph;
+
+        value.layoutBuilder.buildUI(this);
     }
 
     /**
@@ -129,7 +131,7 @@ export class VivaWebGLRenderer {
 
     buildDefaultView(colors, imgs) {
         // TODO: check for graph group count
-        let result = new VivaStateView(colors, imgs);
+        let result = new VivaStateView(colors, imgs, this);
         let metrics = this._graphController.metrics;
         // TODO: move this shit out of here (in enherited from VStateView class)
         result.onNodeRender = (nodeUI) => {
@@ -146,6 +148,14 @@ export class VivaWebGLRenderer {
             result.onNodeClick(nodeUI, this._graphBackend);
         });
         return result;
+    }
+
+    kick() {
+        if (!this._isManuallyPaused) {
+            this._resetStable();
+        }
+
+        return this;
     }
 
     // #endregion

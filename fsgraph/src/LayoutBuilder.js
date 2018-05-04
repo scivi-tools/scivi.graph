@@ -1,25 +1,29 @@
-// TODO: перейти к классам
 //@ts-check
 import Viva from './viva-proxy'
 import merge from 'ngraph.merge'
+import { VivaWebGLRenderer } from './VivaWebGLRenderer'
 
 export class LayoutBuilder {
     /**
      * @param {string} name
      * @param {Object.<string, any>} settings 
      */
-    constructor(name, settings) {
+    constructor(name, layout, settings) {
         this.settings = settings;
+        this.layout = layout;
+        this.name = name;
+    }
 
+    buildUI(/** @type {VivaWebGLRenderer} */renderer) {
         //@ts-ignore
         let baseContainer = $('#settings');
-
+        
         let label = document.createElement('span');
         label.textContent = 'Настройки укладки:';
         let c = document.createElement('div');
         baseContainer.append(label);
-        for (let key in settings) {
-            let value = settings[key];
+        for (let key in this.settings) {
+            let value = this.settings[key];
             if (value != null) {
                 let innerC = document.createElement('div');
                 innerC.innerHTML += `<span>${key}: </span>`;
@@ -30,16 +34,17 @@ export class LayoutBuilder {
                         let cb = document.createElement('input');
                         cb.type = 'checkbox';
                         cb.checked = value;
-                        cb.onchange = function (ev) {
+                        cb.onchange = (ev) => {
                             //@ts-ignore
-                            settings[key] = this.checked;
-                            console.log(`Setting ${key} now ${settings[key]}`);
+                            this.settings[key] = cb.checked;
+                            console.log(`Setting ${key} now ${this.settings[key]}`);
+                            renderer.kick();
                         };
                         innerC.appendChild(cb);
                         break;
                     case 'number':
                         let rangeEl = document.createElement('div');
-                        let range = _NumRanges[name][key];
+                        let range = _NumRanges[this.name][key];
                         if (range) {
                             //@ts-ignore
                             $(rangeEl).slider({
@@ -48,8 +53,9 @@ export class LayoutBuilder {
                                 value: value,
                                 step: range[2],
                                 slide: (event, ui) => {
-                                    settings[key] = ui.value;
-                                    console.log(`Setting ${key} now ${settings[key]}`);
+                                    this.settings[key] = ui.value;
+                                    console.log(`Setting ${key} now ${this.settings[key]}`);
+                                    renderer.kick();
                                 }
                             });
                         } else {
@@ -84,10 +90,7 @@ export class LayoutBuilder {
             merge(settings, defaultSettings);
         }
 
-        let layout = result(graph, settings);
-        // TODO: висячей ссылки быть не должно!
-        new LayoutBuilder(name, settings);
-
+        let layout = new LayoutBuilder(name, result(graph, settings), settings);
         return layout;
     }
 }
