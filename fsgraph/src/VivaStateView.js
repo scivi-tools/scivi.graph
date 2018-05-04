@@ -1,3 +1,4 @@
+//@ts-check
 import { VivaImageNodeUI } from './VivaImageNodeUI'
 
 /* TODO: Пересматриваем концепцию кастомизации отображения графа
@@ -6,9 +7,9 @@ import { VivaImageNodeUI } from './VivaImageNodeUI'
  * Сюда нужно включить отображение размера вершин,
  * их цвета (+ связей) для всех состояний: (не)выбрано/(не)активно
  */
-//@ts-check
 
-const maxNodeSizeDiap = [1, 10];
+const _MaxNodeSizeDiap = [1, 100];
+const _DefNodeSizeDiap = [1, 10];
 
 /**
  * Что-то типа ViewRules - правила отображения
@@ -21,8 +22,8 @@ export class VivaStateView {
 
         // TODO: clon array right way
         this._nodeSizeDiap = [];
-        this._nodeSizeDiap[0] = maxNodeSizeDiap[0];
-        this._nodeSizeDiap[1] = maxNodeSizeDiap[1];
+        this._nodeSizeDiap[0] = _DefNodeSizeDiap[0];
+        this._nodeSizeDiap[1] = _DefNodeSizeDiap[1];
 
         this._colorPairs = colorPairs;
 
@@ -32,6 +33,8 @@ export class VivaStateView {
         this.onEdgeRender = stub;
 
         this.onNodeClick = selectNode2G;
+
+        this.buildUI();
     }
 
     get nodeSizeDiap() {
@@ -59,6 +62,40 @@ export class VivaStateView {
             ? (diap[0] + (diap[1] - diap[0]) * value / maxValue)
             : diap[0];
     }
+
+    buildUI() {
+        /** @type {HTMLDivElement} */
+        //@ts-ignore
+        let baseContainer = $('#settings')[0];
+        let innerContainer = document.createElement('div');
+
+        let nameSpan = document.createElement('span');
+        nameSpan.textContent = '\n\n\nNode view:';
+        baseContainer.appendChild(nameSpan);
+
+        let sliderSpan = document.createElement('span');
+        sliderSpan.textContent = 'Node size diap:';
+        innerContainer.appendChild(sliderSpan);
+
+        let sizeSlider = document.createElement('div');
+        let that = this;
+        //@ts-ignore
+        $(sizeSlider).slider({
+            min: _MaxNodeSizeDiap[0],
+            max: _MaxNodeSizeDiap[1],
+            values: that._nodeSizeDiap,
+            step: 1,
+            slide: (event, ui) => {
+                that._nodeSizeDiap = ui.values;
+                console.log(`Node size diap now [${that._nodeSizeDiap[0]}, ${that._nodeSizeDiap[1]}]`);
+            }
+        });
+        innerContainer.appendChild(sizeSlider);
+
+        // TODO: colors & rest...
+
+        baseContainer.appendChild(innerContainer);
+    }
 }
 
 function stub() {
@@ -82,8 +119,8 @@ function toggleRelatedWords(graph, nodeUI, labels, toggled) {
  * @param {VivaImageNodeUI} nodeUI 
  */
 function selectNode2G(nodeUI, graph) {
+    nodeUI.buildDetailedInfo();
     if (nodeUI.node.data.groupId === 0) {
-        nodeUI.buildDetailedInfo();
         // if (lastNodeClicked) {
         //     toggleRelatedWords(graph, lastNodeClicked, false);
         // }
