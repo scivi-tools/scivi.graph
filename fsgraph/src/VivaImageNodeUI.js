@@ -14,6 +14,7 @@ export class VivaImageNodeUI extends VivaBaseUI {
         this.node = node;
         this._offset = 0;
         this._span = titleSpan;
+        this._spanWidth = 0;
         this._labelChanged = true;
         this._showLabel = false;
 
@@ -69,6 +70,8 @@ export class VivaImageNodeUI extends VivaBaseUI {
 
     _invalidateLabel() {
         this._span.innerText = this.node.data.label;
+        //@ts-ignore
+        this._spanWidth = $(this._span).width();
     }
 
     onRender() {
@@ -77,9 +80,9 @@ export class VivaImageNodeUI extends VivaBaseUI {
                this._invalidateLabel();
                this._labelChanged = false;
             }
-            let domPos = { x: this['position'].x, y: this['position'].y };
+            let domPos = { x: this['position'].x, y: this['position'].y - this['size'] - 1};
             this._graphics.transformGraphToClientCoordinates(domPos);
-            this._span.style.left = `${domPos.x}px`;
+            this._span.style.left = `${domPos.x - this._spanWidth / 2}px`;
             this._span.style.top = `${domPos.y}px`;
         }
     }
