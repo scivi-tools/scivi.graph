@@ -18,7 +18,7 @@ export class VivaStateView {
     // TODO: цвета-цветы передавать где-то здесь
     // хранить тащем-та тоже
     // картинки тоже
-    constructor(colorPairs, imgSources) {
+    constructor(colorPairs, imgSources, renderer) {
 
         // TODO: clon array right way
         this._nodeSizeDiap = [];
@@ -33,6 +33,8 @@ export class VivaStateView {
         this.onEdgeRender = stub;
 
         this.onNodeClick = selectNode2G;
+
+        this._renderer = renderer;
 
         this.buildUI();
     }
@@ -88,6 +90,7 @@ export class VivaStateView {
             slide: (event, ui) => {
                 that.setNodeSizeDiap(ui.values[0], ui.values[1]);
                 console.log(`Node size diap now [${that._nodeSizeDiap[0]}, ${that._nodeSizeDiap[1]}]`);
+                this._renderer.rerender();
             }
         });
         innerContainer.appendChild(sizeSlider);
@@ -131,4 +134,5 @@ function selectNode2G(nodeUI, graph) {
         //     lastNodeClicked = null;
         // }
     }
+    this._renderer.rerender();
 }
