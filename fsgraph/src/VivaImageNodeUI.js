@@ -1,5 +1,6 @@
 import { VivaBaseUI } from './VivaBaseUI'
 import { Node } from './Node'
+import { Edge } from './Edge'
 
 export class VivaImageNodeUI extends VivaBaseUI {
     /**
@@ -99,27 +100,26 @@ export class VivaImageNodeUI extends VivaBaseUI {
         header.appendChild(name);
         header.appendChild(changeName);
 
-        /*if (this.realNode.date) {
+        if (this.node.data.date) {
             let dateLabel = document.createElement("span");
-            dateLabel.innerHTML = "&nbsp;&nbsp;&nbsp;(" + this.date.toLocaleDateString() + ")";
+            dateLabel.innerHTML = "&nbsp;&nbsp;&nbsp;(" + this.node.data.date.toLocaleDateString() + ")";
             header.appendChild(dateLabel);
-        }*/
+        }
 
         let nodesList = document.createElement("div");
-        let connList = "<div>Linked nodes:</div><ul>";
-        /*this.edges.forEach((edge) => {
+        let connList = "<span>Linked nodes:</span><ul>";
+        this.node.data.edges.forEach((/** @type {Edge} */edge) => {
             if (edge.visible) {
-                if (edge.target != this.id)
-                    connList += "<li>--+ " + this._state.nodes[edge.toId].label + "</li>";
+                if (edge.toId != this.node.data.id)
+                    connList += `<li><span>${this.node.data._state.nodes[edge.toId].label} --+</span></li>`;
                 else
-                    connList += "<li>+-- " + this._state.nodes[edge.fromId].label + "</li>";
+                    connList += `<li><span>+-- ${this.node.data._state.nodes[edge.fromId].label}</span></li>`;
             }
-        });*/
+        });
         connList += "</ul>";
         nodesList.innerHTML = connList;
 
-        while (this.detailedInfoHTML.firstChild)
-            this.detailedInfoHTML.removeChild(this.detailedInfoHTML.firstChild);
+        this.detailedInfoHTML.innerHTML = '';
 
         this.detailedInfoHTML.appendChild(header);
         this.detailedInfoHTML.appendChild(nodesList);

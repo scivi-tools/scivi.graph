@@ -73,15 +73,15 @@ export class GraphState {
 
     /**
      * Добавляем/удаляем узел в зависимости от фильтра
-     * Третьим параметром можно игнорировать изменение связей
-     * @param {*} graph 
+     * Последним параметром можно игнорировать изменение связей
      * @param {Node} node 
+     * @param {function(Node):boolean} filterFunc
      * @param {boolean} softMode 
      */
-    toggleNode(graph, layout, node, softMode = false) {
+    toggleNode(graph, layout, node, filterFunc, softMode = false) {
         let prevVisible = node.visible;
-        // TODO: применяем фильтр!
-        let newVisible = true;
+        // применяем фильтр!
+        let newVisible = filterFunc(node);
         if ((newVisible != prevVisible) || (softMode)) {
             node.visible = newVisible;
             if (newVisible) {
@@ -129,7 +129,7 @@ export class GraphState {
         // восстанавливаем узлы и связи, не забыв про их позиции и видимость
         for (let n of this.nodes) {
             // так же применяем фильтры!
-            this.toggleNode(graph, layout, n, true);
+            this.toggleNode(graph, layout, n, () => true, true);
         }
         for (let e of this.edges) {
             this.restoreEdge(graph, e);

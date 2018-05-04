@@ -8,7 +8,7 @@ import { VivaImageNodeUI } from './VivaImageNodeUI'
  * их цвета (+ связей) для всех состояний: (не)выбрано/(не)активно
  */
 
-const _MaxNodeSizeDiap = [1, 100];
+const _MaxNodeSizeDiap = [1, 50];
 const _DefNodeSizeDiap = [1, 10];
 
 /**
@@ -70,7 +70,7 @@ export class VivaStateView {
         let innerContainer = document.createElement('div');
 
         let nameSpan = document.createElement('span');
-        nameSpan.textContent = '\n\n\nNode view:';
+        nameSpan.innerHTML = '<br/>Node view:';
         baseContainer.appendChild(nameSpan);
 
         let sliderSpan = document.createElement('span');
@@ -86,7 +86,7 @@ export class VivaStateView {
             values: that._nodeSizeDiap,
             step: 1,
             slide: (event, ui) => {
-                that._nodeSizeDiap = ui.values;
+                that.setNodeSizeDiap(ui.values[0], ui.values[1]);
                 console.log(`Node size diap now [${that._nodeSizeDiap[0]}, ${that._nodeSizeDiap[1]}]`);
             }
         });
