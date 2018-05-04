@@ -333,19 +333,13 @@ function createLayout(graph, settings) {
 
       var pos = node.position;
       if (!pos) {
-        console.log('No node.position leads to (0, 0)!');
-        rndPos = function() {
-          return Math.random() * 1500 - 750;
-        };
+        console.log('No node.position leads to random position!');
         pos = {
-          x: rndPos(),
-          y: rndPos()
+          x: Math.random() * 1500 - 750,
+          y: Math.random() * 1500 - 750
         }
-        // var neighbors = getNeighborBodies(node);
-        // pos = physicsSimulator.getBestNewBodyPosition(neighbors);
       }
 
-      // body = physicsSimulator.addBodyAt(pos);
       var body = {
         pos: pos
       };
@@ -355,7 +349,7 @@ function createLayout(graph, settings) {
       // FIXME: а это откуда?
       body.convergence = 1;
       // FIXME: where da fuck we can get node size?!
-      body.size = Math.random() * 5 + 1;//1;
+      body.size = Math.random() * 5 + 1;
       body.fixed = false;
 
       nodeBodies[nodeId] = body;
@@ -485,23 +479,24 @@ function createLayout(graph, settings) {
   }
 
   //==================================================================================
+
+  function initRegion(id) {
+    regions[id] = {
+      node: -1,
+      centerX: 0,
+      centerY: 0,
+      size: 1,
+      nextSibling: id + ppr,
+      firstChild: -1,
+      mass: 0,
+      massCenterX: 0,
+      massCenterY: 0
+    };
+  }
+
   function pass() {
     var a, i, j, l, r, n, n1, n2, e, w, g, k, m;
     var nodesLength = Object.keys(nodeBodies).length;
-
-    initRegion = function (id) {
-      regions[id] = {
-        node: -1,
-        centerX: 0,
-        centerY: 0,
-        size: 1,
-        nextSibling: id + ppr,
-        firstChild: -1,
-        mass: 0,
-        massCenterX: 0,
-        massCenterY: 0
-      };
-    }
 
     var outboundAttCompensation,
         coefficient,
