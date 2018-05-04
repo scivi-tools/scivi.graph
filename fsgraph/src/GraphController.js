@@ -1,10 +1,16 @@
 // @ts-check
-import Viva from './viva-proxy';
-import { GraphState } from './GraphState';
+import Viva from './viva-proxy'
+import { GraphState } from './GraphState'
 import { DummyMetrics } from './DummyMetrics'
+import { LayoutBuilder } from './LayoutBuilder'
 
 export class GraphController {
-    constructor(statesCount, useForceAtlas2 = false) {
+    /**
+     * 
+     * @param {number} statesCount 
+     * @param {string} layoutName 
+     */
+    constructor(statesCount, layoutName) {
         /** @type {GraphState[]} */
         this.states = [];
         this.states.length = statesCount;
@@ -15,29 +21,7 @@ export class GraphController {
 
         this._metrics = new DummyMetrics();
         
-        // TODO: этот должен передаваться через сеттеры,
-        // ну и это будут как минимум объекты-обёртки
-        
-        // Запилить нечто вроде layoutBuilder, который будет принимать параметры лэйаута
-        // + иметь метод а-ля getInstance(graph), который и будет вызываться здесь
-        // TODO: выбросить в рендерер?
-        if (!useForceAtlas2)
-            this._layoutInstance = Viva.Graph.Layout.forceDirected(this._graph, {
-                springLength : 80,
-                springCoeff : 0.0008,
-                dragCoeff : 0.02,
-                gravity : -1.2,
-                // theta : 1
-            });
-        else
-            this._layoutInstance = Viva.Graph.Layout.forceAtlas2(this._graph, {
-                // barnesHutOptimize : true,
-                // adjustSizes : true,
-                linLogMode : true,
-                // edgeWeightInfluence : 0.5,
-                // gravity: 2.0,
-                outboundAttractionDistribution : true
-            });
+        this._layoutInstance = LayoutBuilder.buildLayout(layoutName, this._graph);
     }
 
     parseJsonState(state) {
@@ -90,18 +74,18 @@ export class GraphController {
         }
     }
 
-    static fromJson(json, useForceAtlas2 = false) {
-        let controller = new GraphController(1, useForceAtlas2);
+    static fromJson(json, layoutName) {
+        let controller = new GraphController(1, layoutName);
 
         controller.parseJsonState(json);
         controller.currentStateId = 0;
         return controller;
     }
 
-    static fromStatedJson(json) {
+    static fromStatedJson(json, layoutName) {
         /** @type {any[]} */
         let states = json["states"];
-        let controller = new GraphController(states.length);
+        let controller = new GraphController(states.length, layoutName);
 
         for (let state in states) {
             controller.parseJsonState(state);

@@ -1,5 +1,5 @@
 function main() {
-    var controller = SciViFSGraph.GraphController.fromJson(g_data, true);
+    var controller = SciViFSGraph.GraphController.fromJson(g_data, 'forceAtlas2');
     var renderer = null;
 
     Split(['#a', '#b'], {
