@@ -3,7 +3,7 @@ import Viva from './viva-proxy'
 import { GraphController } from './GraphController'
 import { VivaWebGLSimpleBackend } from './VivaWebGLSimpleBackend'
 import { VivaStateView } from './VivaStateView'
-import { WebGLDnDManager } from './VivaMod/webglInputManager'
+import { WebGLDnDManager, DnDHandler } from './VivaMod/webglInputManager'
 
 class RendererTransform {
     constructor(scale = 1, offsetX = 0, offsetY = 0, rot = 0) {
@@ -271,38 +271,15 @@ export class VivaWebGLRenderer {
     }
 
     _listenNodeEvents(node) {
-        let wasPinned = false;
-        const that = this;
-        // TODO: This may not be memory efficient. Consider reusing handlers object.
-        // Ну а если по-русски, то это - полное дерьмо! (Кто не понял: комментарий выше - от автора оригинала)
-        this._inputManager.bindDragNDrop(node, {
-            onStart: function() {
-                wasPinned = that._layoutBackend.isNodePinned(node);
-                that._layoutBackend.pinNode(node, true);
-                that._userInteraction = true;
-                that.kick();
-            },
-            onDrag: function(e, offset) {
-                var oldPos = that._layoutBackend.getNodePosition(node.id);
-                var transform = that._graphics.getTransform();
-                // TODO: move matrix op-s into separate module, get rid of duplicated code
-                var newOffset = [(offset.x * transform[0] + offset.y * transform[4]), (offset.x * transform[1] + offset.y * transform[5])];
-                that._layoutBackend.setNodePosition(node.id,
-                    oldPos.x + newOffset[0] * 2 / that._transform.scale / that._transform.scale,
-                    oldPos.y + newOffset[1] * 2 / that._transform.scale / that._transform.scale);
-
-                that._userInteraction = true;
-                that._renderGraph();
-            },
-            onStop: function() {
-                that._layoutBackend.pinNode(node, wasPinned);
-                that._userInteraction = false;
-            }
-        });
+        // TODO: выбросить проверку, создавать обработчики один раз!
+        if (!this._defDnDHandler) {
+            this._buildDefaultDnDHandler();
+        }
+        this._inputManager.bindDragNDrop(node, this._defDnDHandler);
     }
 
     _releaseNodeEvents(node) {
-        this._inputManager.bindDragNDrop(node, null);
+        this._inputManager.unbindDragNDrop(node);
     }
 
     _processNodeChange(change) {
@@ -455,4 +432,30 @@ export class VivaWebGLRenderer {
       }
 
     // #endregion
+
+    _buildDefaultDnDHandler() {
+        let wasPinned = false
+        this._defDnDHandler = new DnDHandler((e, pos, node) => {
+                wasPinned = this._layoutBackend.isNodePinned(node);
+                this._layoutBackend.pinNode(node, true);
+                this._userInteraction = true;
+                this.kick();
+            },
+            (e, offset, node) => {
+                let oldPos = this._layoutBackend.getNodePosition(node.id);
+                let transform = this._graphics.getTransform();
+                // TODO: move matrix op-s into separate module, get rid of duplicated code
+                let newOffset = [(offset.x * transform[0] + offset.y * transform[4]), (offset.x * transform[1] + offset.y * transform[5])];
+                this._layoutBackend.setNodePosition(node.id,
+                    oldPos.x + newOffset[0] * 2 / this._transform.scale / this._transform.scale,
+                    oldPos.y + newOffset[1] * 2 / this._transform.scale / this._transform.scale);
+
+                this._userInteraction = true;
+                this._renderGraph();
+            },
+            (node) => {
+                this._layoutBackend.pinNode(node, wasPinned);
+                this._userInteraction = false;
+            });
+    }
 }

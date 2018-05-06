@@ -9,8 +9,11 @@ import createInputEvents from 'vivagraphjs/src/WebGL/webglInputEvents'
 import { Point2D } from '../Point2D';
 
 /**
- * @typedef {Object} VivaNode
- * @property {any} id
+ * Ngraph node type, with all known extensions
+ * @typedef {Object} NgNode
+ * @property {number|string} id
+ * @property {Object[]} links
+ * @property {Object} data
  */
 
 /**
@@ -18,10 +21,11 @@ import { Point2D } from '../Point2D';
  */
 export class WebGLDnDManager {
     constructor(graph, graphics) {
+        /** @type {Object.<string, DnDHandler>} */
         this.internalHandlers = {};
 
         this.inputEvents = createInputEvents(graphics);
-        /** @type {VivaNode} */
+        /** @type {NgNode} */
         this.draggedNode = null;
         this.pos = new Point2D(0, 0);
         this.pos2 = new Point2D(0, 0);
@@ -33,7 +37,7 @@ export class WebGLDnDManager {
 
     /**
      * 
-     * @param {VivaNode} node 
+     * @param {NgNode} node 
      * @param {MouseEvent} e 
      */
     onMouseDown(node, e) {
@@ -44,8 +48,8 @@ export class WebGLDnDManager {
         this.inputEvents.mouseCapture(this.draggedNode);
 
         var handlers = this.internalHandlers[node.id];
-        if (handlers && handlers.onStart) {
-            handlers.onStart(e, this.pos);
+        if (handlers) {
+            handlers.onStart(e, this.pos, node);
         }
 
         return true;
@@ -53,31 +57,31 @@ export class WebGLDnDManager {
 
     /**
      * 
-     * @param {VivaNode} node 
+     * @param {NgNode} node 
      */
     onMouseUp(node) {
         this.inputEvents.releaseMouseCapture(this.draggedNode);
 
         this.draggedNode = null;
         var handlers = this.internalHandlers[node.id];
-        if (handlers && handlers.onStop) {
-            handlers.onStop();
+        if (handlers) {
+            handlers.onStop(node);
         }
         return true;
     }
 
     /**
      * 
-     * @param {VivaNode} node 
+     * @param {NgNode} node 
      * @param {MouseEvent} e 
      */
     onMouseMove(node, e) {
         if (this.draggedNode) {
             var handlers = this.internalHandlers[this.draggedNode.id];
-            if (handlers && handlers.onDrag) {
+            if (handlers) {
                 this.pos2.x = e.clientX - this.pos.x;
                 this.pos2.y = e.clientY - this.pos.y;
-                handlers.onDrag(e, this.pos2);
+                handlers.onDrag(e, this.pos2, this.draggedNode);
             }
 
             this.pos.x = e.clientX;
@@ -91,16 +95,37 @@ export class WebGLDnDManager {
      * graphics we may listen to DOM events, whereas for WebGL we graphics
      * should provide custom eventing mechanism.
      *
-     * @param {VivaNode} node node to be monitored.
-     * @param {*} handlers - object with set of three callbacks:
-     *   onStart: function(),
-     *   onDrag: function(e, offset),
-     *   onStop: function()
+     * @param {NgNode} node node to be monitored.
+     * @param {DnDHandler} handlers - object with set of three callbacks:
+     *   onStart: function(node),
+     *   onDrag: function(e, offset, node),
+     *   onStop: function(node)
      */
     bindDragNDrop(node, handlers) {
+        if (this.internalHandlers[node.id] != null) {
+            throw new Error(`D\'n\'d handlers already exists for node #${node.id}`);
+        }
         this.internalHandlers[node.id] = handlers;
-        if (!handlers) {
+    }
+
+    unbindDragNDrop(node) {
+        if (this.internalHandlers[node.id]) {
             delete this.internalHandlers[node.id];
         }
+    }
+}
+
+export class DnDHandler {
+    /**
+     * !!! Здесь node == nodeUI !!!
+     * @param {function(MouseEvent, Point2D, NgNode):void} onStartCallback 
+     * @param {function(MouseEvent, Point2D, NgNode):void} onDragCallback 
+     * @param {function(NgNode):void} onStopCallback 
+     */
+    constructor(onStartCallback, onDragCallback, onStopCallback) {
+        // TODO: add some validation
+        this.onDrag = onDragCallback;
+        this.onStart = onStartCallback;
+        this.onStop = onStopCallback;
     }
 }
