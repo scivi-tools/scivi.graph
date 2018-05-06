@@ -279,7 +279,7 @@ export class VivaWebGLRenderer {
                 wasPinned = that._layoutBackend.isNodePinned(node);
                 that._layoutBackend.pinNode(node, true);
                 that._userInteraction = true;
-                that._resetStable();
+                that.kick();
             },
             onDrag: function(e, offset) {
                 var oldPos = that._layoutBackend.getNodePosition(node.id);
@@ -350,7 +350,7 @@ export class VivaWebGLRenderer {
             }
         }
 
-        this._resetStable();
+        this.kick();
     }
 
     _updateCenter() {
@@ -390,6 +390,32 @@ export class VivaWebGLRenderer {
         this._graphBackend.forEachNode((node) => this._listenNodeEvents(node));
     
         this._graphBackend.on('changed', () => this._onGraphChanged());
+
+        // HACK: добавляем кнопку старт/стоп
+        //@ts-ignore
+        const controlElement = $('#control')[0];
+        let startStopButton = document.createElement('div');
+        const that = this;
+        //@ts-ignore
+        $(startStopButton).button({
+            icon: 'ui-icon-pause',
+            label: "Pause/Resume layout",
+            //@ts-ignore
+            create: (e) => {
+                //@ts-ignore
+                $(e.target).click((ev) => {
+                    if (that.isManuallyPaused) {
+                        that.resume();
+                        this.icon = 'ui-icon-pause';
+                    } else {
+                        that.pause();
+                        this.icon = 'ui-icon-play';
+                    }
+                });
+            }
+        });
+
+        controlElement.appendChild(startStopButton);
     }
 
     _createNodeUi(node) {
