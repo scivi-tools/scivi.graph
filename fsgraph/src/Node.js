@@ -1,5 +1,6 @@
 //@ts-check
-import { GraphState } from './GraphState'
+import { GraphState } from './GraphState';
+import { Point2D } from './Point2D';
 
 export class Node {
     constructor(/** @type {GraphState} */state, id, groupId, /** @type{string} */label, weight, data = null) {
@@ -15,7 +16,7 @@ export class Node {
         this.weight = weight;
         this.data = data;
         
-        this.position = new Position(0, 0);
+        this.position = new Point2D(0, 0);
 
         this.edges = [];
 
@@ -66,12 +67,5 @@ export class Node {
         itemDiv.appendChild(this._visibleChekbox);
         itemDiv.appendChild(this._labelSpan);
         return itemDiv;
-    }
-}
-
-export class Position {
-    constructor(x, y) {
-        this.x = x;
-        this.y = y;
     }
 }

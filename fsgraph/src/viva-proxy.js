@@ -50,8 +50,7 @@ export default {
     },
   
     Input: {
-      domInputManager: require('vivagraphjs/src/Input/domInputManager.js'),
-      webglInputManager: require('vivagraphjs/src/Input/webglInputManager.js')
+      domInputManager: require('vivagraphjs/src/Input/domInputManager.js')
     },
   
     Utils: {

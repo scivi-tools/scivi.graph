@@ -3,6 +3,7 @@ import Viva from './viva-proxy'
 import { GraphController } from './GraphController'
 import { VivaWebGLSimpleBackend } from './VivaWebGLSimpleBackend'
 import { VivaStateView } from './VivaStateView'
+import { WebGLDnDManager } from './VivaMod/webglInputManager'
 
 class RendererTransform {
     constructor(scale = 1, offsetX = 0, offsetY = 0, rot = 0) {
@@ -85,7 +86,7 @@ export class VivaWebGLRenderer {
     set graphBackend(value) {
         this._graphBackend = value;
         // TODO: обработка событий и всё такое
-        this._inputManager = Viva.Graph.Input.webglInputManager(value, this._graphics);
+        this._inputManager = new WebGLDnDManager(value, this._graphics);
     }
 
     set layoutBackend(value) {
@@ -391,7 +392,7 @@ export class VivaWebGLRenderer {
     
         this._graphBackend.on('changed', () => this._onGraphChanged());
 
-        // HACK: добавляем кнопку старт/стоп
+        // TODO: добавляем кнопку старт/стоп и вращение здесь!
         //@ts-ignore
         const controlElement = $('#control')[0];
         let startStopButton = document.createElement('div');
