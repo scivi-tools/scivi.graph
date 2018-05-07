@@ -5,9 +5,9 @@
 
 var g_colors = [
     // link
-    0x0000009F, 0x000000FF,
+    0x0000007F, 0x000000FF,
     // node1
-    0xFFFF009F, 0xFFFF00FF,
+    0xFFFF00AF, 0xFFFF00FF,
     // node2
-    0x5555559F, 0x555555FF
+    0x555555AF, 0x555555FF
 ];

@@ -21,7 +21,9 @@ export class VivaImageNodeUI extends VivaBaseUI {
         this._showLabel = false;
 
         this._graphics = graphics;
-        
+
+        this.position = {};
+
         // this._invalidateLabel();
 
         // TODO: соптимизировать получение корневого элемента где-то ещё

@@ -104,11 +104,19 @@ export class VivaWebGLRenderer {
      * @param {VivaStateView} value
      */
     set viewRules(value) {
+        if (this._viewRules != null) {
+            throw new Error("Can not change view rule!");
+        }
         this._viewRules = value;
 
         // Устанавливаем коллбэки из графики
         this._backend.onRenderNodeCallback = value.onNodeRender;
         this._backend.onRenderEdgeCallback = value.onEdgeRender;
+
+        // TODO: inverse dependency!
+        this.graphicsInputListner.click((nodeUI) => {
+            value.onNodeClick(nodeUI, this._graphBackend, this);
+        });
     }
 
     /**
@@ -142,18 +150,13 @@ export class VivaWebGLRenderer {
         let metrics = this._graphController.metrics;
         // TODO: move this shit out of here (in enherited from VStateView class)
         result.onNodeRender = (nodeUI) => {
-            nodeUI.showLabel = nodeUI.node.data.groupId === 0;
             nodeUI.size = result.getNodeUISize(nodeUI.node.data.weight, metrics.maxWeight);
-            nodeUI.color = result._colorPairs[(1 + nodeUI.node.data.groupId) * 2 + 1/*(nodeUI.selected)*/];
+            nodeUI.color = result._colorPairs[(1 + nodeUI.node.data.groupId) * 2 + (nodeUI.selected ? 1 : 0)];
         };
         result.onEdgeRender = (edgeUI) => {
             // TODO: no such property "selected"!
-            edgeUI.color = result._colorPairs[0/*edgeUI.selected*/];
+            edgeUI.color = result._colorPairs[(edgeUI.selected ? 1 : 0)];
         };
-        // TODO: inverse dependency!
-        this.graphicsInputListner.click((nodeUI) => {
-            result.onNodeClick(nodeUI, this._graphBackend);
-        });
         return result;
     }
 
