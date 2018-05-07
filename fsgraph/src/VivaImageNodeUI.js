@@ -1,3 +1,5 @@
+//@ts-check
+/// <reference path="./types/ngraph.types.js" />
 import { VivaBaseUI } from './VivaBaseUI'
 import { Node } from './Node'
 import { Edge } from './Edge'
@@ -5,12 +7,11 @@ import { Edge } from './Edge'
 export class VivaImageNodeUI extends VivaBaseUI {
     /**
      * 
-     * @param {Node} node
+     * @param {NgNode} node
      * @param {HTMLSpanElement} titleSpan 
      */
     constructor(graphics, node, titleSpan) {
         super(node.id);
-        /** @type {Node} */
         this.node = node;
         this._offset = 0;
         this._span = titleSpan;
@@ -27,34 +28,32 @@ export class VivaImageNodeUI extends VivaBaseUI {
         this.detailedInfoHTML = $('#info')[0];
     };
 
-    get src() {
-        return 'default.png';
-    }
-
-    set src(value) {
-        throw new Error('Not implemented!');
+    /**
+     * @returns {NgNode}
+     */
+    get node() {
+        return this._node;
     }
 
     /**
-     * @returns {number}
+     * @param {NgNode} value
      */
-    get offset() {
-        return this._offset;
-    }
-
-    set offset(value) {
-        this._offset = value;
+    set node(value) {
+        /** @type {NgNode} */
+        this._node = value;
+        /** @type {Node} */
+        this._realNode = value.data;
     }
 
     get label() {
-        return this.node.data.label;
+        return this._realNode.label;
     }
 
     /**
      * @param {string} value
      */
     set label(value) {
-        this.node.data.label = value;
+        this._realNode.label = value;
         this._invalidateLabel();
     }
 
@@ -69,7 +68,7 @@ export class VivaImageNodeUI extends VivaBaseUI {
     }
 
     _invalidateLabel() {
-        this._span.innerText = this.node.data.label;
+        this._span.innerText = this._realNode.label;
         //@ts-ignore
         this._spanWidth = $(this._span).width();
     }
@@ -103,20 +102,20 @@ export class VivaImageNodeUI extends VivaBaseUI {
         header.appendChild(name);
         header.appendChild(changeName);
 
-        if (this.node.data.date) {
+        if (this._realNode['date']) {
             let dateLabel = document.createElement("span");
-            dateLabel.innerHTML = "&nbsp;&nbsp;&nbsp;(" + this.node.data.date.toLocaleDateString() + ")";
+            dateLabel.innerHTML = "&nbsp;&nbsp;&nbsp;(" + this._realNode['date'].toLocaleDateString() + ")";
             header.appendChild(dateLabel);
         }
 
         let nodesList = document.createElement("div");
         let connList = "<span>Linked nodes:</span><ul>";
-        this.node.data.edges.forEach((/** @type {Edge} */edge) => {
+        this._realNode.edges.forEach((edge) => {
             if (edge.visible) {
-                if (edge.toId != this.node.data.id)
-                    connList += `<li><span>${this.node.data._state.nodes[edge.toId].label} --+</span></li>`;
+                if (edge.toId != this._realNode.id)
+                    connList += `<li><span>${this._realNode._state.nodes[edge.toId].label} --+</span></li>`;
                 else
-                    connList += `<li><span>+-- ${this.node.data._state.nodes[edge.fromId].label}</span></li>`;
+                    connList += `<li><span>+-- ${this._realNode._state.nodes[edge.fromId].label}</span></li>`;
             }
         });
         connList += "</ul>";

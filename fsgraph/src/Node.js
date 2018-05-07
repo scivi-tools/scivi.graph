@@ -1,6 +1,7 @@
 //@ts-check
 import { GraphState } from './GraphState';
 import { Point2D } from './Point2D';
+import { Edge } from './Edge';
 
 export class Node {
     constructor(/** @type {GraphState} */state, id, groupId, /** @type{string} */label, weight, data = null) {
@@ -18,6 +19,7 @@ export class Node {
         
         this.position = new Point2D(0, 0);
 
+        /** @type {Edge[]} */
         this.edges = [];
 
         this.visible = true;

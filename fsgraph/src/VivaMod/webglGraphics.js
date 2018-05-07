@@ -4,9 +4,8 @@
  * @author Andrei Kashcha (aka anvaka) / https://github.com/anvaka
  */
 // @ts-check
+/// <reference path="../types/ngraph.types.js" />
 
-//@ts-ignore
-var webglInputManager = require('vivagraphjs/src/Input/webglInputManager.js');
 import { newLinkProgram } from './newLinkProgram'
 import { newNodeProgram } from './newNodeProgram'
 //@ts-ignore
@@ -23,7 +22,6 @@ var merge = require('ngraph.merge');
  *  preserveDrawingBuffer - false by default, tells webgl to preserve drawing buffer.
  *                    See https://www.khronos.org/registry/webgl/specs/1.0/#5.2
  */
-
 export function webglGraphics(options) {
     options = merge(options, {
         enableBlending : true,
@@ -69,13 +67,25 @@ export function webglGraphics(options) {
         allLinks = {},
         linkProgram = newLinkProgram(),
         nodeProgram = newNodeProgram(),
-/*jshint unused: false */
-        nodeUIBuilder = function (node) {
+
+        
+        nodeUIBuilder =
+        /**
+         * @param {NgNode} node
+         * @returns {VivaGenericNodeUI}
+         */
+        function (node) {
             console.log("No node UI builder!");
             return null;
         },
 
-        linkUIBuilder = function (link) {
+        
+        linkUIBuilder =
+        /**
+         * @param {NgLink} link
+         * @returns {VivaGenericLinkUI}
+         */
+        function (link) {
             console.log("No link UI builder!");
             return null;
         },
@@ -173,7 +183,7 @@ export function webglGraphics(options) {
         /**
          * Custom input manager listens to mouse events to process nodes drag-n-drop inside WebGL canvas
          */
-        inputManager : webglInputManager,
+        inputManager : null,
 
         /**
          * Called every time before renderer starts rendering.
@@ -217,8 +227,8 @@ export function webglGraphics(options) {
          * Sets translate operation that should be applied to all nodes and links.
          */
         graphCenterChanged : function (x, y) {
-            transform[12] = 2 * x - width;//(2 * x / width) - 1;
-            transform[13] = height - y * 2;//1 - (2 * y / height);
+            transform[12] = 2 * x - width;
+            transform[13] = height - y * 2;
             updateTransformUniform();
         },
 
@@ -226,13 +236,15 @@ export function webglGraphics(options) {
          * Called by Viva.Graph.View.renderer to let concrete graphic output
          * provider prepare to render given link of the graph
          *
-         * @param link - model of a link
+         * @param {NgLink} link - model of a link
+         * @param {NgLinkPosition} boundPosition
          */
         addLink: function (link, boundPosition) {
             var uiid = linksCount++,
                 ui = linkUIBuilder(link);
             ui.id = uiid;
             ui.pos = boundPosition;
+            ui.link = link;
 
             linkProgram.createLink(ui);
 
@@ -241,12 +253,13 @@ export function webglGraphics(options) {
             return ui;
         },
 
-       /**
-        * Called by Viva.Graph.View.renderer to let concrete graphic output
-        * provider prepare to render given node of the graph.
-        *
-        * @param nodeUI visual representation of the node created by node() execution.
-        **/
+        /**
+         * Called by Viva.Graph.View.renderer to let concrete graphic output
+         * provider prepare to render given node of the graph.
+         *
+         * @param {NgNode} node
+         * @param {DummyPoint2D} boundPosition
+         */
         addNode : function (node, boundPosition) {
             var uiid = nodesCount++,
                 ui = nodeUIBuilder(node);

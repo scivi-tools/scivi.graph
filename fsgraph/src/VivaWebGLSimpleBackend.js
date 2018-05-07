@@ -46,15 +46,16 @@ export class VivaWebGLSimpleBackend {
 
         this._graphics.node((node) => {
             let title = this._ensureLabelExists(node.id);
-            return new VivaImageNodeUI(this._graphics, node.data, title);
+            return new VivaImageNodeUI(this._graphics, node, title);
         });
         this._graphics.link((link) => {
             return new VivaLinkUI(this._graphics, link);
+            // HACK: сейчас _graphics пропатчен на то, чтобы самостоятельно запоминать link!
         });
 
         // Устанавливаем действия при отображении примитивов
         // TODO: задать само действие д.б. можно снаружи этого класса!
-        this._graphics.placeLink((linkUI) => this.onRenderEdgeCallback(linkUI));
+        this._graphics.placeLink((/** @type {VivaLinkUI} */linkUI) => this.onRenderEdgeCallback(linkUI));
         this._graphics.placeNode((/** @type {VivaImageNodeUI} */nodeUI) => {
             this.onRenderNodeCallback(nodeUI);
             nodeUI.onRender();
