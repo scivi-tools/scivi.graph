@@ -1,5 +1,4 @@
 const path = require('path');
-const webpack = require('webpack');
 
 module.exports = (env, args) => {
     const is_rel_env = args.mode === "production";
@@ -11,20 +10,19 @@ module.exports = (env, args) => {
         optimization: {
             splitChunks: {
                 cacheGroups: {
-                    vendor: {
+                    common: {
                         test: /[\\/]node_modules[\\/]/,
                         name: "vendor",
-                        chunks: "initial",
-                        enforce: true
+                        chunks: "initial"
                     }
-                }
+                },
             }
         },
         output: {
             path: __dirname + "/dist",
             filename: "SciViFSGraph.[name].js",
             library: ["SciViFSGraph", "[name]"],
-            libraryTarget: "umd"
+            // libraryTarget: "umd"
         },
         // resolve: {
         //     extensions: [ '.js' ]

@@ -5,7 +5,8 @@ import { VivaWebGLSimpleBackend } from './VivaWebGLSimpleBackend'
 import { VivaStateView } from './VivaStateView'
 import { WebGLDnDManager, DnDHandler } from './VivaMod/webglInputManager'
 import $ from 'jquery'
-import 'jquery-ui/ui/core'
+import 'jquery-ui/ui/widget'
+import 'jquery-ui/ui/keycode'
 import 'jquery-ui/ui/widgets/selectable'
 import 'jquery-ui/ui/widgets/button'
 
@@ -443,23 +444,27 @@ export class VivaWebGLRenderer {
     _buildUi() {
         // TODO: добавляем кнопку старт/стоп и вращение здесь!
         const controlElement = $('#control')[0];
-        let startStopButton = document.createElement('div');
+        let startStopButton = document.createElement('button');
         const that = this;
 
         const changeIcon = (name) => {
             $(startStopButton).button('option', 'icon', name);
         };
 
+        // HACK: Ни дня без веселья! Оказывается, описание типов не соответствует реализации:
+        // первое говорит, что в настройках конпки есть "click" callback, а в реализации такого нет!
+        // Ну и сущий пустяк: реализация позволяет указать "create" callback, а в типах про него пусто!
+        // кто и как этим пользуется - загадка
         $(startStopButton).button({
-            label: "Pause/Resume layout",
-            click: (ev) => {
-                if (that.isManuallyPaused) {
-                    that.resume();
-                    changeIcon('ui-icon-pause');
-                } else {
-                    that.pause();
-                    changeIcon('ui-icon-play');
-                }
+            label: "Pause/Resume layout"
+        });
+        $(startStopButton).click((ev) => {
+            if (that.isManuallyPaused) {
+                that.resume();
+                changeIcon('ui-icon-pause');
+            } else {
+                that.pause();
+                changeIcon('ui-icon-play');
             }
         });
         changeIcon('ui-icon-pause');

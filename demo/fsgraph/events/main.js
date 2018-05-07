@@ -1,19 +1,19 @@
 function main() {
-    var controller = SciViFSGraph.GraphController.fromJson(g_data, 'forceAtlas2');
+    var controller = SciViFSGraph.main.GraphController.fromJson(g_data, 'forceAtlas2');
     var renderer = null;
 
-    Split(['#a', '#b'], {
+    SciViFSGraph.main.Split(['#a', '#b'], {
         gutterSize: 8,
         cursor: 'col-resize',
         sizes: [75, 25],
         onDrag: () => renderer.onContainerResize()
     });
 
-    $("#tabs").tabs({
+    SciViFSGraph.main.$("#tabs").tabs({
         heightStyle: "fill"
     });
 
-    $("#rotateBar").slider({
+    SciViFSGraph.main.$("#rotateBar").slider({
         min: -179,
         max: 179,
         value: 0,
@@ -23,7 +23,7 @@ function main() {
         }
     });
 
-    renderer = new SciViFSGraph.VivaWebGLRenderer($('#view')[0]);
+    renderer = new SciViFSGraph.main.VivaWebGLRenderer(SciViFSGraph.main.$('#view')[0]);
         
     renderer.graphController = controller;
     renderer.viewRules = renderer.buildDefaultView(g_colors);
