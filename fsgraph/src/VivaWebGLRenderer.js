@@ -375,9 +375,14 @@ export class VivaWebGLRenderer {
         const controlElement = $('#control')[0];
         let startStopButton = document.createElement('div');
         const that = this;
+
+        const changeIcon = (name) => {
+            //@ts-ignore
+            $(startStopButton).button('option', 'icons', { primary: name });
+        };
+
         //@ts-ignore
         $(startStopButton).button({
-            icon: 'ui-icon-pause',
             label: "Pause/Resume layout",
             //@ts-ignore
             create: (e) => {
@@ -385,14 +390,15 @@ export class VivaWebGLRenderer {
                 $(e.target).click((ev) => {
                     if (that.isManuallyPaused) {
                         that.resume();
-                        this.icon = 'ui-icon-pause';
+                        changeIcon('ui-icon-pause');
                     } else {
                         that.pause();
-                        this.icon = 'ui-icon-play';
+                        changeIcon('ui-icon-play');
                     }
                 });
             }
         });
+        changeIcon('ui-icon-pause');
 
         controlElement.appendChild(startStopButton);
     }
