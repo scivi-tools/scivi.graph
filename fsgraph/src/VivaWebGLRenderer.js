@@ -310,9 +310,9 @@ export class VivaWebGLRenderer {
     _processLinkChange(change) {
         let link = change.link;
         if (change.changeType === 'add') {
-            // createLinkUi(link);
+            this._createLinkUi(link);
         } else if (change.changeType === 'remove') {
-            // removeLinkUi(link);
+            this._removeLinkUi(link);
         } else if (change.changeType === 'update') {
             throw 'Update type is not implemented. TODO: Implement me!';
         }
@@ -368,7 +368,7 @@ export class VivaWebGLRenderer {
     
         this._graphBackend.forEachNode((node) => this._listenNodeEvents(node));
     
-        this._graphBackend.on('changed', () => this._onGraphChanged());
+        this._graphBackend.on('changed', (changes) => this._onGraphChanged(changes));
 
         // TODO: добавляем кнопку старт/стоп и вращение здесь!
         //@ts-ignore
