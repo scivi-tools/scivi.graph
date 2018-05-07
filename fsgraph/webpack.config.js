@@ -1,34 +1,36 @@
-var path = require('path');
+const path = require('path');
+const webpack = require('webpack');
 
 module.exports = (env, args) => {
-    var is_rel_env = args.mode === "production";
+    const is_rel_env = args.mode === "production";
 
     return {
         context: __dirname,
         devtool: is_rel_env ? "source-map" : "inline-source-map",
         entry: "./tmp/main.js",
+        optimization: {
+            splitChunks: {
+                cacheGroups: {
+                    vendor: {
+                        test: /[\\/]node_modules[\\/]/,
+                        name: "vendor",
+                        chunks: "initial",
+                        enforce: true
+                    }
+                }
+            }
+        },
         output: {
             path: __dirname + "/dist",
-            filename: "bundle.js",
-            library: 'SciViFSGraph',
-
-            libraryTarget: "amd"
+            filename: "SciViFSGraph.[name].js",
+            library: ["SciViFSGraph", "[name]"],
+            libraryTarget: "umd"
         },
         // resolve: {
         //     extensions: [ '.js' ]
         // },
-        externals: {
-            jquery: 'jQuery',
-            'jquery-ui/ui/core': {
-                commonjs: 'jquery-ui/ui/core',
-                root: "$"
-            },
-            'jquery-ui/ui/widgets/button': {
-                commonjs: 'jquery-ui/ui/widgets/button',
-                // root: "$"
-            }
-        },
         stats: {
+            excludeModules: false,
             maxModules: 100
         }
     }

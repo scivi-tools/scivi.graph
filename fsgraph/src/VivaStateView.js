@@ -1,5 +1,7 @@
 //@ts-check
 import { VivaImageNodeUI } from './VivaImageNodeUI'
+import $ from 'jquery'
+import 'jquery-ui/ui/widgets/slider'
 
 /* TODO: Пересматриваем концепцию кастомизации отображения графа
  * Теперь этот класс будет содержать инфу о том, как визуализировать связи
@@ -66,8 +68,7 @@ export class VivaStateView {
     }
 
     buildUI() {
-        /** @type {HTMLDivElement} */
-        //@ts-ignore
+        /** @type {HTMLElement} */
         let baseContainer = $('#settings')[0];
         let innerContainer = document.createElement('div');
 
@@ -81,7 +82,6 @@ export class VivaStateView {
 
         let sizeSlider = document.createElement('div');
         let that = this;
-        //@ts-ignore
         $(sizeSlider).slider({
             min: _MaxNodeSizeDiap[0],
             max: _MaxNodeSizeDiap[1],

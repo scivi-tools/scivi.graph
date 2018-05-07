@@ -3,6 +3,7 @@
 import { VivaBaseUI } from './VivaBaseUI'
 import { Node } from './Node'
 import { Edge } from './Edge'
+import $ from 'jquery'
 
 export class VivaImageNodeUI extends VivaBaseUI {
     /**
@@ -24,7 +25,6 @@ export class VivaImageNodeUI extends VivaBaseUI {
         // this._invalidateLabel();
 
         // TODO: соптимизировать получение корневого элемента где-то ещё
-        //@ts-ignore
         this.detailedInfoHTML = $('#info')[0];
     };
 
@@ -69,7 +69,6 @@ export class VivaImageNodeUI extends VivaBaseUI {
 
     _invalidateLabel() {
         this._span.innerText = this._realNode.label;
-        //@ts-ignore
         this._spanWidth = $(this._span).width();
     }
 

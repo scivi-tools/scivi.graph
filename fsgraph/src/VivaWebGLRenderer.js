@@ -6,6 +6,7 @@ import { VivaStateView } from './VivaStateView'
 import { WebGLDnDManager, DnDHandler } from './VivaMod/webglInputManager'
 import $ from 'jquery'
 import 'jquery-ui/ui/core'
+import 'jquery-ui/ui/widgets/selectable'
 import 'jquery-ui/ui/widgets/button'
 
 class RendererTransform {

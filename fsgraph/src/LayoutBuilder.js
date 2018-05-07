@@ -2,6 +2,8 @@
 import Viva from './viva-proxy'
 import merge from 'ngraph.merge'
 import { VivaWebGLRenderer } from './VivaWebGLRenderer'
+import $ from 'jquery'
+import 'jquery-ui/ui/widgets/slider'
 
 export class LayoutBuilder {
     /**
@@ -15,7 +17,6 @@ export class LayoutBuilder {
     }
 
     buildUI(/** @type {VivaWebGLRenderer} */renderer) {
-        //@ts-ignore
         let baseContainer = $('#settings');
         
         let label = document.createElement('span');
@@ -35,7 +36,6 @@ export class LayoutBuilder {
                         cb.type = 'checkbox';
                         cb.checked = value;
                         cb.onchange = (ev) => {
-                            //@ts-ignore
                             this.settings[key] = cb.checked;
                             console.log(`Setting ${key} now ${this.settings[key]}`);
                             renderer.kick();
@@ -46,7 +46,6 @@ export class LayoutBuilder {
                         let rangeEl = document.createElement('div');
                         let range = _NumRanges[this.name][key];
                         if (range) {
-                            //@ts-ignore
                             $(rangeEl).slider({
                                 min: range[0],
                                 max: range[1],

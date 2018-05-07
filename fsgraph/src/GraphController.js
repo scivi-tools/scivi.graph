@@ -3,6 +3,7 @@ import Viva from './viva-proxy'
 import { GraphState } from './GraphState'
 import { DummyMetrics } from './DummyMetrics'
 import { LayoutBuilder } from './LayoutBuilder'
+import $ from 'jquery'
 
 export class GraphController {
     /**
@@ -26,7 +27,6 @@ export class GraphController {
         this._layoutInstance = this.layoutBuilder.layout;
 
         this._listContainer = document.createElement('div');
-        //@ts-ignore
         $('#list')[0].appendChild(this._listContainer);
     }
 
