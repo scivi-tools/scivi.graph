@@ -3,18 +3,10 @@
  * @author Me
  */
 //@ts-check
-// <reference path="fo.js" />
+/// <reference path="../types/ngraph.types.js" />
 
 import createInputEvents from 'vivagraphjs/src/WebGL/webglInputEvents'
 import { Point2D } from '../Point2D';
-
-/**
- * Ngraph node type, with all known extensions
- * @typedef {Object} NgNode
- * @property {number|string} id
- * @property {Object[]} links
- * @property {Object} data
- */
 
 /**
  * D'n'D - drag'n'drop

@@ -45,6 +45,10 @@ export class Node {
        this.edges.push(edge);
     };
 
+    /**
+     * 
+     * @param {NgGenericLayout} layout 
+     */
     onBeforeHide(layout) {
         let layoutedPos = layout.getNodePosition(this.id);
         this.position.x = layoutedPos.x;

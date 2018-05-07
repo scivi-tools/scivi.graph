@@ -22,6 +22,7 @@ export class GraphController {
         this._metrics = new DummyMetrics();
         
         this.layoutBuilder = LayoutBuilder.buildLayout(layoutName, this._graph);
+        /** @type {NgGenericLayout} */
         this._layoutInstance = this.layoutBuilder.layout;
 
         this._listContainer = document.createElement('div');

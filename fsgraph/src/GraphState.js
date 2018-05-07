@@ -6,6 +6,8 @@ import { VivaStateView } from './VivaStateView'
 import { GraphController } from './GraphController'
 import { DummyMetrics } from './DummyMetrics'
 
+/// <reference path="./types/ngraph.types.js" />
+
 export class GraphState {
     constructor(nCount, eCount) {
 
@@ -43,7 +45,7 @@ export class GraphState {
 
     /**
      * 
-     * @param {*} graph 
+     * @param {NgGraph} graph 
      * @param {Node} node
      */
     restoreNode(graph, node) {
@@ -52,12 +54,12 @@ export class GraphState {
         }
 
         let graphNode = graph.addNode(node.id, node);
-        graphNode.position = node.position;
+        graphNode['position'] = node.position;
     };
 
     /**
      * 
-     * @param {*} graph 
+     * @param {NgGraph} graph 
      * @param {Edge} edge 
      */
     restoreEdge(graph, edge) {
@@ -65,15 +67,14 @@ export class GraphState {
             return;
         }
 
-        // HACK: из-за недоработки ngraph.graph третий параметр (data) в этой функции не учитывается никак
-        // приходится добавлять ручками
-        let graphEdge = graph.addLink(edge.fromId, edge.toId, null);
-        graphEdge.data = edge;
+        graph.addLink(edge.fromId, edge.toId, edge);
     };
 
     /**
      * Добавляем/удаляем узел в зависимости от фильтра
      * Последним параметром можно игнорировать изменение связей
+     * @param {NgGraph} graph
+     * @param {NgGenericLayout} layout
      * @param {Node} node 
      * @param {function(Node):boolean} filterFunc
      * @param {boolean} softMode 
@@ -104,6 +105,12 @@ export class GraphState {
         }
     }
 
+    /**
+     * 
+     * @param {NgGraph} graph 
+     * @param {NgGenericLayout} layout 
+     * @param {Node} node 
+     */
     hideNode(graph, layout, node) {
         node.onBeforeHide(layout);
         graph.removeNode(node.id);
@@ -111,7 +118,7 @@ export class GraphState {
 
     /**
      * 
-     * @param {*} graph 
+     * @param {NgGraph} graph 
      * @param {Edge} edge 
      */
     toggleEdge(graph, edge) {
@@ -125,6 +132,11 @@ export class GraphState {
         }
     }
 
+    /**
+     * 
+     * @param {NgGraph} graph 
+     * @param {NgGenericLayout} layout 
+     */
     actualize(graph, layout) {
         // восстанавливаем узлы и связи, не забыв про их позиции и видимость
         for (let n of this.nodes) {
@@ -136,6 +148,11 @@ export class GraphState {
         }
     }
 
+    /**
+     * 
+     * @param {NgGraph} graph 
+     * @param {NgGenericLayout} layout 
+     */
     onBeforeDisabled(graph, layout) {
         // сохраняем позиции
         graph.forEachNode((node) => {
@@ -145,6 +162,6 @@ export class GraphState {
         // TODO: сбрасывать выделения, если есть таковое
 
         // и чистим нафиг контейнер графа
-        graph.clean();
+        graph.clear();
     }
 }
