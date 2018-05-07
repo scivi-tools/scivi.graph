@@ -295,7 +295,7 @@ function createLayout(graph, settings) {
       var change = changes[i];
       if (change.changeType === 'add') {
         if (change.node) {
-          initBody(change.node.id);
+          initBody(change.node);
         }
         if (change.link) {
           initLink(change.link);
@@ -316,21 +316,19 @@ function createLayout(graph, settings) {
     bodiesCount = 0;
 
     graph.forEachNode(function (node) {
-      initBody(node.id);
+      initBody(node);
       bodiesCount += 1;
     });
 
     graph.forEachLink(initLink);
   }
 
-  function initBody(nodeId) {
-    var body = nodeBodies[nodeId];
+  function initBody(node) {
+    if (!node) {
+      throw new Error('initBody() was called with unknown node id');
+    }
+    var body = nodeBodies[node.id];
     if (!body) {
-      var node = graph.getNode(nodeId);
-      if (!node) {
-        throw new Error('initBody() was called with unknown node id');
-      }
-
       var pos = node.position;
       if (!pos) {
         console.log('No node.position leads to random position!');
@@ -343,17 +341,17 @@ function createLayout(graph, settings) {
       var body = {
         pos: pos
       };
-      body.id = nodeId;
+      body.id = node.id;
       body.dx = body.dy = 0;
       body.old_dx = body.old_dy = 0;
-      // FIXME: а это откуда?
+      // FIXME: а это откуда? Пока не нужно, можно не искать
       body.convergence = 1;
-      // FIXME: where da fuck we can get node size?!
+      // FIXME: where da fuck we can get node size?! Пока не нужно, можно не искать
       body.size = Math.random() * 5 + 1;
       body.fixed = false;
 
-      nodeBodies[nodeId] = body;
-      updateBodyMass(nodeId);
+      nodeBodies[node.id] = body;
+      updateBodyMass(node.id);
 
       if (isNodeOriginallyPinned(node)) {
         body.fixed = true;
@@ -445,7 +443,8 @@ function createLayout(graph, settings) {
   function getInitializedBody(nodeId) {
     var body = nodeBodies[nodeId];
     if (!body) {
-      initBody(nodeId);
+      var node = graph.getNode(nodeId);
+      initBody(node);
       body = nodeBodies[nodeId];
     }
     return body;
