@@ -21,7 +21,6 @@
     ],
     "typeAcquisition": {
         "include": [
-            "jquery",
             "require"
         ]
     }

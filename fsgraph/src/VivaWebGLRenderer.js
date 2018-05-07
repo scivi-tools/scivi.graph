@@ -4,6 +4,9 @@ import { GraphController } from './GraphController'
 import { VivaWebGLSimpleBackend } from './VivaWebGLSimpleBackend'
 import { VivaStateView } from './VivaStateView'
 import { WebGLDnDManager, DnDHandler } from './VivaMod/webglInputManager'
+import $ from 'jquery'
+import 'jquery-ui/ui/core'
+import 'jquery-ui/ui/widgets/button'
 
 class RendererTransform {
     constructor(scale = 1, offsetX = 0, offsetY = 0, rot = 0) {
@@ -346,6 +349,8 @@ export class VivaWebGLRenderer {
     }
 
     _initDom() {
+        this._buildUi();
+
         this._backend.postInit(this._container);
 
         this._graphBackend.forEachNode((node) => this._createNodeUi(node));
@@ -369,38 +374,6 @@ export class VivaWebGLRenderer {
         this._graphBackend.forEachNode((node) => this._listenNodeEvents(node));
     
         this._graphBackend.on('changed', (changes) => this._onGraphChanged(changes));
-
-        // TODO: добавляем кнопку старт/стоп и вращение здесь!
-        //@ts-ignore
-        const controlElement = $('#control')[0];
-        let startStopButton = document.createElement('div');
-        const that = this;
-
-        const changeIcon = (name) => {
-            //@ts-ignore
-            $(startStopButton).button('option', 'icons', { primary: name });
-        };
-
-        //@ts-ignore
-        $(startStopButton).button({
-            label: "Pause/Resume layout",
-            //@ts-ignore
-            create: (e) => {
-                //@ts-ignore
-                $(e.target).click((ev) => {
-                    if (that.isManuallyPaused) {
-                        that.resume();
-                        changeIcon('ui-icon-pause');
-                    } else {
-                        that.pause();
-                        changeIcon('ui-icon-play');
-                    }
-                });
-            }
-        });
-        changeIcon('ui-icon-pause');
-
-        controlElement.appendChild(startStopButton);
     }
 
     _createNodeUi(node) {
@@ -464,5 +437,32 @@ export class VivaWebGLRenderer {
                 this._layoutBackend.pinNode(node, wasPinned);
                 this._userInteraction = false;
             });
+    }
+
+    _buildUi() {
+        // TODO: добавляем кнопку старт/стоп и вращение здесь!
+        const controlElement = $('#control')[0];
+        let startStopButton = document.createElement('div');
+        const that = this;
+
+        const changeIcon = (name) => {
+            $(startStopButton).button('option', 'icon', name);
+        };
+
+        $(startStopButton).button({
+            label: "Pause/Resume layout",
+            click: (ev) => {
+                if (that.isManuallyPaused) {
+                    that.resume();
+                    changeIcon('ui-icon-pause');
+                } else {
+                    that.pause();
+                    changeIcon('ui-icon-play');
+                }
+            }
+        });
+        changeIcon('ui-icon-pause');
+
+        controlElement.appendChild(startStopButton);
     }
 }
