@@ -40,9 +40,7 @@ build_fsgraph:
     - popd
   script:
     - pushd fsgraph
-    - NODE_ENV=production ./node_modules/typescript/bin/tsc -p jsconfig.json
-    - NODE_ENV=production ./node_modules/webpack/bin/webpack.js
-    - cp dist/bundle.js ../demo/fsgraph/lib/scivi-fsgraph.min.js
+    - NODE_ENV=production npm run release
     - popd
   artifacts:
     paths:

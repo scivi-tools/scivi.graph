@@ -7,6 +7,9 @@
         "target": "es5",
         "checkJs": false,
         "moduleResolution": "node"
+        // "strict": true,
+        // "alwaysStrict": true,
+        // "noImplicitAny": false
     },
     "include": [
         "./src/*"
@@ -15,11 +18,5 @@
         "node_modules",
         "**/node_modules/*",
         "tmp"
-    ],
-    "typeAcquisition": {
-        "include": [
-            "jquery",
-            "require"
-        ]
-    }
+    ]
 }

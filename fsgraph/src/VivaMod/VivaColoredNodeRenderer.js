@@ -1,0 +1,220 @@
+/**
+ * @author Andrei Kashcha (aka anvaka)
+ * @author Me
+ */
+//@ts-check
+import Viva from '../viva-proxy'
+import { VivaBaseUI } from '../VivaBaseUI'
+import { VivaImageNodeUI } from '../VivaImageNodeUI'
+
+/**
+ * u, v, x, y, color - 4 byte each, 6 vertex
+ */
+const ATTRIBUTES_PER_PRIMITIVE = 30;
+const _BYTES_PER_ELEMENT = 4 * Float32Array.BYTES_PER_ELEMENT + Uint32Array.BYTES_PER_ELEMENT;
+
+/**
+ * Defines simple UI for nodes in webgl renderer. Each node is rendered as an image.
+ */
+export class VivaColoredNodeRenderer {
+    constructor(defBufferLength = 64) {
+        this._byteStorage = new ArrayBuffer(defBufferLength * 6 * _BYTES_PER_ELEMENT);
+        this._nodes = new Float32Array(this._byteStorage);
+        this._colors = new Uint32Array(this._byteStorage);
+        this._nodesFS = createNodeFragmentShader();
+        this._nodesVS = createNodeVertexShader();
+        this._program = null;
+        this._gl = null;
+        this._buffer = null;
+        this._utils = null;
+        this._locations = null;
+        this._nodesCount = 0;
+        this._width = null;
+        this._height = null;
+        this._transform = null;
+        this._sizeDirty = false;
+    }
+
+    // #region VivaAPI
+
+    load(glContext) {
+        this._gl = glContext;
+        this._utils = Viva.Graph.webgl(glContext);
+    
+        this._program = this._utils.createProgram(this._nodesVS, this._nodesFS);
+        this._gl.useProgram(this._program);
+        this._locations = this._utils.getLocations(this._program, [
+            "a_uv",
+            "a_vertexPos",
+            "a_color",
+            "u_screenSize",
+            "u_transform"
+        ]);
+    
+        this._gl.enableVertexAttribArray(this._locations.uv);
+        this._gl.enableVertexAttribArray(this._locations.vertexPos);
+        this._gl.enableVertexAttribArray(this._locations.color);
+    
+        this._buffer = this._gl.createBuffer();
+    }
+
+    /**
+     * 
+     * @param {VivaImageNodeUI} nodeUI 
+     * @param {*} pos 
+     */
+    position(nodeUI, pos) {
+        const idx = nodeUI.id * ATTRIBUTES_PER_PRIMITIVE;
+        this._nodes[idx + 2] = pos.x - nodeUI.size;
+        this._nodes[idx + 3] = -(pos.y - nodeUI.size);
+        this._colors[idx + 4] = nodeUI.color;
+    
+        this._nodes[idx + 5 + 2] = pos.x + nodeUI.size;
+        this._nodes[idx + 5 + 3] = -(pos.y - nodeUI.size);
+        this._colors[idx + 5 + 4] = nodeUI.color;
+    
+        this._nodes[idx + 10 + 2] = pos.x - nodeUI.size;
+        this._nodes[idx + 10 + 3] = -(pos.y + nodeUI.size);
+        this._colors[idx + 10 + 4] = nodeUI.color;
+    
+        this._nodes[idx + 15 + 2] = pos.x - nodeUI.size;
+        this._nodes[idx + 15 + 3] = -(pos.y + nodeUI.size);
+        this._colors[idx + 15 + 4] = nodeUI.color;
+    
+        this._nodes[idx + 20 + 2] = pos.x + nodeUI.size;
+        this._nodes[idx + 20 + 3] = -(pos.y - nodeUI.size);
+        this._colors[idx + 20 + 4] = nodeUI.color;
+    
+        this._nodes[idx + 25 + 2] = pos.x + nodeUI.size;
+        this._nodes[idx + 25 + 3] = -(pos.y + nodeUI.size);
+        this._colors[idx + 25 + 4] = nodeUI.color;
+    }
+
+    /**
+     * 
+     * @param {VivaImageNodeUI} ui 
+     */
+    createNode(ui) {
+        if ((this._nodesCount + 1) * _BYTES_PER_ELEMENT * 6 >= this._byteStorage.byteLength) {
+            let extendedStorage = new ArrayBuffer(this._byteStorage.byteLength * 2);
+            let extNodes = new Float32Array(extendedStorage);
+            let extColors = new Uint32Array(extendedStorage);
+
+            // extColors.set(this._colors);
+            extNodes.set(this._nodes);
+
+            this._colors = extColors;
+            this._nodes = extNodes;
+            this._byteStorage = extendedStorage;
+        }
+
+        const idx = this._nodesCount * ATTRIBUTES_PER_PRIMITIVE
+
+        this._nodes[idx] = 0;
+        this._nodes[idx + 1] = 0;
+
+        this._nodes[idx + 5] = 1;
+        this._nodes[idx + 5 + 1] = 0;
+
+        this._nodes[idx + 10] = 0;
+        this._nodes[idx + 10 + 1] = 1;
+
+        this._nodes[idx + 15] = 0;
+        this._nodes[idx + 15 + 1] = 1;
+
+        this._nodes[idx + 20] = 1;
+        this._nodes[idx + 20 + 1] = 0;
+
+        this._nodes[idx + 25] = 1;
+        this._nodes[idx + 25 + 1] = 1;
+
+        this._nodesCount += 1;
+    }
+  
+    removeNode(nodeUI) {
+        if (this._nodesCount > 0) {
+            this._nodesCount -= 1;
+        }
+
+        if (nodeUI.id < this._nodesCount && this._nodesCount > 0) {
+
+            this._utils.copyArrayPart(this._colors,
+                nodeUI.id * ATTRIBUTES_PER_PRIMITIVE,
+                this._nodesCount * ATTRIBUTES_PER_PRIMITIVE,
+                ATTRIBUTES_PER_PRIMITIVE
+            );
+        }
+    }
+  
+    replaceProperties(replacedNode, newNode) {
+        newNode.offset = replacedNode.offset;
+    }
+  
+    updateTransform(newTransform) {
+        this._sizeDirty = true;
+        this._transform = newTransform;
+    }
+  
+    updateSize(w, h) {
+        this._width = w * 2;
+        this._height = h * 2;
+        this._sizeDirty = true;
+    }
+  
+    render() {
+        this._gl.useProgram(this._program);
+        this._gl.bindBuffer(this._gl.ARRAY_BUFFER, this._buffer);
+        this._gl.bufferData(this._gl.ARRAY_BUFFER, this._byteStorage, this._gl.DYNAMIC_DRAW);
+    
+        if (this._sizeDirty) {
+            this._sizeDirty = false;
+            this._gl.uniformMatrix4fv(this._locations.transform, false, this._transform);
+            this._gl.uniform2f(this._locations.screenSize, this._width, this._height);
+        }
+    
+        this._gl.vertexAttribPointer(this._locations.uv, 2, this._gl.FLOAT, false, 5 * Float32Array.BYTES_PER_ELEMENT, 0);
+        this._gl.vertexAttribPointer(this._locations.vertexPos, 2, this._gl.FLOAT, false, 5 * Float32Array.BYTES_PER_ELEMENT, 2 * 4);
+        this._gl.vertexAttribPointer(this._locations.color, 4, this._gl.UNSIGNED_BYTE, true, 5 * Float32Array.BYTES_PER_ELEMENT, 4 * 4);
+    
+        this._gl.drawArrays(this._gl.TRIANGLES, 0, this._nodesCount * 6);
+    }
+    
+    // #endregion
+}
+
+// TODO: Use glslify for shaders
+function createNodeFragmentShader() {
+    return `
+        precision mediump float;
+        varying vec2 v_uv;
+        varying vec4 v_color;
+        const float minBorderR = 0.92;
+        const float maxBorderR = 0.98;
+        const float maxBorderOpacity = 0.8;
+
+        void main(void) {
+            float d = sqrt(v_uv.x * v_uv.x + v_uv.y * v_uv.y);
+            float inR = step(minBorderR, d);
+            float outR = step(maxBorderR, d);
+            gl_FragColor = mix(v_color, mix(vec4(0, 0, 0, v_color.a * maxBorderOpacity), vec4(0), outR), inR);
+        }`;
+}
+
+function createNodeVertexShader() {
+    return `
+        attribute vec2 a_uv;
+        attribute vec2 a_vertexPos;
+        attribute vec4 a_color;
+        uniform vec2 u_screenSize;
+        uniform mat4 u_transform;
+        varying vec2 v_uv;
+        varying vec4 v_color;
+
+        void main(void)
+        {
+            v_color = a_color.abgr;
+            v_uv = 2.0 * a_uv - 1.0;
+            gl_Position = u_transform * vec4(a_vertexPos, 0, 1);
+            gl_Position.xy /= u_screenSize;
+        }`;
+}
