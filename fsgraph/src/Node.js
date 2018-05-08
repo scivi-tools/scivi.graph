@@ -33,7 +33,9 @@ export class Node {
 
     set visible(value) {
         this._visible = value;
-        this._visibleChekbox.checked = value;
+        if (this._visibleChekbox.checked !== value) {
+            this._visibleChekbox.checked = value;
+        }
     }
 
     get label() {
@@ -63,7 +65,7 @@ export class Node {
         }
     }
 
-    postListItem() {
+    postListItem(renderer) {
         let itemDiv = document.createElement('div');
 
         // Проверочка видимости

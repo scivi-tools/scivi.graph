@@ -9,6 +9,7 @@ import 'jquery-ui/ui/widget'
 import 'jquery-ui/ui/keycode'
 import 'jquery-ui/ui/widgets/selectable'
 import 'jquery-ui/ui/widgets/button'
+import { validateLocaleAndSetLanguage } from 'typescript';
 
 class RendererTransform {
     constructor(scale = 1, offsetX = 0, offsetY = 0, rot = 0) {
@@ -40,6 +41,8 @@ export class VivaWebGLRenderer {
         this._graphController = null;
 
         this._viewRules = null;
+
+        this._listContainer = null;
 
         // #region Viva-resemble API compabilities
 
@@ -128,6 +131,8 @@ export class VivaWebGLRenderer {
         // TODO: добавить нормальный геттер
         this.graphBackend = value._graph;
 
+        this.currentStateId = 0;
+
         value.layoutBuilder.buildUI(this);
     }
 
@@ -158,6 +163,11 @@ export class VivaWebGLRenderer {
             edgeUI.color = result._colorPairs[(edgeUI.selected ? 1 : 0)];
         };
         return result;
+    }
+
+    set currentStateId(value) {
+        this._graphController.currentStateId = value;
+        this.buildNodeListInfo();
     }
 
     kick() {
@@ -473,5 +483,21 @@ export class VivaWebGLRenderer {
         changeIcon('ui-icon-pause');
 
         controlElement.appendChild(startStopButton);
+    }
+
+    buildNodeListInfo() {
+        if (!this._listContainer) {
+            this._listContainer = document.createElement('div');
+            $('#list')[0].appendChild(this._listContainer);
+        }
+
+        this._listContainer.innerHTML = '';
+
+        // TODO: кнопки "скрыт/показать всё"
+
+        let cs = this._graphController.currentState;
+        for (let node of cs.nodes) {
+            this._listContainer.appendChild(node.postListItem(this));
+        }
     }
 }

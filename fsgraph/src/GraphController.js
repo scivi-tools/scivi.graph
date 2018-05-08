@@ -28,19 +28,7 @@ export class GraphController {
         /** @type {NgGenericLayout} */
         this._layoutInstance = this.layoutBuilder.layout;
 
-        this._listContainer = document.createElement('div');
-        $('#list')[0].appendChild(this._listContainer);
-    }
-
-    buildNodeListInfo() {
-        this._listContainer.innerHTML = '';
-
-        // TODO: кнопки "скрыт/показать всё"
-
-        let cs = this.states[this.currentStateId];
-        for (let node of cs.nodes) {
-            this._listContainer.appendChild(node.postListItem());
-        }
+        
     }
 
     parseJsonState(state) {
@@ -105,8 +93,6 @@ export class GraphController {
 
             // здесь мы должны переключать граф путём перезаполнения ngraph.graph
             this.states[this._currentStateId].actualize(this._graph, this._layoutInstance);
-
-            this.buildNodeListInfo();
         }
     }
 
