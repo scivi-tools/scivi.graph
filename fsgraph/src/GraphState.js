@@ -5,13 +5,19 @@ import { Edge } from './Edge'
 import { VivaStateView } from './VivaStateView'
 import { GraphController } from './GraphController'
 import { DummyMetrics } from './DummyMetrics'
-
 /// <reference path="./types/ngraph.types.js" />
 
 export class GraphState {
-    constructor(nCount, eCount) {
-
-        this._metrics = new DummyMetrics();
+    /**
+     * 
+     * @param {GraphController} controller 
+     * @param {number} nCount 
+     * @param {number} eCount 
+     */
+    constructor(controller, nCount, eCount) {
+        /** @type {GraphController} */
+        this._controller = controller
+        this._metrics = new DummyMetrics(this._controller.monitoredValues);
         /** @type {number[][]} */
         this.groups = [];
         /** @type {Node[]} */
@@ -69,6 +75,16 @@ export class GraphState {
 
         graph.addLink(edge.fromId, edge.toId, edge);
     };
+
+    /**
+     * 
+     * @param {Node} node 
+     * @param {function(Node):boolean} filterFunc 
+     * @param {boolean} softMode
+     */
+    toggleNodeExt(node, filterFunc, softMode = false) {
+        this.toggleNode(this._controller.graph, this._controller.layoutInstance, node, filterFunc, softMode);
+    }
 
     /**
      * Добавляем/удаляем узел в зависимости от фильтра
@@ -150,18 +166,16 @@ export class GraphState {
 
     /**
      * 
-     * @param {NgGraph} graph 
-     * @param {NgGenericLayout} layout 
      */
-    onBeforeDisabled(graph, layout) {
+    onBeforeDisabled() {
         // сохраняем позиции
-        graph.forEachNode((node) => {
-            node.data.onBeforeHide(layout);
+        this._controller.graph.forEachNode((node) => {
+            node.data.onBeforeHide(this._controller.layoutInstance);
         });
 
         // TODO: сбрасывать выделения, если есть таковое
 
         // и чистим нафиг контейнер графа
-        graph.clear();
+        this._controller.graph.clear();
     }
 }
