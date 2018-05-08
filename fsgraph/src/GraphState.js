@@ -205,19 +205,22 @@ export class GraphState {
             let groupCount = this._metrics.maxGroupId + 1;
             for (let i = 0; i < groupCount; i++) {
                 let filterSlider = document.createElement('div');
-                filterSlider.innerText = `Filter for group ${i}`;
+                let descrSpan = document.createElement('span');
+                descrSpan.innerText = `Filter for group ${i}:`;
                 $(filterSlider).slider({
                     // TODO: эти четыре будут задаваться после получения prevKnownValues
                     min: this._metrics.minMaxValuesPerGroup[i]['weight'][0],
                     max: this._metrics.minMaxValuesPerGroup[i]['weight'][1],
                     values: [this._metrics.minMaxValuesPerGroup[i]['weight'][0], this._metrics.minMaxValuesPerGroup[i]['weight'][1]],
                     step: 1,
+                    range: true,
                     slide: (event, ui) => {
                         that.prevKnownValues[i]['weight'][0] = ui.values[0];
                         that.prevKnownValues[i]['weight'][1] = ui.values[1];
                         that._applyFilterRange();
                     } 
                 });
+                this._filtersContainer.appendChild(descrSpan);
                 this._filtersContainer.appendChild(filterSlider);
             }
         }
