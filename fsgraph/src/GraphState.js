@@ -65,8 +65,10 @@ export class GraphState {
             return;
         }
 
+        graph.beginUpdate();
         let graphNode = graph.addNode(node.id, node);
         graphNode['position'] = node.position;
+        graph.endUpdate();
     };
 
     /**
@@ -207,6 +209,7 @@ export class GraphState {
                 let filterSlider = document.createElement('div');
                 let descrSpan = document.createElement('span');
                 descrSpan.innerText = `Filter for group ${i}:`;
+                filterSlider.style.margin = '10px';
                 $(filterSlider).slider({
                     // TODO: эти четыре будут задаваться после получения prevKnownValues
                     min: this._metrics.minMaxValuesPerGroup[i]['weight'][0],

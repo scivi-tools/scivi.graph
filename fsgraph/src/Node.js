@@ -17,12 +17,14 @@ export class Node {
         this.weight = weight;
         this.data = data;
         
-        this.position = new Point2D(0, 0);
+        this.position = new Point2D(Math.random() * 1500 - 750, Math.random() * 1500 - 750);
 
         /** @type {Edge[]} */
         this.edges = [];
 
         this.visible = true;
+
+        this.onBeforeHideCallback = null;
     };
 
     get visible() {
@@ -55,6 +57,10 @@ export class Node {
         let layoutedPos = layout.getNodePosition(this.id);
         this.position.x = layoutedPos.x;
         this.position.y = layoutedPos.y;
+
+        if (this.onBeforeHideCallback) {
+            this.onBeforeHideCallback();
+        }
     }
 
     postListItem() {
