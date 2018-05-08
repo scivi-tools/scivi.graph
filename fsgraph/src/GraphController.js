@@ -4,6 +4,7 @@ import { GraphState } from './GraphState'
 import { DummyMetrics } from './DummyMetrics'
 import { LayoutBuilder } from './LayoutBuilder'
 import $ from 'jquery'
+/// <reference path="./types/ngraph.types.js" />
 
 export class GraphController {
     /**
@@ -20,25 +21,14 @@ export class GraphController {
         // TODO: добавить возможность отказаться от уникальных индексов связей
         this._graph = Viva.Graph.graph();
 
-        this._metrics = new DummyMetrics();
+        this.monitoredValues = ['weight'];
+        this._metrics = new DummyMetrics(this.monitoredValues);
         
         this.layoutBuilder = LayoutBuilder.buildLayout(layoutName, this._graph);
         /** @type {NgGenericLayout} */
         this._layoutInstance = this.layoutBuilder.layout;
 
-        this._listContainer = document.createElement('div');
-        $('#list')[0].appendChild(this._listContainer);
-    }
-
-    buildNodeListInfo() {
-        this._listContainer.innerHTML = '';
-
-        // TODO: кнопки "скрыт/показать всё"
-
-        let cs = this.states[this.currentStateId];
-        for (let node of cs.nodes) {
-            this._listContainer.appendChild(node.postListItem());
-        }
+        
     }
 
     parseJsonState(state) {
@@ -47,7 +37,7 @@ export class GraphController {
         }
         let cs = this.states[this._currentStateId];
         if (!cs) {
-            cs = new GraphState(state.nodes.length, state.edges.length);
+            cs = new GraphState(this, state.nodes.length, state.edges.length);
             this.states[this._currentStateId] = cs;
         }
         // ...
@@ -66,14 +56,29 @@ export class GraphController {
         this._currentStateId++;
     }
 
+    /**
+     * @returns {NgGraph}
+     */
+    get graph() {
+        return this._graph;
+    }
+
+    /** @returns {GraphState} */
+    get currentState() {
+        return this.states[this._currentStateId];
+    }
+
+    /** @returns {number} */
     get currentStateId() {
         return this._currentStateId;
     }
 
+    /** @returns {NgGenericLayout} */
     get layoutInstance() {
         return this._layoutInstance;
     }
 
+    /** @returns {DummyMetrics} */
     get metrics() {
         return this._metrics;
     }
@@ -82,14 +87,12 @@ export class GraphController {
         if (value != this._currentStateId) {
             // Сохраняем всевозможную инфу в предыдущем состоянии (те же позиции вершин)
             if (this._currentStateId < this.states.length)
-                this.states[this._currentStateId].onBeforeDisabled(this._graph, this._layoutInstance);
+                this.states[this._currentStateId].onBeforeDisabled();
 
             this._currentStateId = value;
 
             // здесь мы должны переключать граф путём перезаполнения ngraph.graph
-            this.states[this._currentStateId].actualize(this._graph, this._layoutInstance);
-
-            this.buildNodeListInfo();
+            this.states[this._currentStateId].actualize();
         }
     }
 

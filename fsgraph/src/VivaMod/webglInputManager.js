@@ -6,7 +6,8 @@
 /// <reference path="../types/ngraph.types.js" />
 
 import createInputEvents from 'vivagraphjs/src/WebGL/webglInputEvents'
-import { Point2D } from '../Point2D';
+import { Point2D } from '../Point2D'
+import { VivaImageNodeUI } from '../VivaImageNodeUI'
 
 /**
  * D'n'D - drag'n'drop
@@ -22,18 +23,18 @@ export class WebGLDnDManager {
         this.pos = new Point2D(0, 0);
         this.pos2 = new Point2D(0, 0);
 
-        this.inputEvents.mouseDown(this.onMouseDown.bind(this))
-            .mouseUp(this.onMouseUp.bind(this))
-            .mouseMove(this.onMouseMove.bind(this));
+        this.inputEvents.mouseDown((node, e) => this.onMouseDown(node, e))
+            .mouseUp((node) => this.onMouseUp(node))
+            .mouseMove((node, e) => this.onMouseMove(node, e));
     }
 
     /**
      * 
-     * @param {NgNode} node 
+     * @param {VivaImageNodeUI} node 
      * @param {MouseEvent} e 
      */
     onMouseDown(node, e) {
-        this.draggedNode = node;
+        this.draggedNode = node.node;
         this.pos.x = e.clientX;
         this.pos.y = e.clientY;
 
@@ -41,7 +42,7 @@ export class WebGLDnDManager {
 
         var handlers = this.internalHandlers[node.id];
         if (handlers) {
-            handlers.onStart(e, this.pos, node);
+            handlers.onStart(e, this.pos, node.node);
         }
 
         return true;
@@ -49,7 +50,7 @@ export class WebGLDnDManager {
 
     /**
      * 
-     * @param {NgNode} node 
+     * @param {VivaImageNodeUI} node 
      */
     onMouseUp(node) {
         this.inputEvents.releaseMouseCapture(this.draggedNode);
@@ -57,14 +58,14 @@ export class WebGLDnDManager {
         this.draggedNode = null;
         var handlers = this.internalHandlers[node.id];
         if (handlers) {
-            handlers.onStop(node);
+            handlers.onStop(node.node);
         }
         return true;
     }
 
     /**
      * 
-     * @param {NgNode} node 
+     * @param {VivaImageNodeUI} node 
      * @param {MouseEvent} e 
      */
     onMouseMove(node, e) {
@@ -109,7 +110,6 @@ export class WebGLDnDManager {
 
 export class DnDHandler {
     /**
-     * !!! Здесь node == nodeUI !!!
      * @param {function(MouseEvent, Point2D, NgNode):void} onStartCallback 
      * @param {function(MouseEvent, Point2D, NgNode):void} onDragCallback 
      * @param {function(NgNode):void} onStopCallback 

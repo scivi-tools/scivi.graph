@@ -1,7 +1,11 @@
 //@ts-check
+import { Node } from './Node'
 import { VivaImageNodeUI } from './VivaImageNodeUI'
+import { VivaLinkUI } from './VivaLinkUI'
+import { VivaWebGLRenderer } from './VivaWebGLRenderer'
 import $ from 'jquery'
 import 'jquery-ui/ui/widgets/slider'
+/// <reference path="./types/ngraph.types.js" />
 
 /* TODO: Пересматриваем концепцию кастомизации отображения графа
  * Теперь этот класс будет содержать инфу о том, как визуализировать связи
@@ -29,13 +33,15 @@ export class VivaStateView {
 
         this._colorPairs = colorPairs;
 
-        /** @type {function(any) : void} */
+        /** @type {function(VivaImageNodeUI) : void} */
         this.onNodeRender = stub;
-        /** @type {function(any) : void} */
+        /** @type {function(VivaLinkUI) : void} */
         this.onEdgeRender = stub;
 
+        /** @type {function(VivaImageNodeUI, NgGraph, VivaWebGLRenderer) : void} */
         this.onNodeClick = selectNode2G;
 
+        /** @type {VivaWebGLRenderer} */
         this._renderer = renderer;
 
         this.buildUI();
@@ -58,6 +64,7 @@ export class VivaStateView {
      * 
      * @param {number} value 
      * @param {number} maxValue 
+     * @returns {number}
      */
     getNodeUISize(value = 1, maxValue = 1) {
         let diap = this._nodeSizeDiap;
@@ -68,7 +75,6 @@ export class VivaStateView {
     }
 
     buildUI() {
-        /** @type {HTMLElement} */
         let baseContainer = $('#settings')[0];
         let innerContainer = document.createElement('div');
 
@@ -81,23 +87,27 @@ export class VivaStateView {
         innerContainer.appendChild(sliderSpan);
 
         let sizeSlider = document.createElement('div');
-        let that = this;
+        const that = this;
         $(sizeSlider).slider({
             min: _MaxNodeSizeDiap[0],
             max: _MaxNodeSizeDiap[1],
             values: that._nodeSizeDiap,
             step: 1,
+            range: true,
             slide: (event, ui) => {
                 that.setNodeSizeDiap(ui.values[0], ui.values[1]);
                 console.log(`Node size diap now [${that._nodeSizeDiap[0]}, ${that._nodeSizeDiap[1]}]`);
-                this._renderer.rerender();
+                that._renderer.rerender();
             }
         });
         innerContainer.appendChild(sizeSlider);
 
         // TODO: colors & rest...
 
+        // Filters
         baseContainer.appendChild(innerContainer);
+
+        baseContainer = $('#control')[0];
     }
 }
 
@@ -107,32 +117,47 @@ function stub() {
 
 let lastNodeClicked = null;
 
-function toggleRelatedWords(graph, nodeUI, labels, toggled) {
-    nodeUI.data.colorSource = toggled ? graph.colors.NodeHighlighted : graph.colors.Node;
-    graph.itself.forEachLinkedNode(nodeUI.id, (node, link) => {
-        node.data.showLabel = toggled;
-        labels[node.id].hidden = !toggled;
-        node.data.colorSource = toggled ? graph.colors.WordHighlighted : graph.colors.Word;
-        link.data.colorSource = toggled ? graph.colors.LinkHighlighted : graph.colors.Link;
+/**
+ * 
+ * @param {NgGraph} graph 
+ * @param {VivaWebGLRenderer} renderer
+ * @param {VivaImageNodeUI} nodeUI 
+ * @param {boolean} toggled 
+ */
+function toggleRelatedWords(graph, renderer, nodeUI, toggled) {
+    nodeUI.selected = toggled;
+    // TODO: nodUI.selected, not node.selected!
+    graph.forEachLinkedNode(nodeUI._realNode.id, (/** @type {NgNode} */node, /** @type {NgLink} */link) => {
+        /** @type {VivaImageNodeUI} */
+        let nodeUI = renderer.graphics.getNodeUI(node.id);
+        /** @type {VivaLinkUI} */
+        let linkUI = renderer.graphics.getLinkUI(link.id);
+        nodeUI.showLabel = toggled;
+        nodeUI.selected = toggled;
+        linkUI.selected = toggled;
     });
 }
 
 /**
  * 
  * @param {VivaImageNodeUI} nodeUI 
+ * @param {NgGraph} graph
+ * @param {VivaWebGLRenderer} renderer
  */
-function selectNode2G(nodeUI, graph) {
+function selectNode2G(nodeUI, graph, renderer) {
     nodeUI.buildDetailedInfo();
-    if (nodeUI.node.data.groupId === 0) {
-        // if (lastNodeClicked) {
-        //     toggleRelatedWords(graph, lastNodeClicked, false);
-        // }
-        // if ((lastNodeClicked != nodeUI) && (node != null)) {
-        //     toggleRelatedWords(graph, nodeUI, domLabels, true);
-        //     lastNodeClicked = nodeUI;
-        // } else {
-        //     lastNodeClicked = null;
-        // }
+    /** @type {Node} */
+    let realNode = nodeUI.node.data;
+    if (realNode.groupId === 0) {
+        if (lastNodeClicked) {
+            toggleRelatedWords(graph, renderer, lastNodeClicked, false);
+        }
+        if (lastNodeClicked != nodeUI) {
+            toggleRelatedWords(graph, renderer, nodeUI, true);
+            lastNodeClicked = nodeUI;
+        } else {
+            lastNodeClicked = null;
+        }
     }
-    this._renderer.rerender();
+    renderer.rerender();
 }

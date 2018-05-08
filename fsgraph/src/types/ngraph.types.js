@@ -44,11 +44,13 @@
  * @property {function(void):number} getLinksCount
  * @property {function(IdType):NgLink[]} getLinks
  * @property {function(nodeCallback):void} forEachNode
- * @property {function(IdType, nodeCallback, boolean):void} forEachLinkedNode
+ * @property {function(NgNode, nodeCallback, boolean):void} forEachLinkedNode
  * @property {function(linkCallback):void} forEachLink
  * @property {function(void):void} clear
  * @property {function(IdType, IdType):NgLink} hasLink
  * @property {function(IdType, IdType):NgLink} getLink
+ * @property {function():void} beginUpdate
+ * @property {function():void} endUpdate
  */
 
 /**

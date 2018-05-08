@@ -17,12 +17,14 @@ export class Node {
         this.weight = weight;
         this.data = data;
         
-        this.position = new Point2D(0, 0);
+        this.position = new Point2D(Math.random() * 1500 - 750, Math.random() * 1500 - 750);
 
         /** @type {Edge[]} */
         this.edges = [];
 
         this.visible = true;
+
+        this.onBeforeHideCallback = null;
     };
 
     get visible() {
@@ -31,7 +33,9 @@ export class Node {
 
     set visible(value) {
         this._visible = value;
-        this._visibleChekbox.checked = value;
+        if (this._visibleChekbox.checked !== value) {
+            this._visibleChekbox.checked = value;
+        }
     }
 
     get label() {
@@ -55,19 +59,26 @@ export class Node {
         let layoutedPos = layout.getNodePosition(this.id);
         this.position.x = layoutedPos.x;
         this.position.y = layoutedPos.y;
+
+        if (this.onBeforeHideCallback) {
+            this.onBeforeHideCallback();
+        }
     }
 
-    postListItem() {
+    postListItem(renderer) {
         let itemDiv = document.createElement('div');
 
         // Проверочка видимости
         this._visibleChekbox.onchange = (ev) => {
-            this.visible = this._visibleChekbox.checked;
-            // TODO: kick renderer
+            this._state.toggleNodeExt(this, () => this._visibleChekbox.checked, false);
+            renderer.kick();
         };
         // Название веришны
         this._labelSpan.onclick = (ev) => {
-            console.log(`U clicked on ${this._label}!`);
+            const nodeUI = renderer._graphics.getNodeUI(this.id);
+            if (nodeUI) {
+                renderer.centerAtGraphPoint(nodeUI.position);
+            }
         };
 
         itemDiv.appendChild(this._visibleChekbox);

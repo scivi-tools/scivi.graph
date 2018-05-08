@@ -21,7 +21,9 @@ export class VivaImageNodeUI extends VivaBaseUI {
         this._showLabel = false;
 
         this._graphics = graphics;
-        
+
+        this.position = {};
+
         // this._invalidateLabel();
 
         // TODO: соптимизировать получение корневого элемента где-то ещё
@@ -43,6 +45,10 @@ export class VivaImageNodeUI extends VivaBaseUI {
         this._node = value;
         /** @type {Node} */
         this._realNode = value.data;
+
+        this._realNode.onBeforeHideCallback = () => {
+            this.showLabel = false;
+        };
     }
 
     get label() {

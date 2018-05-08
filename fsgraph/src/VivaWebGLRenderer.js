@@ -9,6 +9,8 @@ import 'jquery-ui/ui/widget'
 import 'jquery-ui/ui/keycode'
 import 'jquery-ui/ui/widgets/selectable'
 import 'jquery-ui/ui/widgets/button'
+import { validateLocaleAndSetLanguage } from 'typescript';
+import { Point2D } from './Point2D';
 
 class RendererTransform {
     constructor(scale = 1, offsetX = 0, offsetY = 0, rot = 0) {
@@ -40,6 +42,8 @@ export class VivaWebGLRenderer {
         this._graphController = null;
 
         this._viewRules = null;
+
+        this._listContainer = null;
 
         // #region Viva-resemble API compabilities
 
@@ -104,11 +108,19 @@ export class VivaWebGLRenderer {
      * @param {VivaStateView} value
      */
     set viewRules(value) {
+        if (this._viewRules != null) {
+            throw new Error("Can not change view rule!");
+        }
         this._viewRules = value;
 
         // Устанавливаем коллбэки из графики
         this._backend.onRenderNodeCallback = value.onNodeRender;
         this._backend.onRenderEdgeCallback = value.onEdgeRender;
+
+        // TODO: inverse dependency!
+        this.graphicsInputListner.click((nodeUI) => {
+            value.onNodeClick(nodeUI, this._graphBackend, this);
+        });
     }
 
     /**
@@ -119,6 +131,8 @@ export class VivaWebGLRenderer {
         this.layoutBackend = value.layoutInstance;
         // TODO: добавить нормальный геттер
         this.graphBackend = value._graph;
+
+        this.currentStateId = 0;
 
         value.layoutBuilder.buildUI(this);
     }
@@ -142,19 +156,19 @@ export class VivaWebGLRenderer {
         let metrics = this._graphController.metrics;
         // TODO: move this shit out of here (in enherited from VStateView class)
         result.onNodeRender = (nodeUI) => {
-            nodeUI.showLabel = nodeUI.node.data.groupId === 0;
             nodeUI.size = result.getNodeUISize(nodeUI.node.data.weight, metrics.maxWeight);
-            nodeUI.color = result._colorPairs[(1 + nodeUI.node.data.groupId) * 2 + 1/*(nodeUI.selected)*/];
+            nodeUI.color = result._colorPairs[(1 + nodeUI.node.data.groupId) * 2 + (nodeUI.selected ? 1 : 0)];
         };
         result.onEdgeRender = (edgeUI) => {
             // TODO: no such property "selected"!
-            edgeUI.color = result._colorPairs[0/*edgeUI.selected*/];
+            edgeUI.color = result._colorPairs[(edgeUI.selected ? 1 : 0)];
         };
-        // TODO: inverse dependency!
-        this.graphicsInputListner.click((nodeUI) => {
-            result.onNodeClick(nodeUI, this._graphBackend);
-        });
         return result;
+    }
+
+    set currentStateId(value) {
+        this._graphController.currentStateId = value;
+        this.buildNodeListInfo();
     }
 
     kick() {
@@ -470,5 +484,50 @@ export class VivaWebGLRenderer {
         changeIcon('ui-icon-pause');
 
         controlElement.appendChild(startStopButton);
+    }
+
+    buildNodeListInfo() {
+        if (!this._listContainer) {
+            this._listContainer = document.createElement('div');
+            $('#list')[0].appendChild(this._listContainer);
+        }
+
+        this._listContainer.innerHTML = '';
+        let cs = this._graphController.currentState;
+
+        // кнопки "скрыт/показать всё"
+        let showAllButton = document.createElement('button');
+        showAllButton.textContent = 'Show all non-filtered';
+        showAllButton.onclick = (ev) => {
+            cs.pseudoActualize();
+        };
+        this._listContainer.appendChild(showAllButton);
+
+        let hideAllButton = document.createElement('button');
+        hideAllButton.textContent = 'Hide all';
+        hideAllButton.onclick = (ev) => {
+            cs.pseudoDisable();
+        };
+        this._listContainer.appendChild(hideAllButton);
+
+        for (let node of cs.nodes) {
+            this._listContainer.appendChild(node.postListItem(this));
+        }
+    }
+
+    /**
+     * 
+     * @param {Point2D} pos in graph space
+     */
+    centerAtGraphPoint(pos) {
+        const containerSize = Viva.Graph.Utils.getDimension(this._container);
+        this._graphics.graphCenterChanged(0, 0);
+        let pos2 = new Point2D(pos.x, pos.y);
+        this._graphics.transformGraphToClientCoordinates(pos2);
+        this._transform.offsetX = containerSize.width / 2 - pos2.x;
+        this._transform.offsetY = containerSize.height / 2 - pos2.y;
+        this._graphics.graphCenterChanged(this._transform.offsetX, this._transform.offsetY);
+
+        this.kick();
     }
 }

@@ -46,7 +46,9 @@ export class VivaWebGLSimpleBackend {
 
         this._graphics.node((node) => {
             let title = this._ensureLabelExists(node.id);
-            return new VivaImageNodeUI(this._graphics, node, title);
+            let nodeUI = new VivaImageNodeUI(this._graphics, node, title)
+            nodeUI.showLabel = nodeUI.node.data.groupId === 0;
+            return nodeUI;
         });
         this._graphics.link((link) => {
             return new VivaLinkUI(this._graphics, link);
