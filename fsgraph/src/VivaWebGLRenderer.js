@@ -493,10 +493,23 @@ export class VivaWebGLRenderer {
         }
 
         this._listContainer.innerHTML = '';
-
-        // TODO: кнопки "скрыт/показать всё"
-
         let cs = this._graphController.currentState;
+
+        // кнопки "скрыт/показать всё"
+        let showAllButton = document.createElement('button');
+        showAllButton.textContent = 'Show all non-filtered';
+        showAllButton.onclick = (ev) => {
+            cs.pseudoActualize();
+        };
+        this._listContainer.appendChild(showAllButton);
+
+        let hideAllButton = document.createElement('button');
+        hideAllButton.textContent = 'Hide all';
+        hideAllButton.onclick = (ev) => {
+            cs.pseudoDisable();
+        };
+        this._listContainer.appendChild(hideAllButton);
+
         for (let node of cs.nodes) {
             this._listContainer.appendChild(node.postListItem(this));
         }

@@ -73,15 +73,14 @@ export class GraphState {
 
     /**
      * 
-     * @param {NgGraph} graph 
      * @param {Edge} edge 
      */
-    restoreEdge(graph, edge) {
+    restoreEdge(edge) {
         if (!edge.visible) {
             return;
         }
 
-        graph.addLink(edge.fromId, edge.toId, edge);
+        this._controller.graph.addLink(edge.fromId, edge.toId, edge);
     };
 
     /**
@@ -148,7 +147,7 @@ export class GraphState {
     toggleEdge(graph, edge) {
         if (edge.visibleChanged) {
             if (edge.visible) {
-                this.restoreEdge(graph, edge);
+                this.restoreEdge(edge);
             } else {
                 let graphEdge = graph.getLink(edge.fromId, edge.toId);
                 graph.removeLink(graphEdge);
@@ -158,23 +157,37 @@ export class GraphState {
 
     /**
      * 
-     * @param {NgGraph} graph 
-     * @param {NgGenericLayout} layout 
      */
-    actualize(graph, layout) {
+    actualize() {
         // TODO: восстанавливаем значения фильтров, если таковые есть
         this._checkBuildFilters(null);
 
         // восстанавливаем узлы и связи, не забыв про их позиции и видимость
         // graph.beginUpdate();
         for (let n of this.nodes) {
-            // TODO: так же применяем фильтры!
-            this.toggleNode(graph, layout, n, (n) => this._applyFilter(n), true);
+            this.toggleNodeExt(n, (n) => this._applyFilter(n), true);
         }
         for (let e of this.edges) {
-            this.restoreEdge(graph, e);
+            this.restoreEdge(e);
         }
         // graph.endUpdate();
+    }
+
+    pseudoActualize() {
+        // TODO: get rid of duplicated code
+        for (let n of this.nodes) {
+            // TODO: так же применяем фильтры!
+            this.toggleNodeExt(n, (n) => this._applyFilter(n));
+        }
+        for (let e of this.edges) {
+            this.restoreEdge(e);
+        }
+    }
+
+    pseudoDisable() {
+        for (let n of this.nodes) {
+            this.toggleNodeExt(n, (n) => false);
+        }
     }
 
     /**

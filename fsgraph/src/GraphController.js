@@ -92,7 +92,7 @@ export class GraphController {
             this._currentStateId = value;
 
             // здесь мы должны переключать граф путём перезаполнения ngraph.graph
-            this.states[this._currentStateId].actualize(this._graph, this._layoutInstance);
+            this.states[this._currentStateId].actualize();
         }
     }
 
