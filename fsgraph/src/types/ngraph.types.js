@@ -49,6 +49,8 @@
  * @property {function(void):void} clear
  * @property {function(IdType, IdType):NgLink} hasLink
  * @property {function(IdType, IdType):NgLink} getLink
+ * @property {function():void} beginUpdate
+ * @property {function():void} endUpdate
  */
 
 /**

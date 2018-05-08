@@ -5,6 +5,8 @@ import { Edge } from './Edge'
 import { VivaStateView } from './VivaStateView'
 import { GraphController } from './GraphController'
 import { DummyMetrics } from './DummyMetrics'
+import $ from 'jquery'
+import 'jquery-ui/ui/widgets/slider'
 /// <reference path="./types/ngraph.types.js" />
 
 export class GraphState {
@@ -24,6 +26,10 @@ export class GraphState {
         this.nodes = [];
         /** @type {Edge[]} */
         this.edges = [];
+
+        /** @type {HTMLElement} */
+        this._filtersContainer = null;
+        this.prevKnownValues = null;
     };
 
     addNode(id, groupId, label, weight) {
@@ -154,14 +160,19 @@ export class GraphState {
      * @param {NgGenericLayout} layout 
      */
     actualize(graph, layout) {
+        // TODO: восстанавливаем значения фильтров, если таковые есть
+        this._checkBuildFilters(null);
+
         // восстанавливаем узлы и связи, не забыв про их позиции и видимость
+        // graph.beginUpdate();
         for (let n of this.nodes) {
-            // так же применяем фильтры!
-            this.toggleNode(graph, layout, n, () => true, true);
+            // TODO: так же применяем фильтры!
+            this.toggleNode(graph, layout, n, (n) => this._applyFilter(n), true);
         }
         for (let e of this.edges) {
             this.restoreEdge(graph, e);
         }
+        // graph.endUpdate();
     }
 
     /**
@@ -177,5 +188,67 @@ export class GraphState {
 
         // и чистим нафиг контейнер графа
         this._controller.graph.clear();
+
+        // TODO: возвращаем знаения фильтров!
+    }
+
+    /**
+     * 
+     * @param {number[][]} prevKnownValues - [groupid][0, 1]
+     */
+    _checkBuildFilters(prevKnownValues) {
+        if (!this._filtersContainer) {
+            this._filtersContainer = document.createElement('div');
+
+            const that = this;
+            // так себе допущение
+            let groupCount = this._metrics.maxGroupId + 1;
+            for (let i = 0; i < groupCount; i++) {
+                let filterSlider = document.createElement('div');
+                filterSlider.innerText = `Filter for group ${i}`;
+                $(filterSlider).slider({
+                    // TODO: эти четыре будут задаваться после получения prevKnownValues
+                    min: this._metrics.minMaxValuesPerGroup[i]['weight'][0],
+                    max: this._metrics.minMaxValuesPerGroup[i]['weight'][1],
+                    values: [this._metrics.minMaxValuesPerGroup[i]['weight'][0], this._metrics.minMaxValuesPerGroup[i]['weight'][1]],
+                    step: 1,
+                    slide: (event, ui) => {
+                        that.prevKnownValues[i]['weight'][0] = ui.values[0];
+                        that.prevKnownValues[i]['weight'][1] = ui.values[1];
+                        that._applyFilterRange();
+                    } 
+                });
+                this._filtersContainer.appendChild(filterSlider);
+            }
+        }
+        let parent = $('#control')[0];
+
+        if (prevKnownValues) {
+            // TODO: ....
+        } else {
+            this.prevKnownValues = this._metrics.minMaxValuesPerGroup;
+        }
+
+        parent.appendChild(this._filtersContainer);
+    }
+
+    /**
+     * 
+     * @param {Node} node
+     * @param {string} value
+     * @returns {boolean} 
+     */
+    _applyFilter(node, value = 'weight') {
+        let gid = node.groupId;
+        let range = this.prevKnownValues[gid][value];
+        return (node[value] >= range[0]) && (node[value] <= range[1]);
+    }
+
+    _applyFilterRange(value = 'weight') {
+        // this._controller.graph.beginUpdate();
+        for (let n of this.nodes) {
+            this.toggleNodeExt(n, (n) => this._applyFilter(n, value), false);
+        }
+        // this._controller.graph.endUpdate();
     }
 }

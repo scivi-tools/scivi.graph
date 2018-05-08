@@ -86,8 +86,8 @@ function createLayout(graph, settings) {
       minY = Infinity,
       maxY = -Infinity;
 
-  var ppn = 1,
-      ppe = 1,
+  var //ppn = 1,
+      //ppe = 1,
       ppr = 1;
 
 
@@ -510,21 +510,20 @@ function createLayout(graph, settings) {
     // 1) Initializing layout data
     //-----------------------------
 
+    outboundAttCompensation = 0;
     // Resetting positions & computing max values
-    for (n = 0; n < nodesLength; n += ppn) {
+    // for (n = 0; n < nodesLength; n += ppn) {
+    for (let n in nodeBodies) {
       nodeBodies[n].old_dx = nodeBodies[n].dx;
       nodeBodies[n].old_dy = nodeBodies[n].dy;
       nodeBodies[n].dx = 0;
       nodeBodies[n].dy = 0;
+
+      outboundAttCompensation += nodeBodies[n].mass;
     }
 
     // If outbound attraction distribution, compensate
     if (settings.outboundAttractionDistribution) {
-      outboundAttCompensation = 0;
-      for (n = 0; n < nodesLength; n += ppn) {
-        outboundAttCompensation += nodeBodies[n].mass;
-      }
-
       outboundAttCompensation /= nodesLength;
     }
 
@@ -558,7 +557,8 @@ function createLayout(graph, settings) {
 
       // Add each node in the tree
       l = 1;
-      for (n = 0; n < nodesLength; n += ppn) {
+      // for (n = 0; n < nodesLength; n += ppn) {
+      Object.keys(nodeBodies).forEach((n) => {
 
         // Current region, starting with root
         r = 0;
@@ -788,7 +788,7 @@ function createLayout(graph, settings) {
             }
           }
         }
-      }
+      });
     }
 
 
@@ -800,7 +800,8 @@ function createLayout(graph, settings) {
       coefficient = settings.scalingRatio;
 
       // Applying repulsion through regions
-      for (n = 0; n < nodesLength; n += ppn) {
+      // for (n = 0; n < nodesLength; n += ppn) {
+      Object.keys(nodeBodies).forEach((n) => {
 
         // Computing leaf quad nodes iteration
 
@@ -918,14 +919,16 @@ function createLayout(graph, settings) {
             continue;
           }
         }
-      }
+      });
     }
     else {
       coefficient = settings.scalingRatio;
 
       // Square iteration
-      for (n1 = 0; n1 < nodesLength; n1 += ppn) {
-        for (n2 = 0; n2 < n1; n2 += ppn) {
+      // for (n1 = 0; n1 < nodesLength; n1 += ppn) {
+      for (let n1 in nodeBodies) {
+        // for (n2 = 0; n2 < n1; n2 += ppn) { 
+          for (let n2 in nodeBodies) {
 
           // Common to both methods
           xDist = nodeBodies[n1].pos.x - nodeBodies[n2].pos.x;
@@ -992,7 +995,9 @@ function createLayout(graph, settings) {
     //------------
     g = settings.gravity / settings.scalingRatio;
     coefficient = settings.scalingRatio;
-    for (n = 0; n < nodesLength; n += ppn) {
+    // for (n = 0; n < nodesLength; n += ppn) {
+    // Object.keys(nodeBodies).forEach((n) => {
+    for (let n in nodeBodies) {
       factor = 0;
 
       // Common to both methods
@@ -1155,7 +1160,8 @@ function createLayout(graph, settings) {
     // MATH: sqrt and square distances
     if (settings.adjustSizes) {
 
-      for (n = 0; n < nodesLength; n += ppn) {
+      // for (n = 0; n < nodesLength; n += ppn) {
+      for (let n in nodeBodies) {
         if (!nodeBodies[n].fixed) {
           force = Math.sqrt(
             Math.pow(nodeBodies[n].dx, 2) +
@@ -1210,7 +1216,8 @@ function createLayout(graph, settings) {
     }
     else {
 
-      for (n = 0; n < nodesLength; n += ppn) {
+      // for (n = 0; n < nodesLength; n += ppn) {
+      for (let n in nodeBodies) {
         if (!nodeBodies[n].fixed) {
 
           swinging = nodeBodies[n].mass *

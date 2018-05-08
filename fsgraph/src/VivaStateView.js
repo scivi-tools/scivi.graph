@@ -93,6 +93,7 @@ export class VivaStateView {
             max: _MaxNodeSizeDiap[1],
             values: that._nodeSizeDiap,
             step: 1,
+            range: true,
             slide: (event, ui) => {
                 that.setNodeSizeDiap(ui.values[0], ui.values[1]);
                 console.log(`Node size diap now [${that._nodeSizeDiap[0]}, ${that._nodeSizeDiap[1]}]`);
@@ -103,7 +104,10 @@ export class VivaStateView {
 
         // TODO: colors & rest...
 
+        // Filters
         baseContainer.appendChild(innerContainer);
+
+        baseContainer = $('#control')[0];
     }
 }
 
@@ -123,7 +127,7 @@ let lastNodeClicked = null;
 function toggleRelatedWords(graph, renderer, nodeUI, toggled) {
     nodeUI.selected = toggled;
     // TODO: nodUI.selected, not node.selected!
-    graph.forEachLinkedNode(nodeUI.id, (/** @type {NgNode} */node, /** @type {NgLink} */link) => {
+    graph.forEachLinkedNode(nodeUI._realNode.id, (/** @type {NgNode} */node, /** @type {NgLink} */link) => {
         /** @type {VivaImageNodeUI} */
         let nodeUI = renderer.graphics.getNodeUI(node.id);
         /** @type {VivaLinkUI} */
