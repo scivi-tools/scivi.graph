@@ -70,12 +70,15 @@ export class Node {
 
         // Проверочка видимости
         this._visibleChekbox.onchange = (ev) => {
-            this.visible = this._visibleChekbox.checked;
-            // TODO: kick renderer
+            this._state.toggleNodeExt(this, () => this._visibleChekbox.checked, false);
+            renderer.kick();
         };
         // Название веришны
         this._labelSpan.onclick = (ev) => {
-            console.log(`U clicked on ${this._label}!`);
+            const nodeUI = renderer._graphics.getNodeUI(this.id);
+            if (nodeUI) {
+                renderer.centerAtGraphPoint(nodeUI.position);
+            }
         };
 
         itemDiv.appendChild(this._visibleChekbox);

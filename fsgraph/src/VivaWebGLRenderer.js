@@ -10,6 +10,7 @@ import 'jquery-ui/ui/keycode'
 import 'jquery-ui/ui/widgets/selectable'
 import 'jquery-ui/ui/widgets/button'
 import { validateLocaleAndSetLanguage } from 'typescript';
+import { Point2D } from './Point2D';
 
 class RendererTransform {
     constructor(scale = 1, offsetX = 0, offsetY = 0, rot = 0) {
@@ -499,5 +500,21 @@ export class VivaWebGLRenderer {
         for (let node of cs.nodes) {
             this._listContainer.appendChild(node.postListItem(this));
         }
+    }
+
+    /**
+     * 
+     * @param {Point2D} pos in graph space
+     */
+    centerAtGraphPoint(pos) {
+        const containerSize = Viva.Graph.Utils.getDimension(this._container);
+        this._graphics.graphCenterChanged(0, 0);
+        let pos2 = new Point2D(pos.x, pos.y);
+        this._graphics.transformGraphToClientCoordinates(pos2);
+        this._transform.offsetX = containerSize.width / 2 - pos2.x;
+        this._transform.offsetY = containerSize.height / 2 - pos2.y;
+        this._graphics.graphCenterChanged(this._transform.offsetX, this._transform.offsetY);
+
+        this.kick();
     }
 }
