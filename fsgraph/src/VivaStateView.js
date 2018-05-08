@@ -87,7 +87,7 @@ export class VivaStateView {
         innerContainer.appendChild(sliderSpan);
 
         let sizeSlider = document.createElement('div');
-        let that = this;
+        const that = this;
         $(sizeSlider).slider({
             min: _MaxNodeSizeDiap[0],
             max: _MaxNodeSizeDiap[1],
@@ -97,7 +97,7 @@ export class VivaStateView {
             slide: (event, ui) => {
                 that.setNodeSizeDiap(ui.values[0], ui.values[1]);
                 console.log(`Node size diap now [${that._nodeSizeDiap[0]}, ${that._nodeSizeDiap[1]}]`);
-                this._renderer.rerender();
+                that._renderer.rerender();
             }
         });
         innerContainer.appendChild(sizeSlider);
