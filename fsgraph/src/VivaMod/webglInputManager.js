@@ -5,9 +5,9 @@
 //@ts-check
 /// <reference path="../types/ngraph.types.js" />
 
-import createInputEvents from 'vivagraphjs/src/WebGL/webglInputEvents'
-import { Point2D } from '../Point2D'
-import { VivaImageNodeUI } from '../VivaImageNodeUI'
+import { webglInputEvents } from './webglInputEvents';
+import { Point2D } from '../Point2D';
+import { VivaImageNodeUI } from '../VivaImageNodeUI';
 
 /**
  * D'n'D - drag'n'drop
@@ -17,7 +17,7 @@ export class WebGLDnDManager {
         /** @type {Object.<string, DnDHandler>} */
         this.internalHandlers = {};
 
-        this.inputEvents = createInputEvents(graphics);
+        this.inputEvents = webglInputEvents(graphics);
         /** @type {NgNode} */
         this.draggedNode = null;
         this.pos = new Point2D(0, 0);

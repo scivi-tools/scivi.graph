@@ -7,6 +7,7 @@ import { VivaLinkUI } from './VivaLinkUI';
 import { newLinkProgram } from './VivaMod/newLinkProgram';
 import { newNodeProgram } from './VivaMod/newNodeProgram';
 import { webglGraphics } from './VivaMod/webglGraphics';
+import { webglInputEvents } from './VivaMod/webglInputEvents';
 
 export class VivaWebGLSimpleBackend {
     constructor() {
@@ -70,7 +71,7 @@ export class VivaWebGLSimpleBackend {
 
     get inputListner() {
         // Пока можно так, ибо всё кешируется в нутрянке
-        return Viva.Graph.webglInputEvents(this._graphics);
+        return webglInputEvents(this._graphics);
     }
 
     /**

@@ -264,10 +264,10 @@ export class GraphState {
     }
 
     _applyFilterRange(value = 'weight') {
-        // this._controller.graph.beginUpdate();
+        this._controller.graph.beginUpdate();
         for (let n of this.nodes) {
             this.toggleNodeExt(n, (n) => this._applyFilter(n, value), false);
         }
-        // this._controller.graph.endUpdate();
+        this._controller.graph.endUpdate();
     }
 }
