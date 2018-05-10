@@ -1,15 +1,14 @@
 //@ts-check
-import Viva from './viva-proxy'
-import { GraphController } from './GraphController'
-import { VivaWebGLSimpleBackend } from './VivaWebGLSimpleBackend'
-import { VivaStateView } from './VivaStateView'
-import { WebGLDnDManager, DnDHandler } from './VivaMod/webglInputManager'
-import $ from 'jquery'
-import 'jquery-ui/ui/widget'
-import 'jquery-ui/ui/keycode'
-import 'jquery-ui/ui/widgets/selectable'
-import 'jquery-ui/ui/widgets/button'
-import { validateLocaleAndSetLanguage } from 'typescript';
+import Viva from './viva-proxy';
+import { GraphController } from './GraphController';
+import { VivaWebGLSimpleBackend } from './VivaWebGLSimpleBackend';
+import { VivaStateView } from './VivaStateView';
+import { WebGLDnDManager, DnDHandler } from './VivaMod/webglInputManager';
+import $ from 'jquery';
+import 'jquery-ui/ui/widget';
+import 'jquery-ui/ui/keycode';
+import 'jquery-ui/ui/widgets/selectable';
+import 'jquery-ui/ui/widgets/button';
 import { Point2D } from './Point2D';
 
 class RendererTransform {
