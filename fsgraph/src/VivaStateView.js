@@ -15,7 +15,7 @@ import 'jquery-ui/ui/widgets/slider'
  */
 
 const _MaxNodeSizeDiap = [1, 50];
-const _DefNodeSizeDiap = [1, 10];
+const _DefNodeSizeDiap = [7, 45];
 
 /**
  * Что-то типа ViewRules - правила отображения
