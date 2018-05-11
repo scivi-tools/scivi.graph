@@ -40,7 +40,6 @@ export default {
     },
   
     webgl: require('vivagraphjs/src/WebGL/webgl.js'),
-    webglInputEvents: require('vivagraphjs/src/WebGL/webglInputEvents.js'),
   
     Utils: {
       // TODO: move to Input

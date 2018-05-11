@@ -1,16 +1,16 @@
 //@ts-check
-import Viva from './viva-proxy'
-import { GraphController } from './GraphController'
-import { VivaWebGLSimpleBackend } from './VivaWebGLSimpleBackend'
-import { VivaStateView } from './VivaStateView'
-import { WebGLDnDManager, DnDHandler } from './VivaMod/webglInputManager'
-import $ from 'jquery'
-import 'jquery-ui/ui/widget'
-import 'jquery-ui/ui/keycode'
-import 'jquery-ui/ui/widgets/selectable'
-import 'jquery-ui/ui/widgets/button'
-import { validateLocaleAndSetLanguage } from 'typescript';
+import Viva from './viva-proxy';
+import { GraphController } from './GraphController';
+import { VivaWebGLSimpleBackend } from './VivaWebGLSimpleBackend';
+import { VivaStateView } from './VivaStateView';
+import { WebGLDnDManager, DnDHandler } from './VivaMod/webglInputManager';
+import $ from 'jquery';
+import 'jquery-ui/ui/widget';
+import 'jquery-ui/ui/keycode';
+import 'jquery-ui/ui/widgets/selectable';
+import 'jquery-ui/ui/widgets/button';
 import { Point2D } from './Point2D';
+import { NodeUIBuilder } from './NodeUIBuilder';
 
 class RendererTransform {
     constructor(scale = 1, offsetX = 0, offsetY = 0, rot = 0) {
@@ -31,7 +31,7 @@ export class VivaWebGLRenderer {
         this._container = container;
 
         if (backend == null) {
-            this._backend = new VivaWebGLSimpleBackend();
+            this._backend = new VivaWebGLSimpleBackend(new NodeUIBuilder(this));
         }
         this._graphics = this._backend.graphics;
 
@@ -167,7 +167,7 @@ export class VivaWebGLRenderer {
     }
 
     set currentStateId(value) {
-        this._graphController.currentStateId = value;
+        this._graphController.setCurrentStateIdEx(value, this);
         this.buildNodeListInfo();
     }
 
@@ -500,6 +500,7 @@ export class VivaWebGLRenderer {
         showAllButton.textContent = 'Show all non-filtered';
         showAllButton.onclick = (ev) => {
             cs.pseudoActualize();
+            this.rerender();
         };
         this._listContainer.appendChild(showAllButton);
 
@@ -507,6 +508,7 @@ export class VivaWebGLRenderer {
         hideAllButton.textContent = 'Hide all';
         hideAllButton.onclick = (ev) => {
             cs.pseudoDisable();
+            this.rerender();
         };
         this._listContainer.appendChild(hideAllButton);
 

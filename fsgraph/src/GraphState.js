@@ -158,9 +158,9 @@ export class GraphState {
     /**
      * 
      */
-    actualize() {
+    actualize(renderer) {
         // TODO: восстанавливаем значения фильтров, если таковые есть
-        this._checkBuildFilters(null);
+        this._checkBuildFilters(null, renderer);
 
         // восстанавливаем узлы и связи, не забыв про их позиции и видимость
         // graph.beginUpdate();
@@ -210,8 +210,9 @@ export class GraphState {
     /**
      * 
      * @param {number[][]} prevKnownValues - [groupid][0, 1]
+     * @param {*} renderer
      */
-    _checkBuildFilters(prevKnownValues) {
+    _checkBuildFilters(prevKnownValues, renderer) {
         if (!this._filtersContainer) {
             this._filtersContainer = document.createElement('div');
 
@@ -234,6 +235,7 @@ export class GraphState {
                         that.prevKnownValues[i]['weight'][0] = ui.values[0];
                         that.prevKnownValues[i]['weight'][1] = ui.values[1];
                         that._applyFilterRange();
+                        renderer.rerender();
                     } 
                 });
                 this._filtersContainer.appendChild(descrSpan);
@@ -264,10 +266,10 @@ export class GraphState {
     }
 
     _applyFilterRange(value = 'weight') {
-        // this._controller.graph.beginUpdate();
+        this._controller.graph.beginUpdate();
         for (let n of this.nodes) {
             this.toggleNodeExt(n, (n) => this._applyFilter(n, value), false);
         }
-        // this._controller.graph.endUpdate();
+        this._controller.graph.endUpdate();
     }
 }

@@ -7,9 +7,15 @@ import { VivaLinkUI } from './VivaLinkUI';
 import { newLinkProgram } from './VivaMod/newLinkProgram';
 import { newNodeProgram } from './VivaMod/newNodeProgram';
 import { webglGraphics } from './VivaMod/webglGraphics';
+import { webglInputEvents } from './VivaMod/webglInputEvents';
+import { NodeUIBuilder } from './NodeUIBuilder';
 
 export class VivaWebGLSimpleBackend {
-    constructor() {
+    /**
+     * 
+     * @param {NodeUIBuilder} nodeUIBuilder 
+     */
+    constructor(nodeUIBuilder) {
         this._graphics = webglGraphics({
             // явно указываем webgl'ю не чистить backbuffer после свапа
             preserveDrawingBuffer: true,
@@ -18,12 +24,10 @@ export class VivaWebGLSimpleBackend {
             clearColor: true
         });
 
-        // HACK: пока закостылим текстовые метки вершин здесь, дабы в случае чего
-        // можно было махнуть бекенд обранто на вивовский
-        /** @type {HTMLSpanElement[]} */
-        this._labels = [];
         /** @type {HTMLElement} */
         this._container = null;
+
+        this._nodeBuilder = nodeUIBuilder;
 
         /** @type {function(VivaImageNodeUI) : void} */
         this.onRenderNodeCallback = stub;
@@ -45,10 +49,7 @@ export class VivaWebGLSimpleBackend {
         this._graphics.init(container);
 
         this._graphics.node((node) => {
-            let title = this._ensureLabelExists(node.id);
-            let nodeUI = new VivaImageNodeUI(this._graphics, node, title)
-            nodeUI.showLabel = nodeUI.node.data.groupId === 0;
-            return nodeUI;
+            return this._nodeBuilder.buildUI(this._graphics, node);
         });
         this._graphics.link((link) => {
             return new VivaLinkUI(this._graphics, link);
@@ -70,24 +71,7 @@ export class VivaWebGLSimpleBackend {
 
     get inputListner() {
         // Пока можно так, ибо всё кешируется в нутрянке
-        return Viva.Graph.webglInputEvents(this._graphics);
-    }
-
-    /**
-     * @param {any} id
-     */
-    _ensureLabelExists(id) {
-        if (!this._labels[id]) {
-            let label = document.createElement('span');
-            label.classList.add('node-label');
-            label.innerText = '--insert-text-here--';
-            label.hidden = true;
-            label.style.opacity = '0.85'
-            this._labels[id] = label;
-            this._container.appendChild(label);
-        }
-
-        return this._labels[id];
+        return webglInputEvents(this._graphics);
     }
 }
 

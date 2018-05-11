@@ -15,7 +15,7 @@ import 'jquery-ui/ui/widgets/slider'
  */
 
 const _MaxNodeSizeDiap = [1, 50];
-const _DefNodeSizeDiap = [1, 10];
+const _DefNodeSizeDiap = [7, 45];
 
 /**
  * Что-то типа ViewRules - правила отображения
@@ -140,22 +140,41 @@ function toggleRelatedWords(graph, renderer, nodeUI, toggled) {
 
 /**
  * 
+ * @param {NgGraph} graph 
+ * @param {VivaWebGLRenderer} renderer
+ * @param {VivaImageNodeUI} nodeUI 
+ * @param {boolean} toggled 
+ */
+function selectNodeByGroup(graph, renderer, nodeUI, toggled) {
+    /** @type {Node} */
+    let realNode = nodeUI.node.data;
+    if (realNode.groupId === 0) {   
+        toggleRelatedWords(graph, renderer, nodeUI, toggled);
+    } else {
+        nodeUI.showLabel = toggled;
+        nodeUI.selected = toggled;
+    }
+}
+
+/**
+ * 
  * @param {VivaImageNodeUI} nodeUI 
  * @param {NgGraph} graph
  * @param {VivaWebGLRenderer} renderer
  */
 function selectNode2G(nodeUI, graph, renderer) {
-    nodeUI.buildDetailedInfo();
-    /** @type {Node} */
-    let realNode = nodeUI.node.data;
-    if (realNode.groupId === 0) {
+    if (nodeUI != null) {
+        nodeUI.buildDetailedInfo();
+        
         if (lastNodeClicked) {
-            toggleRelatedWords(graph, renderer, lastNodeClicked, false);
+            selectNodeByGroup(graph, renderer, lastNodeClicked, false);
         }
-        if (lastNodeClicked != nodeUI) {
-            toggleRelatedWords(graph, renderer, nodeUI, true);
-            lastNodeClicked = nodeUI;
-        } else {
+        selectNodeByGroup(graph, renderer, nodeUI, true);
+        lastNodeClicked = nodeUI;
+    } else {
+        if (lastNodeClicked) {
+            selectNodeByGroup(graph, renderer, lastNodeClicked, false);
+            lastNodeClicked.detailedInfoHTML.innerHTML = '';
             lastNodeClicked = null;
         }
     }
