@@ -1,6 +1,10 @@
 //@ts-check
 import { VivaWebGLRenderer } from './VivaWebGLRenderer';
 import { VivaImageNodeUI } from './VivaImageNodeUI';
+import $ from 'jquery';
+import 'jquery-ui/ui/widgets/slider';
+
+const _FontSizeDiap = [10, 36];
 
 export class NodeUIBuilder {
     /**
@@ -17,6 +21,10 @@ export class NodeUIBuilder {
         // можно было махнуть бекенд обранто на вивовский
         /** @type {HTMLSpanElement[]} */
         this._labels = [];
+
+        this._fontSize = 16;
+
+        this._buildUi();
     }
 
     /**
@@ -30,6 +38,21 @@ export class NodeUIBuilder {
     }
 
     /**
+     * @param {number} value
+     */
+    set fontSize(value) {
+        this._fontSize = value;
+        let fontString = this.fontSizeString;
+        for (let label of this._labels) {
+            label.style.fontSize = fontString;
+        }
+    }
+
+    get fontSizeString() {
+        return `${this._fontSize}px`;
+    }
+
+    /**
      * @param {any} id
      */
     _ensureLabelExists(id) {
@@ -38,11 +61,31 @@ export class NodeUIBuilder {
             label.classList.add('node-label');
             label.innerText = '--insert-text-here--';
             label.hidden = true;
-            label.style.opacity = '0.85'
+            label.style.opacity = '0.85';
+            label.style.fontSize = this.fontSizeString;
             this._labels[id] = label;
             this._container.appendChild(label);
         }
 
         return this._labels[id];
+    }
+
+    _buildUi() {
+        let baseContainer = $('#settings')[0];
+
+        let slider = document.createElement('div');
+
+        const that = this;
+        $(slider).slider({
+            min: _FontSizeDiap[0],
+            max: _FontSizeDiap[1],
+            value: that._fontSize,
+            step: 1,
+            slide: (event, ui) => {
+                that.fontSize = ui.value;
+            }
+        });
+
+        baseContainer.appendChild(slider);
     }
 }
