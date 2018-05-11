@@ -10,6 +10,7 @@ import 'jquery-ui/ui/keycode';
 import 'jquery-ui/ui/widgets/selectable';
 import 'jquery-ui/ui/widgets/button';
 import { Point2D } from './Point2D';
+import { NodeUIBuilder } from './NodeUIBuilder';
 
 class RendererTransform {
     constructor(scale = 1, offsetX = 0, offsetY = 0, rot = 0) {
@@ -30,7 +31,7 @@ export class VivaWebGLRenderer {
         this._container = container;
 
         if (backend == null) {
-            this._backend = new VivaWebGLSimpleBackend();
+            this._backend = new VivaWebGLSimpleBackend(new NodeUIBuilder(this));
         }
         this._graphics = this._backend.graphics;
 
