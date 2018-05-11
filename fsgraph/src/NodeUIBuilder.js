@@ -73,6 +73,9 @@ export class NodeUIBuilder {
     _buildUi() {
         let baseContainer = $('#settings')[0];
 
+        let nameSpan = document.createElement('span');
+        nameSpan.textContent = 'Font size: ';
+
         let slider = document.createElement('div');
 
         const that = this;
@@ -86,6 +89,7 @@ export class NodeUIBuilder {
             }
         });
 
+        baseContainer.appendChild(nameSpan);
         baseContainer.appendChild(slider);
     }
 }

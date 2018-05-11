@@ -75,11 +75,12 @@ export class VivaImageNodeUI extends VivaBaseUI {
 
     _invalidateLabel() {
         this._span.innerText = this._realNode.label;
-        this._spanWidth = $(this._span).width();
+        // this._spanWidth = $(this._span).width();
     }
 
     onRender() {
         if (this._showLabel) {
+            this._spanWidth = $(this._span).width();
             if (this._labelChanged) {
                this._invalidateLabel();
                this._labelChanged = false;
