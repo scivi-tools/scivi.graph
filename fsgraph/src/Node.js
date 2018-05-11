@@ -71,13 +71,14 @@ export class Node {
         // Проверочка видимости
         this._visibleChekbox.onchange = (ev) => {
             this._state.toggleNodeExt(this, () => this._visibleChekbox.checked, false);
-            renderer.kick();
+            renderer.rerender();
         };
         // Название веришны
         this._labelSpan.onclick = (ev) => {
             const nodeUI = renderer._graphics.getNodeUI(this.id);
             if (nodeUI) {
                 renderer.centerAtGraphPoint(nodeUI.position);
+                renderer.rerender();
             }
         };
 

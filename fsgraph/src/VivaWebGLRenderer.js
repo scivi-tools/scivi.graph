@@ -499,6 +499,7 @@ export class VivaWebGLRenderer {
         showAllButton.textContent = 'Show all non-filtered';
         showAllButton.onclick = (ev) => {
             cs.pseudoActualize();
+            this.rerender();
         };
         this._listContainer.appendChild(showAllButton);
 
@@ -506,6 +507,7 @@ export class VivaWebGLRenderer {
         hideAllButton.textContent = 'Hide all';
         hideAllButton.onclick = (ev) => {
             cs.pseudoDisable();
+            this.rerender();
         };
         this._listContainer.appendChild(hideAllButton);
 
