@@ -166,7 +166,7 @@ export class VivaWebGLRenderer {
     }
 
     set currentStateId(value) {
-        this._graphController.currentStateId = value;
+        this._graphController.setCurrentStateIdEx(value, this);
         this.buildNodeListInfo();
     }
 

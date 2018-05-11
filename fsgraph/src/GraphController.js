@@ -84,15 +84,19 @@ export class GraphController {
     }
 
     set currentStateId(value) {
+        this.setCurrentStateIdEx(value, null);
+    }
+
+    setCurrentStateIdEx(value, renderer) {
         if (value != this._currentStateId) {
             // Сохраняем всевозможную инфу в предыдущем состоянии (те же позиции вершин)
-            if (this._currentStateId < this.states.length)
+            if ((this._currentStateId >= 0) && (this._currentStateId < this.states.length))
                 this.states[this._currentStateId].onBeforeDisabled();
 
             this._currentStateId = value;
 
             // здесь мы должны переключать граф путём перезаполнения ngraph.graph
-            this.states[this._currentStateId].actualize();
+            this.states[this._currentStateId].actualize(renderer);
         }
     }
 
@@ -100,7 +104,7 @@ export class GraphController {
         let controller = new GraphController(1, layoutName);
 
         controller.parseJsonState(json);
-        controller.currentStateId = 0;
+        controller._currentStateId = -1;
         return controller;
     }
 
@@ -112,7 +116,7 @@ export class GraphController {
         for (let state in states) {
             controller.parseJsonState(state);
         }
-        controller.currentStateId = 0;
+        controller._currentStateId = -1;
         return controller;
     }
 }
