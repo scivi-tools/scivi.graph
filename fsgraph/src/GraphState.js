@@ -1,13 +1,12 @@
 //@ts-check
-import Viva from './viva-proxy'
-import { Node } from './Node'
-import { Edge } from './Edge'
-import { VivaStateView } from './VivaStateView'
-import { GraphController } from './GraphController'
-import { DummyMetrics } from './DummyMetrics'
-import * as $ from 'jquery'
-import 'jquery-ui/ui/widgets/slider'
-/// <reference path="./types/ngraph.types.js" />
+import Viva from './viva-proxy';
+import { Node } from './Node';
+import { Edge } from './Edge';
+import { VivaStateView } from './VivaStateView';
+import { GraphController } from './GraphController';
+import { DummyMetrics } from './DummyMetrics';
+import * as $ from 'jquery';
+import 'jquery-ui/ui/widgets/slider';
 
 export class GraphState {
     /**
@@ -59,7 +58,7 @@ export class GraphState {
 
     /**
      * 
-     * @param {NgGraph} graph 
+     * @param {NgraphGraph.Graph} graph 
      * @param {Node} node
      */
     restoreNode(graph, node) {
@@ -98,7 +97,7 @@ export class GraphState {
     /**
      * Добавляем/удаляем узел в зависимости от фильтра
      * Последним параметром можно игнорировать изменение связей
-     * @param {NgGraph} graph
+     * @param {NgraphGraph.Graph} graph
      * @param {NgGenericLayout} layout
      * @param {Node} node 
      * @param {function(Node):boolean} filterFunc
@@ -132,7 +131,7 @@ export class GraphState {
 
     /**
      * 
-     * @param {NgGraph} graph 
+     * @param {NgraphGraph.Graph} graph 
      * @param {NgGenericLayout} layout 
      * @param {Node} node 
      */
@@ -143,7 +142,7 @@ export class GraphState {
 
     /**
      * 
-     * @param {NgGraph} graph 
+     * @param {NgraphGraph.Graph} graph 
      * @param {Edge} edge 
      */
     toggleEdge(graph, edge) {
@@ -200,6 +199,7 @@ export class GraphState {
         // сохраняем позиции
         this._controller.graph.forEachNode((node) => {
             node.data.onBeforeHide(this._controller.layoutInstance);
+            return false;
         });
 
         // TODO: сбрасывать выделения, если есть таковое

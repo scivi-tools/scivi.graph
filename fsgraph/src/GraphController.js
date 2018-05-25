@@ -1,11 +1,10 @@
 // @ts-check
-import Viva from './viva-proxy'
-import { GraphState } from './GraphState'
-import { DummyMetrics } from './DummyMetrics'
-import { LayoutBuilder } from './LayoutBuilder'
-import * as DH from './DataHelpers'
-import * as $ from 'jquery'
-/// <reference path="./types/ngraph.types.js" />
+import Viva from './viva-proxy';
+import { GraphState } from './GraphState';
+import { DummyMetrics } from './DummyMetrics';
+import { LayoutBuilder } from './LayoutBuilder';
+import * as DH from './DataHelpers';
+import * as $ from 'jquery';
 
 export class GraphController {
     /**
@@ -61,7 +60,7 @@ export class GraphController {
     }
 
     /**
-     * @returns {NgGraph}
+     * @returns {NgraphGraph.Graph}
      */
     get graph() {
         return this._graph;

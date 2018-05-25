@@ -29,31 +29,6 @@
  */
 
 /**
- * @typedef {function(NgNode):void} nodeCallback
- * @typedef {function(NgLink):void} linkCallback
- */
-
-/**
- * @typedef {Object} NgGraph
- * @property {function(IdType, Object):NgNode} addNode
- * @property {function(IdType, IdType, Object):NgLink} addLink
- * @property {function(NgLink):boolean} removeLink
- * @property {function(IdType):boolean} removeNode
- * @property {function(IdType):NgLink} getNode
- * @property {function(void):number} getNodesCount
- * @property {function(void):number} getLinksCount
- * @property {function(IdType):NgLink[]} getLinks
- * @property {function(nodeCallback):void} forEachNode
- * @property {function(NgNode, nodeCallback, boolean):void} forEachLinkedNode
- * @property {function(linkCallback):void} forEachLink
- * @property {function(void):void} clear
- * @property {function(IdType, IdType):NgLink} hasLink
- * @property {function(IdType, IdType):NgLink} getLink
- * @property {function():void} beginUpdate
- * @property {function():void} endUpdate
- */
-
-/**
  * @typedef {Object} NgGenericLayout
  * @property {function(void):boolean} step
  * @property {function(IdType):DummyPoint2D} getNodePosition
