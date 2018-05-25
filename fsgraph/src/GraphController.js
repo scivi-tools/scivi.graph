@@ -4,7 +4,7 @@ import { GraphState } from './GraphState'
 import { DummyMetrics } from './DummyMetrics'
 import { LayoutBuilder } from './LayoutBuilder'
 import * as DH from './DataHelpers'
-import $ from 'jquery'
+import * as $ from 'jquery'
 /// <reference path="./types/ngraph.types.js" />
 
 export class GraphController {

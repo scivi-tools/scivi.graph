@@ -1,7 +1,7 @@
 //@ts-check
 import { VivaWebGLRenderer } from './VivaWebGLRenderer';
 import { VivaImageNodeUI } from './VivaImageNodeUI';
-import $ from 'jquery';
+import * as $ from 'jquery';
 import 'jquery-ui/ui/widgets/slider';
 
 const _FontSizeDiap = [10, 36];

@@ -2,7 +2,7 @@
 import Viva from './viva-proxy'
 import merge from 'ngraph.merge'
 import { VivaWebGLRenderer } from './VivaWebGLRenderer'
-import $ from 'jquery'
+import * as $ from 'jquery'
 import 'jquery-ui/ui/widgets/slider'
 
 export class LayoutBuilder {

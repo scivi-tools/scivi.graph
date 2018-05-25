@@ -3,7 +3,7 @@
 import { VivaBaseUI } from './VivaBaseUI'
 import { Node } from './Node'
 import { Edge } from './Edge'
-import $ from 'jquery'
+import * as $ from 'jquery'
 
 export class VivaImageNodeUI extends VivaBaseUI {
     /**

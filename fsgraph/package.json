@@ -14,7 +14,7 @@
   "dependencies": {
     "@types/jqueryui": "1.12.1",
     "vivagraphjs": "0.10.0",
-    "jquery": "^3.3.1",
+    "jquery": "3.3.1",
     "jquery-ui": "1.12.1",
     "split.js": "1.3.5"
   },

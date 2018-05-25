@@ -4,7 +4,7 @@ import { GraphController } from './GraphController';
 import { VivaWebGLSimpleBackend } from './VivaWebGLSimpleBackend';
 import { VivaStateView } from './VivaStateView';
 import { WebGLDnDManager, DnDHandler } from './VivaMod/webglInputManager';
-import $ from 'jquery';
+import * as $ from 'jquery';
 import 'jquery-ui/ui/widget';
 import 'jquery-ui/ui/keycode';
 import 'jquery-ui/ui/widgets/selectable';

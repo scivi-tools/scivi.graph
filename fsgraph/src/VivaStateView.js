@@ -3,7 +3,7 @@ import { Node } from './Node'
 import { VivaImageNodeUI } from './VivaImageNodeUI'
 import { VivaLinkUI } from './VivaLinkUI'
 import { VivaWebGLRenderer } from './VivaWebGLRenderer'
-import $ from 'jquery'
+import * as $ from 'jquery'
 import 'jquery-ui/ui/widgets/slider'
 /// <reference path="./types/ngraph.types.js" />
 

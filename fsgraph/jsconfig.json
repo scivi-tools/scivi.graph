@@ -7,9 +7,10 @@
         "target": "es5",
         "checkJs": false,
         "moduleResolution": "node"
-        // "strict": true,
-        // "alwaysStrict": true,
-        // "noImplicitAny": false
+        // ,"typeRoots": ["@types", "./@types"]
+        // ,"strict": true
+        // ,"alwaysStrict": true
+        // ,"noImplicitAny": false
     },
     "include": [
         "./src/*"

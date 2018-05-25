@@ -5,7 +5,7 @@ import { Edge } from './Edge'
 import { VivaStateView } from './VivaStateView'
 import { GraphController } from './GraphController'
 import { DummyMetrics } from './DummyMetrics'
-import $ from 'jquery'
+import * as $ from 'jquery'
 import 'jquery-ui/ui/widgets/slider'
 /// <reference path="./types/ngraph.types.js" />
 
