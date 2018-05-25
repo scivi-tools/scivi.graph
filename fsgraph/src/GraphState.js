@@ -176,7 +176,6 @@ export class GraphState {
     pseudoActualize() {
         // TODO: get rid of duplicated code
         for (let n of this.nodes) {
-            // TODO: так же применяем фильтры!
             this.toggleNodeExt(n, (n) => this._applyFilter(n));
         }
         for (let e of this.edges) {

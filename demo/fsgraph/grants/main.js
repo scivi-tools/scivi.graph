@@ -5,15 +5,13 @@
 
 var g_colors = [
     // link
-    0x4C57D877, 0x081973FF,
+    0x4C57D8BB, 0x081973FF,
     // node1
-    0xFFBA60FF, 0xFF6F00FF,
-    // node2
-    0xD5EAFFFF, 0x004282FF
+    0xFFBA60FF, 0xFF6F00FF
 ];
 
 function main() {
-    var controller = SciViFSGraph.main.GraphController.fromJson(g_data, 'forceAtlas2');
+    var controller = SciViFSGraph.main.GraphController.fromStatedJson(g_data, 'forceAtlas2');
     var renderer = new SciViFSGraph.main.VivaWebGLRenderer(document.body);
         
     renderer.graphController = controller;

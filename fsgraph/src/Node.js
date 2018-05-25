@@ -4,6 +4,7 @@ import { Point2D } from './Point2D';
 import { Edge } from './Edge';
 
 export class Node {
+    // TODO: просто сливать со входной структурой, попутно подставляя недостающее
     constructor(/** @type {GraphState} */state, id, groupId, /** @type{string} */label, weight, data = null) {
         this._state = state;
 
@@ -13,7 +14,7 @@ export class Node {
 
         this.id = id;
         this.label = label;
-        this.groupId = groupId;
+        this.groupId = groupId || 0;
         this.weight = weight;
         this.data = data;
         

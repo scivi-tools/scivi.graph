@@ -109,11 +109,11 @@ export class GraphController {
     }
 
     static fromStatedJson(json, layoutName) {
-        /** @type {any[]} */
+        /** @type {Object[]} */
         let states = json["states"];
         let controller = new GraphController(states.length, layoutName);
 
-        for (let state in states) {
+        for (let state of states) {
             controller.parseJsonState(state);
         }
         controller._currentStateId = -1;
