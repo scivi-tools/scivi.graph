@@ -1,5 +1,4 @@
 //@ts-check
-import documentEvents from 'vivagraphjs/src/Utils/documentEvents.js';
 
 /**
  * Monitors graph-related mouse input in webgl graphics and notifies subscribers.
@@ -21,7 +20,8 @@ export function webglInputEvents(webglGraphics) {
     clickCallback = [],
     dblClickCallback = [],
     prevSelectStart,
-    boundRect;
+    boundRect,
+    documentExists = (typeof document !== undefined);
 
   /** @type {HTMLDivElement} */
   var root = webglGraphics.getGraphicsRoot();
@@ -157,10 +157,10 @@ export function webglInputEvents(webglGraphics) {
       },
 
       handleMouseUp = function() {
-        //@ts-ignore
-        documentEvents.off('mousemove', handleMouseMove);
-        //@ts-ignore
-        documentEvents.off('mouseup', handleMouseUp);
+        if (documentExists) {
+          document.removeEventListener('mousemove', handleMouseMove);
+          document.removeEventListener('mouseup', handleMouseUp);
+        }
       },
 
       updateBoundRect = function() {
@@ -216,10 +216,10 @@ export function webglInputEvents(webglGraphics) {
         if (args[0]) {
           cancelBubble = invoke(mouseDownCallback, args);
           // we clicked on a node. Following drag should be handled on document events:
-          //@ts-ignore
-          documentEvents.on('mousemove', handleMouseMove);
-          //@ts-ignore
-          documentEvents.on('mouseup', handleMouseUp);
+          if (documentExists) {
+            document.addEventListener('mousemove', handleMouseMove);
+            document.addEventListener('mouseup', handleMouseUp);
+          }
 
           prevSelectStart = window.document.onselectstart;
 

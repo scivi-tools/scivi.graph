@@ -397,7 +397,7 @@ export function webglGraphics(options) {
         * Called by Viva.Graph.View.renderer to let concrete graphic output
         * provider remove link from rendering surface.
         *
-        * @param linkUI visual representation of the link created by link() execution.
+        * @param {NgraphGraph.Link} link
         **/
         releaseLink : function (link) {
             if (linksCount > 0) { linksCount -= 1; }
@@ -422,7 +422,7 @@ export function webglGraphics(options) {
         * Called by Viva.Graph.View.renderer to let concrete graphic output
         * provider remove node from rendering surface.
         *
-        * @param nodeUI visual representation of the node created by node() execution.
+        * @param {NgraphGraph.Node} node 
         **/
         releaseNode : function (node) {
             if (nodesCount > 0) { nodesCount -= 1; }
@@ -593,6 +593,9 @@ export function webglGraphics(options) {
             return p;
         },
 
+        /**
+         * @returns {NgraphGeneric.NodeUI}
+         */
         getNodeAtClientPos: function (clientPos, preciseCheck) {
             if (typeof preciseCheck !== "function") {
                 // we don't know anything about your node structure here :(
