@@ -36,6 +36,7 @@ export class VivaWebGLRenderer {
      */
     constructor(baseContainer, backend = null) {
         this._container = this._buildUi(baseContainer);
+        this._baseContainer = baseContainer;
 
         if (backend == null) {
             this._backend = new VivaWebGLSimpleBackend(new NodeUIBuilder(this));
@@ -136,12 +137,12 @@ export class VivaWebGLRenderer {
     set graphController(value) {
         this._graphController = value;
         this.layoutBackend = value.layoutInstance;
-        // TODO: добавить нормальный геттер
-        this.graphBackend = value._graph;
+        this.graphBackend = value.graph;
 
         this.currentStateId = 0;
 
         value.layoutBuilder.buildUI(this);
+        this._buildTimeline();
     }
 
     /**
@@ -536,6 +537,32 @@ export class VivaWebGLRenderer {
         controlElement.appendChild(startStopButton);
 
         return $('#scivi_fsgraph_view')[0];
+    }
+
+    _buildTimeline() {
+        let statesCount = this._graphController.states.length;
+        if (statesCount == 1) {
+            return;
+        }
+
+        let tlContainer = document.createElement('div');
+        let timeline = document.createElement('div');
+        timeline.id = 'scivi_fsgraph_stateline';
+        tlContainer.id = 'scivi_fsgraph_stateline_container';
+        tlContainer.appendChild(timeline);
+        $('#scivi_fsgraph_a').append(tlContainer);
+
+        const that = this;
+        $(timeline).slider({
+            min: 0,
+            max: statesCount - 1,
+            value: 0,
+            step: 1,
+            slide: (event, ui) => {
+                that.currentStateId = ui.value;
+                that.rerender();
+            }
+        });
     }
 
     buildNodeListInfo() {

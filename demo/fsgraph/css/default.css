@@ -12,37 +12,35 @@
     font-size: 16px;
 }
 
+#scivi_fsgraph_a
+{
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+}
+
 #scivi_fsgraph_b
 {
     z-index: 10;
 }
 
-#scivi_fsgraph_view
-{
-    flex: 1 1 auto;
-    /* overflow: hidden; */
-    height: 100%;
-}
-
-#scivi_fsgraph_a
-{
-    display: flex;
-    flex-flow: column;
-    z-index: 1;
-}
-
 #scivi_fsgraph_rotate_bar_container
 {
     padding: 10px;
-    flex: 0 1 20px;
     z-index: 2;
     background-color: white;
+}
+
+#scivi_fsgraph_view
+{
+    flex: 1;
+    display: flex;
 }
 
 
 #scivi_fsgraph_stateline_container
 {
-    flex: 0 1 40px;
     padding: 20px;
     z-index: 2;
+    background-color: white;
 }
