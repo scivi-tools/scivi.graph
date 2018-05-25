@@ -42,12 +42,7 @@ export function webglGraphics(options) {
         height,
         nodesCount = 0,
         linksCount = 0,
-        transform = [
-            1, 0, 0, 0,
-            0, 1, 0, 0,
-            0, 0, 1, 0,
-            0, 0, 0, 1
-        ],
+        transform = [],
         rotateIt = function (xx, yy, ang) {
             var cx = Math.cos(ang);
             var sy = Math.sin(ang);
@@ -96,19 +91,33 @@ export function webglGraphics(options) {
         },
 
         resetScaleInternal = function () {
-            transform = [1, 0, 0, 0,
-                        0, 1, 0, 0,
+            let realScale = window.devicePixelRatio || 1;
+            transform = [realScale, 0, 0, 0,
+                        0, realScale, 0, 0,
                         0, 0, 1, 0,
                         0, 0, 0, 1];
         },
 
         updateSize = function () {
             if (container && graphicsRoot) {
-                width = graphicsRoot.width = Math.max(container.offsetWidth, 1);
-                height = graphicsRoot.height = Math.max(container.offsetHeight, 1);
-                if (gl) { gl.viewport(0, 0, width, height); }
-                if (linkProgram) { linkProgram.updateSize(width / 2, height / 2); }
-                if (nodeProgram) { nodeProgram.updateSize(width / 2, height / 2); }
+                let realScale = window.devicePixelRatio || 1;
+                width = Math.max(container.clientWidth, 1);
+                height = Math.max(container.clientHeight, 1);
+                graphicsRoot.style.width = `${width}px`;
+                graphicsRoot.style.height = `${height}px`;
+                let realWidth = width * realScale;
+                let realHeight = height * realScale;
+                graphicsRoot.width = realWidth;
+                graphicsRoot.height = realHeight;
+                if (gl) {
+                    gl.viewport(0, 0, realWidth, realHeight);
+                }
+                if (linkProgram) {
+                    linkProgram.updateSize(realWidth / 2, realHeight / 2);
+                }
+                if (nodeProgram) {
+                    nodeProgram.updateSize(realWidth / 2, realHeight / 2);
+                }
             }
         },
 
@@ -117,6 +126,8 @@ export function webglGraphics(options) {
         };
     
     graphicsRoot = window.document.createElement("canvas");
+
+    resetScaleInternal();
 
     var graphics = {
         getLinkUI: function (linkId) {
