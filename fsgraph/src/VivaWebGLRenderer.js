@@ -4,11 +4,13 @@ import { GraphController } from './GraphController';
 import { VivaWebGLSimpleBackend } from './VivaWebGLSimpleBackend';
 import { VivaStateView } from './VivaStateView';
 import { WebGLDnDManager, DnDHandler } from './VivaMod/webglInputManager';
-import $ from 'jquery';
+import * as $ from 'jquery';
 import 'jquery-ui/ui/widget';
 import 'jquery-ui/ui/keycode';
 import 'jquery-ui/ui/widgets/selectable';
 import 'jquery-ui/ui/widgets/button';
+import 'jquery-ui/ui/widgets/tabs';
+import Split from 'split.js';
 import { Point2D } from './Point2D';
 import { NodeUIBuilder } from './NodeUIBuilder';
 
@@ -27,8 +29,14 @@ class RendererTransform {
  */
 export class VivaWebGLRenderer {
 
-    constructor(container, backend = null) {
-        this._container = container;
+    /**
+     * 
+     * @param {HTMLElement} baseContainer 
+     * @param {*} backend 
+     */
+    constructor(baseContainer, backend = null) {
+        this._container = this._buildUi(baseContainer);
+        this._baseContainer = baseContainer;
 
         if (backend == null) {
             this._backend = new VivaWebGLSimpleBackend(new NodeUIBuilder(this));
@@ -37,8 +45,11 @@ export class VivaWebGLRenderer {
 
         this._renderer = null;
 
+        /** @type {NgraphGraph.Graph} */
         this._graphBackend = null;
+        /** @type {NgraphGeneric.Layout} */
         this._layoutBackend = null;
+        /** @type {GraphController} */
         this._graphController = null;
 
         this._viewRules = null;
@@ -61,7 +72,7 @@ export class VivaWebGLRenderer {
         this._updateCenterRequired = false;
         //
         this._transform = new RendererTransform();
-        /* @type {webglInputManager} */
+        /** @type {WebGLDnDManager} */
         this._inputManager = null;
         //
         this._containerDrag = null;
@@ -92,14 +103,19 @@ export class VivaWebGLRenderer {
         return this._backend.inputListner;
     }
 
+    /**
+     * @param {NgraphGraph.Graph} value
+     */
     set graphBackend(value) {
         this._graphBackend = value;
         // TODO: обработка событий и всё такое
         this._inputManager = new WebGLDnDManager(value, this._graphics);
     }
 
+    /**
+     * @param {NgraphGeneric.Layout} value
+     */
     set layoutBackend(value) {
-        /** @type {NgGenericLayout} */
         this._layoutBackend = value;
         // TODO: обработка событий и всё такое?
     }
@@ -121,6 +137,12 @@ export class VivaWebGLRenderer {
         this.graphicsInputListner.click((nodeUI) => {
             value.onNodeClick(nodeUI, this._graphBackend, this);
         });
+
+        this.graphicsInputListner.dblClick((nodeUI) => {
+            if (nodeUI) {
+                this._layoutBackend.pinNode(nodeUI.node, !this._layoutBackend.isNodePinned(nodeUI.node));
+            }
+        });
     }
 
     /**
@@ -129,12 +151,12 @@ export class VivaWebGLRenderer {
     set graphController(value) {
         this._graphController = value;
         this.layoutBackend = value.layoutInstance;
-        // TODO: добавить нормальный геттер
-        this.graphBackend = value._graph;
+        this.graphBackend = value.graph;
 
         this.currentStateId = 0;
 
         value.layoutBuilder.buildUI(this);
+        this._buildTimeline();
     }
 
     /**
@@ -166,6 +188,9 @@ export class VivaWebGLRenderer {
         return result;
     }
 
+    /**
+     * @param {number} value
+     */
     set currentStateId(value) {
         this._graphController.setCurrentStateIdEx(value, this);
         this.buildNodeListInfo();
@@ -303,6 +328,7 @@ export class VivaWebGLRenderer {
     }
 
     _processNodeChange(change) {
+        /** @type {NgraphGraph.Node} */
         let node = change.node;
 
         if (change.changeType === 'add') {
@@ -365,13 +391,17 @@ export class VivaWebGLRenderer {
     }
 
     _initDom() {
-        this._buildUi();
-
         this._backend.postInit(this._container);
 
-        this._graphBackend.forEachNode((node) => this._createNodeUi(node));
+        this._graphBackend.forEachNode((node) => {
+            this._createNodeUi(node);
+            return false;
+        });
 
-        this._graphBackend.forEachLink((link) => this._createLinkUi(link));
+        this._graphBackend.forEachLink((link) => {
+            this._createLinkUi(link);
+            return false;
+        });
 
         // listen to events
         window.addEventListener('resize', () => this.onContainerResize());
@@ -387,29 +417,54 @@ export class VivaWebGLRenderer {
             this._scale(scaleOffset < 0, scrollPoint);
         });
     
-        this._graphBackend.forEachNode((node) => this._listenNodeEvents(node));
+        this._graphBackend.forEachNode((node) => {
+            this._listenNodeEvents(node);
+            return false;
+        });
     
         this._graphBackend.on('changed', (changes) => this._onGraphChanged(changes));
     }
 
+    /**
+     * 
+     * @param {NgraphGraph.Node} node 
+     */
     _createNodeUi(node) {
         var nodePosition = this._layoutBackend.getNodePosition(node.id);
         this._graphics.addNode(node, nodePosition);
     }
 
+    /**
+     * 
+     * @param {NgraphGraph.Node} node 
+     */
     _removeNodeUi(node) {
         this._graphics.releaseNode(node);
     }
     
+    /**
+     * 
+     * @param {NgraphGraph.Link} link 
+     */
     _createLinkUi(link) {
         let linkPosition = this._layoutBackend.getLinkPosition(link.id);
         this._graphics.addLink(link, linkPosition);
     }
     
+    /**
+     * 
+     * @param {NgraphGraph.Link} link 
+     */
     _removeLinkUi(link) {
         this._graphics.releaseLink(link);
     }
 
+    /**
+     * 
+     * @param {boolean} out 
+     * @param {NgraphGraph.Position} scrollPoint 
+     * @returns {number}
+     */
     _scale(out, scrollPoint) {
         if (!scrollPoint) {
             const containerSize = Viva.Graph.Utils.getDimension(this._container);
@@ -455,11 +510,56 @@ export class VivaWebGLRenderer {
             });
     }
 
-    _buildUi() {
-        // TODO: добавляем кнопку старт/стоп и вращение здесь!
-        const controlElement = $('#control')[0];
-        let startStopButton = document.createElement('button');
+    _buildUi(/** @type {HTMLElement} */baseContainer) {
         const that = this;
+        baseContainer.innerHTML = `
+        <div id="scivi_fsgraph_a" class="split split-horizontal">
+            <div id="scivi_fsgraph_rotate_bar_container">
+                <div id="scivi_fsgraph_rotate_bar"></div>
+            </div>
+            <div id="scivi_fsgraph_view"></div>
+        </div>
+        <div id="scivi_fsgraph_b" class="split split-horizontal">
+            <div id="scivi_fsgraph_tabs">
+                <ul>
+                    <li><a id="scivi_fsgraph_lnk_control" href="#scivi_fsgraph_control">Управление</a></li>
+                    <li><a id="scivi_fsgraph_lnk_info" href="#scivi_fsgraph_info">Информация</a></li>
+                    <li><a id="scivi_fsgraph_lnk_list" href="#scivi_fsgraph_list">Вершины</a></li>
+                    <li><a id="scivi_fsgraph_lnk_settings" href="#scivi_fsgraph_settings">Настройки</a></li>
+                    <li><a id="scivi_fsgraph_lnk_stats" href="#scivi_fsgraph_stats">Статистика</a></li>
+                </ul>
+                <div id="scivi_fsgraph_control"></div>
+                <div id="scivi_fsgraph_info"></div>
+                <div id="scivi_fsgraph_list"></div>
+                <div id="scivi_fsgraph_settings"></div>
+                <div id="scivi_fsgraph_stats"></div>
+            </div>
+        </div>`;
+
+        Split(['#scivi_fsgraph_a', '#scivi_fsgraph_b'], {
+            gutterSize: 8,
+            cursor: 'col-resize',
+            sizes: [75, 25],
+            onDrag: () => that.onContainerResize()
+        });
+
+       $("#scivi_fsgraph_tabs").tabs({
+            heightStyle: "fill"
+        });
+    
+        $("#scivi_fsgraph_rotate_bar").slider({
+            min: -179,
+            max: 179,
+            value: 0,
+            step: 1,
+            slide: (event, ui) => {
+                that.angleDegrees = ui.value;
+            }
+        });
+
+        // TODO: добавляем кнопку старт/стоп и вращение здесь!
+        const controlElement = $('#scivi_fsgraph_control')[0];
+        let startStopButton = document.createElement('button');
 
         const changeIcon = (name) => {
             $(startStopButton).button('option', 'icon', name);
@@ -484,12 +584,40 @@ export class VivaWebGLRenderer {
         changeIcon('ui-icon-pause');
 
         controlElement.appendChild(startStopButton);
+
+        return $('#scivi_fsgraph_view')[0];
+    }
+
+    _buildTimeline() {
+        let statesCount = this._graphController.states.length;
+        if (statesCount == 1) {
+            return;
+        }
+
+        let tlContainer = document.createElement('div');
+        let timeline = document.createElement('div');
+        timeline.id = 'scivi_fsgraph_stateline';
+        tlContainer.id = 'scivi_fsgraph_stateline_container';
+        tlContainer.appendChild(timeline);
+        $('#scivi_fsgraph_a').append(tlContainer);
+
+        const that = this;
+        $(timeline).slider({
+            min: 0,
+            max: statesCount - 1,
+            value: 0,
+            step: 1,
+            slide: (event, ui) => {
+                that.currentStateId = ui.value;
+                that.rerender();
+            }
+        });
     }
 
     buildNodeListInfo() {
         if (!this._listContainer) {
             this._listContainer = document.createElement('div');
-            $('#list')[0].appendChild(this._listContainer);
+            $('#scivi_fsgraph_list')[0].appendChild(this._listContainer);
         }
 
         this._listContainer.innerHTML = '';
@@ -512,9 +640,9 @@ export class VivaWebGLRenderer {
         };
         this._listContainer.appendChild(hideAllButton);
 
-        for (let node of cs.nodes) {
+        cs.forEachNode((node) => {
             this._listContainer.appendChild(node.postListItem(this));
-        }
+        });
     }
 
     /**

@@ -1,14 +1,17 @@
 //@ts-check
-/// <reference path="./types/ngraph.types.js" />
+/// <reference path="./@types/ngraph.d.ts" />
 import { VivaBaseUI } from './VivaBaseUI'
 import { Node } from './Node'
 import { Edge } from './Edge'
-import $ from 'jquery'
+import * as $ from 'jquery'
 
+/**
+ * @implements {NgraphGeneric.NodeUI}
+ */
 export class VivaImageNodeUI extends VivaBaseUI {
     /**
      * 
-     * @param {NgNode} node
+     * @param {NgraphGraph.Node} node
      * @param {HTMLSpanElement} titleSpan 
      */
     constructor(graphics, node, titleSpan) {
@@ -27,21 +30,21 @@ export class VivaImageNodeUI extends VivaBaseUI {
         // this._invalidateLabel();
 
         // TODO: соптимизировать получение корневого элемента где-то ещё
-        this.detailedInfoHTML = $('#info')[0];
+        this.detailedInfoHTML = $('#scivi_fsgraph_info')[0];
     };
 
     /**
-     * @returns {NgNode}
+     * @returns {NgraphGraph.Node}
      */
     get node() {
         return this._node;
     }
 
     /**
-     * @param {NgNode} value
+     * @param {NgraphGraph.Node} value
      */
     set node(value) {
-        /** @type {NgNode} */
+        /** @type {NgraphGraph.Node} */
         this._node = value;
         /** @type {Node} */
         this._realNode = value.data;

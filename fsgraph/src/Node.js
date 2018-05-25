@@ -2,9 +2,17 @@
 import { GraphState } from './GraphState';
 import { Point2D } from './Point2D';
 import { Edge } from './Edge';
+import * as DH from './DataHelpers';
 
 export class Node {
-    constructor(/** @type {GraphState} */state, id, groupId, /** @type{string} */label, weight, data = null) {
+    /**
+     * 
+     * @param {GraphState} state 
+     * @param {*} id 
+     * @param {*} groupId 
+     * @param {Object.<string, *>} data 
+     */
+    constructor(state, id, groupId, data) {
         this._state = state;
 
         this._visibleChekbox = document.createElement("input");
@@ -12,10 +20,11 @@ export class Node {
         this._labelSpan = document.createElement('span');
 
         this.id = id;
-        this.label = label;
+        /** @type {string} */
+        this.label = DH.getValueDef(data, 'label', 'string', 'no_label');
         this.groupId = groupId;
-        this.weight = weight;
-        this.data = data;
+        /** @type {number} */
+        this.weight = DH.getValueDef(data, 'weight', 'number', 1);
         
         this.position = new Point2D(Math.random() * 1500 - 750, Math.random() * 1500 - 750);
 
@@ -53,7 +62,7 @@ export class Node {
 
     /**
      * 
-     * @param {NgGenericLayout} layout 
+     * @param {NgraphGeneric.Layout} layout 
      */
     onBeforeHide(layout) {
         let layoutedPos = layout.getNodePosition(this.id);

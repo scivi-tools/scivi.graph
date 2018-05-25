@@ -1,0 +1,46 @@
+.gutter
+{
+    z-index: 2;
+}
+
+.scivi_fsgraph_node_label 
+{
+    position: absolute;
+    pointer-events: none;
+    color: black;
+    z-index: 0;
+    font-size: 16px;
+}
+
+#scivi_fsgraph_a
+{
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+}
+
+#scivi_fsgraph_b
+{
+    z-index: 10;
+}
+
+#scivi_fsgraph_rotate_bar_container
+{
+    padding: 10px;
+    z-index: 2;
+    background-color: white;
+}
+
+#scivi_fsgraph_view
+{
+    flex: 1;
+    display: flex;
+}
+
+
+#scivi_fsgraph_stateline_container
+{
+    padding: 20px;
+    z-index: 2;
+    background-color: white;
+}

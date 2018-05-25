@@ -1,13 +1,12 @@
 //@ts-check
-import Viva from './viva-proxy'
-import { Node } from './Node'
-import { Edge } from './Edge'
-import { VivaStateView } from './VivaStateView'
-import { GraphController } from './GraphController'
-import { DummyMetrics } from './DummyMetrics'
-import $ from 'jquery'
-import 'jquery-ui/ui/widgets/slider'
-/// <reference path="./types/ngraph.types.js" />
+import Viva from './viva-proxy';
+import { Node } from './Node';
+import { Edge } from './Edge';
+import { VivaStateView } from './VivaStateView';
+import { GraphController } from './GraphController';
+import { DummyMetrics } from './DummyMetrics';
+import * as $ from 'jquery';
+import 'jquery-ui/ui/widgets/slider';
 
 export class GraphState {
     /**
@@ -30,24 +29,26 @@ export class GraphState {
         /** @type {HTMLElement} */
         this._filtersContainer = null;
         this.prevKnownValues = null;
+
+        this._visited = false;
     };
 
-    addNode(id, groupId, label, weight) {
+    addNode(id, groupId, data) {
         // ensure that group alredy exists before pushing to it
         if (!this.groups[groupId]) {
             this.groups[groupId] = []
         }
         this.groups[groupId].push(id);
 
-        const newNode = new Node(this, id, groupId, label, weight);
+        const newNode = new Node(this, id, groupId, data);
         // TODO: count some metrics here, async
         this._metrics.accumulate(newNode);
 
         this.nodes[id] = newNode;
     };
 
-    addEdge(fromId, toId, weight) {
-        const newEdge = new Edge(this, fromId, toId);
+    addEdge(fromId, toId, data) {
+        const newEdge = new Edge(this, fromId, toId, data);
         this.edges.push(newEdge);
 
         this.nodes[fromId].addEdge(newEdge);
@@ -57,7 +58,7 @@ export class GraphState {
 
     /**
      * 
-     * @param {NgGraph} graph 
+     * @param {NgraphGraph.Graph} graph 
      * @param {Node} node
      */
     restoreNode(graph, node) {
@@ -96,8 +97,8 @@ export class GraphState {
     /**
      * Добавляем/удаляем узел в зависимости от фильтра
      * Последним параметром можно игнорировать изменение связей
-     * @param {NgGraph} graph
-     * @param {NgGenericLayout} layout
+     * @param {NgraphGraph.Graph} graph
+     * @param {NgraphGeneric.Layout} layout
      * @param {Node} node 
      * @param {function(Node):boolean} filterFunc
      * @param {boolean} softMode 
@@ -130,8 +131,8 @@ export class GraphState {
 
     /**
      * 
-     * @param {NgGraph} graph 
-     * @param {NgGenericLayout} layout 
+     * @param {NgraphGraph.Graph} graph 
+     * @param {NgraphGeneric.Layout} layout 
      * @param {Node} node 
      */
     hideNode(graph, layout, node) {
@@ -141,7 +142,7 @@ export class GraphState {
 
     /**
      * 
-     * @param {NgGraph} graph 
+     * @param {NgraphGraph.Graph} graph 
      * @param {Edge} edge 
      */
     toggleEdge(graph, edge) {
@@ -164,30 +165,31 @@ export class GraphState {
 
         // восстанавливаем узлы и связи, не забыв про их позиции и видимость
         // graph.beginUpdate();
-        for (let n of this.nodes) {
+        this.forEachNode((n) => {
             this.toggleNodeExt(n, (n) => this._applyFilter(n), true);
-        }
+        });
         for (let e of this.edges) {
             this.restoreEdge(e);
         }
         // graph.endUpdate();
+
+        this._visited = true;
     }
 
     pseudoActualize() {
         // TODO: get rid of duplicated code
-        for (let n of this.nodes) {
-            // TODO: так же применяем фильтры!
+        this.forEachNode((n) => {
             this.toggleNodeExt(n, (n) => this._applyFilter(n));
-        }
+        });
         for (let e of this.edges) {
             this.restoreEdge(e);
         }
     }
 
     pseudoDisable() {
-        for (let n of this.nodes) {
+        this.forEachNode((n) => {
             this.toggleNodeExt(n, (n) => false);
-        }
+        });
     }
 
     /**
@@ -197,6 +199,7 @@ export class GraphState {
         // сохраняем позиции
         this._controller.graph.forEachNode((node) => {
             node.data.onBeforeHide(this._controller.layoutInstance);
+            return false;
         });
 
         // TODO: сбрасывать выделения, если есть таковое
@@ -205,11 +208,46 @@ export class GraphState {
         this._controller.graph.clear();
 
         // TODO: возвращаем знаения фильтров!
+
+        $('#scivi_fsgraph_control')[0].removeChild(this._filtersContainer);
     }
 
     /**
      * 
-     * @param {number[][]} prevKnownValues - [groupid][0, 1]
+     * @param {function(Node):void} nodeCallback 
+     */
+    forEachNode(nodeCallback) {
+        for (let n of this.nodes) {
+            if (n) {
+                nodeCallback(n);
+            }
+        }
+    }
+
+    /**
+     * 
+     * @param {GraphState} prev 
+     */
+    syncWithPrevious(prev) {
+        // TODO: почти очвевидно. чт синхронизация позиций работает неверно:
+        // если у нас вершина с ид Х есть в состоянии 0 и 2, но не в 1, то
+        // у неё будут разные координаты в 0 и 2
+        if ((!this._visited) && (prev._visited)) {
+            let node = null;
+            this.forEachNode((n) => {
+                node = prev.nodes[n.id];
+                if (node) {
+                    n.position = node.position;
+                }
+            });
+        }
+
+        // TODO: sync filters!
+    }
+
+    /**
+     * 
+     * @param {number[][]} prevKnownValues Format: [groupid][0, 1]
      * @param {*} renderer
      */
     _checkBuildFilters(prevKnownValues, renderer) {
@@ -242,7 +280,7 @@ export class GraphState {
                 this._filtersContainer.appendChild(filterSlider);
             }
         }
-        let parent = $('#control')[0];
+        let parent = $('#scivi_fsgraph_control')[0];
 
         if (prevKnownValues) {
             // TODO: ....
@@ -267,9 +305,9 @@ export class GraphState {
 
     _applyFilterRange(value = 'weight') {
         this._controller.graph.beginUpdate();
-        for (let n of this.nodes) {
+        this.forEachNode((n) => {
             this.toggleNodeExt(n, (n) => this._applyFilter(n, value), false);
-        }
+        });
         this._controller.graph.endUpdate();
     }
 }

@@ -2,7 +2,7 @@
 import Viva from './viva-proxy'
 import merge from 'ngraph.merge'
 import { VivaWebGLRenderer } from './VivaWebGLRenderer'
-import $ from 'jquery'
+import * as $ from 'jquery'
 import 'jquery-ui/ui/widgets/slider'
 
 export class LayoutBuilder {
@@ -17,7 +17,7 @@ export class LayoutBuilder {
     }
 
     buildUI(/** @type {VivaWebGLRenderer} */renderer) {
-        let baseContainer = $('#settings');
+        let baseContainer = $('#scivi_fsgraph_settings');
         
         let label = document.createElement('span');
         label.textContent = 'Настройки укладки:';
@@ -73,7 +73,12 @@ export class LayoutBuilder {
         baseContainer.append(c);
     }
 
-    static buildLayout(/** @type {string} */name, graph) {
+    /**
+     * 
+     * @param {string} name 
+     * @param {NgraphGraph.Graph} graph 
+     */
+    static buildLayout(name, graph) {
         /** @type {function(any, Object.<string, any>)} */
         let result = Viva.Graph.Layout[name];
         if (typeof result !== "function") {

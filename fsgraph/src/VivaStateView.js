@@ -3,7 +3,7 @@ import { Node } from './Node'
 import { VivaImageNodeUI } from './VivaImageNodeUI'
 import { VivaLinkUI } from './VivaLinkUI'
 import { VivaWebGLRenderer } from './VivaWebGLRenderer'
-import $ from 'jquery'
+import * as $ from 'jquery'
 import 'jquery-ui/ui/widgets/slider'
 /// <reference path="./types/ngraph.types.js" />
 
@@ -38,7 +38,7 @@ export class VivaStateView {
         /** @type {function(VivaLinkUI) : void} */
         this.onEdgeRender = stub;
 
-        /** @type {function(VivaImageNodeUI, NgGraph, VivaWebGLRenderer) : void} */
+        /** @type {function(VivaImageNodeUI, NgraphGraph.Graph, VivaWebGLRenderer) : void} */
         this.onNodeClick = selectNode2G;
 
         /** @type {VivaWebGLRenderer} */
@@ -75,7 +75,7 @@ export class VivaStateView {
     }
 
     buildUI() {
-        let baseContainer = $('#settings')[0];
+        let baseContainer = $('#scivi_fsgraph_settings')[0];
         let innerContainer = document.createElement('div');
 
         let nameSpan = document.createElement('span');
@@ -104,10 +104,7 @@ export class VivaStateView {
 
         // TODO: colors & rest...
 
-        // Filters
         baseContainer.appendChild(innerContainer);
-
-        baseContainer = $('#control')[0];
     }
 }
 
@@ -119,7 +116,7 @@ let lastNodeClicked = null;
 
 /**
  * 
- * @param {NgGraph} graph 
+ * @param {NgraphGraph.Graph} graph 
  * @param {VivaWebGLRenderer} renderer
  * @param {VivaImageNodeUI} nodeUI 
  * @param {boolean} toggled 
@@ -127,20 +124,24 @@ let lastNodeClicked = null;
 function toggleRelatedWords(graph, renderer, nodeUI, toggled) {
     nodeUI.selected = toggled;
     // TODO: nodUI.selected, not node.selected!
-    graph.forEachLinkedNode(nodeUI._realNode.id, (/** @type {NgNode} */node, /** @type {NgLink} */link) => {
+    graph.forEachLinkedNode(nodeUI._realNode.id, (/** @type {NgraphGraph.Node} */node, /** @type {NgraphGraph.Link} */link) => {
         /** @type {VivaImageNodeUI} */
         let nodeUI = renderer.graphics.getNodeUI(node.id);
         /** @type {VivaLinkUI} */
         let linkUI = renderer.graphics.getLinkUI(link.id);
-        nodeUI.showLabel = toggled;
-        nodeUI.selected = toggled;
+        if (nodeUI._realNode.groupId !== 0) {
+            nodeUI.showLabel = toggled;
+            nodeUI.selected = toggled;
+        }
         linkUI.selected = toggled;
+
+        return false;
     });
 }
 
 /**
  * 
- * @param {NgGraph} graph 
+ * @param {NgraphGraph.Graph} graph 
  * @param {VivaWebGLRenderer} renderer
  * @param {VivaImageNodeUI} nodeUI 
  * @param {boolean} toggled 
@@ -159,7 +160,7 @@ function selectNodeByGroup(graph, renderer, nodeUI, toggled) {
 /**
  * 
  * @param {VivaImageNodeUI} nodeUI 
- * @param {NgGraph} graph
+ * @param {NgraphGraph.Graph} graph
  * @param {VivaWebGLRenderer} renderer
  */
 function selectNode2G(nodeUI, graph, renderer) {

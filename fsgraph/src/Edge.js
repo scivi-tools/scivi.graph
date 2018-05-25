@@ -1,10 +1,14 @@
 // @ts-check
+import * as DH from './DataHelpers'
 
 export class Edge {
-    constructor(state, fromId, toId) {
+    constructor(state, fromId, toId, data) {
         this._state = state;
         this.fromId = fromId;
         this.toId = toId;
+
+        /** @type {number} */
+        this.weight = DH.getValueDef(data, 'weight', 'number', 1);
         
         this._visibleStored = true;
     }

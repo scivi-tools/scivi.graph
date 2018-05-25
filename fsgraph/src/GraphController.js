@@ -1,10 +1,11 @@
 // @ts-check
-import Viva from './viva-proxy'
-import { GraphState } from './GraphState'
-import { DummyMetrics } from './DummyMetrics'
-import { LayoutBuilder } from './LayoutBuilder'
-import $ from 'jquery'
-/// <reference path="./types/ngraph.types.js" />
+import Viva from './viva-proxy';
+import { GraphState } from './GraphState';
+import { DummyMetrics } from './DummyMetrics';
+import { LayoutBuilder } from './LayoutBuilder';
+import * as DH from './DataHelpers';
+import * as $ from 'jquery';
+/// <reference path="./@types/ngraph.d.ts" />
 
 export class GraphController {
     /**
@@ -25,7 +26,7 @@ export class GraphController {
         this._metrics = new DummyMetrics(this.monitoredValues);
         
         this.layoutBuilder = LayoutBuilder.buildLayout(layoutName, this._graph);
-        /** @type {NgGenericLayout} */
+        /** @type {NgraphGeneric.Layout} */
         this._layoutInstance = this.layoutBuilder.layout;
 
         
@@ -42,12 +43,15 @@ export class GraphController {
         }
         // ...
         state.nodes.forEach(node => {
-            cs.addNode(node.id, node.group, node.label, node.weight);
-            // TODO: count max/min weight here
+            let id = DH.getValue(node, 'id', 'number');
+            let groupId = DH.getValueDef(node, 'group', 'number', 0);
+            cs.addNode(id, groupId, node);
         });
 
         state.edges.forEach(edge => {
-            cs.addEdge(edge.source, edge.target, edge.weight);
+            let sid = DH.getValue(edge, 'source', 'number');
+            let tid = DH.getValue(edge, 'target', 'number');
+            cs.addEdge(sid, tid, edge);
         });
 
         // TODO: тут тоже геттеры нужны
@@ -57,7 +61,7 @@ export class GraphController {
     }
 
     /**
-     * @returns {NgGraph}
+     * @returns {NgraphGraph.Graph}
      */
     get graph() {
         return this._graph;
@@ -73,7 +77,7 @@ export class GraphController {
         return this._currentStateId;
     }
 
-    /** @returns {NgGenericLayout} */
+    /** @returns {NgraphGeneric.Layout} */
     get layoutInstance() {
         return this._layoutInstance;
     }
@@ -90,8 +94,10 @@ export class GraphController {
     setCurrentStateIdEx(value, renderer) {
         if (value != this._currentStateId) {
             // Сохраняем всевозможную инфу в предыдущем состоянии (те же позиции вершин)
-            if ((this._currentStateId >= 0) && (this._currentStateId < this.states.length))
+            if ((this._currentStateId >= 0) && (this._currentStateId < this.states.length)) {
                 this.states[this._currentStateId].onBeforeDisabled();
+                this.states[value].syncWithPrevious(this.states[this._currentStateId]);
+            }
 
             this._currentStateId = value;
 
@@ -109,11 +115,11 @@ export class GraphController {
     }
 
     static fromStatedJson(json, layoutName) {
-        /** @type {any[]} */
+        /** @type {Object[]} */
         let states = json["states"];
         let controller = new GraphController(states.length, layoutName);
 
-        for (let state in states) {
+        for (let state of states) {
             controller.parseJsonState(state);
         }
         controller._currentStateId = -1;

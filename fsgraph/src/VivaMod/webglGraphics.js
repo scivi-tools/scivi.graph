@@ -4,14 +4,12 @@
  * @author Andrei Kashcha (aka anvaka) / https://github.com/anvaka
  */
 // @ts-check
-/// <reference path="../types/ngraph.types.js" />
+/// <reference path="../@types/ngraph.d.ts" />
 
 import { newLinkProgram } from './newLinkProgram'
 import { newNodeProgram } from './newNodeProgram'
-//@ts-ignore
-var eventify = require('ngraph.events');
-//@ts-ignore
-var merge = require('ngraph.merge');
+import * as eventify from 'ngraph.events';
+import * as merge from 'ngraph.merge';
 
 /**
  * Performs webgl-based graph rendering. This module does not perform
@@ -66,8 +64,8 @@ export function webglGraphics(options) {
         
         nodeUIBuilder =
         /**
-         * @param {NgNode} node
-         * @returns {VivaGenericNodeUI}
+         * @param {NgraphGraph.Node} node
+         * @returns {NgraphGeneric.NodeUI}
          */
         function (node) {
             console.log("No node UI builder!");
@@ -77,8 +75,8 @@ export function webglGraphics(options) {
         
         linkUIBuilder =
         /**
-         * @param {NgLink} link
-         * @returns {VivaGenericLinkUI}
+         * @param {NgraphGraph.Link} link
+         * @returns {NgraphGeneric.LinkUI}
          */
         function (link) {
             console.log("No link UI builder!");
@@ -247,8 +245,8 @@ export function webglGraphics(options) {
          * Called by Viva.Graph.View.renderer to let concrete graphic output
          * provider prepare to render given link of the graph
          *
-         * @param {NgLink} link - model of a link
-         * @param {NgLinkPosition} boundPosition
+         * @param {NgraphGraph.Link} link - model of a link
+         * @param {NgraphGraph.Position2} boundPosition
          */
         addLink: function (link, boundPosition) {
             var uiid = linksCount++,
@@ -268,8 +266,8 @@ export function webglGraphics(options) {
          * Called by Viva.Graph.View.renderer to let concrete graphic output
          * provider prepare to render given node of the graph.
          *
-         * @param {NgNode} node
-         * @param {DummyPoint2D} boundPosition
+         * @param {NgraphGraph.Node} node
+         * @param {NgraphGraph.Position} boundPosition
          */
         addNode : function (node, boundPosition) {
             var uiid = nodesCount++,
@@ -410,7 +408,7 @@ export function webglGraphics(options) {
         * Called by Viva.Graph.View.renderer to let concrete graphic output
         * provider remove link from rendering surface.
         *
-        * @param linkUI visual representation of the link created by link() execution.
+        * @param {NgraphGraph.Link} link
         **/
         releaseLink : function (link) {
             if (linksCount > 0) { linksCount -= 1; }
@@ -435,7 +433,7 @@ export function webglGraphics(options) {
         * Called by Viva.Graph.View.renderer to let concrete graphic output
         * provider remove node from rendering surface.
         *
-        * @param nodeUI visual representation of the node created by node() execution.
+        * @param {NgraphGraph.Node} node 
         **/
         releaseNode : function (node) {
             if (nodesCount > 0) { nodesCount -= 1; }
@@ -606,6 +604,9 @@ export function webglGraphics(options) {
             return p;
         },
 
+        /**
+         * @returns {NgraphGeneric.NodeUI}
+         */
         getNodeAtClientPos: function (clientPos, preciseCheck) {
             if (typeof preciseCheck !== "function") {
                 // we don't know anything about your node structure here :(
