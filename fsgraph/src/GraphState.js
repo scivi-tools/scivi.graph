@@ -34,22 +34,22 @@ export class GraphState {
         this._visited = false;
     };
 
-    addNode(id, groupId, label, weight) {
+    addNode(id, groupId, data) {
         // ensure that group alredy exists before pushing to it
         if (!this.groups[groupId]) {
             this.groups[groupId] = []
         }
         this.groups[groupId].push(id);
 
-        const newNode = new Node(this, id, groupId, label, weight);
+        const newNode = new Node(this, id, groupId, data);
         // TODO: count some metrics here, async
         this._metrics.accumulate(newNode);
 
         this.nodes[id] = newNode;
     };
 
-    addEdge(fromId, toId, weight) {
-        const newEdge = new Edge(this, fromId, toId);
+    addEdge(fromId, toId, data) {
+        const newEdge = new Edge(this, fromId, toId, data);
         this.edges.push(newEdge);
 
         this.nodes[fromId].addEdge(newEdge);
@@ -247,7 +247,7 @@ export class GraphState {
 
     /**
      * 
-     * @param {number[][]} prevKnownValues - [groupid][0, 1]
+     * @param {number[][]} prevKnownValues Format: [groupid][0, 1]
      * @param {*} renderer
      */
     _checkBuildFilters(prevKnownValues, renderer) {
