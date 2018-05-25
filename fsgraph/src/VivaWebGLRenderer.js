@@ -45,8 +45,11 @@ export class VivaWebGLRenderer {
 
         this._renderer = null;
 
+        /** @type {NgraphGraph.Graph} */
         this._graphBackend = null;
+        /** @type {NgraphGeneric.Layout} */
         this._layoutBackend = null;
+        /** @type {GraphController} */
         this._graphController = null;
 
         this._viewRules = null;
@@ -69,7 +72,7 @@ export class VivaWebGLRenderer {
         this._updateCenterRequired = false;
         //
         this._transform = new RendererTransform();
-        /* @type {webglInputManager} */
+        /** @type {WebGLDnDManager} */
         this._inputManager = null;
         //
         this._containerDrag = null;
@@ -100,14 +103,19 @@ export class VivaWebGLRenderer {
         return this._backend.inputListner;
     }
 
+    /**
+     * @param {NgraphGraph.Graph} value
+     */
     set graphBackend(value) {
         this._graphBackend = value;
         // TODO: обработка событий и всё такое
         this._inputManager = new WebGLDnDManager(value, this._graphics);
     }
 
+    /**
+     * @param {NgraphGeneric.Layout} value
+     */
     set layoutBackend(value) {
-        /** @type {NgraphGeneric.Layout} */
         this._layoutBackend = value;
         // TODO: обработка событий и всё такое?
     }
@@ -128,6 +136,12 @@ export class VivaWebGLRenderer {
         // TODO: inverse dependency!
         this.graphicsInputListner.click((nodeUI) => {
             value.onNodeClick(nodeUI, this._graphBackend, this);
+        });
+
+        this.graphicsInputListner.dblClick((nodeUI) => {
+            if (nodeUI) {
+                this._layoutBackend.pinNode(nodeUI.node, !this._layoutBackend.isNodePinned(nodeUI.node));
+            }
         });
     }
 
@@ -174,6 +188,9 @@ export class VivaWebGLRenderer {
         return result;
     }
 
+    /**
+     * @param {number} value
+     */
     set currentStateId(value) {
         this._graphController.setCurrentStateIdEx(value, this);
         this.buildNodeListInfo();
@@ -311,6 +328,7 @@ export class VivaWebGLRenderer {
     }
 
     _processNodeChange(change) {
+        /** @type {NgraphGraph.Node} */
         let node = change.node;
 
         if (change.changeType === 'add') {
@@ -375,9 +393,15 @@ export class VivaWebGLRenderer {
     _initDom() {
         this._backend.postInit(this._container);
 
-        this._graphBackend.forEachNode((node) => this._createNodeUi(node));
+        this._graphBackend.forEachNode((node) => {
+            this._createNodeUi(node);
+            return false;
+        });
 
-        this._graphBackend.forEachLink((link) => this._createLinkUi(link));
+        this._graphBackend.forEachLink((link) => {
+            this._createLinkUi(link);
+            return false;
+        });
 
         // listen to events
         window.addEventListener('resize', () => this.onContainerResize());
@@ -393,29 +417,54 @@ export class VivaWebGLRenderer {
             this._scale(scaleOffset < 0, scrollPoint);
         });
     
-        this._graphBackend.forEachNode((node) => this._listenNodeEvents(node));
+        this._graphBackend.forEachNode((node) => {
+            this._listenNodeEvents(node);
+            return false;
+        });
     
         this._graphBackend.on('changed', (changes) => this._onGraphChanged(changes));
     }
 
+    /**
+     * 
+     * @param {NgraphGraph.Node} node 
+     */
     _createNodeUi(node) {
         var nodePosition = this._layoutBackend.getNodePosition(node.id);
         this._graphics.addNode(node, nodePosition);
     }
 
+    /**
+     * 
+     * @param {NgraphGraph.Node} node 
+     */
     _removeNodeUi(node) {
         this._graphics.releaseNode(node);
     }
     
+    /**
+     * 
+     * @param {NgraphGraph.Link} link 
+     */
     _createLinkUi(link) {
         let linkPosition = this._layoutBackend.getLinkPosition(link.id);
         this._graphics.addLink(link, linkPosition);
     }
     
+    /**
+     * 
+     * @param {NgraphGraph.Link} link 
+     */
     _removeLinkUi(link) {
         this._graphics.releaseLink(link);
     }
 
+    /**
+     * 
+     * @param {boolean} out 
+     * @param {NgraphGraph.Position} scrollPoint 
+     * @returns {number}
+     */
     _scale(out, scrollPoint) {
         if (!scrollPoint) {
             const containerSize = Viva.Graph.Utils.getDimension(this._container);
