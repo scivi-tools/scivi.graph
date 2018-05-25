@@ -44,7 +44,9 @@ export class NodeUIBuilder {
         this._fontSize = value;
         let fontString = this.fontSizeString;
         for (let label of this._labels) {
-            label.style.fontSize = fontString;
+            if (label) {
+                label.style.fontSize = fontString;
+            }
         }
     }
 
