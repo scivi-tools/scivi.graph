@@ -30,6 +30,8 @@ export class GraphState {
         /** @type {HTMLElement} */
         this._filtersContainer = null;
         this.prevKnownValues = null;
+
+        this._visited = false;
     };
 
     addNode(id, groupId, label, weight) {
@@ -171,6 +173,8 @@ export class GraphState {
             this.restoreEdge(e);
         }
         // graph.endUpdate();
+
+        this._visited = true;
     }
 
     pseudoActualize() {
@@ -204,6 +208,8 @@ export class GraphState {
         this._controller.graph.clear();
 
         // TODO: возвращаем знаения фильтров!
+
+        $('#scivi_fsgraph_control')[0].removeChild(this._filtersContainer);
     }
 
     /**
@@ -216,6 +222,27 @@ export class GraphState {
                 nodeCallback(n);
             }
         }
+    }
+
+    /**
+     * 
+     * @param {GraphState} prev 
+     */
+    syncWithPrevious(prev) {
+        // TODO: почти очвевидно. чт синхронизация позиций работает неверно:
+        // если у нас вершина с ид Х есть в состоянии 0 и 2, но не в 1, то
+        // у неё будут разные координаты в 0 и 2
+        if ((!this._visited) && (prev._visited)) {
+            let node = null;
+            this.forEachNode((n) => {
+                node = prev.nodes[n.id];
+                if (node) {
+                    n.position = node.position;
+                }
+            });
+        }
+
+        // TODO: sync filters!
     }
 
     /**

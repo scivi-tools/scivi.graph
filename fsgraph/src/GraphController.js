@@ -90,8 +90,10 @@ export class GraphController {
     setCurrentStateIdEx(value, renderer) {
         if (value != this._currentStateId) {
             // Сохраняем всевозможную инфу в предыдущем состоянии (те же позиции вершин)
-            if ((this._currentStateId >= 0) && (this._currentStateId < this.states.length))
+            if ((this._currentStateId >= 0) && (this._currentStateId < this.states.length)) {
                 this.states[this._currentStateId].onBeforeDisabled();
+                this.states[value].syncWithPrevious(this.states[this._currentStateId]);
+            }
 
             this._currentStateId = value;
 
