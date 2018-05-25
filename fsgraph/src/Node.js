@@ -62,7 +62,7 @@ export class Node {
 
     /**
      * 
-     * @param {NgGenericLayout} layout 
+     * @param {NgraphGeneric.Layout} layout 
      */
     onBeforeHide(layout) {
         let layoutedPos = layout.getNodePosition(this.id);

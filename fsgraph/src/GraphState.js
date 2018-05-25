@@ -98,7 +98,7 @@ export class GraphState {
      * Добавляем/удаляем узел в зависимости от фильтра
      * Последним параметром можно игнорировать изменение связей
      * @param {NgraphGraph.Graph} graph
-     * @param {NgGenericLayout} layout
+     * @param {NgraphGeneric.Layout} layout
      * @param {Node} node 
      * @param {function(Node):boolean} filterFunc
      * @param {boolean} softMode 
@@ -132,7 +132,7 @@ export class GraphState {
     /**
      * 
      * @param {NgraphGraph.Graph} graph 
-     * @param {NgGenericLayout} layout 
+     * @param {NgraphGeneric.Layout} layout 
      * @param {Node} node 
      */
     hideNode(graph, layout, node) {

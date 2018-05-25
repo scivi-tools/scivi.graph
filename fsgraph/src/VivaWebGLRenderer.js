@@ -107,7 +107,7 @@ export class VivaWebGLRenderer {
     }
 
     set layoutBackend(value) {
-        /** @type {NgGenericLayout} */
+        /** @type {NgraphGeneric.Layout} */
         this._layoutBackend = value;
         // TODO: обработка событий и всё такое?
     }

@@ -5,6 +5,7 @@ import { DummyMetrics } from './DummyMetrics';
 import { LayoutBuilder } from './LayoutBuilder';
 import * as DH from './DataHelpers';
 import * as $ from 'jquery';
+/// <reference path="./@types/ngraph.d.ts" />
 
 export class GraphController {
     /**
@@ -25,7 +26,7 @@ export class GraphController {
         this._metrics = new DummyMetrics(this.monitoredValues);
         
         this.layoutBuilder = LayoutBuilder.buildLayout(layoutName, this._graph);
-        /** @type {NgGenericLayout} */
+        /** @type {NgraphGeneric.Layout} */
         this._layoutInstance = this.layoutBuilder.layout;
 
         
@@ -76,7 +77,7 @@ export class GraphController {
         return this._currentStateId;
     }
 
-    /** @returns {NgGenericLayout} */
+    /** @returns {NgraphGeneric.Layout} */
     get layoutInstance() {
         return this._layoutInstance;
     }

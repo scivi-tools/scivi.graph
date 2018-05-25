@@ -73,7 +73,12 @@ export class LayoutBuilder {
         baseContainer.append(c);
     }
 
-    static buildLayout(/** @type {string} */name, graph) {
+    /**
+     * 
+     * @param {string} name 
+     * @param {NgraphGraph.Graph} graph 
+     */
+    static buildLayout(name, graph) {
         /** @type {function(any, Object.<string, any>)} */
         let result = Viva.Graph.Layout[name];
         if (typeof result !== "function") {
