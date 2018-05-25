@@ -53,11 +53,10 @@ export function webglInputEvents(webglGraphics) {
   }
 
   function dblClick(callback) {
-    throw new Error('Not implemented for now!');
-    // if (typeof callback === 'function') {
-    //   dblClickCallback.push(callback);
-    // }
-    // return api;
+    if (typeof callback === 'function') {
+      dblClickCallback.push(callback);
+    }
+    return api;
   }
 
   function click(callback) {
@@ -272,5 +271,19 @@ export function webglInputEvents(webglGraphics) {
         invoke(clickCallback, args);
       });
 
+    root.addEventListener('dblclick',
+      function(e) {
+        var clickTime = +new Date(),
+          args;
+        if (clickTime - lastDownTime > 200) {
+          return;
+        }
+        updateBoundRect();
+        pos.x = e.clientX - boundRect.left;
+        pos.y = e.clientY - boundRect.top;
+
+        args = [getNodeAtClientPos(pos), e];
+        invoke(dblClickCallback, args);
+      });
   }
 }
