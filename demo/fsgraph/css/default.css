@@ -1,3 +1,8 @@
+.gutter
+{
+    z-index: 2;
+}
+
 .scivi_fsgraph_node_label 
 {
     position: absolute;
@@ -23,13 +28,15 @@
 {
     display: flex;
     flex-flow: column;
-    z-index: 5;
+    z-index: 1;
 }
 
 #scivi_fsgraph_rotate_bar_container
 {
     padding: 10px;
-    flex: 0 1 40px;
+    flex: 0 1 20px;
+    z-index: 2;
+    background-color: white;
 }
 
 
@@ -37,4 +44,5 @@
 {
     flex: 0 1 40px;
     padding: 20px;
+    z-index: 2;
 }
