@@ -164,9 +164,9 @@ export class GraphState {
 
         // восстанавливаем узлы и связи, не забыв про их позиции и видимость
         // graph.beginUpdate();
-        for (let n of this.nodes) {
+        this.forEachNode((n) => {
             this.toggleNodeExt(n, (n) => this._applyFilter(n), true);
-        }
+        });
         for (let e of this.edges) {
             this.restoreEdge(e);
         }
@@ -175,18 +175,18 @@ export class GraphState {
 
     pseudoActualize() {
         // TODO: get rid of duplicated code
-        for (let n of this.nodes) {
+        this.forEachNode((n) => {
             this.toggleNodeExt(n, (n) => this._applyFilter(n));
-        }
+        });
         for (let e of this.edges) {
             this.restoreEdge(e);
         }
     }
 
     pseudoDisable() {
-        for (let n of this.nodes) {
+        this.forEachNode((n) => {
             this.toggleNodeExt(n, (n) => false);
-        }
+        });
     }
 
     /**
@@ -204,6 +204,18 @@ export class GraphState {
         this._controller.graph.clear();
 
         // TODO: возвращаем знаения фильтров!
+    }
+
+    /**
+     * 
+     * @param {function(Node):void} nodeCallback 
+     */
+    forEachNode(nodeCallback) {
+        for (let n of this.nodes) {
+            if (n) {
+                nodeCallback(n);
+            }
+        }
     }
 
     /**
@@ -266,9 +278,9 @@ export class GraphState {
 
     _applyFilterRange(value = 'weight') {
         this._controller.graph.beginUpdate();
-        for (let n of this.nodes) {
+        this.forEachNode((n) => {
             this.toggleNodeExt(n, (n) => this._applyFilter(n, value), false);
-        }
+        });
         this._controller.graph.endUpdate();
     }
 }

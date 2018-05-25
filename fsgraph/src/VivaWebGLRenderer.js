@@ -564,9 +564,9 @@ export class VivaWebGLRenderer {
         };
         this._listContainer.appendChild(hideAllButton);
 
-        for (let node of cs.nodes) {
+        cs.forEachNode((node) => {
             this._listContainer.appendChild(node.postListItem(this));
-        }
+        });
     }
 
     /**
