@@ -12,16 +12,20 @@ import * as eventify from 'ngraph.events';
 import * as merge from 'ngraph.merge';
 
 /**
+ * @typedef {{enableBlending?:boolean, preserveDrawingBuffer?:boolean, clearColor?:boolean, clearColorValue?:{r,g,b,a}}} webglopts
+ */
+
+/**
  * Performs webgl-based graph rendering. This module does not perform
  * layout, but only visualizes nodes and edges of the graph.
  *
- * @param options - to customize graphics  behavior. Currently supported parameter
+ * @param {webglopts} options - to customize graphics  behavior. Currently supported parameter
  *  enableBlending - true by default, allows to use transparency in node/links colors.
  *  preserveDrawingBuffer - false by default, tells webgl to preserve drawing buffer.
  *                    See https://www.khronos.org/registry/webgl/specs/1.0/#5.2
  */
 export function webglGraphics(options) {
-    options = merge(options, {
+    options = /** @type {webglopts} */ (merge(options, {
         enableBlending : true,
         preserveDrawingBuffer : false,
         clearColor: false,
@@ -31,12 +35,15 @@ export function webglGraphics(options) {
             b : 1,
             a : 1
         }
-    });
+    }));
 
-    var container,
-        graphicsRoot,
-        gl,
-        width,
+    /** @type {HTMLElement} */
+    var container;
+    /** @type {HTMLCanvasElement} */
+    var graphicsRoot;
+    /** @type {WebGLRenderingContext} */
+    var gl;
+    var width,
         height,
         nodesCount = 0,
         linksCount = 0,
@@ -318,9 +325,6 @@ export function webglGraphics(options) {
 
             if (gl) {
                 updateSize();
-                // TODO: what is this?
-                // gl.useProgram(linksProgram);
-                // gl.uniform2f(linksProgram.screenSize, width, height);
                 updateTransformUniform();
             }
             return this;
@@ -350,7 +354,7 @@ export function webglGraphics(options) {
             container.appendChild(graphicsRoot);
 
 
-            gl = graphicsRoot.getContext("experimental-webgl", contextParameters);
+            gl = /** @type {WebGLRenderingContext} */ (graphicsRoot.getContext('experimental-webgl', contextParameters));
             if (!gl) {
                 var msg = "Could not initialize WebGL. Seems like the browser doesn't support it.";
                 window.alert(msg);
@@ -550,7 +554,7 @@ export function webglGraphics(options) {
          * are DOM coordinates relative to the rendering container. Layout
          * coordinates are those assigned by by layout algorithm to each node.
          *
-         * @param {Object} p - a point object with `x` and `y` attributes.
+         * @param {NgraphGraph.Position} p - a point object with `x` and `y` attributes.
          * This method mutates p.
          */
         transformClientToGraphCoordinates: function (p) {
@@ -578,7 +582,7 @@ export function webglGraphics(options) {
          * Transforms WebGL coordinates into client coordinates. Reverse of 
          * `transformClientToGraphCoordinates()`
          *
-         * @param {Object} p - a point object with `x` and `y` attributes, which
+         * @param {NgraphGraph.Position} p - a point object with `x` and `y` attributes, which
          * represents a layout coordinate. This method mutates p.
          */
         transformGraphToClientCoordinates: function (p) {
@@ -605,6 +609,8 @@ export function webglGraphics(options) {
         },
 
         /**
+         * @param {NgraphGraph.Position} clientPos
+         * @param {function(any,any,any):boolean} preciseCheck
          * @returns {NgraphGeneric.NodeUI}
          */
         getNodeAtClientPos: function (clientPos, preciseCheck) {
@@ -629,6 +635,9 @@ export function webglGraphics(options) {
             return null;
         },
 
+        /**
+         * @param {number} angle
+         */
         rotate : function(angle) {
             var cx = Math.cos(angle);
             var sx = Math.sin(angle);

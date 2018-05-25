@@ -3,7 +3,7 @@
  * This form allows to change color of links.
  **/
 // @ts-check
-import Viva from '../viva-proxy';
+import * as WGLU from './WebGLUtils';
 
 /**
  * Defines UI for links in webgl renderer.
@@ -38,7 +38,6 @@ export function newLinkProgram() {
         program,
         gl,
         buffer,
-        utils,
         locations,
         linksCount = 0,
         frontLinkId, // used to track z-index of links.
@@ -69,11 +68,10 @@ export function newLinkProgram() {
     return {
         load : function (glContext) {
             gl = glContext;
-            utils = Viva.Graph.webgl(glContext);
 
-            program = utils.createProgram(linksVS, linksFS);
+            program = WGLU.CreateProgram(gl, linksVS, linksFS);
             gl.useProgram(program);
-            locations = utils.getLocations(program, ['a_vertexPos', 'a_color', 'u_screenSize', 'u_transform']);
+            locations = WGLU.GetLocations(gl, program, ['a_vertexPos', 'a_color', 'u_screenSize', 'u_transform']);
 
             gl.enableVertexAttribArray(locations.vertexPos);
             gl.enableVertexAttribArray(locations.color);
@@ -105,7 +103,7 @@ export function newLinkProgram() {
             // swap removed link with the last link. This will give us O(1) performance for links removal:
             if (ui.id < linksCount && linksCount > 0) {
                 // using colors as a view to array buffer is okay here.
-                utils.copyArrayPart(colors, ui.id * ATTRIBUTES_PER_PRIMITIVE, linksCount * ATTRIBUTES_PER_PRIMITIVE, ATTRIBUTES_PER_PRIMITIVE);
+                WGLU.CopyArrayPart(colors, ui.id * ATTRIBUTES_PER_PRIMITIVE, linksCount * ATTRIBUTES_PER_PRIMITIVE, ATTRIBUTES_PER_PRIMITIVE);
             }
         },
 
@@ -141,7 +139,7 @@ export function newLinkProgram() {
 
         bringToFront : function (link) {
             if (frontLinkId > link.id) {
-                utils.swapArrayPart(positions, link.id * ATTRIBUTES_PER_PRIMITIVE, frontLinkId * ATTRIBUTES_PER_PRIMITIVE, ATTRIBUTES_PER_PRIMITIVE);
+                WGLU.SwapArrayPart(positions, link.id * ATTRIBUTES_PER_PRIMITIVE, frontLinkId * ATTRIBUTES_PER_PRIMITIVE, ATTRIBUTES_PER_PRIMITIVE);
             }
             if (frontLinkId > 0) {
                 frontLinkId -= 1;
