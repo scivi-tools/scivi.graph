@@ -27,7 +27,7 @@ export class VivaImageNodeUI extends VivaBaseUI {
         // this._invalidateLabel();
 
         // TODO: соптимизировать получение корневого элемента где-то ещё
-        this.detailedInfoHTML = $('#info')[0];
+        this.detailedInfoHTML = $('#scivi_fsgraph_info')[0];
     };
 
     /**

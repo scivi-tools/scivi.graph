@@ -9,6 +9,8 @@ import 'jquery-ui/ui/widget';
 import 'jquery-ui/ui/keycode';
 import 'jquery-ui/ui/widgets/selectable';
 import 'jquery-ui/ui/widgets/button';
+import 'jquery-ui/ui/widgets/tabs';
+import Split from 'split.js';
 import { Point2D } from './Point2D';
 import { NodeUIBuilder } from './NodeUIBuilder';
 
@@ -27,8 +29,13 @@ class RendererTransform {
  */
 export class VivaWebGLRenderer {
 
-    constructor(container, backend = null) {
-        this._container = container;
+    /**
+     * 
+     * @param {HTMLElement} baseContainer 
+     * @param {*} backend 
+     */
+    constructor(baseContainer, backend = null) {
+        this._container = this._buildUi(baseContainer);
 
         if (backend == null) {
             this._backend = new VivaWebGLSimpleBackend(new NodeUIBuilder(this));
@@ -365,8 +372,6 @@ export class VivaWebGLRenderer {
     }
 
     _initDom() {
-        this._buildUi();
-
         this._backend.postInit(this._container);
 
         this._graphBackend.forEachNode((node) => this._createNodeUi(node));
@@ -455,11 +460,56 @@ export class VivaWebGLRenderer {
             });
     }
 
-    _buildUi() {
-        // TODO: добавляем кнопку старт/стоп и вращение здесь!
-        const controlElement = $('#control')[0];
-        let startStopButton = document.createElement('button');
+    _buildUi(/** @type {HTMLElement} */baseContainer) {
         const that = this;
+        baseContainer.innerHTML = `
+        <div id="scivi_fsgraph_a" class="split split-horizontal">
+            <div id="scivi_fsgraph_rotate_bar_cotainer">
+                <div id="scivi_fsgraph_rotate_bar"></div>
+            </div>
+            <div id="scivi_fsgraph_view"></div>
+        </div>
+        <div id="scivi_fsgraph_b" class="split split-horizontal">
+            <div id="scivi_fsgraph_tabs">
+                <ul>
+                    <li><a id="scivi_fsgraph_lnk_control" href="#scivi_fsgraph_control">Управление</a></li>
+                    <li><a id="scivi_fsgraph_lnk_info" href="#scivi_fsgraph_info">Информация</a></li>
+                    <li><a id="scivi_fsgraph_lnk_list" href="#scivi_fsgraph_list">Вершины</a></li>
+                    <li><a id="scivi_fsgraph_lnk_settings" href="#scivi_fsgraph_settings">Настройки</a></li>
+                    <li><a id="scivi_fsgraph_lnk_stats" href="#scivi_fsgraph_stats">Статистика</a></li>
+                </ul>
+                <div id="scivi_fsgraph_control"></div>
+                <div id="scivi_fsgraph_info"></div>
+                <div id="scivi_fsgraph_list"></div>
+                <div id="scivi_fsgraph_settings"></div>
+                <div id="scivi_fsgraph_stats"></div>
+            </div>
+        </div>`;
+
+        Split(['#scivi_fsgraph_a', '#scivi_fsgraph_b'], {
+            gutterSize: 8,
+            cursor: 'col-resize',
+            sizes: [75, 25],
+            onDrag: () => that.onContainerResize()
+        });
+
+       $("#scivi_fsgraph_tabs").tabs({
+            heightStyle: "fill"
+        });
+    
+        $("#scivi_fsgraph_rotate_bar").slider({
+            min: -179,
+            max: 179,
+            value: 0,
+            step: 1,
+            slide: (event, ui) => {
+                that.angleDegrees = ui.value;
+            }
+        });
+
+        // TODO: добавляем кнопку старт/стоп и вращение здесь!
+        const controlElement = $('#scivi_fsgraph_control')[0];
+        let startStopButton = document.createElement('button');
 
         const changeIcon = (name) => {
             $(startStopButton).button('option', 'icon', name);
@@ -484,12 +534,14 @@ export class VivaWebGLRenderer {
         changeIcon('ui-icon-pause');
 
         controlElement.appendChild(startStopButton);
+
+        return $('#scivi_fsgraph_view')[0];
     }
 
     buildNodeListInfo() {
         if (!this._listContainer) {
             this._listContainer = document.createElement('div');
-            $('#list')[0].appendChild(this._listContainer);
+            $('#scivi_fsgraph_list')[0].appendChild(this._listContainer);
         }
 
         this._listContainer.innerHTML = '';

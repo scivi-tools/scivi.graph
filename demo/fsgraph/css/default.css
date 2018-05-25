@@ -1,0 +1,30 @@
+.scivi_fsgraph_node_label 
+{
+    position: absolute;
+    pointer-events: none;
+    color: black;
+    z-index: 0;
+    font-size: 16px;
+}
+
+#scivi_fsgraph_b
+{
+    z-index: 10;
+}
+
+#scivi_fsgraph_view
+{
+    flex: 1 1 auto;
+}
+
+#scivi_fsgraph_a
+{
+    display: flex;
+    flex-flow: column;
+    z-index: 5;
+}
+
+#scivi_fsgraph_rotate_bar_cotainer
+{
+    padding: 10px;
+}

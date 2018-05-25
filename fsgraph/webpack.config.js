@@ -6,7 +6,7 @@ module.exports = (env, args) => {
     return {
         context: __dirname,
         devtool: is_rel_env ? "source-map" : "inline-source-map",
-        entry: "./tmp/main.js",
+        entry: "./tmp/index.js",
         optimization: {
             splitChunks: {
                 cacheGroups: {

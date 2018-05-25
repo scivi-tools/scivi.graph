@@ -242,7 +242,7 @@ export class GraphState {
                 this._filtersContainer.appendChild(filterSlider);
             }
         }
-        let parent = $('#control')[0];
+        let parent = $('#scivi_fsgraph_control')[0];
 
         if (prevKnownValues) {
             // TODO: ....

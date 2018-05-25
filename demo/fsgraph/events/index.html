@@ -1,63 +1,18 @@
 <!DOCTYPE HTML>
 <html>
-<head>
-    <title>SciVi Graph Renderer based on VivaGraph library</title>
-    <meta charset="utf-8"/>
+    <head>
+        <title>SciVi Graph Renderer based on VivaGraph library</title>
+        <meta charset="utf-8"/>
 
-    <link rel="stylesheet" href="../../cgraph/css/jquery-ui.css"/>
-    <link rel="stylesheet" href="../../cgraph/css/default.css"/>
+        <link rel="stylesheet" href="../../cgraph/css/jquery-ui.css"/>
+        <link rel="stylesheet" href="../../cgraph/css/default.css"/>
+        <link rel="stylesheet" href="../css/default.css"/>
 
-    <script src="data.js"></script>
-    <script src="../css/colors.js"></script>
-    <script src="../lib/SciViFSGraph.vendor.js"></script>
-    <script src="../lib/SciViFSGraph.main.js"></script>
-    <script src="main.js"></script>
-
-    <style>
-        .node-label 
-        {
-            position: absolute;
-            pointer-events: none;
-            color: black;
-            z-index: 1;
-            font-size: 16px;
-        }
-        #tabs
-        {
-            z-index: 10;
-        }
-        #a
-        {
-            display: flex;
-            flex-flow: column;
-            z-index: 5;
-        }
-        #view
-        {
-            flex: 1 1 auto;
-        }
-    </style>
-</head>
-<body onload="main();">
-        <div id="a" class="split split-horizontal">
-            <div id="rotateBar"></div>
-            <div id="view"></div>
-        </div>
-        <div id="b" class="split split-horizontal">
-            <div id="tabs">
-                <ul>
-                    <li><a id="lnk_control" href="#control">Управление</a></li>
-                    <li><a id="lnk_info" href="#info">Информация</a></li>
-                    <li><a id="lnk_list" href="#list">Вершины</a></li>
-                    <li><a id="lnk_settings" href="#settings">Настройки</a></li>
-                    <li><a id="lnk_stats" href="#stats">Статистика</a></li>
-                </ul>
-                <div id="control"></div>
-                <div id="info"></div>
-                <div id="list"></div>
-                <div id="settings"></div>
-                <div id="stats"></div>
-            </div>
-        </div>
-</body>
+        <script src="data.js"></script>
+        <script src="../css/colors.js"></script>
+        <script src="../lib/SciViFSGraph.vendor.js"></script>
+        <script src="../lib/SciViFSGraph.main.js"></script>
+        <script src="main.js"></script>
+    </head>
+    <body onload="main();"></body>
 </html>

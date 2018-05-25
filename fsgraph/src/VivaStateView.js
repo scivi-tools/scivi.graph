@@ -75,7 +75,7 @@ export class VivaStateView {
     }
 
     buildUI() {
-        let baseContainer = $('#settings')[0];
+        let baseContainer = $('#scivi_fsgraph_settings')[0];
         let innerContainer = document.createElement('div');
 
         let nameSpan = document.createElement('span');
@@ -104,10 +104,7 @@ export class VivaStateView {
 
         // TODO: colors & rest...
 
-        // Filters
         baseContainer.appendChild(innerContainer);
-
-        baseContainer = $('#control')[0];
     }
 }
 

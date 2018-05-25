@@ -58,7 +58,7 @@ export class NodeUIBuilder {
     _ensureLabelExists(id) {
         if (!this._labels[id]) {
             let label = document.createElement('span');
-            label.classList.add('node-label');
+            label.classList.add('scivi_fsgraph_node_label');
             label.innerText = '--insert-text-here--';
             label.hidden = true;
             label.style.opacity = '0.85';
@@ -71,7 +71,7 @@ export class NodeUIBuilder {
     }
 
     _buildUi() {
-        let baseContainer = $('#settings')[0];
+        let baseContainer = $('#scivi_fsgraph_settings')[0];
 
         let nameSpan = document.createElement('span');
         nameSpan.textContent = 'Font size: ';
