@@ -464,7 +464,7 @@ export class VivaWebGLRenderer {
         const that = this;
         baseContainer.innerHTML = `
         <div id="scivi_fsgraph_a" class="split split-horizontal">
-            <div id="scivi_fsgraph_rotate_bar_cotainer">
+            <div id="scivi_fsgraph_rotate_bar_container">
                 <div id="scivi_fsgraph_rotate_bar"></div>
             </div>
             <div id="scivi_fsgraph_view"></div>
