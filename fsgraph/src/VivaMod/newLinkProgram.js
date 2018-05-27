@@ -3,11 +3,12 @@
  * This form allows to change color of links.
  **/
 // @ts-check
-import glUtils from 'vivagraphjs/src/WebGL/webgl';
+import Viva from '../viva-proxy';
+
 /**
  * Defines UI for links in webgl renderer.
  */
-export default function newLinkProgram() {
+export function newLinkProgram() {
     var ATTRIBUTES_PER_PRIMITIVE = 6, // primitive is Line with two points. Each has x,y and color = 3 * 2 attributes.
         BYTES_PER_LINK = 2 * (2 * Float32Array.BYTES_PER_ELEMENT + Uint32Array.BYTES_PER_ELEMENT), // two nodes * (x, y + color)
         linksFS = [
@@ -28,7 +29,8 @@ export default function newLinkProgram() {
             'varying vec4 color;',
 
             'void main(void) {',
-            '   gl_Position = u_transform * vec4(a_vertexPos/u_screenSize, 0.0, 1.0);',
+            '   gl_Position = u_transform * vec4(a_vertexPos, 0.0, 1.0);',
+            '   gl_Position.xy /=  u_screenSize;',
             '   color = a_color.abgr;',
             '}'
         ].join('\n'),
@@ -67,7 +69,7 @@ export default function newLinkProgram() {
     return {
         load : function (glContext) {
             gl = glContext;
-            utils = glUtils(glContext);
+            utils = Viva.Graph.webgl(glContext);
 
             program = utils.createProgram(linksVS, linksFS);
             gl.useProgram(program);
@@ -113,8 +115,8 @@ export default function newLinkProgram() {
         },
 
         updateSize : function (w, h) {
-            width = w;
-            height = h;
+            width = w * 2;
+            height = h * 2;
             sizeDirty = true;
         },
 

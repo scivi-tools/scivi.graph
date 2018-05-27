@@ -5,11 +5,12 @@
  * @author Andrei Kashcha (aka anvaka) / https://github.com/anvaka
  */
 // @ts-check
-import glUtils from 'vivagraphjs/src/WebGL/webgl';
+import glUtils from 'vivagraphjs/src/WebGL/webgl'
+
 /**
  * Defines simple UI for nodes in webgl renderer. Each node is rendered as square. Color and size can be changed.
  */
-export default function newNodeProgram() {
+export function newNodeProgram() {
   var ATTRIBUTES_PER_PRIMITIVE = 4; // Primitive is point, x, y, size, color
   // x, y, z - floats, color = uint.
   var BYTES_PER_NODE = 3 * Float32Array.BYTES_PER_ELEMENT + Uint32Array.BYTES_PER_ELEMENT;
@@ -29,8 +30,9 @@ export default function newNodeProgram() {
     'varying vec4 color;',
 
     'void main(void) {',
-    '   gl_Position = u_transform * vec4(a_vertexPos.xy/u_screenSize, 0, 1);',
-    '   gl_PointSize = a_vertexPos.z * u_transform[0][0];',
+    '   gl_Position = u_transform * vec4(a_vertexPos.xy, 0, 1);',
+    '   gl_Position.xy /=  u_screenSize;',
+    '   gl_PointSize = a_vertexPos.z * u_transform[2][2];',
     '   color = a_color.abgr;',
     '}'
   ].join('\n');
@@ -118,8 +120,8 @@ export default function newNodeProgram() {
   }
 
   function updateSize(w, h) {
-    width = w;
-    height = h;
+    width = w * 2;
+    height = h * 2;
     sizeDirty = true;
   }
 
@@ -134,12 +136,13 @@ export default function newNodeProgram() {
       }
     }
 
-  function createNode() {
+  // HACK: ну что за хрень-то, почему здесь нарушается объявленный API?
+  function createNode(ui) {
     ensureEnoughStorage();
     nodesCount += 1;
   }
 
-  function replaceProperties(/* replacedNode, newNode */) {}
+  function replaceProperties(replacedNode, newNode) {}
 
   function render() {
     gl.useProgram(program);
