@@ -35,7 +35,7 @@ CGraph.prototype.createScale = function (steps, colors, textColors, names, getVa
     return new SciViCGraph.Scale(steps, colors, textColors, names, getValue);
 }
 
-CGraph.prototype.run = function (loc, data, scales)
+CGraph.prototype.run = function (loc, data, scales, colors)
 {
     var split1 = $("<div>");
     if (data.length > 1)
@@ -79,13 +79,13 @@ CGraph.prototype.run = function (loc, data, scales)
 
     $("#scivi_cgraph_tabs").tabs({heightStyle: "fill"});
 
-    var colors = [0x00aa00, 0x0000aa, 0x00aaaa, 0xe6194b,
-                  0x3cb44b, 0x0082c8, 0x911eb4, 0x46f0f0,
-                  0xf032e6, 0xd2f53c, 0xfabebe, 0x008080,
-                  0xe6beff, 0xaa6e28, 0xfffac8, 0x800000,
-                  0xaaffc3, 0x808000, 0xffd8b1, 0x000080,
-                  0x808080, 0xff0000, 0x00ff00, 0x0000ff,
-                  0xff00ff, 0xffff00, 0x00ffff];
+    colors = colors || [0x00aa00, 0x0000aa, 0x00aaaa, 0xe6194b,
+                        0x3cb44b, 0x0082c8, 0x911eb4, 0x46f0f0,
+                        0xf032e6, 0xd2f53c, 0xfabebe, 0x008080,
+                        0xe6beff, 0xaa6e28, 0xfffac8, 0x800000,
+                        0xaaffc3, 0x808000, 0xffd8b1, 0x000080,
+                        0x808080, 0xff0000, 0x00ff00, 0x0000ff,
+                        0xff00ff, 0xffff00, 0x00ffff];
 
     renderer.setInput(data, colors);
     renderer.scaleLevels = scales;
