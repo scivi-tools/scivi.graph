@@ -106,7 +106,8 @@ ul
     padding: 3px;
 }
 
-.scivi_stateline label {
+.scivi_stateline label 
+{
     position: absolute;
     width: 30px;
     margin-left: -15px;
