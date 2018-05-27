@@ -2,7 +2,7 @@ var g_data =
 {
   states: [
     {
-      label: "male",
+      label: "мужчины",
       nodes: [
           {
               "id": 1,
@@ -3327,7 +3327,7 @@ var g_data =
       ]
     },
     {
-      label: "female",
+      label: "женщины",
       nodes: [
           {
               "id": 1,
@@ -7384,7 +7384,7 @@ var g_data =
       ]
     },
     {
-      label: "common",
+      label: "все информанты",
       nodes: [
           {
               "id": 1,
