@@ -8,15 +8,15 @@ declare namespace NgraphEvents {
          */
         (this : any, ...args : any[]) => void;
 
-    export interface EventifiedObject {
-        on(eventName: string, callback: EventCallback, context?: any),
-        off(eventName: string | undefined, callback?: EventCallback),
-        fire(eventName: string, ...args : any[])
+    export interface EventifiedObject<T> extends T {
+        on(eventName: string, callback: EventCallback, context?: any): EventifiedObject<T>,
+        off(eventName: string | undefined, callback?: EventCallback): EventifiedObject<T>,
+        fire(eventName: string, ...args : any[]): EventifiedObjectt<T>
     }
 
 }
 
-declare function NgraphEvents(params : Object) : NgraphEvents.EventifiedObject;
+declare function NgraphEvents<T>(params: T): NgraphEvents.EventifiedObject<T>;
 
 declare module 'ngraph.events' {
     export = NgraphEvents;
