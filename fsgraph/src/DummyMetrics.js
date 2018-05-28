@@ -19,12 +19,14 @@ export class DummyMetrics {
 
         this.monitoredValues = monitoredValues;
 
+        /** @type {number} */
         this.maxWeight = -Infinity;
+        /** @type {number} */
         this.maxGroupId = -1;
     }
 
     /**
-     * 
+     * @param {any} container 
      * @param {MetricsContainer} container2 
      */
     _mergeMaxs(container, container2) {

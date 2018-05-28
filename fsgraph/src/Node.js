@@ -33,6 +33,7 @@ export class Node {
 
         this.visible = true;
 
+        /** @type {(function():void)?} */
         this.onBeforeHideCallback = null;
     };
 
@@ -41,9 +42,10 @@ export class Node {
     }
 
     set visible(value) {
+        /** @type {boolean} */
         this._visible = value;
         if (this._visibleChekbox.checked !== value) {
-            this._visibleChekbox.checked = value;
+            this._visibleChekbox.checked = value || false;
         }
     }
 
@@ -52,10 +54,15 @@ export class Node {
     }
 
     set label(value) {
+        /** @type {any} */
         this._label = value;
         this._labelSpan.innerText = value;
     }
 
+    /**
+     * 
+     * @param {Edge} edge 
+     */
     addEdge(edge) {
        this.edges.push(edge);
     };

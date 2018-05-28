@@ -81,6 +81,12 @@ export function GetLocations(gl, program, uniformOrAttributeNames) {
     return foundLocations;
 }
 
+/**
+ * 
+ * @param {any[]} buffer 
+ * @param {number} itemsInBuffer 
+ * @param {number} elementsPerItem 
+ */
 export function ExtendArray(buffer, itemsInBuffer, elementsPerItem) {
     if ((itemsInBuffer + 1) * elementsPerItem > buffer.length) {
         // Every time we run out of space create new array twice bigger.
@@ -94,12 +100,26 @@ export function ExtendArray(buffer, itemsInBuffer, elementsPerItem) {
     return buffer;
 }
 
+/**
+ * 
+ * @param {any[] | Float32Array | Uint32Array} array 
+ * @param {number} to 
+ * @param {number} from 
+ * @param {number} elementsCount 
+ */
 export function CopyArrayPart(array, to, from, elementsCount) {
     for (let i = 0; i < elementsCount; ++i) {
         array[to + i] = array[from + i];
     }
 }
 
+/**
+ * 
+ * @param {any[] | Float32Array | Uint32Array} array 
+ * @param {number} from 
+ * @param {number} to 
+ * @param {number} elementsCount 
+ */
 export function SwapArrayPart(array, from, to, elementsCount) {
     for (let i = 0; i < elementsCount; ++i) {
         var tmp = array[from + i];

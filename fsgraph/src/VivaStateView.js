@@ -24,9 +24,16 @@ export class VivaStateView {
     // TODO: цвета-цветы передавать где-то здесь
     // хранить тащем-та тоже
     // картинки тоже
+    /**
+     * 
+     * @param {number[]} colorPairs 
+     * @param {*} imgSources 
+     * @param {VivaWebGLRenderer} renderer 
+     */
     constructor(colorPairs, imgSources, renderer) {
 
         // TODO: clon array right way
+        /** @type {number[]} */
         this._nodeSizeDiap = [];
         this._nodeSizeDiap[0] = _DefNodeSizeDiap[0];
         this._nodeSizeDiap[1] = _DefNodeSizeDiap[1];
@@ -51,6 +58,11 @@ export class VivaStateView {
         return this._nodeSizeDiap;
     }
 
+    /**
+     * 
+     * @param {number} from 
+     * @param {number} to 
+     */
     setNodeSizeDiap(from, to) {
         let diap = this._nodeSizeDiap;
         let changed = (from != diap[0]) || (to != diap[1]);
@@ -95,7 +107,7 @@ export class VivaStateView {
             step: 1,
             range: true,
             slide: (event, ui) => {
-                that.setNodeSizeDiap(ui.values[0], ui.values[1]);
+                that.setNodeSizeDiap(ui.values ? ui.values[0] : 0, ui.values ? ui.values[1] : 1);
                 console.log(`Node size diap now [${that._nodeSizeDiap[0]}, ${that._nodeSizeDiap[1]}]`);
                 that._renderer.rerender();
             }
@@ -112,6 +124,7 @@ function stub() {
     ;
 }
 
+/** @type {VivaImageNodeUI?} */
 let lastNodeClicked = null;
 
 /**
@@ -123,13 +136,14 @@ let lastNodeClicked = null;
  */
 function toggleRelatedWords(graph, renderer, nodeUI, toggled) {
     nodeUI.selected = toggled;
+    let realNode = /** @type {Node} */ (nodeUI._realNode);
     // TODO: nodUI.selected, not node.selected!
-    graph.forEachLinkedNode(nodeUI._realNode.id, (/** @type {NgraphGraph.Node} */node, /** @type {NgraphGraph.Link} */link) => {
+    graph.forEachLinkedNode(realNode.id, (/** @type {NgraphGraph.Node} */node, /** @type {NgraphGraph.Link} */link) => {
         /** @type {VivaImageNodeUI} */
         let nodeUI = renderer.graphics.getNodeUI(node.id);
         /** @type {VivaLinkUI} */
         let linkUI = renderer.graphics.getLinkUI(link.id);
-        if (nodeUI._realNode.groupId !== 0) {
+        if (realNode.groupId !== 0) {
             nodeUI.showLabel = toggled;
             nodeUI.selected = toggled;
         }

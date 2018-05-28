@@ -4,10 +4,12 @@ import merge from 'ngraph.merge'
 import { VivaWebGLRenderer } from './VivaWebGLRenderer'
 import * as $ from 'jquery'
 import 'jquery-ui/ui/widgets/slider'
+/// <reference path="./@types/ngraph.d.ts" />
 
 export class LayoutBuilder {
     /**
      * @param {string} name
+     * @param {NgraphGeneric.Layout} layout
      * @param {Object.<string, any>} settings 
      */
     constructor(name, layout, settings) {
