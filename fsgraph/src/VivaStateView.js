@@ -143,7 +143,7 @@ function toggleRelatedWords(graph, renderer, nodeUI, toggled) {
         let nodeUI = renderer.graphics.getNodeUI(node.id);
         /** @type {VivaLinkUI} */
         let linkUI = renderer.graphics.getLinkUI(link.id);
-        if (realNode.groupId !== 0) {
+        if (node.data.groupId !== 0) {
             nodeUI.showLabel = toggled;
             nodeUI.selected = toggled;
         }
