@@ -3,9 +3,9 @@
  * @author Me
  */
 //@ts-check
-import Viva from '../viva-proxy'
-import { VivaBaseUI } from '../VivaBaseUI'
-import { VivaImageNodeUI } from '../VivaImageNodeUI'
+import * as WGLU from './WebGLUtils';
+import { VivaBaseUI } from '../VivaBaseUI';
+import { VivaImageNodeUI } from '../VivaImageNodeUI';
 
 /**
  * u, v, x, y, color - 4 byte each, 6 vertex
@@ -26,7 +26,6 @@ export class VivaColoredNodeRenderer {
         this._program = null;
         this._gl = null;
         this._buffer = null;
-        this._utils = null;
         this._locations = null;
         this._nodesCount = 0;
         this._width = null;
@@ -39,11 +38,10 @@ export class VivaColoredNodeRenderer {
 
     load(glContext) {
         this._gl = glContext;
-        this._utils = Viva.Graph.webgl(glContext);
     
-        this._program = this._utils.createProgram(this._nodesVS, this._nodesFS);
+        this._program = WGLU.CreateProgram(this._gl, this._nodesVS, this._nodesFS);
         this._gl.useProgram(this._program);
-        this._locations = this._utils.getLocations(this._program, [
+        this._locations = WGLU.GetLocations(this._gl, this._program, [
             "a_uv",
             "a_vertexPos",
             "a_color",
@@ -138,7 +136,7 @@ export class VivaColoredNodeRenderer {
 
         if (nodeUI.id < this._nodesCount && this._nodesCount > 0) {
 
-            this._utils.copyArrayPart(this._colors,
+            WGLU.CopyArrayPart(this._colors,
                 nodeUI.id * ATTRIBUTES_PER_PRIMITIVE,
                 this._nodesCount * ATTRIBUTES_PER_PRIMITIVE,
                 ATTRIBUTES_PER_PRIMITIVE

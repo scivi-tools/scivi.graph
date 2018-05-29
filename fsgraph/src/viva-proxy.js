@@ -38,9 +38,7 @@ export default {
         intersectRect: require('vivagraphjs/src/Utils/intersectRect.js')
       };
     },
-  
-    webgl: require('vivagraphjs/src/WebGL/webgl.js'),
-  
+    
     Utils: {
       // TODO: move to Input
       dragndrop: require('vivagraphjs/src/Input/dragndrop.js'),

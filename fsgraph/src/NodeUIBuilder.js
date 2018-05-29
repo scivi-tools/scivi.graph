@@ -87,7 +87,7 @@ export class NodeUIBuilder {
             value: that._fontSize,
             step: 1,
             slide: (event, ui) => {
-                that.fontSize = ui.value;
+                that.fontSize = ui.value || 0;
             }
         });
 
