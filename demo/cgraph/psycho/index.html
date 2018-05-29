@@ -64,7 +64,7 @@
                 var colors1 = [ 0xdd1111, 0x489CA0 ];
                 var steps1 = [ 0, 1 ];
                 var names1 = [ "None", "Языковые параметры", "Психологические параметры", "None" ];
-                var scale1 = graph.createScale(steps1, colors1, textColors1, names1, function (node) { return node.custom["group1"]; });
+                var scale1 = graph.createScale(steps1, colors1, textColors1, names1, function (node) { return node.custom["group"]; });
 
                 var textColors2 = [ 0x000000 ];
                 var colors2 = [ 0xF0AB13, 0xECDE38, 0xF0AB13, 0xECDE38, 0xF0AB13, 
@@ -84,7 +84,7 @@
                 "None" ];
                 var scale2 = graph.createScale(steps2, colors2, textColors2, names2, function (node) { return node.custom["group2"]; });
 
-                var renderer = graph.run(loc, states, [scale2, scale1], [0x000088]);
+                var renderer = graph.run(loc, states, [scale2, scale1], colors1);
             }
         </script>
     </head>

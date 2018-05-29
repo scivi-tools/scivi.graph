@@ -7,259 +7,259 @@ var g_data =
           {
               "id": 1,
               "label": "Дейксис ролевой (Вы)",
-              "group1": 0,
+              "group": 0,
               "group2": 0
           },
           {
               "id": 2,
               "label": "Дейксис ролевой (Мы)",
-              "group1": 0,
+              "group": 0,
               "group2": 0
           },
           {
               "id": 3,
               "label": "Дейксис ролевой (Ты)",
-              "group1": 0,
+              "group": 0,
               "group2": 0
           },
           {
               "id": 4,
               "label": "Дейксис ролевой (Я)",
-              "group1": 0,
+              "group": 0,
               "group2": 0
           },
           {
               "id": 5,
               "label": "Дейксис ролевой (Он)",
-              "group1": 0,
+              "group": 0,
               "group2": 0
           },
           {
               "id": 6,
               "label": "Дейксис пространственный\n(Близко)",
-              "group1": 0,
+              "group": 0,
               "group2": 0
           },
           {
               "id": 7,
               "label": "Дейксис пространственный\n(Далеко)",
-              "group1": 0,
+              "group": 0,
               "group2": 0
           },
           {
               "id": 8,
               "label": "Дейксис временной (Сейчас)",
-              "group1": 0,
+              "group": 0,
               "group2": 0
           },
           {
               "id": 9,
               "label": "Эмотиконы-картинки",
-              "group1": 0,
+              "group": 0,
               "group2": 1
           },
           {
               "id": 10,
               "label": "Эмотиконы-пунктуация",
-              "group1": 0,
+              "group": 0,
               "group2": 1
           },
           {
               "id": 11,
               "label": "Эмотиконы-смешанные",
-              "group1": 0,
+              "group": 0,
               "group2": 1
           },
           {
               "id": 12,
               "label": "Magn",
-              "group1": 0,
+              "group": 0,
               "group2": 2
           },
           {
               "id": 13,
               "label": "Аугментативы",
-              "group1": 0,
+              "group": 0,
               "group2": 2
           },
           {
               "id": 14,
               "label": "Дебитивная модальность",
-              "group1": 0,
+              "group": 0,
               "group2": 3
           },
           {
               "id": 15,
               "label": "Гипотетическая",
-              "group1": 0,
+              "group": 0,
               "group2": 3
           },
           {
               "id": 16,
               "label": "Обсценная лексика",
-              "group1": 0,
+              "group": 0,
               "group2": 4
           },
           {
               "id": 17,
               "label": "Бранная лексика",
-              "group1": 0,
+              "group": 0,
               "group2": 4
           },
           {
               "id": 18,
               "label": "Эвфимизмы брани",
-              "group1": 0,
+              "group": 0,
               "group2": 4
           },
           {
               "id": 19,
               "label": "Интроверты ++",
-              "group1": 1,
+              "group": 1,
               "group2": 5
           },
           {
               "id": 20,
               "label": "Интроверты +",
-              "group1": 1,
+              "group": 1,
               "group2": 5
           },
           {
               "id": 21,
               "label": "Черта не выражена",
-              "group1": 1,
+              "group": 1,
               "group2": 5
           },
           {
               "id": 22,
               "label": "Экстраверты +",
-              "group1": 1,
+              "group": 1,
               "group2": 5
           },
           {
               "id": 23,
               "label": "Экстраверты ++",
-              "group1": 1,
+              "group": 1,
               "group2": 5
           },
           {
               "id": 24,
               "label": "Враждебность ++",
-              "group1": 1,
+              "group": 1,
               "group2": 6
           },
           {
               "id": 25,
               "label": "Враждебность +",
-              "group1": 1,
+              "group": 1,
               "group2": 6
           },
           {
               "id": 26,
               "label": "Черта не выражена",
-              "group1": 1,
+              "group": 1,
               "group2": 6
           },
           {
               "id": 27,
               "label": "Доброжелательность +",
-              "group1": 1,
+              "group": 1,
               "group2": 6
           },
           {
               "id": 28,
               "label": "Доброжелательность ++",
-              "group1": 1,
+              "group": 1,
               "group2": 6
           },
           {
               "id": 29,
               "label": "Недобросовестность ++",
-              "group1": 1,
+              "group": 1,
               "group2": 7
           },
           {
               "id": 30,
               "label": "Недобросовестность +",
-              "group1": 1,
+              "group": 1,
               "group2": 7
           },
           {
               "id": 31,
               "label": "Черта не выражена",
-              "group1": 1,
+              "group": 1,
               "group2": 7
           },
           {
               "id": 32,
               "label": "Добросовестность +",
-              "group1": 1,
+              "group": 1,
               "group2": 7
           },
           {
               "id": 33,
               "label": "Добросовестность ++",
-              "group1": 1,
+              "group": 1,
               "group2": 7
           },
           {
               "id": 34,
               "label": "Положит. эмоц. ++",
-              "group1": 1,
+              "group": 1,
               "group2": 8
           },
           {
               "id": 35,
               "label": "Положит. эмоц. +",
-              "group1": 1,
+              "group": 1,
               "group2": 8
           },
           {
               "id": 36,
               "label": "Черта не выражена",
-              "group1": 1,
+              "group": 1,
               "group2": 8
           },
           {
               "id": 37,
               "label": "Нейротизм +",
-              "group1": 1,
+              "group": 1,
               "group2": 8
           },
           {
               "id": 38,
               "label": "Нейротизм ++",
-              "group1": 1,
+              "group": 1,
               "group2": 8
           },
           {
               "id": 39,
               "label": "Консерватизм ++",
-              "group1": 1,
+              "group": 1,
               "group2": 9
           },
           {
               "id": 40,
               "label": "Консерватизм +",
-              "group1": 1,
+              "group": 1,
               "group2": 9
           },
           {
               "id": 41,
               "label": "Черта не выражена",
-              "group1": 1,
+              "group": 1,
               "group2": 9
           },
           {
               "id": 42,
               "label": "Открытость +",
-              "group1": 1,
+              "group": 1,
               "group2": 9
           },
           {
               "id": 43,
               "label": "Открытость ++",
-              "group1": 1,
+              "group": 1,
               "group2": 9
           },
       ],
@@ -3332,259 +3332,259 @@ var g_data =
           {
               "id": 1,
               "label": "Дейксис ролевой (Вы)",
-              "group1": 0,
+              "group": 0,
               "group2": 0
           },
           {
               "id": 2,
               "label": "Дейксис ролевой (Мы)",
-              "group1": 0,
+              "group": 0,
               "group2": 0
           },
           {
               "id": 3,
               "label": "Дейксис ролевой (Ты)",
-              "group1": 0,
+              "group": 0,
               "group2": 0
           },
           {
               "id": 4,
               "label": "Дейксис ролевой (Я)",
-              "group1": 0,
+              "group": 0,
               "group2": 0
           },
           {
               "id": 5,
               "label": "Дейксис ролевой (Он)",
-              "group1": 0,
+              "group": 0,
               "group2": 0
           },
           {
               "id": 6,
               "label": "Дейксис пространственный\n(Близко)",
-              "group1": 0,
+              "group": 0,
               "group2": 0
           },
           {
               "id": 7,
               "label": "Дейксис пространственный\n(Далеко)",
-              "group1": 0,
+              "group": 0,
               "group2": 0
           },
           {
               "id": 8,
               "label": "Дейксис временной (Сейчас)",
-              "group1": 0,
+              "group": 0,
               "group2": 0
           },
           {
               "id": 9,
               "label": "Эмотиконы-картинки",
-              "group1": 0,
+              "group": 0,
               "group2": 1
           },
           {
               "id": 10,
               "label": "Эмотиконы пунктуация",
-              "group1": 0,
+              "group": 0,
               "group2": 1
           },
           {
               "id": 11,
               "label": "Эмотиконы-смешанные",
-              "group1": 0,
+              "group": 0,
               "group2": 1
           },
           {
               "id": 12,
               "label": "Magn",
-              "group1": 0,
+              "group": 0,
               "group2": 2
           },
           {
               "id": 13,
               "label": "Аугментативы",
-              "group1": 0,
+              "group": 0,
               "group2": 2
           },
           {
               "id": 14,
               "label": "Дебитивная модальность",
-              "group1": 0,
+              "group": 0,
               "group2": 3
           },
           {
               "id": 15,
               "label": "Гипотетическая",
-              "group1": 0,
+              "group": 0,
               "group2": 3
           },
           {
               "id": 16,
               "label": "Обсценная лексика",
-              "group1": 0,
+              "group": 0,
               "group2": 4
           },
           {
               "id": 17,
               "label": "Бранная лексика",
-              "group1": 0,
+              "group": 0,
               "group2": 4
           },
           {
               "id": 18,
               "label": "Эвфимизмы брани",
-              "group1": 0,
+              "group": 0,
               "group2": 4
           },
           {
               "id": 19,
               "label": "Интроверты ++",
-              "group1": 1,
+              "group": 1,
               "group2": 5
           },
           {
               "id": 20,
               "label": "Интроверты +",
-              "group1": 1,
+              "group": 1,
               "group2": 5
           },
           {
               "id": 21,
               "label": "Черта не выражена",
-              "group1": 1,
+              "group": 1,
               "group2": 5
           },
           {
               "id": 22,
               "label": "Экстраверты +",
-              "group1": 1,
+              "group": 1,
               "group2": 5
           },
           {
               "id": 23,
               "label": "Экстраверты ++",
-              "group1": 1,
+              "group": 1,
               "group2": 5
           },
           {
               "id": 24,
               "label": "Враждебность ++",
-              "group1": 1,
+              "group": 1,
               "group2": 6
           },
           {
               "id": 25,
               "label": "Враждебность +",
-              "group1": 1,
+              "group": 1,
               "group2": 6
           },
           {
               "id": 26,
               "label": "Черта не выражена",
-              "group1": 1,
+              "group": 1,
               "group2": 6
           },
           {
               "id": 27,
               "label": "Доброжелательность +",
-              "group1": 1,
+              "group": 1,
               "group2": 6
           },
           {
               "id": 28,
               "label": "Доброжелательность ++",
-              "group1": 1,
+              "group": 1,
               "group2": 6
           },
           {
               "id": 29,
               "label": "Недобросовестность ++",
-              "group1": 1,
+              "group": 1,
               "group2": 7
           },
           {
               "id": 30,
               "label": "Недобросовестность +",
-              "group1": 1,
+              "group": 1,
               "group2": 7
           },
           {
               "id": 31,
               "label": "Черта не выражена",
-              "group1": 1,
+              "group": 1,
               "group2": 7
           },
           {
               "id": 32,
               "label": "Добросовестность +",
-              "group1": 1,
+              "group": 1,
               "group2": 7
           },
           {
               "id": 33,
               "label": "Добросовестность ++",
-              "group1": 1,
+              "group": 1,
               "group2": 7
           },
           {
               "id": 34,
               "label": "Положит. эмоц. ++",
-              "group1": 1,
+              "group": 1,
               "group2": 8
           },
           {
               "id": 35,
               "label": "Положит. эмоц. +",
-              "group1": 1,
+              "group": 1,
               "group2": 8
           },
           {
               "id": 36,
               "label": "Черта не выражена",
-              "group1": 1,
+              "group": 1,
               "group2": 8
           },
           {
               "id": 37,
               "label": "Нейротизм +",
-              "group1": 1,
+              "group": 1,
               "group2": 8
           },
           {
               "id": 38,
               "label": "Нейротизм ++",
-              "group1": 1,
+              "group": 1,
               "group2": 8
           },
           {
               "id": 39,
               "label": "Консерватизм ++",
-              "group1": 1,
+              "group": 1,
               "group2": 9
           },
           {
               "id": 40,
               "label": "Консерватизм +",
-              "group1": 1,
+              "group": 1,
               "group2": 9
           },
           {
               "id": 41,
               "label": "Черта не выражена",
-              "group1": 1,
+              "group": 1,
               "group2": 9
           },
           {
               "id": 42,
               "label": "Открытость +",
-              "group1": 1,
+              "group": 1,
               "group2": 9
           },
           {
               "id": 43,
               "label": "Открытость ++",
-              "group1": 1,
+              "group": 1,
               "group2": 9
           },
       ],
@@ -7389,259 +7389,259 @@ var g_data =
           {
               "id": 1,
               "label": "Дейксис ролевой (Вы)",
-              "group1": 0,
+              "group": 0,
               "group2": 0
           },
           {
               "id": 2,
               "label": "Дейксис ролевой (Мы)",
-              "group1": 0,
+              "group": 0,
               "group2": 0
           },
           {
               "id": 3,
               "label": "Дейксис ролевой (Ты)",
-              "group1": 0,
+              "group": 0,
               "group2": 0
           },
           {
               "id": 4,
               "label": "Дейксис ролевой (Я)",
-              "group1": 0,
+              "group": 0,
               "group2": 0
           },
           {
               "id": 5,
               "label": "Дейксис ролевой (Он)",
-              "group1": 0,
+              "group": 0,
               "group2": 0
           },
           {
               "id": 6,
               "label": "Дейксис пространственный\n(Близко)",
-              "group1": 0,
+              "group": 0,
               "group2": 0
           },
           {
               "id": 7,
               "label": "Дейксис пространственный\n(Далеко)",
-              "group1": 0,
+              "group": 0,
               "group2": 0
           },
           {
               "id": 8,
               "label": "Дейксис временной (Сейчас)",
-              "group1": 0,
+              "group": 0,
               "group2": 0
           },
           {
               "id": 9,
               "label": "Эмотиконы-картинки",
-              "group1": 0,
+              "group": 0,
               "group2": 1
           },
           {
               "id": 10,
               "label": "Эмотиконы пунктуация",
-              "group1": 0,
+              "group": 0,
               "group2": 1
           },
           {
               "id": 11,
               "label": "Эмотиконы-смешанные",
-              "group1": 0,
+              "group": 0,
               "group2": 1
           },
           {
               "id": 12,
               "label": "Magn",
-              "group1": 0,
+              "group": 0,
               "group2": 2
           },
           {
               "id": 13,
               "label": "Аугментативы",
-              "group1": 0,
+              "group": 0,
               "group2": 2
           },
           {
               "id": 14,
               "label": "Дебитивная модальность",
-              "group1": 0,
+              "group": 0,
               "group2": 3
           },
           {
               "id": 15,
               "label": "Гипотетическая",
-              "group1": 0,
+              "group": 0,
               "group2": 3
           },
           {
               "id": 16,
               "label": "Обсценная лексика",
-              "group1": 0,
+              "group": 0,
               "group2": 4
           },
           {
               "id": 17,
               "label": "Бранная лексика",
-              "group1": 0,
+              "group": 0,
               "group2": 4
           },
           {
               "id": 18,
               "label": "Эвфимизмы брани",
-              "group1": 0,
+              "group": 0,
               "group2": 4
           },
           {
               "id": 19,
               "label": "Интроверты ++",
-              "group1": 1,
+              "group": 1,
               "group2": 5
           },
           {
               "id": 20,
               "label": "Интроверты +",
-              "group1": 1,
+              "group": 1,
               "group2": 5
           },
           {
               "id": 21,
               "label": "Черта не выражена",
-              "group1": 1,
+              "group": 1,
               "group2": 5
           },
           {
               "id": 22,
               "label": "Экстраверты +",
-              "group1": 1,
+              "group": 1,
               "group2": 5
           },
           {
               "id": 23,
               "label": "Экстраверты ++",
-              "group1": 1,
+              "group": 1,
               "group2": 5
           },
           {
               "id": 24,
               "label": "Враждебность ++",
-              "group1": 1,
+              "group": 1,
               "group2": 6
           },
           {
               "id": 25,
               "label": "Враждебность +",
-              "group1": 1,
+              "group": 1,
               "group2": 6
           },
           {
               "id": 26,
               "label": "Черта не выражена",
-              "group1": 1,
+              "group": 1,
               "group2": 6
           },
           {
               "id": 27,
               "label": "Доброжелательность +",
-              "group1": 1,
+              "group": 1,
               "group2": 6
           },
           {
               "id": 28,
               "label": "Доброжелательность ++",
-              "group1": 1,
+              "group": 1,
               "group2": 6
           },
           {
               "id": 29,
               "label": "Недобросовестность ++",
-              "group1": 1,
+              "group": 1,
               "group2": 7
           },
           {
               "id": 30,
               "label": "Недобросовестность +",
-              "group1": 1,
+              "group": 1,
               "group2": 7
           },
           {
               "id": 31,
               "label": "Черта не выражена",
-              "group1": 1,
+              "group": 1,
               "group2": 7
           },
           {
               "id": 32,
               "label": "Добросовестность +",
-              "group1": 1,
+              "group": 1,
               "group2": 7
           },
           {
               "id": 33,
               "label": "Добросовестность ++",
-              "group1": 1,
+              "group": 1,
               "group2": 7
           },
           {
               "id": 34,
               "label": "Положит. эмоц. ++",
-              "group1": 1,
+              "group": 1,
               "group2": 8
           },
           {
               "id": 35,
               "label": "Положит. эмоц. +",
-              "group1": 1,
+              "group": 1,
               "group2": 8
           },
           {
               "id": 36,
               "label": "Черта не выражена",
-              "group1": 1,
+              "group": 1,
               "group2": 8
           },
           {
               "id": 37,
               "label": "Нейротизм +",
-              "group1": 1,
+              "group": 1,
               "group2": 8
           },
           {
               "id": 38,
               "label": "Нейротизм ++",
-              "group1": 1,
+              "group": 1,
               "group2": 8
           },
           {
               "id": 39,
               "label": "Консерватизм ++",
-              "group1": 1,
+              "group": 1,
               "group2": 9
           },
           {
               "id": 40,
               "label": "Консерватизм +",
-              "group1": 1,
+              "group": 1,
               "group2": 9
           },
           {
               "id": 41,
               "label": "Черта не выражена",
-              "group1": 1,
+              "group": 1,
               "group2": 9
           },
           {
               "id": 42,
               "label": "Открытость +",
-              "group1": 1,
+              "group": 1,
               "group2": 9
           },
           {
               "id": 43,
               "label": "Открытость ++",
-              "group1": 1,
+              "group": 1,
               "group2": 9
           },
       ],
