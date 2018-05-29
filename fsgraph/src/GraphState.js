@@ -81,7 +81,10 @@ export class GraphState {
             return;
         }
 
-        this._controller.graph.addLink(edge.fromId, edge.toId, edge);
+        this._controller.graph.beginUpdate();
+        let graphLink = this._controller.graph.addLink(edge.fromId, edge.toId, edge);
+        graphLink['weight'] = edge.weight;
+        this._controller.graph.endUpdate();
     };
 
     /**
