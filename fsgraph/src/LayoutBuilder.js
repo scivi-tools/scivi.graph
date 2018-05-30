@@ -108,7 +108,7 @@ export class LayoutBuilder {
 const _NumRanges = {
     'forceAtlas2': {
         // from, to, step
-        'edgeWeightInfluence': [0, 1, 0.1],
+        'edgeWeightInfluence': [0, 2, 0.1],
         'scalingRatio': [1, 10, 1],
         'gravity': [0, 2, 0.1],
         'slowDown': [1, 5, 0.1],
@@ -124,11 +124,13 @@ const _DefaultSettings = {
     'forceAtlas2': {
         'barnesHutOptimize' : false,
         'linLogMode' : true,
-        'outboundAttractionDistribution' : true
+        'outboundAttractionDistribution' : true,
+        'edgeWeightInfluence': 1
     },
     'forceAtlas2f': {
         'springLength': 25,
         'springCoeff': 0.0006,
+        'edgeWeightInfluence': 1,
         springTransform: (link, spring) => {
             spring.weight = link.data.weight;
         }
