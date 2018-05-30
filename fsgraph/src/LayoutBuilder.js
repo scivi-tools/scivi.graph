@@ -109,6 +109,10 @@ const _NumRanges = {
         'gravity': [0, 2, 0.1],
         'slowDown': [1, 5, 0.1],
         'barnesHutTheta': [0.1, 0.9, 0.1]
+    },
+    'forceAtlas2f': {
+        'springLength': [5, 50, 5],
+        'springCoeff': [0, 0.0016, 0.0001]
     }
 };
 
@@ -117,5 +121,9 @@ const _DefaultSettings = {
         'barnesHutOptimize' : false,
         'linLogMode' : true,
         'outboundAttractionDistribution' : true
+    },
+    'forceAtlas2f': {
+        'springLength': 25,
+        'springCoeff': 0.0006
     }
 };

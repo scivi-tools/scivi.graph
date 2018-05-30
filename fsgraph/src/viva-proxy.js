@@ -10,6 +10,8 @@
 
 import random from 'ngraph.random';
 
+import fa2f from './VivaMod/forceForceAtlas2';
+
 export default {
   randomIterator: function() {
     return random.randomIterator.apply(random, arguments);
@@ -49,7 +51,8 @@ export default {
     Layout: {
       forceDirected: require('ngraph.forcelayout'),
       constant: require('vivagraphjs/src/Layout/constant.js'),
-      forceAtlas2: require('./VivaMod/forceAtlas2.js')
+      forceAtlas2: require('./VivaMod/forceAtlas2.js'),
+      forceAtlas2f: fa2f
     },
   
     Rect: require('vivagraphjs/src/Utils/rect.js'),
