@@ -241,6 +241,7 @@ export class GraphState {
                 node = prev.nodes[n.id];
                 if (node) {
                     n.position = node.position;
+                    n.isPinned = node.isPinned;
                 }
             });
         }

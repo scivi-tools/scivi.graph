@@ -35,6 +35,8 @@ export class Node {
 
         /** @type {(function():void)?} */
         this.onBeforeHideCallback = null;
+
+        this.isPinned = false;
     };
 
     get visible() {
@@ -75,6 +77,7 @@ export class Node {
         let layoutedPos = layout.getNodePosition(this.id);
         this.position.x = layoutedPos.x;
         this.position.y = layoutedPos.y;
+        this.isPinned = layout.isNodePinned(/** @type {any} */(this));
 
         if (this.onBeforeHideCallback) {
             this.onBeforeHideCallback();
