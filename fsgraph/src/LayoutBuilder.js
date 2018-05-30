@@ -46,8 +46,8 @@ export class LayoutBuilder {
                         break;
                     case 'number':
                         let rangeEl = document.createElement('div');
-                        let range = _NumRanges[this.name][key];
-                        if (range) {
+                        if (_NumRanges[this.name] && _NumRanges[this.name][key]) {
+                            let range = _NumRanges[this.name][key];
                             $(rangeEl).slider({
                                 min: range[0],
                                 max: range[1],
