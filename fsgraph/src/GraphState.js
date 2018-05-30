@@ -69,6 +69,7 @@ export class GraphState {
         graph.beginUpdate();
         let graphNode = graph.addNode(node.id, node);
         graphNode['position'] = node.position;
+        graphNode['size'] = 42;
         graph.endUpdate();
     };
 

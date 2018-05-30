@@ -338,16 +338,12 @@ function createLayout(graph, settings) {
         }
       }
 
-      var body = {
-        pos: pos
-      };
-      body.id = node.id;
+      var body = new Body(node, pos);
       body.dx = body.dy = 0;
       body.old_dx = body.old_dy = 0;
+      console.log(body.size);
       // FIXME: а это откуда? Пока не нужно, можно не искать
       body.convergence = 1;
-      // FIXME: where da fuck we can get node size?! Пока не нужно, можно не искать
-      body.size = Math.random() * 5 + 1;
       body.fixed = false;
 
       nodeBodies[node.id] = body;
@@ -1290,3 +1286,17 @@ function createLayout(graph, settings) {
 }
 
 function noop() { }
+
+function Body(node, pos) {
+  this.pos = pos;
+  this._node = node;
+  this.id = node.id;
+}
+
+Object.defineProperty(Body.prototype, 'size', {
+  get: function () {
+    return this._node.size || 1;
+  },
+  enumerable: true,
+  configurable: true
+});
