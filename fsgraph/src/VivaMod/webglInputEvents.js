@@ -149,6 +149,7 @@ export function webglInputEvents(webglGraphics) {
       lastUpdate = 1,
       lastClickTime = +new Date(),
       lastDownTime = +new Date(),
+      prevDownTime = +new Date(),
 
       handleMouseMove = function(e) {
         invoke(mouseMoveCallback, [lastFound, e]);
@@ -211,6 +212,7 @@ export function webglInputEvents(webglGraphics) {
         pos.x = e.clientX - boundRect.left;
         pos.y = e.clientY - boundRect.top;
 
+        prevDownTime = lastDownTime;
         lastDownTime = +new Date();
         args = [getNodeAtClientPos(pos), e];
         if (args[0]) {
@@ -255,29 +257,46 @@ export function webglInputEvents(webglGraphics) {
           }
         }
       });
+      
+    var timeoutHandlerId = 0,
+      noclick = false;
 
     root.addEventListener('click',
       function(e) {
-        var clickTime = +new Date(),
-          args;
-        if (clickTime - lastDownTime > 200) {
+        var clickTime = +new Date();
+        if ((clickTime - lastDownTime > 200) || (noclick)) {
           return;
         }
-        updateBoundRect();
-        pos.x = e.clientX - boundRect.left;
-        pos.y = e.clientY - boundRect.top;
 
-        args = [getNodeAtClientPos(pos), e];
-        invoke(clickCallback, args);
+        noclick = true;
+
+        var realLastFound = lastFound;
+        timeoutHandlerId = setTimeout(() => {
+          var args;
+
+          updateBoundRect();
+
+          // HACK: учитываем только ту вершину, по которой было нажатие ранее
+          args = [realLastFound, e];
+          invoke(clickCallback, args);
+
+          noclick = false;
+        }
+        , 200);
       });
 
     root.addEventListener('dblclick',
       function(e) {
         var clickTime = +new Date(),
           args;
-        if (clickTime - lastDownTime > 200) {
+        
+        if (clickTime - prevDownTime > 400) {
           return;
         }
+
+        clearTimeout(timeoutHandlerId);
+        noclick = false;
+        
         updateBoundRect();
         pos.x = e.clientX - boundRect.left;
         pos.y = e.clientY - boundRect.top;
