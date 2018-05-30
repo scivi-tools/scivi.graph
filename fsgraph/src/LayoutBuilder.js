@@ -44,6 +44,7 @@ export class LayoutBuilder {
                         };
                         innerC.appendChild(cb);
                         break;
+
                     case 'number':
                         let rangeEl = document.createElement('div');
                         if (_NumRanges[this.name] && _NumRanges[this.name][key]) {
@@ -64,8 +65,11 @@ export class LayoutBuilder {
                         }
                         innerC.appendChild(rangeEl);
                         break;
+
                     default:
                         console.log(`Skipping unsupported layout setting ${key} of type ${type}`);
+                        innerC.innerHTML += '<span>Unsupported</span>';
+                        break;
                 }
                 c.appendChild(innerC);
             } else {
@@ -124,6 +128,14 @@ const _DefaultSettings = {
     },
     'forceAtlas2f': {
         'springLength': 25,
-        'springCoeff': 0.0006
+        'springCoeff': 0.0006,
+        springTransform: (link, spring) => {
+            spring.weight = link.data.weight;
+        }
+    },
+    'forceDirected': {
+        springTransform: (link, spring) => {
+            spring.weight = link.data.weight;
+        }
     }
 };
