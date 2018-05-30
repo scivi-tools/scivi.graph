@@ -28,8 +28,6 @@ export class GraphController {
         this.layoutBuilder = LayoutBuilder.buildLayout(layoutName, this._graph);
         /** @type {NgraphGeneric.Layout} */
         this._layoutInstance = this.layoutBuilder.layout;
-
-        
     }
 
     parseJsonState(state) {

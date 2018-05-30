@@ -12,9 +12,12 @@ var g_colors = [
     0xD5EAFFFF, 0x004282FF
 ];
 
+var FSGraph = SciViFSGraph.main;
+
 function main() {
-    var controller = SciViFSGraph.main.GraphController.fromStatedJson(g_data, 'forceAtlas2');
-    var renderer = new SciViFSGraph.main.VivaWebGLRenderer(document.body);
+    var usedLayout = FSGraph.getParameterByName("layout") || "forceAtlas2";
+    var controller = FSGraph.GraphController.fromStatedJson(g_data, usedLayout);
+    var renderer = new FSGraph.VivaWebGLRenderer(document.body);
         
     renderer.graphController = controller;
     renderer.viewRules = renderer.buildDefaultView(g_colors);

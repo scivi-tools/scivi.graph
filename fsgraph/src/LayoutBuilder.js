@@ -44,10 +44,11 @@ export class LayoutBuilder {
                         };
                         innerC.appendChild(cb);
                         break;
+
                     case 'number':
                         let rangeEl = document.createElement('div');
-                        let range = _NumRanges[this.name][key];
-                        if (range) {
+                        if (_NumRanges[this.name] && _NumRanges[this.name][key]) {
+                            let range = _NumRanges[this.name][key];
                             $(rangeEl).slider({
                                 min: range[0],
                                 max: range[1],
@@ -64,8 +65,11 @@ export class LayoutBuilder {
                         }
                         innerC.appendChild(rangeEl);
                         break;
+
                     default:
                         console.log(`Skipping unsupported layout setting ${key} of type ${type}`);
+                        innerC.innerHTML += '<span>Unsupported</span>';
+                        break;
                 }
                 c.appendChild(innerC);
             } else {
@@ -104,11 +108,15 @@ export class LayoutBuilder {
 const _NumRanges = {
     'forceAtlas2': {
         // from, to, step
-        'edgeWeightInfluence': [0, 1, 0.1],
+        'edgeWeightInfluence': [0, 2, 0.1],
         'scalingRatio': [1, 10, 1],
         'gravity': [0, 2, 0.1],
         'slowDown': [1, 5, 0.1],
         'barnesHutTheta': [0.1, 0.9, 0.1]
+    },
+    'forceAtlas2f': {
+        'springLength': [5, 50, 5],
+        'springCoeff': [0, 0.0016, 0.0001]
     }
 };
 
@@ -116,6 +124,20 @@ const _DefaultSettings = {
     'forceAtlas2': {
         'barnesHutOptimize' : false,
         'linLogMode' : true,
-        'outboundAttractionDistribution' : true
+        'outboundAttractionDistribution' : true,
+        'edgeWeightInfluence': 1
+    },
+    'forceAtlas2f': {
+        'springLength': 25,
+        'springCoeff': 0.0006,
+        'edgeWeightInfluence': 1,
+        springTransform: (link, spring) => {
+            spring.weight = link.data.weight;
+        }
+    },
+    'forceDirected': {
+        springTransform: (link, spring) => {
+            spring.weight = link.data.weight;
+        }
     }
 };
