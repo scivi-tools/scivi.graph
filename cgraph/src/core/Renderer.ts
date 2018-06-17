@@ -310,12 +310,20 @@ namespace SciViCGraph
             this.m_info.appendChild(dv);
         }
 
-        private roundVal(x: number, s: number): string
+        private roundVal(x: number, s: number): number
         {
-            if (s > 0.0)
-                return x.toFixed(Math.max(-Math.log(s) / Math.LN10, 0.0));
-            else
-                return x.toString();
+            s = s - Math.floor(s);
+            if (s > 0.0) {
+                const f = Math.pow(10, -Math.round(Math.log(s) / Math.LN10));
+                return Math.round(x * f) / f;
+            } else {
+                return x;
+            }
+        }
+
+        private roundValS(x: number, s: number): string
+        {
+            return this.roundVal(x, s).toString();
         }
 
         private initInterface()
@@ -427,10 +435,10 @@ namespace SciViCGraph
 
             this.m_settings.innerHTML = 
             "<div>" + this.m_localizer["LOC_EDGETHRESHOLD"] + "&nbsp;<span id='scivi_edge_treshold'>" +
-                this.roundVal(this.m_edgeWeight.min, this.m_edgeWeight.step) + " .. " + this.roundVal(this.m_edgeWeight.max, this.m_edgeWeight.step) + "</span></div>" +
+                this.roundValS(this.m_edgeWeight.min, this.m_edgeWeight.step) + " .. " + this.roundValS(this.m_edgeWeight.max, this.m_edgeWeight.step) + "</span></div>" +
                 "<div id='scivi_edge_treshold_slider' style='margin: 10px 10px 10px 5px'></div>" +
             "<div>" + this.m_localizer["LOC_NODETHRESHOLD"] + "&nbsp;<span id='scivi_node_treshold'>" +
-                this.roundVal(this.m_nodeWeight.min, this.m_nodeWeight.step) + " .. " + this.roundVal(this.m_nodeWeight.max, this.m_nodeWeight.step) + "</span></div>" +
+                this.roundValS(this.m_nodeWeight.min, this.m_nodeWeight.step) + " .. " + this.roundValS(this.m_nodeWeight.max, this.m_nodeWeight.step) + "</span></div>" +
                 "<div id='scivi_node_treshold_slider' style='margin: 10px 10px 10px 5px'></div><br/><hr/><br/>" +
             "<div>" + this.m_localizer["LOC_PASSIVETEXTALPHA"] + "&nbsp;<span id='scivi_node_alpha'>" +
                 Node.passiveTextAlpha.toString() + "</span></div>" +
@@ -782,10 +790,11 @@ namespace SciViCGraph
         private filterEdges(): boolean
         {
             let result = false;
+            const rmin = this.roundVal(this.m_edgeWeight.min, this.m_edgeWeight.step);
+            const rmax = this.roundVal(this.m_edgeWeight.max, this.m_edgeWeight.step);
             this.currentData().edges.forEach((edge) => {
-                let vis = edge.source.visible && edge.target.visible
-                            && edge.weight >= this.m_edgeWeight.min
-                            && edge.weight <= this.m_edgeWeight.max;
+                const rv = this.roundVal(edge.weight, this.m_edgeWeight.step);
+                let vis = edge.source.visible && edge.target.visible && rv >= rmin && rv <= rmax;
                 if (vis !== edge.visible) {
                     edge.visible = vis;
                     result = true;
@@ -799,10 +808,11 @@ namespace SciViCGraph
         private filterNodes(): boolean
         {
             let result = false;
+            const rmin = this.roundVal(this.m_nodeWeight.min, this.m_nodeWeight.step);
+            const rmax = this.roundVal(this.m_nodeWeight.max, this.m_nodeWeight.step);
             this.currentData().nodes.forEach((node) => {
-                let vis = node.isShown &&
-                          node.weight >= this.m_nodeWeight.min &&
-                          node.weight <= this.m_nodeWeight.max;
+                const rv = this.roundVal(node.weight, this.m_nodeWeight.step);
+                let vis = node.isShown && rv >= rmin && rv <= rmax;
                 if (vis !== node.visible) {
                     node.visible = vis;
                     result = true;
@@ -815,9 +825,9 @@ namespace SciViCGraph
 
         public changeEdgeTreshold(values: number[])
         {
-            $("#scivi_edge_treshold").text(this.roundVal(values[0], this.m_edgeWeight.step) +
+            $("#scivi_edge_treshold").text(this.roundValS(values[0], this.m_edgeWeight.step) +
                                            " .. " +
-                                           this.roundVal(values[1], this.m_edgeWeight.step));
+                                           this.roundValS(values[1], this.m_edgeWeight.step));
             this.m_edgeWeight.min = values[0];
             this.m_edgeWeight.max = values[1];
             if (this.filterEdges())
@@ -826,9 +836,9 @@ namespace SciViCGraph
 
         public changeNodeTreshold(values: number[])
         {
-            $("#scivi_node_treshold").text(this.roundVal(values[0], this.m_nodeWeight.step) +
+            $("#scivi_node_treshold").text(this.roundValS(values[0], this.m_nodeWeight.step) +
                                            " .. " +
-                                           this.roundVal(values[1], this.m_nodeWeight.step));
+                                           this.roundValS(values[1], this.m_nodeWeight.step));
             this.m_nodeWeight.min = values[0];
             this.m_nodeWeight.max = values[1];
             this.updateNodesVisibility();
