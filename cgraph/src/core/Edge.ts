@@ -142,7 +142,7 @@ namespace SciViCGraph
 
         set highlight(hl: HighlightType)
         {
-            if (hl != this.m_highlight) {
+            if (hl !== this.m_highlight) {
                 this.m_highlight = hl;
                 let fromColor = this.source.groupColor;
                 let toColor = this.target.groupColor;
@@ -183,7 +183,7 @@ namespace SciViCGraph
 
         set visible(v: boolean)
         {
-            if (v != this.m_visible) {
+            if (v !== this.m_visible) {
                 this.m_visible = v;
                 this.m_batch.setNeedsUpdate();
             }
