@@ -144,7 +144,7 @@ namespace SciViCGraph
             this.m_displayer.anchor.set(0.5, 0.5);
 
             this.m_transition.resolution = window.devicePixelRatio;
-            this.m_displayer.filters = [this.m_transition];
+            this.m_displayer.filters = [ this.m_transition ];
         }
 
         public update()
@@ -168,6 +168,11 @@ namespace SciViCGraph
         public currentScale(): number
         {
             return this.m_stage.scale.x * this.m_displayer.scale.x;
+        }
+
+        get isValid(): boolean
+        {
+            return this.m_displayer !== null;
         }
 
         get x(): number

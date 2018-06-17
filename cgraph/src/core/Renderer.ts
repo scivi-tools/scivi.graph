@@ -215,6 +215,7 @@ namespace SciViCGraph
             this.m_panPrevY = 0;
 
             this.createGraph();
+            this.fitScale();
 
             this.initInterface();
 
@@ -224,6 +225,16 @@ namespace SciViCGraph
 
         private reinit(animated: boolean)
         {
+            const restorePos = this.m_renderingCache !== null && this.m_renderingCache.isValid;
+            let x = 0.0;
+            let y = 0.0;
+            let s = 1.0;
+            if (restorePos) {
+                x = this.m_renderingCache.x;
+                y = this.m_renderingCache.y;
+                s = this.m_stage.scale.x;
+            }
+
             this.createStage();
             
             if (this.m_selectedNode !== null)
@@ -236,7 +247,15 @@ namespace SciViCGraph
             this.m_nodePlaceHolder = null;
             this.m_nodeBorder = null;
 
+            if (restorePos)
+                this.m_stage.scale.set(s, s);
+
             this.createGraph();
+
+            if (restorePos) {
+                this.m_renderingCache.x = x;
+                this.m_renderingCache.y = y;
+            }
 
             this.currentData().nodes.forEach((node) => {
                 node.invalidate(true);
@@ -572,8 +591,6 @@ namespace SciViCGraph
         private createNodes()
         {
             const angleStep = 2.0 * Math.PI / this.currentData().nodes.length;
-
-            this.fitScale();
 
             this.currentData().nodes.forEach((node: Node, i: number) => {
                 let x = this.m_radius * Math.cos(i * angleStep);
