@@ -38,5 +38,6 @@ var g_loc_ru = {
     "LOC_FEMALE": "ж",
     "LOC_EDUCATION_MIDDLE": "с",
     "LOC_EDUCATION_HIGH": "в",
-    "LOC_NODE_DATA": "Данные вершины"
+    "LOC_NODE_DATA": "Данные вершины",
+    "LOC_FIT_TO_SCREEN": "Вписать в экран"
 };

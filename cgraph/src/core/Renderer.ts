@@ -457,7 +457,8 @@ namespace SciViCGraph
                 "</table>" +
                     "</td><td>" +
                         "<input id='scivi_apply_fonts' type='button' value='" + this.m_localizer["LOC_APPLY"] + "'/>" +
-                "</td></tr></table>";
+                "</td></tr></table><hr/><br/>" +
+            "<input id='scivi_fit_to_screen' type='button' value='" + this.m_localizer["LOC_FIT_TO_SCREEN"] + "'/>";
 
             $("#scivi_edge_treshold_slider").slider({
                 min: this.m_edgeWeight.min,
@@ -499,7 +500,6 @@ namespace SciViCGraph
             let nodesFSInput = $("#scivi_nodes_font")[0] as HTMLInputElement;
             let ringFSInput = $("#scivi_ring_font")[0] as HTMLInputElement;
             applyFonts.onclick = () => {
-                console.log(ringFSInput.value);
                 let nodesFS = parseFloat(nodesFSInput.value);
                 let ringFS = parseFloat(ringFSInput.value);
                 if (!isNaN(nodesFS) && !isNaN(ringFS) &&
@@ -528,6 +528,13 @@ namespace SciViCGraph
                     }
                 });
             }
+
+            let fitToScreen = $("#scivi_fit_to_screen")[0] as HTMLInputElement;
+            fitToScreen.onclick = () => {
+                this.fitScale();
+                this.createCache();
+                this.render(true, true);
+            };
         }
 
         private calcMaxTextLength()
@@ -553,15 +560,20 @@ namespace SciViCGraph
             this.m_totalRadius = this.m_radius + this.m_maxTextLength + rsWidth;
         }
 
-        private createNodes()
+        private fitScale()
         {
-            const angleStep = 2.0 * Math.PI / this.currentData().nodes.length;
             const radius = Math.min(this.m_view.offsetWidth, this.m_view.offsetHeight) / 2.0;
-
             let s = radius / this.m_totalRadius;
             if (s > 1.0)
                 s = 1.0;
             this.m_stage.scale.set(s, s);
+        }
+
+        private createNodes()
+        {
+            const angleStep = 2.0 * Math.PI / this.currentData().nodes.length;
+
+            this.fitScale();
 
             this.currentData().nodes.forEach((node: Node, i: number) => {
                 let x = this.m_radius * Math.cos(i * angleStep);
