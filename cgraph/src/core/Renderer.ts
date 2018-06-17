@@ -77,6 +77,7 @@ namespace SciViCGraph
         private m_draggedNodeIndex: number;
         private m_nodePlaceHolder: NodePlaceHolder;
         private m_nodeBorder: NodeBorder;
+        private m_cursorPos: { x: number, y: number };
 
         static readonly m_ringScaleWidth = 30;
         static readonly m_minFontSize = 5;
@@ -101,6 +102,7 @@ namespace SciViCGraph
             this.m_nodePlaceHolder = null;
             this.m_nodeBorder = null;
             this.m_renderingCache = null;
+            this.m_cursorPos = { x: undefined, y: undefined };
 
             let tooltip = document.createElement("div");
             tooltip.className = "scivi_graph_tooltip";
@@ -390,6 +392,8 @@ namespace SciViCGraph
 
             let onMouseMove = (e) => {
                 e = e || window.event;
+                this.m_cursorPos.x = e.clientX;
+                this.m_cursorPos.y = e.clientY;
                 if (this.m_mousePressed) {
                     if (this.m_draggedNodeIndex === -1)
                         this.panGraph(e.clientX, e.clientY);
@@ -554,6 +558,17 @@ namespace SciViCGraph
                 this.createCache();
                 this.render(true, true);
             };
+
+            $(document).keyup((e) => {
+                if (e.keyCode == 27) {
+                    this.m_draggedNodeIndex = -1;
+                    this.dropNode(0.0, 0.0);
+                    this.m_panning = true; // Prevent selection on mouse up.
+                    this.m_mousePressed = false; // Ensure panning is actually blocked by mouse move.
+                    if (this.m_cursorPos.x !== undefined && this.m_cursorPos.y !== undefined)
+                        this.hoverGraph(this.m_cursorPos.x, this.m_cursorPos.y);
+                }
+            });
         }
 
         private calcMaxTextLength()
