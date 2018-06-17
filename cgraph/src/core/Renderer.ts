@@ -226,7 +226,7 @@ namespace SciViCGraph
         {
             this.createStage();
             
-            if (this.m_selectedNode != null)
+            if (this.m_selectedNode !== null)
                 this.m_selectedNode = this.getNodeByID(this.m_selectedNode.id);
 
             this.currentData().nodes.forEach((node) => {
@@ -251,7 +251,7 @@ namespace SciViCGraph
             } else {
                 this.render(true, true);
             }
-            if (this.m_selectedNode != null)
+            if (this.m_selectedNode !== null)
                 this.m_selectedNode.postInfo();
         }
 
@@ -259,7 +259,7 @@ namespace SciViCGraph
         {
             let nodes = this.currentData().nodes;
             for (let i = 0, n = nodes.length; i < n; ++i) {
-                if (nodes[i].id == id)
+                if (nodes[i].id === id)
                     return nodes[i];
             }
             return null;
@@ -337,8 +337,8 @@ namespace SciViCGraph
                 e = e || window.event;
                 let delta = e.deltaY || e.detail || e.wheelDelta;
 
-                if (delta != undefined) {
-                    if (this.m_zoomTimerID != null)
+                if (delta !== undefined) {
+                    if (this.m_zoomTimerID !== null)
                         clearTimeout(this.m_zoomTimerID);
 
                     const d = 1.05;
@@ -624,7 +624,7 @@ namespace SciViCGraph
 
                 this.currentData().nodes.forEach((node: Node, i: number) => {
                     let stepID = scale.getStepID(node);
-                    if (stepID != segment.id) {
+                    if (stepID !== segment.id) {
                         let a = (i - 0.5) * angleStep;
                         if (segment.id !== undefined) {
                             rs.addSegment(segment.from, a, 
@@ -662,20 +662,20 @@ namespace SciViCGraph
             this.m_clicked = false;
             this.m_clickCaught = false;
 
-            if (this.m_selectedNode != null) {
+            if (this.m_selectedNode !== null) {
                 this.m_selectedNode.highlight = HighlightType.Selection;
                 this.m_selectedNode.setHighlightForEdgesAndTargetNodes(HighlightType.Hover);
             }
-            if (this.m_hoveredNode != null && this.m_selectedNode != this.m_hoveredNode) {
+            if (this.m_hoveredNode !== null && this.m_selectedNode !== this.m_hoveredNode) {
                 this.m_hoveredNode.highlight = HighlightType.Hover;
                 this.m_hoveredNode.setHighlightForEdgesAndTargetNodes(HighlightType.Hover);
             }
 
             this.currentData().nodes.forEach((node) => {
                 if (node.visible) {
-                    if (node != this.m_selectedNode && node != this.m_hoveredNode) {
+                    if (node !== this.m_selectedNode && node !== this.m_hoveredNode) {
                         node.setHighlightForEdges(HighlightType.None);
-                        if (this.m_highlightedGroup != undefined && node.groupID == this.m_highlightedGroup)
+                        if (this.m_highlightedGroup !== undefined && node.groupID === this.m_highlightedGroup)
                             node.highlight = HighlightType.Hover;
                     }
                     let nr = node.prepare();
@@ -730,20 +730,20 @@ namespace SciViCGraph
             this.m_data.forEach((state) => {
                 let newNodes = [];
                 state.nodes.forEach((node) => {
-                    if (node.groupID == groupID)
+                    if (node.groupID === groupID)
                         newNodes.push(node);
                 });
 
                 let newEdges = [];
                 state.edges.forEach((edge) => {
-                    if (edge.source.groupID == groupID  && edge.target.groupID == groupID)
+                    if (edge.source.groupID === groupID  && edge.target.groupID === groupID)
                         newEdges.push(edge);
                 });
 
                 newData.push(new GraphData(state.label, newNodes, newEdges));
             });
 
-            if (this.m_dataStack == null)
+            if (this.m_dataStack === null)
                 this.m_dataStack = [];
             this.m_dataStack.push(this.m_data);
             this.m_data = newData;
@@ -760,12 +760,12 @@ namespace SciViCGraph
 
         public canQuasiZoomIn(): boolean
         {
-            return this.m_dataStack == null || this.m_dataStack.length == 0;
+            return this.m_dataStack === null || this.m_dataStack.length === 0;
         }
 
         public canQuasiZoomOut(): boolean
         {
-            return this.m_dataStack != null && this.m_dataStack.length > 0;
+            return this.m_dataStack !== null && this.m_dataStack.length > 0;
         }
 
         public highlightGroup(groupID: number)
@@ -786,10 +786,10 @@ namespace SciViCGraph
                 let vis = edge.source.visible && edge.target.visible
                             && edge.weight >= this.m_edgeWeight.min
                             && edge.weight <= this.m_edgeWeight.max;
-                if (vis != edge.visible) {
+                if (vis !== edge.visible) {
                     edge.visible = vis;
                     result = true;
-                    if (edge.source == this.m_selectedNode || edge.target == this.m_selectedNode)
+                    if (edge.source === this.m_selectedNode || edge.target === this.m_selectedNode)
                         this.m_selectedNode.postInfo();
                 }
             });
@@ -803,10 +803,10 @@ namespace SciViCGraph
                 let vis = node.isShown &&
                           node.weight >= this.m_nodeWeight.min &&
                           node.weight <= this.m_nodeWeight.max;
-                if (vis != node.visible) {
+                if (vis !== node.visible) {
                     node.visible = vis;
                     result = true;
-                    if (node == this.m_selectedNode)
+                    if (node === this.m_selectedNode)
                         this.m_clicked = true;
                 }
             });
@@ -898,7 +898,7 @@ namespace SciViCGraph
 
         public selectNode(node: Node)
         {
-            if (node == null || node == this.m_selectedNode)
+            if (node === null || node === this.m_selectedNode)
                 this.clearSelected();
             else {
                 this.m_selectedNode = node;

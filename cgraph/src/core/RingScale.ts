@@ -72,8 +72,8 @@ namespace SciViCGraph
                     a += 2.0 * Math.PI;
                 for (let i = 0, n = this.m_highlights.length; i < n; ++i) {
                     if (this.m_highlights[i].containsAngle(a)) {
-                        if (i != this.m_highlightedSegment) {
-                            if (this.m_highlightedSegment != -1)
+                        if (i !== this.m_highlightedSegment) {
+                            if (this.m_highlightedSegment !== -1)
                                 this.m_highlights[this.m_highlightedSegment].visible = false;
                             this.m_highlightedSegment = i;
                             this.m_highlights[i].visible = true;
@@ -96,7 +96,7 @@ namespace SciViCGraph
 
         public dropHighlight(): boolean
         {
-            if (this.m_highlightedSegment != -1) {
+            if (this.m_highlightedSegment !== -1) {
                 this.m_highlights[this.m_highlightedSegment].visible = false;
                 this.m_highlightedSegment = -1;
                 if ($(".scivi_graph_tooltip")[0]["host"] === this) {

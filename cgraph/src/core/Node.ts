@@ -154,7 +154,7 @@ namespace SciViCGraph
             let connList = "<div>" + this.m_svRenderer.localizer["LOC_LINKEDNODES"] + "</div><ul>";
             this.m_edges.forEach((edge) => {
                 if (edge.visible) {
-                    if (edge.target != this)
+                    if (edge.target !== this)
                         connList += "<li>" + edge.target.label + "</li>";
                     else
                         connList += "<li>" + edge.source.label + "</li>";
@@ -208,7 +208,7 @@ namespace SciViCGraph
 
         set highlight(hl: HighlightType)
         {
-            if (hl != this.m_highlight) {
+            if (hl !== this.m_highlight) {
                 this.m_highlight = hl;
                 this.color = this.groupColor;
                 switch (this.m_highlight) {
@@ -296,7 +296,7 @@ namespace SciViCGraph
             this.m_edges.push(edge);
 
             let batch = null;
-            if (this.m_edgeBatches.length == 0 || 
+            if (this.m_edgeBatches.length === 0 || 
                 this.m_edgeBatches[this.m_edgeBatches.length - 1].isFull) {
                 batch = new EdgeBatch();
                 this.m_edgeBatches.push(batch);

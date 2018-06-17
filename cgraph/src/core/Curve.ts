@@ -80,7 +80,7 @@ namespace SciViCGraph
             let currentLength = 0;
 
             for (let i = 0; i < length; ++i) {
-                if (i == 0) {
+                if (i === 0) {
                     p1x = points[0];
                     p1y = points[1];
 
@@ -93,7 +93,7 @@ namespace SciViCGraph
                     r = rFrom;
                     g = gFrom;
                     b = bFrom;
-                } else if (i == length - 1) {
+                } else if (i === length - 1) {
                     p1x = points[(i - 1) * 2];
                     p1y = points[(i - 1) * 2 + 1];
                     

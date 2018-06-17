@@ -48,11 +48,11 @@ namespace SciViCGraph
             let m = Math.min(r, g, b);
             let c = mm - m;
 
-            if (c == 0)
+            if (c === 0)
                 result[0] = 0;
-            else if (mm == r)
+            else if (mm === r)
                 result[0] = ((g - b) / c) % 6;
-            else if (mm == g)
+            else if (mm === g)
                 result[0] = (b - r) / c + 2;
             else
                 result[0] = (r - g) / c + 4;
@@ -62,7 +62,7 @@ namespace SciViCGraph
                 result[0] += 360;
 
             result[2] = mm;
-            if (result[2] == 0)
+            if (result[2] === 0)
                 result[1] = 0;
             else
                 result[1] = c / result[2];

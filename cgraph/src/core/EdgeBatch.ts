@@ -88,7 +88,7 @@ namespace SciViCGraph
 
         get isFull(): boolean
         {
-            return this.m_edges.length == 10;
+            return this.m_edges.length === 10;
         }
     }
 }

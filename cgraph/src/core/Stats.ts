@@ -60,7 +60,7 @@ namespace SciViCGraph
             let arr = rgb.split("(")[1].split(")")[0].split(",");
             let result = arr.map((x) => {
                 x = parseInt(x).toString(16);
-                return (x.length == 1) ? "0" + x : x;
+                return (x.length === 1) ? "0" + x : x;
             });
             return "#" + result.join("");
         }
@@ -143,7 +143,7 @@ namespace SciViCGraph
 
                 let list = "<ul>";
                 this.m_nodes.forEach((node) => {
-                    if (node.groupID == points[0]._index)
+                    if (node.groupID === points[0]._index)
                         list += "<li>" + node.label + "</li>";
                 });
                 list += "</ul>";
