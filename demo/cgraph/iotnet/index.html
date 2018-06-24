@@ -30,7 +30,8 @@
 
             function main()
             {
-                var loc = getParameterByName("lang") === "ru" ? g_loc_ru : g_loc_en;
+                var locRus = getParameterByName("lang") === "ru";
+                var loc = locRus ? g_loc_ru : g_loc_en;
 
                 var graph = new CGraph();
 
@@ -39,16 +40,25 @@
                 console.log("Number of nodes: " + g.nodes.length);
                 console.log("Number of edges: " + g.edges.length);
 
+                if (locRus) {
+                    for (var i = 0, n = g.edges.length; i < n; ++i)
+                        g.edges[i].tooltip = g.edges[i].tooltip.replace("traffic", "трафик");
+                }
+
                 var textColors1 = [ 0xffffff, 0x000000 ];
                 var colors1 = [ 0xdd1111, 0x5dc8cd ];
                 var steps1 = [ 0, 1 ];
-                var names1 = [ "None", "Building A", "Building B", "None" ];
+                var names1 = locRus ? 
+                             [ "None", "Корпус А", "Корпус Б", "None" ] : 
+                             [ "None", "Building A", "Building B", "None" ];
                 var scale1 = graph.createScale(steps1, colors1, textColors1, names1, function (node) { return node.custom["building"]; });
 
                 var textColors2 = [ 0x000000, 0xffffff ];
                 var colors2 = [ 0xDEBB3C, 0x0371AB ];
                 var steps2 = [ 0, 1, 2, 3, 4 ];
-                var names2 = [ "None", "Hall 1", "Hall 2", "Hall 3", "Hall 4", "Hall 5", "None" ];
+                var names2 = locRus ? 
+                             [ "None", "Зал 1", "Зал 2", "Зал 3", "Зал 4", "Зал 5", "None" ] :
+                             [ "None", "Hall 1", "Hall 2", "Hall 3", "Hall 4", "Hall 5", "None" ];
                 var scale2 = graph.createScale(steps2, colors2, textColors2, names2, function (node) { return node.custom["hall"]; });
 
                 var renderer = graph.run(loc, [g], [scale2, scale1]);
