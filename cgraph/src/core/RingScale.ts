@@ -58,15 +58,20 @@ namespace SciViCGraph
             this.m_names.push(name);
         }
 
+        public hitWithPoint(x: number, y: number, s: number): boolean
+        {
+            const r = x * x + y * y;
+            const w = this.m_width / 2.0;
+            const inRing = this.m_outRadius - w;
+            const outRing = this.m_outRadius + w;
+            s *= s;
+            return r > inRing * inRing * s && r < outRing * outRing * s;
+        }
+
         public handleCursorMove(x: number, y: number, s: number, gx: number, gy: number): boolean
         {
-            let r = x * x + y * y;
-            let w = this.m_width / 2.0;
-            let inRing = this.m_outRadius - w;
-            let outRing = this.m_outRadius + w;
             const offset = 20;
-            s *= s;
-            if (r > inRing * inRing * s && r < outRing * outRing * s) {
+            if (this.hitWithPoint(x, y, s)) {
                 let a = Math.atan2(y, x);
                 if (a < 0.0)
                     a += 2.0 * Math.PI;
@@ -127,6 +132,16 @@ namespace SciViCGraph
                 text.anchor.set(0.0, 0.5);
             }
             this.addChild(text);
+        }
+
+        get radius(): number
+        {
+            return this.m_outRadius;
+        }
+
+        get width(): number
+        {
+            return this.m_width;
         }
     }
 }

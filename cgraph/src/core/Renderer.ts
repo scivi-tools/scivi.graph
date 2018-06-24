@@ -78,6 +78,9 @@ namespace SciViCGraph
         private m_nodePlaceHolder: NodePlaceHolder;
         private m_nodeBorder: NodeBorder;
         private m_cursorPos: { x: number, y: number };
+        private m_draggedRingIndex: number;
+        private m_ringPlaceHolder: RingPlaceHolder;
+        private m_ringBorder: RingBorder;
 
         static readonly m_ringScaleWidth = 30;
         static readonly m_minFontSize = 5;
@@ -103,6 +106,9 @@ namespace SciViCGraph
             this.m_nodeBorder = null;
             this.m_renderingCache = null;
             this.m_cursorPos = { x: undefined, y: undefined };
+            this.m_draggedRingIndex = -1;
+            this.m_ringPlaceHolder = null;
+            this.m_ringBorder = null;
 
             let tooltip = document.createElement("div");
             tooltip.className = "scivi_graph_tooltip";
@@ -319,6 +325,16 @@ namespace SciViCGraph
             return index >= 0 ? this.currentData().nodes[index] : null;
         }
 
+        private getRingIndexByPosition(x: number, y: number, s: number): number
+        {
+            const n = this.m_ringScales.length;
+            for (let i = 0; i < n; ++i) {
+                if (this.m_ringScales[i].hitWithPoint(x, y, s))
+                    return i;
+            }
+            return -1;
+        }
+
         private clearSelected()
         {
             if (this.m_selectedNode)
@@ -395,10 +411,12 @@ namespace SciViCGraph
                 this.m_cursorPos.x = e.clientX;
                 this.m_cursorPos.y = e.clientY;
                 if (this.m_mousePressed) {
-                    if (this.m_draggedNodeIndex === -1)
-                        this.panGraph(e.clientX, e.clientY);
-                    else
+                    if (this.m_draggedNodeIndex !== -1)
                         this.dragNode(e.clientX, e.clientY);
+                    else if (this.m_draggedRingIndex !== -1)
+                        this.dragRing(e.clientX, e.clientY);
+                    else
+                        this.panGraph(e.clientX, e.clientY);
                 } else {
                     this.hoverGraph(e.clientX, e.clientY);
                 }
@@ -417,6 +435,10 @@ namespace SciViCGraph
                     this.stopDragNode();
                     f = true;
                 }
+                if (this.m_draggedRingIndex !== -1) {
+                    this.stopDragRing();
+                    f = true;
+                }
                 this.m_mousePressed = false;
                 this.m_panning = false;
                 this.render(f, true);
@@ -425,7 +447,7 @@ namespace SciViCGraph
             let onMouseDown = (e) => {
                 e = e || window.event;
                 this.m_mousePressed = true;
-                if (!this.startDragNode(e.clientX, e.clientY)) {
+                if (!this.startDragNode(e.clientX, e.clientY) && !this.startDragRing(e.clientX, e.clientY)) {
                     // If not drag, then pan.
                     this.m_panPrevX = e.clientX;
                     this.m_panPrevY = e.clientY;
@@ -436,7 +458,7 @@ namespace SciViCGraph
                 this.m_mousePressed = false;
                 if (!this.m_panning) {
                     e = e || window.event;
-                    if (!this.dropNode(e.clientX, e.clientY)) {
+                    if (!this.dropNode(e.clientX, e.clientY) && !this.dropRing(e.clientX, e.clientY)) {
                         this.m_clickCaught = true;
                         let isInRing = [ false ];
                         let node = this.getNodeByPosition(e.clientX - this.m_renderingCache.x, 
@@ -1051,8 +1073,9 @@ namespace SciViCGraph
                 }
                 this.m_nodeBorder.showForNode(this.currentData().nodes[this.m_draggedNodeIndex]);
                 this.render(true, true);
+                return true;
             }
-            return this.m_draggedNodeIndex !== -1;
+            return false;
         }
 
         private dragNode(x: number, y: number)
@@ -1120,6 +1143,37 @@ namespace SciViCGraph
             this.m_draggedNodeIndex = -1;
             if (this.m_nodeBorder !== null)
                 this.m_nodeBorder.showForNode(null);
+        }
+
+        private startDragRing(x: number, y: number): boolean
+        {
+            const lx = x - this.m_renderingCache.x;
+            const ly = y - this.m_renderingCache.y;
+            const s = this.m_renderingCache.currentScale();
+            this.m_draggedRingIndex = this.getRingIndexByPosition(lx, ly, s);
+            if (this.m_draggedRingIndex >= 0) {
+                if (this.m_ringBorder === null) {
+                    this.m_ringBorder = new RingBorder();
+                    this.m_stage.addChild(this.m_ringBorder);
+                }
+                this.m_ringBorder.showForRing(this.m_ringScales[this.m_draggedRingIndex]);
+                this.render(true, true);
+                return true;
+            }
+            return false;
+        }
+
+        private dragRing(x: number, y: number)
+        {
+        }
+
+        private dropRing(x: number, y: number): boolean
+        {
+            return false;
+        }
+
+        private stopDragRing()
+        {
         }
     }
 }
