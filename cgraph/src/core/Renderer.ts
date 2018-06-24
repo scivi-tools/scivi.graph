@@ -1147,6 +1147,9 @@ namespace SciViCGraph
 
         private startDragRing(x: number, y: number): boolean
         {
+            if (!this.m_ringScales || this.m_ringScales.length <= 1)
+                return false;
+
             const lx = x - this.m_renderingCache.x;
             const ly = y - this.m_renderingCache.y;
             const s = this.m_renderingCache.currentScale();
@@ -1156,7 +1159,9 @@ namespace SciViCGraph
                     this.m_ringBorder = new RingBorder();
                     this.m_stage.addChild(this.m_ringBorder);
                 }
-                this.m_ringBorder.showForRing(this.m_ringScales[this.m_draggedRingIndex]);
+                const draggingRing = this.m_ringScales[this.m_draggedRingIndex];
+                this.m_ringBorder.showForRing(draggingRing);
+                draggingRing.dropHighlight();
                 this.render(true, true);
                 return true;
             }
@@ -1165,6 +1170,20 @@ namespace SciViCGraph
 
         private dragRing(x: number, y: number)
         {
+            if (!this.m_ringPlaceHolder) {
+                this.m_ringPlaceHolder = new RingPlaceHolder();
+                this.m_stage.addChild(this.m_ringPlaceHolder);
+            }
+            const lx = x - this.m_renderingCache.x;
+            const ly = y - this.m_renderingCache.y;
+            const s = this.m_renderingCache.currentScale();
+            let idx = this.getRingIndexByPosition(lx, ly, s);
+            if (idx === -1) {
+                const r = this.m_ringScales[0].radius * s;
+                idx = lx * lx + ly * ly > r * r ? 0 : this.m_ringScales.length - 1;
+            }
+            if (this.m_ringPlaceHolder.showForRing(idx, this.m_ringScales[idx]))
+                this.render(true, true);
         }
 
         private dropRing(x: number, y: number): boolean
