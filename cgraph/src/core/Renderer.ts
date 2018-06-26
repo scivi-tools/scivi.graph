@@ -524,7 +524,8 @@ namespace SciViCGraph
                     "</td><td>" +
                         "<input id='scivi_apply_fonts' type='button' value='" + this.m_localizer["LOC_APPLY"] + "'/>" +
                 "</td></tr></table><hr/><br/>" +
-            "<input id='scivi_fit_to_screen' type='button' value='" + this.m_localizer["LOC_FIT_TO_SCREEN"] + "'/>";
+            "<input id='scivi_fit_to_screen' type='button' value='" + this.m_localizer["LOC_FIT_TO_SCREEN"] + "'/>" +
+            "<input id='scivi_sort_by_ring' type='button' value='" + this.m_localizer["LOC_SORT_BY_RING"] + "'/>";
 
             $("#scivi_edge_treshold_slider").slider({
                 min: this.m_edgeWeight.min,
@@ -600,6 +601,12 @@ namespace SciViCGraph
                 this.fitScale();
                 this.createCache();
                 this.render(true, true);
+            };
+
+            let sortByRing = $("#scivi_sort_by_ring")[0] as HTMLInputElement;
+            sortByRing.onclick = () => {
+                this.sortNodesByRingScale();
+                this.reinit(false);
             };
 
             $(document).keyup((e) => {

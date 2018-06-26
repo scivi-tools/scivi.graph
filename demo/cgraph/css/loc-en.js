@@ -39,5 +39,6 @@ var g_loc_en = {
     "LOC_EDUCATION_MIDDLE": "m",
     "LOC_EDUCATION_HIGH": "h",
     "LOC_NODE_DATA": "Node data",
-    "LOC_FIT_TO_SCREEN": "Fit to screen"
+    "LOC_FIT_TO_SCREEN": "Fit to screen",
+    "LOC_SORT_BY_RING": "Sort"
 };
