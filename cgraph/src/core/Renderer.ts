@@ -606,6 +606,8 @@ namespace SciViCGraph
                 if (e.keyCode == 27) {
                     this.m_draggedNodeIndex = -1;
                     this.dropNode(0.0, 0.0);
+                    this.m_draggedRingIndex = -1;
+                    this.dropRing(0.0, 0.0);
                     this.m_panning = true; // Prevent selection on mouse up.
                     this.m_mousePressed = false; // Ensure panning is actually blocked by mouse move.
                     if (this.m_cursorPos.x !== undefined && this.m_cursorPos.y !== undefined)
