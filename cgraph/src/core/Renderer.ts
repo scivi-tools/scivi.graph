@@ -78,6 +78,9 @@ namespace SciViCGraph
         private m_nodePlaceHolder: NodePlaceHolder;
         private m_nodeBorder: NodeBorder;
         private m_cursorPos: { x: number, y: number };
+        private m_draggedRingIndex: number;
+        private m_ringPlaceHolder: RingPlaceHolder;
+        private m_ringBorder: RingBorder;
 
         static readonly m_ringScaleWidth = 30;
         static readonly m_minFontSize = 5;
@@ -103,6 +106,9 @@ namespace SciViCGraph
             this.m_nodeBorder = null;
             this.m_renderingCache = null;
             this.m_cursorPos = { x: undefined, y: undefined };
+            this.m_draggedRingIndex = -1;
+            this.m_ringPlaceHolder = null;
+            this.m_ringBorder = null;
 
             let tooltip = document.createElement("div");
             tooltip.className = "scivi_graph_tooltip";
@@ -249,6 +255,9 @@ namespace SciViCGraph
             this.m_nodePlaceHolder = null;
             this.m_nodeBorder = null;
 
+            this.m_ringPlaceHolder = null;
+            this.m_ringBorder = null;
+
             if (restorePos)
                 this.m_stage.scale.set(s, s);
 
@@ -317,6 +326,34 @@ namespace SciViCGraph
         {
             const index = this.getNodeIndexByPosition(x, y, s, isInRing);
             return index >= 0 ? this.currentData().nodes[index] : null;
+        }
+
+        private getRingIndexByPosition(x: number, y: number, s: number, radius?: number[]): number
+        {
+            if (this.m_ringScales) {
+                const n = this.m_ringScales.length;
+                for (let i = 0; i < n; ++i) {
+                    if (this.m_ringScales[i].hitWithPoint(x, y, s)) {
+                        if (radius)
+                            radius[0] = this.m_ringScales[i].radius + this.m_ringScales[i].width / 2.0;
+                        return i;
+                    }
+                }
+                if (radius && n > 1) {
+                    const r = this.m_ringScales[0].radius * s;
+                    let i = 0;
+                    if (x * x + y * y > r * r) {
+                        radius[0] = this.m_ringScales[i].radius + this.m_ringScales[i].width / 2.0;
+                        --i;
+                    } else {
+                        i = this.m_ringScales.length - 1;
+                        radius[0] = this.m_ringScales[i].radius - this.m_ringScales[i].width / 2.0;
+                        ++i;
+                    }
+                    return i;
+                }
+            }
+            return -1;
         }
 
         private clearSelected()
@@ -395,10 +432,12 @@ namespace SciViCGraph
                 this.m_cursorPos.x = e.clientX;
                 this.m_cursorPos.y = e.clientY;
                 if (this.m_mousePressed) {
-                    if (this.m_draggedNodeIndex === -1)
-                        this.panGraph(e.clientX, e.clientY);
-                    else
+                    if (this.m_draggedNodeIndex !== -1)
                         this.dragNode(e.clientX, e.clientY);
+                    else if (this.m_draggedRingIndex !== -1)
+                        this.dragRing(e.clientX, e.clientY);
+                    else
+                        this.panGraph(e.clientX, e.clientY);
                 } else {
                     this.hoverGraph(e.clientX, e.clientY);
                 }
@@ -417,6 +456,10 @@ namespace SciViCGraph
                     this.stopDragNode();
                     f = true;
                 }
+                if (this.m_draggedRingIndex !== -1) {
+                    this.stopDragRing();
+                    f = true;
+                }
                 this.m_mousePressed = false;
                 this.m_panning = false;
                 this.render(f, true);
@@ -425,7 +468,7 @@ namespace SciViCGraph
             let onMouseDown = (e) => {
                 e = e || window.event;
                 this.m_mousePressed = true;
-                if (!this.startDragNode(e.clientX, e.clientY)) {
+                if (!this.startDragNode(e.clientX, e.clientY) && !this.startDragRing(e.clientX, e.clientY)) {
                     // If not drag, then pan.
                     this.m_panPrevX = e.clientX;
                     this.m_panPrevY = e.clientY;
@@ -436,7 +479,7 @@ namespace SciViCGraph
                 this.m_mousePressed = false;
                 if (!this.m_panning) {
                     e = e || window.event;
-                    if (!this.dropNode(e.clientX, e.clientY)) {
+                    if (!this.dropNode(e.clientX, e.clientY) && !this.dropRing(e.clientX, e.clientY)) {
                         this.m_clickCaught = true;
                         let isInRing = [ false ];
                         let node = this.getNodeByPosition(e.clientX - this.m_renderingCache.x, 
@@ -481,7 +524,8 @@ namespace SciViCGraph
                     "</td><td>" +
                         "<input id='scivi_apply_fonts' type='button' value='" + this.m_localizer["LOC_APPLY"] + "'/>" +
                 "</td></tr></table><hr/><br/>" +
-            "<input id='scivi_fit_to_screen' type='button' value='" + this.m_localizer["LOC_FIT_TO_SCREEN"] + "'/>";
+            "<input id='scivi_fit_to_screen' type='button' value='" + this.m_localizer["LOC_FIT_TO_SCREEN"] + "'/>" +
+            "<input id='scivi_sort_by_ring' type='button' value='" + this.m_localizer["LOC_SORT_BY_RING"] + "'/>";
 
             $("#scivi_edge_treshold_slider").slider({
                 min: this.m_edgeWeight.min,
@@ -559,10 +603,18 @@ namespace SciViCGraph
                 this.render(true, true);
             };
 
+            let sortByRing = $("#scivi_sort_by_ring")[0] as HTMLInputElement;
+            sortByRing.onclick = () => {
+                this.sortNodesByRingScale();
+                this.reinit(false);
+            };
+
             $(document).keyup((e) => {
                 if (e.keyCode == 27) {
                     this.m_draggedNodeIndex = -1;
                     this.dropNode(0.0, 0.0);
+                    this.m_draggedRingIndex = -1;
+                    this.dropRing(0.0, 0.0);
                     this.m_panning = true; // Prevent selection on mouse up.
                     this.m_mousePressed = false; // Ensure panning is actually blocked by mouse move.
                     if (this.m_cursorPos.x !== undefined && this.m_cursorPos.y !== undefined)
@@ -1051,8 +1103,9 @@ namespace SciViCGraph
                 }
                 this.m_nodeBorder.showForNode(this.currentData().nodes[this.m_draggedNodeIndex]);
                 this.render(true, true);
+                return true;
             }
-            return this.m_draggedNodeIndex !== -1;
+            return false;
         }
 
         private dragNode(x: number, y: number)
@@ -1118,8 +1171,86 @@ namespace SciViCGraph
                 $(".scivi_graph_tooltip").fadeOut(100);
             }
             this.m_draggedNodeIndex = -1;
-            if (this.m_nodeBorder !== null)
+            if (this.m_nodeBorder)
                 this.m_nodeBorder.showForNode(null);
+        }
+
+        private startDragRing(x: number, y: number): boolean
+        {
+            const lx = x - this.m_renderingCache.x;
+            const ly = y - this.m_renderingCache.y;
+            const s = this.m_renderingCache.currentScale();
+            this.m_draggedRingIndex = this.getRingIndexByPosition(lx, ly, s);
+            if (this.m_draggedRingIndex >= 0) {
+                if (this.m_ringBorder === null) {
+                    this.m_ringBorder = new RingBorder();
+                    this.m_stage.addChild(this.m_ringBorder);
+                }
+                const draggingRing = this.m_ringScales[this.m_draggedRingIndex];
+                this.m_ringBorder.showForRing(draggingRing);
+                draggingRing.dropHighlight();
+                this.render(true, true);
+                return true;
+            }
+            return false;
+        }
+
+        private dragRing(x: number, y: number)
+        {
+            if (!this.m_ringPlaceHolder) {
+                this.m_ringPlaceHolder = new RingPlaceHolder();
+                this.m_stage.addChild(this.m_ringPlaceHolder);
+            }
+            let r = [ 0.0 ];
+            const lx = x - this.m_renderingCache.x;
+            const ly = y - this.m_renderingCache.y;
+            const s = this.m_renderingCache.currentScale();
+            const idx = this.getRingIndexByPosition(lx, ly, s, r);
+            if (this.m_ringPlaceHolder.showForRing(r[0]))
+                this.render(true, true);
+        }
+
+        private dropRing(x: number, y: number): boolean
+        {
+            let result = false;
+            let needsReinit = false;
+            if (this.m_draggedRingIndex !== -1 && this.m_ringPlaceHolder && this.m_ringPlaceHolder.visible) {
+                let r = [ 0.0 ];
+                const lx = x - this.m_renderingCache.x;
+                const ly = y - this.m_renderingCache.y;
+                const s = this.m_renderingCache.currentScale();
+                let idx = this.getRingIndexByPosition(lx, ly, s, r);
+                if (this.m_draggedRingIndex - idx > 0 || this.m_draggedRingIndex - idx < -1) {
+                    if (idx > this.m_draggedRingIndex)
+                        --idx;
+                    if (idx < 0)
+                        idx = 0;
+                    else if (idx === this.m_scaleLevels.length)
+                        idx = this.m_scaleLevels.length - 1;
+                    const i1 = this.m_scaleLevels.length - this.m_draggedRingIndex - 1;
+                    const i2 = this.m_scaleLevels.length - idx - 1;
+                    const dScaleLevel = this.m_scaleLevels[i1];
+                    this.m_scaleLevels.splice(i1, 1);
+                    this.m_scaleLevels.splice(i2, 0, dScaleLevel);
+                    needsReinit = true;
+                }
+                result = true;
+            }
+            this.stopDragRing();
+            if (needsReinit)
+                this.reinit(false);
+            else
+                this.render(true, true);
+            return result;
+        }
+
+        private stopDragRing()
+        {
+            if (this.m_ringPlaceHolder)
+                this.m_ringPlaceHolder.showForRing(-1);
+            this.m_draggedRingIndex = -1;
+            if (this.m_ringBorder)
+                this.m_ringBorder.showForRing(null);
         }
     }
 }
