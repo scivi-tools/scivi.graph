@@ -384,6 +384,15 @@ namespace SciViCGraph
             return this.roundVal(x, s).toString();
         }
 
+        private updateStateLineLabels()
+        {
+            let w = this.m_stateline.clientWidth / this.m_data.length - 6;
+            if (w < 30)
+                w = 30;
+            $(".scivi_stateline_label").css("width", w + "px");
+            $(".scivi_stateline_label").css("margin-left", (-w * 0.5) + "px");
+        }
+
         private initInterface()
         {
             window.addEventListener("resize", () => { this.reshape(); });
@@ -591,12 +600,14 @@ namespace SciViCGraph
                     step: 1,
                     slide: (event, ui) => { this.changeCurrentState(ui.value); }
                 }).each(() => {
-                    let n = this.m_data.length - 1;
+                    const n = this.m_data.length - 1;
                     for (let i = 0; i <= n; ++i) {
-                        let el = $("<label><span style='color: #c5c5c5;'>|</span><br/>" + this.m_data[i].label + "</label>").css("left", (i / n * 100) + "%");
+                        const el = $("<label class='scivi_stateline_label'><span style='color: #c5c5c5;'>|</span><br/>" + this.m_data[i].label + "</label>");
+                        el.css("left", (i / n * 100) + "%");
                         $("#scivi_stateline_slider").append(el);
                     }
                 });
+                this.updateStateLineLabels();
             }
 
             let fitToScreen = $("#scivi_fit_to_screen")[0] as HTMLInputElement;
@@ -819,6 +830,7 @@ namespace SciViCGraph
         public reshape()
         {
             this.m_renderer.resize(this.m_view.offsetWidth, this.m_view.offsetHeight);
+            this.updateStateLineLabels();
             this.render(true, true);
         }
 
