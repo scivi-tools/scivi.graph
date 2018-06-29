@@ -627,21 +627,28 @@ namespace SciViCGraph
         {
             this.m_maxTextLength = 0;
             let maxTextHeight = 0;
-            let ww = this.currentData().nodes.length < 40;
-            this.currentData().nodes.forEach((node) => {
-                node.wordWrap = ww;
-                let s = node.labelSize(true);
-                if (s.width > this.m_maxTextLength)
-                    this.m_maxTextLength = s.width;
-                if (s.height > maxTextHeight)
-                    maxTextHeight = s.height;
+            let n = 0;
+            this.m_data.forEach((state) => {
+                if (state.nodes.length > n)
+                    n = state.nodes.length;
+            });
+            let ww = n < 40;
+            this.m_data.forEach((state) => {
+                state.nodes.forEach((node) => {
+                    node.wordWrap = ww;
+                    let s = node.labelSize(true);
+                    if (s.width > this.m_maxTextLength)
+                        this.m_maxTextLength = s.width;
+                    if (s.height > maxTextHeight)
+                        maxTextHeight = s.height;
+                });
             });
             if (this.m_maxTextLength < 50)
                 this.m_maxTextLength = 50;
 
             this.m_maxTextLength += 20;
 
-            this.m_radius = (Math.max(this.currentData().nodes.length * maxTextHeight, 1500)) / (2.0 * Math.PI);
+            this.m_radius = (Math.max(n * maxTextHeight, 1500)) / (2.0 * Math.PI);
             let rsWidth = this.m_scaleLevels ? Renderer.m_ringScaleWidth * this.m_scaleLevels.length : 0.0;
             this.m_totalRadius = this.m_radius + this.m_maxTextLength + rsWidth;
         }
