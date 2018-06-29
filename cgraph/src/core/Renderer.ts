@@ -439,7 +439,8 @@ namespace SciViCGraph
                     else
                         this.panGraph(e.clientX, e.clientY);
                 } else {
-                    this.hoverGraph(e.clientX, e.clientY);
+                    if (e.buttons === 0)
+                        this.hoverGraph(e.clientX, e.clientY);
                 }
             };
 
@@ -476,21 +477,23 @@ namespace SciViCGraph
             };
 
             let onMouseUp = (e) => {
-                this.m_mousePressed = false;
-                if (!this.m_panning) {
-                    e = e || window.event;
-                    if (!this.dropNode(e.clientX, e.clientY) && !this.dropRing(e.clientX, e.clientY)) {
-                        this.m_clickCaught = true;
-                        let isInRing = [ false ];
-                        let node = this.getNodeByPosition(e.clientX - this.m_renderingCache.x, 
-                                                          e.clientY - this.m_renderingCache.y,
-                                                          this.m_renderingCache.currentScale(),
-                                                          isInRing);
-                        if (!isInRing[0])
-                            this.selectNode(node);
+                if (this.m_mousePressed) {
+                    this.m_mousePressed = false;
+                    if (!this.m_panning) {
+                        e = e || window.event;
+                        if (!this.dropNode(e.clientX, e.clientY) && !this.dropRing(e.clientX, e.clientY)) {
+                            this.m_clickCaught = true;
+                            let isInRing = [ false ];
+                            let node = this.getNodeByPosition(e.clientX - this.m_renderingCache.x,
+                                                              e.clientY - this.m_renderingCache.y,
+                                                              this.m_renderingCache.currentScale(),
+                                                              isInRing);
+                            if (!isInRing[0])
+                                this.selectNode(node);
+                        }
                     }
+                    this.m_panning = false;
                 }
-                this.m_panning = false;
             };
 
             this.m_view.onmousemove = onMouseMove;
