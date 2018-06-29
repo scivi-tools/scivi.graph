@@ -70,7 +70,7 @@
                     "Языковые параметры", 
                     "Референты", 
                 "None" ];
-                var scale1 = graph.createScale(steps1, colors1, textColors1, names1, function (node) { return node.custom["groupA"]; });
+                var scale1 = graph.createScale(steps1, colors1, textColors1, names1, function (node) { return node.custom["s_group"]; });
 
                 var textColors2 = [ 0xffffff,
                                     0x000000, 0x000000, 0x000000, 0x000000,
@@ -92,9 +92,11 @@
 
                     "Количество референтов",
                 "None" ];
-                var scale2 = graph.createScale(steps2, colors2, textColors2, names2, function (node) { return node.custom["groupB"]; });
+                var scale2 = graph.createScale(steps2, colors2, textColors2, names2, function (node) { return node.custom["group"]; });
 
-                var renderer = graph.run(loc, states, [scale2, scale1], [ 0x0000aa ]);
+                var renderer = graph.run(loc, states, [scale2, scale1], [ 0x459100,
+                                0xF06513, 0xDF8D00, 0xF06513, 0xDF8D00,
+                                0x7337FF, 0x007F9A ]);
             }
         </script>
     </head>
