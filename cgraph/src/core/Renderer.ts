@@ -992,6 +992,29 @@ namespace SciViCGraph
             this.m_scaleLevels = s;
         }
 
+        private smartCmp(x1: string, x2: string): number
+        {
+            const x1num = /^\d+(\.\d+)?$/.test(x1);
+            const x2num = /^\d+(\.\d+)?$/.test(x2);
+            if (x1num && x2num) {
+                const x1f = parseFloat(x1);
+                const x2f = parseFloat(x2);
+                if (x1f < x2f)
+                    return -1;
+                else if (x1f > x2f)
+                    return 1;
+                else
+                    return 0;
+            } else {
+                if (x1 < x2)
+                    return -1;
+                else if (x1 == x2)
+                    return 0;
+                else
+                    return 1;
+            }
+        }
+
         public sortNodesByRingScale(sortAllStates: boolean)
         {
             if (this.m_scaleLevels.length > 0) {
@@ -1010,10 +1033,8 @@ namespace SciViCGraph
                         return -1;
                     else if (v1 > v2)
                         return 1;
-                    else if (x1.label < x2.label)
-                        return -1;
                     else
-                        return 0;
+                        return this.smartCmp(x1.label, x2.label);
                 }
                 if (sortAllStates) {
                     this.m_data.forEach((state) => {
