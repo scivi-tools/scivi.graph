@@ -439,13 +439,14 @@ namespace SciViCGraph
                         this.m_hoveredEdge.isGlowing = false;
                     this.m_hoveredEdge = hoveredEdge;
                     this.m_hoveredEdge.isGlowing = true;
-                    if (this.m_hoveredEdge.tooltip) {
+                    if (this.m_hoveredEdge.tooltip)
                         $(".scivi_graph_tooltip").html(this.m_hoveredEdge.tooltip);
-                        $(".scivi_graph_tooltip").css({top: gy, left: gx + offset});
-                        $(".scivi_graph_tooltip").stop(true);
-                        $(".scivi_graph_tooltip").fadeIn(100);
-                        $(".scivi_graph_tooltip")[0]["host"] = this;
-                    }
+                    else
+                        $(".scivi_graph_tooltip").html(this.m_hoveredEdge.weight.toString());
+                    $(".scivi_graph_tooltip").css({top: gy, left: gx + offset});
+                    $(".scivi_graph_tooltip").stop(true);
+                    $(".scivi_graph_tooltip").fadeIn(100);
+                    $(".scivi_graph_tooltip")[0]["host"] = this;
                     return true;
                 }
                 $(".scivi_graph_tooltip").css({top: gy, left: gx + offset, position: "absolute"});
