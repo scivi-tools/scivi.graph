@@ -605,7 +605,7 @@ namespace SciViCGraph
 
             let sortByRing = $("#scivi_sort_by_ring")[0] as HTMLInputElement;
             sortByRing.onclick = () => {
-                this.sortNodesByRingScale();
+                this.sortNodesByRingScale(false);
                 this.reinit(false);
             };
 
@@ -970,10 +970,10 @@ namespace SciViCGraph
             this.m_scaleLevels = s;
         }
 
-        public sortNodesByRingScale()
+        public sortNodesByRingScale(sortAllStates: boolean)
         {
             if (this.m_scaleLevels.length > 0) {
-                this.currentData().nodes.sort((x1, x2) => {
+                const sorter = (x1, x2) => {
                     for (let i = this.m_scaleLevels.length - 1; i >= 0; --i) {
                         const v1 = this.m_scaleLevels[i].getStepID(x1);
                         const v2 = this.m_scaleLevels[i].getStepID(x2);
@@ -992,7 +992,14 @@ namespace SciViCGraph
                         return -1;
                     else
                         return 0;
-                });
+                }
+                if (sortAllStates) {
+                    this.m_data.forEach((state) => {
+                        state.nodes.sort(sorter);
+                    });
+                } else {
+                    this.currentData().nodes.sort(sorter);
+                }
             }
         }
 

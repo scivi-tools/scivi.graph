@@ -89,7 +89,7 @@ CGraph.prototype.run = function (loc, data, scales, colors)
 
     renderer.setInput(data, colors);
     renderer.scaleLevels = scales;
-    renderer.sortNodesByRingScale();
+    renderer.sortNodesByRingScale(true);
     renderer.run();
 
     return renderer;
