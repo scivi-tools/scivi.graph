@@ -82,11 +82,16 @@ namespace SciViCGraph
                                 this.m_highlights[this.m_highlightedSegment].visible = false;
                             this.m_highlightedSegment = i;
                             this.m_highlights[i].visible = true;
-                            $(".scivi_graph_tooltip").html(this.m_names[i]);
-                            $(".scivi_graph_tooltip").css({top: gy, left: gx + offset});
-                            $(".scivi_graph_tooltip").stop(true);
-                            $(".scivi_graph_tooltip").fadeIn(100);
-                            $(".scivi_graph_tooltip")[0]["host"] = this;
+                            if (this.m_names[i].length > 0) {
+                                $(".scivi_graph_tooltip").html(this.m_names[i]);
+                                $(".scivi_graph_tooltip").css({top: gy, left: gx + offset});
+                                $(".scivi_graph_tooltip").stop(true);
+                                $(".scivi_graph_tooltip").fadeIn(100);
+                                $(".scivi_graph_tooltip")[0]["host"] = this;
+                            } else {
+                                $(".scivi_graph_tooltip").stop(true);
+                                $(".scivi_graph_tooltip").fadeOut(100);
+                            }
                             return true;
                         }
                         $(".scivi_graph_tooltip").css({top: gy, left: gx + offset, position: "absolute"});
