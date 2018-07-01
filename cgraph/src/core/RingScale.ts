@@ -4,6 +4,7 @@ namespace SciViCGraph
     {
         private m_highlights: RingScaleSegment[];
         private m_highlightedSegment: number;
+        private m_selectedSegment: number;
         private m_names: string[];
 
         constructor(private m_inRadius: number, private m_outRadius: number, private m_width: number, 
@@ -13,6 +14,7 @@ namespace SciViCGraph
 
             this.m_highlights = [];
             this.m_highlightedSegment = -1;
+            this.m_selectedSegment = -1;
             this.m_names = [];
         }
 
@@ -78,7 +80,7 @@ namespace SciViCGraph
                 for (let i = 0, n = this.m_highlights.length; i < n; ++i) {
                     if (this.m_highlights[i].containsAngle(a)) {
                         if (i !== this.m_highlightedSegment) {
-                            if (this.m_highlightedSegment !== -1)
+                            if (this.m_highlightedSegment !== -1 && this.m_selectedSegment !== this.m_highlightedSegment)
                                 this.m_highlights[this.m_highlightedSegment].visible = false;
                             this.m_highlightedSegment = i;
                             this.m_highlights[i].visible = true;
@@ -107,7 +109,8 @@ namespace SciViCGraph
         public dropHighlight(): boolean
         {
             if (this.m_highlightedSegment !== -1) {
-                this.m_highlights[this.m_highlightedSegment].visible = false;
+                if (this.m_selectedSegment !== this.m_highlightedSegment)
+                    this.m_highlights[this.m_highlightedSegment].visible = false;
                 this.m_highlightedSegment = -1;
                 if ($(".scivi_graph_tooltip")[0]["host"] === this) {
                     $(".scivi_graph_tooltip").stop(true);
@@ -116,6 +119,17 @@ namespace SciViCGraph
                 return true;
             }
             return false;
+        }
+
+        public handleSelection(x: number, y: number, s: number): boolean
+        {
+            let result = false;
+            if (this.m_selectedSegment !== -1) {
+                this.m_highlights[this.m_selectedSegment].visible = false;
+                result = true;
+            }
+            this.m_selectedSegment = this.m_highlightedSegment;
+            return result;
         }
 
         private addText(label: string, a: number, flipFlop: boolean, r: number, textColor: number)

@@ -493,12 +493,14 @@ namespace SciViCGraph
                         if (!this.dropNode(e.clientX, e.clientY) && !this.dropRing(e.clientX, e.clientY)) {
                             this.m_clickCaught = true;
                             let isInRing = [ false ];
-                            let node = this.getNodeByPosition(e.clientX - this.m_renderingCache.x,
-                                                              e.clientY - this.m_renderingCache.y,
-                                                              this.m_renderingCache.currentScale(),
-                                                              isInRing);
+                            const x = e.clientX - this.m_renderingCache.x;
+                            const y = e.clientY - this.m_renderingCache.y;
+                            const s = this.m_renderingCache.currentScale();
+                            const node = this.getNodeByPosition(x, y, s, isInRing);
                             if (!isInRing[0])
                                 this.selectNode(node);
+                            if (!node && e.shiftKey)
+                                this.selectRing(x, y, s);
                         }
                     }
                     this.m_panning = false;
@@ -1063,6 +1065,18 @@ namespace SciViCGraph
             this.render(false, true);
         }
 
+        private selectRing(x: number, y: number, s: number)
+        {
+            let f = false;
+            if (this.m_ringScales) {
+                this.m_ringScales.forEach((rs) => {
+                    const rsf = rs.handleSelection(x, y, s);
+                    f = f || rsf;
+                });
+            }
+            this.render(f, true);
+        }
+
         public updateNodesVisibility()
         {
             let r1 = this.filterNodes();
@@ -1238,7 +1252,6 @@ namespace SciViCGraph
                 }
                 const draggingRing = this.m_ringScales[this.m_draggedRingIndex];
                 this.m_ringBorder.showForRing(draggingRing);
-                draggingRing.dropHighlight();
                 this.render(true, true);
                 return true;
             }
