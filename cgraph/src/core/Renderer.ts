@@ -623,11 +623,15 @@ namespace SciViCGraph
             const ringFilter1 = $("#scivi_ring_filter_1")[0] as HTMLInputElement;
             ringFilter1.onchange = () => {
                 this.m_ringSegmentFilterBothEnds = ringFilter1.checked;
+                if (this.filterEdges())
+                    this.render(true, true);
             };
 
             const ringFilter2 = $("#scivi_ring_filter_2")[0] as HTMLInputElement;
             ringFilter2.onchange = () => {
                 this.m_ringSegmentFilterBothEnds = !ringFilter2.checked;
+                if (this.filterEdges())
+                    this.render(true, true);
             };
 
             const fitToScreen = $("#scivi_fit_to_screen")[0] as HTMLInputElement;
