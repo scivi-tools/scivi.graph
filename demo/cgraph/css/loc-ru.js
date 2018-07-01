@@ -40,5 +40,7 @@ var g_loc_ru = {
     "LOC_EDUCATION_HIGH": "в",
     "LOC_NODE_DATA": "Данные вершины",
     "LOC_FIT_TO_SCREEN": "Вписать в экран",
-    "LOC_SORT_BY_RING": "Отсортировать"
+    "LOC_SORT_BY_RING": "Отсортировать",
+    "LOC_RING_FILTER_1": "Фильтрация по сектору кольца: оба конца дуги",
+    "LOC_RING_FILTER_2": "Фильтрация по сектору кольца: один конец дуги",
 };

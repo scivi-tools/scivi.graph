@@ -14,11 +14,13 @@ namespace SciViCGraph
 
         public containsAngle(angle: number): boolean
         {
+            if (angle < 0.0)
+                angle += 2.0 * Math.PI;
             if (this.m_from < 0.0) {
                 if (this.m_to < 0.0)
                     angle -= 2.0 * Math.PI;
                 else
-                    return angle - 2.0 * Math.PI >= this.m_from || angle < this.m_to
+                    return angle - 2.0 * Math.PI >= this.m_from || angle < this.m_to;
             }
             return angle >= this.m_from && angle < this.m_to;
         }

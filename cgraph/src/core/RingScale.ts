@@ -169,6 +169,12 @@ namespace SciViCGraph
             this.addChild(text);
         }
 
+        public nodeInSelectedSegment(node: Node): boolean
+        {
+            return this.m_selectedSegment !== -1 &&
+                   this.m_selections[this.m_selectedSegment].containsAngle(node.rotation);
+        }
+
         get radius(): number
         {
             return this.m_outRadius;
@@ -177,6 +183,11 @@ namespace SciViCGraph
         get width(): number
         {
             return this.m_width;
+        }
+
+        get segmentSelected(): boolean
+        {
+            return this.m_selectedSegment !== -1;
         }
     }
 }

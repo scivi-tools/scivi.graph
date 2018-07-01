@@ -81,6 +81,8 @@ namespace SciViCGraph
         private m_draggedRingIndex: number;
         private m_ringPlaceHolder: RingPlaceHolder;
         private m_ringBorder: RingBorder;
+        private m_ringSegmentFilterBothEnds: boolean;
+        private m_ringSegmentSelected: boolean;
 
         static readonly m_ringScaleWidth = 30;
         static readonly m_minFontSize = 5;
@@ -109,6 +111,8 @@ namespace SciViCGraph
             this.m_draggedRingIndex = -1;
             this.m_ringPlaceHolder = null;
             this.m_ringBorder = null;
+            this.m_ringSegmentFilterBothEnds = true;
+            this.m_ringSegmentSelected = false;
 
             let tooltip = document.createElement("div");
             tooltip.className = "scivi_graph_tooltip";
@@ -500,7 +504,7 @@ namespace SciViCGraph
                             if (!isInRing[0])
                                 this.selectNode(node);
                             if (!node && e.shiftKey)
-                                this.selectRing();
+                                this.selectRingSegment();
                         }
                     }
                     this.m_panning = false;
@@ -537,7 +541,11 @@ namespace SciViCGraph
                 "</table>" +
                     "</td><td>" +
                         "<input id='scivi_apply_fonts' type='button' value='" + this.m_localizer["LOC_APPLY"] + "'/>" +
-                "</td></tr></table><hr/><br/>" +
+                "</td></tr></table><br/><hr/><br/>" +
+            "<input id='scivi_ring_filter_1' name='scivi_ring_filter' type='radio' checked/>" +
+            "<label for='scivi_ring_filter_1'>" + this.m_localizer["LOC_RING_FILTER_1"] + "</label><br/>" +
+            "<input id='scivi_ring_filter_2' name='scivi_ring_filter' type='radio'/>" +
+            "<label for='scivi_ring_filter_2'>" + this.m_localizer["LOC_RING_FILTER_2"] + "</label><br/><br/><hr/><br/>" +
             "<input id='scivi_fit_to_screen' type='button' value='" + this.m_localizer["LOC_FIT_TO_SCREEN"] + "'/>" +
             "<input id='scivi_sort_by_ring' type='button' value='" + this.m_localizer["LOC_SORT_BY_RING"] + "'/>";
 
@@ -577,12 +585,12 @@ namespace SciViCGraph
                 slide: (event, ui) => { this.changeEdgeAlpha(ui.value); }
             });
 
-            let applyFonts = $("#scivi_apply_fonts")[0];
-            let nodesFSInput = $("#scivi_nodes_font")[0] as HTMLInputElement;
-            let ringFSInput = $("#scivi_ring_font")[0] as HTMLInputElement;
+            const applyFonts = $("#scivi_apply_fonts")[0];
+            const nodesFSInput = $("#scivi_nodes_font")[0] as HTMLInputElement;
+            const ringFSInput = $("#scivi_ring_font")[0] as HTMLInputElement;
             applyFonts.onclick = () => {
-                let nodesFS = parseFloat(nodesFSInput.value);
-                let ringFS = parseFloat(ringFSInput.value);
+                const nodesFS = parseFloat(nodesFSInput.value);
+                const ringFS = parseFloat(ringFSInput.value);
                 if (!isNaN(nodesFS) && !isNaN(ringFS) &&
                     nodesFS >= Renderer.m_minFontSize && nodesFS <= Renderer.m_maxFontSize && nodesFS === Math.round(nodesFS) &&
                     ringFS >= Renderer.m_minFontSize && ringFS <= Renderer.m_maxFontSize && ringFS === Math.round(ringFS)) {
@@ -612,14 +620,24 @@ namespace SciViCGraph
                 this.updateStateLineLabels();
             }
 
-            let fitToScreen = $("#scivi_fit_to_screen")[0] as HTMLInputElement;
+            const ringFilter1 = $("#scivi_ring_filter_1")[0] as HTMLInputElement;
+            ringFilter1.onchange = () => {
+                this.m_ringSegmentFilterBothEnds = ringFilter1.checked;
+            };
+
+            const ringFilter2 = $("#scivi_ring_filter_2")[0] as HTMLInputElement;
+            ringFilter2.onchange = () => {
+                this.m_ringSegmentFilterBothEnds = !ringFilter2.checked;
+            };
+
+            const fitToScreen = $("#scivi_fit_to_screen")[0] as HTMLInputElement;
             fitToScreen.onclick = () => {
                 this.fitScale();
                 this.createCache();
                 this.render(true, true);
             };
 
-            let sortByRing = $("#scivi_sort_by_ring")[0] as HTMLInputElement;
+            const sortByRing = $("#scivi_sort_by_ring")[0] as HTMLInputElement;
             sortByRing.onclick = () => {
                 this.sortNodesByRingScale(false);
                 this.reinit(false);
@@ -907,6 +925,27 @@ namespace SciViCGraph
             this.m_statistics.clearSelection();
         }
 
+        private isEdgeVisibleByRingSegment(edge: Edge): boolean
+        {
+            if (this.m_ringSegmentSelected) {
+                if (this.m_ringSegmentFilterBothEnds) {
+                    for (let i = 0, n = this.m_ringScales.length; i < n; ++i) {
+                        if (this.m_ringScales[i].nodeInSelectedSegment(edge.source) &&
+                            this.m_ringScales[i].nodeInSelectedSegment(edge.target))
+                            return true;
+                    }
+                } else {
+                    for (let i = 0, n = this.m_ringScales.length; i < n; ++i) {
+                        if (this.m_ringScales[i].nodeInSelectedSegment(edge.source) ||
+                            this.m_ringScales[i].nodeInSelectedSegment(edge.target))
+                            return true;
+                    }
+                }
+                return false;
+            }
+            return true;
+        }
+
         private filterEdges(): boolean
         {
             let result = false;
@@ -914,7 +953,8 @@ namespace SciViCGraph
             const rmax = this.roundVal(this.m_edgeWeight.max, this.m_edgeWeight.step);
             this.currentData().edges.forEach((edge) => {
                 const rv = this.roundVal(edge.weight, this.m_edgeWeight.step);
-                let vis = edge.source.visible && edge.target.visible && rv >= rmin && rv <= rmax;
+                const vis = edge.source.visible && edge.target.visible && rv >= rmin && rv <= rmax &&
+                            this.isEdgeVisibleByRingSegment(edge);
                 if (vis !== edge.visible) {
                     edge.visible = vis;
                     result = true;
@@ -932,7 +972,7 @@ namespace SciViCGraph
             const rmax = this.roundVal(this.m_nodeWeight.max, this.m_nodeWeight.step);
             this.currentData().nodes.forEach((node) => {
                 const rv = this.roundVal(node.weight, this.m_nodeWeight.step);
-                let vis = node.isShown && rv >= rmin && rv <= rmax;
+                const vis = node.isShown && rv >= rmin && rv <= rmax;
                 if (vis !== node.visible) {
                     node.visible = vis;
                     result = true;
@@ -1065,16 +1105,19 @@ namespace SciViCGraph
             this.render(false, true);
         }
 
-        private selectRing()
+        private selectRingSegment()
         {
-            let f = false;
+            let f1 = false;
+            this.m_ringSegmentSelected = false;
             if (this.m_ringScales) {
                 this.m_ringScales.forEach((rs) => {
                     const rsf = rs.handleSelection();
-                    f = f || rsf;
+                    f1 = f1 || rsf;
+                    this.m_ringSegmentSelected = this.m_ringSegmentSelected || rs.segmentSelected;
                 });
             }
-            this.render(f, true);
+            const f2 = this.filterEdges();
+            this.render(f1 || f2, true);
         }
 
         public updateNodesVisibility()
