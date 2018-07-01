@@ -1252,11 +1252,14 @@ namespace SciViCGraph
             let result = false;
             let needsReinit = false;
             if (this.m_draggedNodeIndex !== -1 && this.m_nodePlaceHolder && this.m_nodePlaceHolder.visible) {
+                const n = this.currentData().nodes.length;
                 const lx = x - this.m_renderingCache.x;
                 const ly = y - this.m_renderingCache.y;
                 let idx = this.getAngularIndex(lx, ly);
                 if (idx > this.m_draggedNodeIndex)
                     --idx;
+                else if (idx == 0 && this.m_draggedNodeIndex > n / 2)
+                    idx = n - 1;
                 if (idx !== this.m_draggedNodeIndex) {
                     const dNode = this.currentData().nodes[this.m_draggedNodeIndex];
                     this.currentData().nodes.splice(this.m_draggedNodeIndex, 1);
