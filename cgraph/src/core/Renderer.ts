@@ -500,7 +500,7 @@ namespace SciViCGraph
                             if (!isInRing[0])
                                 this.selectNode(node);
                             if (!node && e.shiftKey)
-                                this.selectRing(x, y, s);
+                                this.selectRing();
                         }
                     }
                     this.m_panning = false;
@@ -1065,12 +1065,12 @@ namespace SciViCGraph
             this.render(false, true);
         }
 
-        private selectRing(x: number, y: number, s: number)
+        private selectRing()
         {
             let f = false;
             if (this.m_ringScales) {
                 this.m_ringScales.forEach((rs) => {
-                    const rsf = rs.handleSelection(x, y, s);
+                    const rsf = rs.handleSelection();
                     f = f || rsf;
                 });
             }

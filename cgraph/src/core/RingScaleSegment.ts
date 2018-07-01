@@ -2,12 +2,12 @@ namespace SciViCGraph
 {
     export class RingScaleSegment extends Curve
     {
-        constructor(private m_from: number, private m_to: number, width: number, radius: number, color: number)
+        constructor(private m_from: number, private m_to: number, width: number, radius: number, color: number, alpha: number)
         {
             super();
 
             this.lineStyle(width, 0x0, 1);
-            this.m_colors.push({ from: color, to: color, alpha: 0.1 });
+            this.m_colors.push({ from: color, to: color, alpha: alpha });
             this.arc(0, 0, radius, this.m_from, this.m_to, false);
             this.visible = false;
         }

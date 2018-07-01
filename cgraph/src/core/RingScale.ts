@@ -4,6 +4,7 @@ namespace SciViCGraph
     {
         private m_highlights: RingScaleSegment[];
         private m_highlightedSegment: number;
+        private m_selections: RingScaleSegment[];
         private m_selectedSegment: number;
         private m_names: string[];
 
@@ -14,6 +15,7 @@ namespace SciViCGraph
 
             this.m_highlights = [];
             this.m_highlightedSegment = -1;
+            this.m_selections = [];
             this.m_selectedSegment = -1;
             this.m_names = [];
         }
@@ -53,9 +55,13 @@ namespace SciViCGraph
             }
 
             r = this.m_outRadius - this.m_width / 2.0;
-            let hl = new RingScaleSegment(from, to, r - this.m_inRadius, (r + this.m_inRadius) / 2.0, color);
+            const hl = new RingScaleSegment(from, to, r - this.m_inRadius, (r + this.m_inRadius) / 2.0, color, 0.1);
             this.addChild(hl);
             this.m_highlights.push(hl);
+
+            const sl = new RingScaleSegment(from, to, this.m_width, this.m_outRadius, 0xFD3C00, 0.5);
+            this.addChild(sl);
+            this.m_selections.push(sl);
 
             this.m_names.push(name);
         }
@@ -121,14 +127,24 @@ namespace SciViCGraph
             return false;
         }
 
-        public handleSelection(x: number, y: number, s: number): boolean
+        public handleSelection(): boolean
         {
             let result = false;
             if (this.m_selectedSegment !== -1) {
-                this.m_highlights[this.m_selectedSegment].visible = false;
+                if (this.m_selectedSegment !== this.m_highlightedSegment)
+                    this.m_highlights[this.m_selectedSegment].visible = false;
+                this.m_selections[this.m_selectedSegment].visible = false;
                 result = true;
             }
-            this.m_selectedSegment = this.m_highlightedSegment;
+            if (this.m_highlightedSegment === this.m_selectedSegment)
+                this.m_selectedSegment = -1;
+            else {
+                this.m_selectedSegment = this.m_highlightedSegment;
+                if (this.m_selectedSegment !== -1) {
+                    this.m_selections[this.m_selectedSegment].visible = true;
+                    result = true;
+                }
+            }
             return result;
         }
 
