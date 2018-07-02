@@ -244,25 +244,63 @@ namespace SciViCGraph
             }
         }
 
-        private hitTestWithBBox(p: Point, c1: Point, c2: Point, c3: Point): boolean
+        private minMaxCP(cp: Point[]): Point[]
         {
-            const minC = { x: Math.min(c1.x, c2.x, c3.x) - this.m_thickness, y: Math.min(c1.y, c2.y, c3.y) - this.m_thickness };
-            const maxC = { x: Math.max(c1.x, c2.x, c3.x) + this.m_thickness, y: Math.max(c1.y, c2.y, c3.y) + this.m_thickness };
+            let minCP = { x: cp[0].x, y: cp[0].y };
+            let maxCP = { x: cp[0].x, y: cp[0].y };
+            for (let i = 1, n = cp.length; i < n; ++i) {
+                if (cp[i].x < minCP.x)
+                    minCP.x = cp[i].x;
+                if (cp[i].y < minCP.y)
+                    minCP.y = cp[i].y;
+                if (cp[i].x > maxCP.x)
+                    maxCP.x = cp[i].x;
+                if (cp[i].y > maxCP.y)
+                    maxCP.y = cp[i].y;
+            }
+            return [ minCP, maxCP ];
+        }
+
+        private hitTestWithBBox(p: Point, cp: Point[]): boolean
+        {
+            const mm = this.minMaxCP(cp);
+            const minC = { x: mm[0].x - this.m_thickness, y: mm[0].y - this.m_thickness };
+            const maxC = { x: mm[1].x + this.m_thickness, y: mm[1].y + this.m_thickness };
             return p.x >= minC.x && p.x <= maxC.x && p.y >= minC.y && p.y <= maxC.y;
         }
 
-        private hitTestWithCurve(p: Point, c1: Point, c2: Point, c3: Point): boolean
+        private hitTestWithCurve(p: Point, cp: Point[]): boolean
         {
-            return Geometry.distanceToQuadCurve(p, c1, c2, c3) <= this.m_thickness;
+            if (cp.length === 3)
+                return Geometry.distanceToQuadCurve(p, cp[0], cp[1], cp[2]) <= this.m_thickness;
+            else
+                return Geometry.distanceToBezierCurve(p, cp[0], cp[1], cp[2], cp[3]) <= this.m_thickness;
         }
 
         public hitTest(x: number, y: number): boolean
         {
             const p = { x: x, y: y };
-            const c1 = { x: this.source.x, y: this.source.y };
-            const c2 = { x: 0.0, y: 0.0 };
-            const c3 = { x: this.target.x, y: this.target.y };
-            return this.hitTestWithBBox(p, c1, c2, c3) && this.hitTestWithCurve(p, c1, c2, c3);
+            const cp = this.controlPoints();
+            return this.hitTestWithBBox(p, cp) && this.hitTestWithCurve(p, cp);
+        }
+
+        public controlPoints(): Point[]
+        {
+            if (this.source === this.target) {
+                const c1 = { x: this.source.x, y: this.source.y };
+                const x1 = 0.0;
+                const y1 = 0.0;
+                const x2 = c1.x / 2.0;
+                const y2 = c1.y / 2.0;
+                const c2 = { x: x1 + y2, y: y1 - x2 };
+                const c3 = { x: x1 - y2, y: y1 + x2 };
+                return [ c1, c2, c3, c1 ];
+            } else {
+                const c1 = { x: this.source.x, y: this.source.y };
+                const c2 = { x: 0.0, y: 0.0 };
+                const c3 = { x: this.target.x, y: this.target.y };
+                return [ c1, c2, c3 ];
+            }
         }
     }
 }

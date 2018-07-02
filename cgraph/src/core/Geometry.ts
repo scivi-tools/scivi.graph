@@ -124,5 +124,75 @@ namespace SciViCGraph
 
             return result;
         }
+
+        public static distanceToLineSegment(p: Point, c1: Point, c2: Point) : number
+        {
+            const a = p.x - c1.x;
+            const b = p.y - c1.y;
+            const c = c2.x - c1.x;
+            const d = c2.y - c1.y;
+            const dot = a * c + b * d;
+            const lenSq = c * c + d * d;
+            let param = -1.0;
+            let xx = 0.0;
+            let yy = 0.0;
+
+            if (lenSq !== 0.0)
+                param = dot / lenSq;
+
+            if (param < 0.0) {
+                xx = c1.x;
+                yy = c1.y;
+            } else if (param > 1.0) {
+                xx = c2.x;
+                yy = c2.y;
+            } else {
+                xx = c1.x + param * c;
+                yy = c1.y + param * d;
+            }
+
+            const dx = p.x - xx;
+            const dy = p.y - yy;
+            return Math.sqrt(dx * dx + dy * dy);
+        }
+
+        public static distanceToBezierCurve(p: Point, c1: Point, c2: Point, c3: Point, c4: Point): number
+        {
+            const n = 10;
+            let result = this.distance(p, c1);
+            let t = 0.0;
+            let t2 = 0.0;
+            let t3 = 0.0;
+            let nt = 0.0;
+            let nt2 = 0.0;
+            let nt3 = 0.0;
+            let x = 0.0;
+            let y = 0.0;
+            let dx = 0.0;
+            let dy = 0.0;
+            let prevX = c1.x;
+            let prevY = c1.y;
+            let dist = 0.0;
+
+            for (let i = 1; i <= n; ++i) {
+                t = i / n;
+                t2 = t * t;
+                t3 = t2 * t;
+                nt = (1.0 - t);
+                nt2 = nt * nt;
+                nt3 = nt2 * nt;
+
+                x = (nt3 * c1.x) + (3.0 * nt2 * t * c2.x) + (3.0 * nt * t2 * c3.x) + (t3 * c4.x);
+                y = (nt3 * c1.y) + (3.0 * nt2 * t * c2.y) + (3 * nt * t2 * c3.y) + (t3 * c4.y);
+                dist = this.distanceToLineSegment(p, { x: prevX, y: prevY }, { x: x, y: y });
+                prevX = x;
+                prevY = y;
+
+                if (dist < result)
+                    result = dist;
+            }
+
+            return result;
+        }
     }
 }

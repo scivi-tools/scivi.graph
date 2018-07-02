@@ -318,6 +318,44 @@ namespace SciViCGraph
                    (4.0 * a32);
         }
 
+        private bezierCurveLength(fromX, fromY, cpX, cpY, cpX2, cpY2, toX, toY)
+        {
+            const n = 10;
+            let result = 0.0;
+            let t = 0.0;
+            let t2 = 0.0;
+            let t3 = 0.0;
+            let nt = 0.0;
+            let nt2 = 0.0;
+            let nt3 = 0.0;
+            let x = 0.0;
+            let y = 0.0;
+            let dx = 0.0;
+            let dy = 0.0;
+            let prevX = fromX;
+            let prevY = fromY;
+
+            for (let i = 1; i <= n; ++i) {
+                t = i / n;
+                t2 = t * t;
+                t3 = t2 * t;
+                nt = (1.0 - t);
+                nt2 = nt * nt;
+                nt3 = nt2 * nt;
+
+                x = (nt3 * fromX) + (3.0 * nt2 * t * cpX) + (3.0 * nt * t2 * cpX2) + (t3 * toX);
+                y = (nt3 * fromY) + (3.0 * nt2 * t * cpY) + (3 * nt * t2 * cpY2) + (t3 * toY);
+                dx = prevX - x;
+                dy = prevY - y;
+                prevX = x;
+                prevY = y;
+
+                result += Math.sqrt((dx * dx) + (dy * dy));
+            }
+
+            return result;
+        }
+
         private segmentsCount(length: number): number
         {
             let result = Math.ceil(length / 10.0);
@@ -333,12 +371,8 @@ namespace SciViCGraph
             if (this.currentPath)
             {
                 if (this.currentPath.shape.points.length === 0)
-                {
                     this.currentPath.shape.points = [0, 0];
-                }
-            }
-            else
-            {
+            } else {
                 this.moveTo(0, 0);
             }
 
@@ -347,16 +381,13 @@ namespace SciViCGraph
             let ya = 0;
 
             if (points.length === 0)
-            {
                 this.moveTo(0, 0);
-            }
 
             const fromX = points[points.length - 2];
             const fromY = points[points.length - 1];
             const n = this.segmentsCount(this.quadraticCurveLength(fromX, fromY, cpX, cpY, toX, toY));
 
-            for (let i = 1; i <= n; ++i)
-            {
+            for (let i = 1; i <= n; ++i) {
                 const j = i / n;
 
                 xa = fromX + ((cpX - fromX) * j);
@@ -374,26 +405,18 @@ namespace SciViCGraph
         public arc(cx: number, cy: number, radius: number, startAngle: number, endAngle: number, anticlockwise = false)
         {
             if (startAngle === endAngle)
-            {
                 return this;
-            }
 
             if (!anticlockwise && endAngle <= startAngle)
-            {
                 endAngle += Math.PI * 2;
-            }
             else if (anticlockwise && startAngle <= endAngle)
-            {
                 startAngle += Math.PI * 2;
-            }
 
             const sweep = endAngle - startAngle;
             const segs = this.segmentsCount(Math.abs(sweep) * radius);
 
             if (sweep === 0)
-            {
                 return this;
-            }
 
             const startX = cx + (Math.cos(startAngle) * radius);
             const startY = cy + (Math.sin(startAngle) * radius);
@@ -401,15 +424,10 @@ namespace SciViCGraph
             // If the currentPath exists, take its points. Otherwise call `moveTo` to start a path.
             let points = this.currentPath ? this.currentPath.shape.points : null;
 
-            if (points)
-            {
+            if (points) {
                 if (points[points.length - 2] !== startX || points[points.length - 1] !== startY)
-                {
                     points.push(startX, startY);
-                }
-            }
-            else
-            {
+            } else {
                 this.moveTo(startX, startY);
                 points = this.currentPath.shape.points;
             }
@@ -424,8 +442,7 @@ namespace SciViCGraph
 
             const remainder = (segMinus % 1) / segMinus;
 
-            for (let i = 0; i <= segMinus; ++i)
-            {
+            for (let i = 0; i <= segMinus; ++i) {
                 const real = i + (remainder * i);
 
                 const angle = ((theta) + startAngle + (theta2 * real));
@@ -438,6 +455,60 @@ namespace SciViCGraph
                     (((cTheta * -s) + (sTheta * c)) * radius) + cy
                 );
             }
+
+            this.dirty++;
+
+            return this;
+        }
+
+        private bezier(fromX, fromY, cpX, cpY, cpX2, cpY2, toX, toY, n, path = [])
+        {
+            let dt = 0;
+            let dt2 = 0;
+            let dt3 = 0;
+            let t2 = 0;
+            let t3 = 0;
+
+            path.push(fromX, fromY);
+
+            for (let i = 1, j = 0; i <= n; ++i) {
+                j = i / n;
+
+                dt = (1 - j);
+                dt2 = dt * dt;
+                dt3 = dt2 * dt;
+
+                t2 = j * j;
+                t3 = t2 * j;
+
+                path.push(
+                    (dt3 * fromX) + (3 * dt2 * j * cpX) + (3 * dt * t2 * cpX2) + (t3 * toX),
+                    (dt3 * fromY) + (3 * dt2 * j * cpY) + (3 * dt * t2 * cpY2) + (t3 * toY)
+                );
+            }
+
+            return path;
+        }
+
+        public bezierCurveTo(cpX, cpY, cpX2, cpY2, toX, toY)
+        {
+            if (this.currentPath) {
+                if (this.currentPath.shape.points.length === 0)
+                    this.currentPath.shape.points = [0, 0];
+            } else {
+                this.moveTo(0, 0);
+            }
+
+            const points = this.currentPath.shape.points;
+
+            const fromX = points[points.length - 2];
+            const fromY = points[points.length - 1];
+
+            points.length -= 2;
+
+            const n = this.segmentsCount(this.bezierCurveLength(fromX, fromY, cpX, cpY, cpX2, cpY2, toX, toY));
+
+            this.bezier(fromX, fromY, cpX, cpY, cpX2, cpY2, toX, toY, n, points);
 
             this.dirty++;
 

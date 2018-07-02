@@ -15,6 +15,17 @@ namespace SciViCGraph
             this.m_move = 0;
         }
 
+        private drawCurve(curve: Curve, cp: Point[], thickness: number, fromColor: number, toColor: number, alpha: number)
+        {
+            curve.lineStyle(thickness, 0x0, 1);
+            curve.addColor({ from: fromColor, to: toColor, alpha: alpha });
+            curve.moveTo(cp[0].x, cp[0].y);
+            if (cp.length === 3)
+                curve.quadraticCurveTo(cp[1].x, cp[1].y, cp[2].x, cp[2].y);
+            else
+                curve.bezierCurveTo(cp[1].x, cp[1].y, cp[2].x, cp[2].y, cp[3].x, cp[3].y);
+        }
+
         private update()
         {
             let p = this.parent as Scene;
@@ -28,10 +39,7 @@ namespace SciViCGraph
                     edge.thickness = Edge.minThickness +
                                      (Edge.maxThickness - Edge.minThickness) / (p.edgeWeight.max - p.edgeWeight.min) *
                                      (edge.weight - p.edgeWeight.min);
-                    this.moveTo(edge.source.x, edge.source.y);
-                    this.lineStyle(edge.thickness, 0x0, 1);
-                    this.m_colors.push({ from: edge.fromColor, to: edge.toColor, alpha: edge.alpha });
-                    this.quadraticCurveTo(0, 0, edge.target.x, edge.target.y);
+                    this.drawCurve(this, edge.controlPoints(), edge.thickness, edge.fromColor, edge.toColor, edge.alpha);
                 }
             });
 
@@ -79,10 +87,7 @@ namespace SciViCGraph
         {
             let result = new Curve();
             this.parent.addChild(result);
-            result.moveTo(edge.source.x, edge.source.y);
-            result.lineStyle(edge.thickness * 2.0, 0x0, 1);
-            result.addColor({ from: 0xFF0000, to: 0xFF0000, alpha: 0.5 });
-            result.quadraticCurveTo(0, 0, edge.target.x, edge.target.y);
+            this.drawCurve(result, edge.controlPoints(), edge.thickness * 2.0, 0xFF0000, 0xFF0000, 0.5);
             return result;
         }
 
