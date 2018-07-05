@@ -4,6 +4,7 @@ import { VivaBaseUI } from './VivaBaseUI';
 import { VivaColoredNodeRenderer } from './VivaMod/VivaColoredNodeRenderer';
 import { VivaRombusNodeRenderer } from './VivaMod/VivaRombusNodeRenderer';
 import { VivaTriangleNodeRenderer } from './VivaMod/VivaTriangleNodeRenderer';
+import { ProxyGroupNodeRenderer } from './VivaMod/ProxyGroupNodeRenderer';
 import { VivaImageNodeUI } from './VivaImageNodeUI';
 import { VivaLinkUI } from './VivaLinkUI';
 import { newLinkProgram } from './VivaMod/newLinkProgram';
@@ -35,6 +36,9 @@ export class VivaWebGLSimpleBackend {
         this.onRenderNodeCallback = stub;
         /** @type {function(any) : void} */
         this.onRenderEdgeCallback = stub;
+
+        /** @type {string[]} */
+        this._nodeTypes = [];
     }
 
     /**
@@ -46,7 +50,11 @@ export class VivaWebGLSimpleBackend {
         /** @type {HTMLElement} */
         this._container = container;
 
-        this._graphics.setNodeProgram(new VivaTriangleNodeRenderer());//(new VivaColoredNodeRenderer());
+        if (this._nodeTypes.length > 0) {
+            this._graphics.setNodeProgram(new ProxyGroupNodeRenderer(this._nodeTypes));
+        } else {
+            this._graphics.setNodeProgram(new VivaColoredNodeRenderer());
+        }
         this._graphics.setLinkProgram(new VivaWideLinkRenderer());//(newLinkProgram());
 
         this._graphics.init(this._container);
@@ -74,6 +82,13 @@ export class VivaWebGLSimpleBackend {
     get inputListner() {
         // Пока можно так, ибо всё кешируется в нутрянке
         return webglInputEvents(this._graphics);
+    }
+
+    /**
+     * @param {string[]} value
+     */
+    set nodeTypes(value) {
+        this._nodeTypes = value;
     }
 }
 

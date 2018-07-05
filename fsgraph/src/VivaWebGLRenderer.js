@@ -133,6 +133,8 @@ export class VivaWebGLRenderer {
         this._backend.onRenderNodeCallback = value.onNodeRender;
         this._backend.onRenderEdgeCallback = value.onEdgeRender;
 
+        this._backend.nodeTypes = value.nodeTypes;
+
         // TODO: inverse dependency!
         this.graphicsInputListner.click((nodeUI) => {
             value.onNodeClick(nodeUI, this._graphBackend, this);
@@ -172,9 +174,9 @@ export class VivaWebGLRenderer {
         this.rerender();
     }
 
-    buildDefaultView(colors, imgs) {
+    buildDefaultView(colors, nodeTypes) {
         // TODO: check for graph group count
-        let result = new VivaStateView(colors, imgs, this);
+        let result = new VivaStateView(colors, nodeTypes || [], this);
         let metrics = this._graphController.metrics;
         let edgeMetrics = this._graphController.edgeMetrics;
         // TODO: move this shit out of here (in enherited from VStateView class)

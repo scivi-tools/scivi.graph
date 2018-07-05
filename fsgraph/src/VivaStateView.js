@@ -29,10 +29,10 @@ export class VivaStateView {
     /**
      * 
      * @param {number[]} colorPairs 
-     * @param {*} imgSources 
+     * @param {string[]} nodeTypes 
      * @param {VivaWebGLRenderer} renderer 
      */
-    constructor(colorPairs, imgSources, renderer) {
+    constructor(colorPairs, nodeTypes, renderer) {
 
         // TODO: clon array right way
         /** @type {number[]} */
@@ -56,6 +56,8 @@ export class VivaStateView {
 
         /** @type {VivaWebGLRenderer} */
         this._renderer = renderer;
+
+        this.nodeTypes = nodeTypes;
 
         this.buildUI();
     }
