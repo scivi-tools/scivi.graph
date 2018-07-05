@@ -5,6 +5,7 @@ import { VivaColoredNodeRenderer } from './VivaMod/VivaColoredNodeRenderer';
 import { VivaImageNodeUI } from './VivaImageNodeUI';
 import { VivaLinkUI } from './VivaLinkUI';
 import { newLinkProgram } from './VivaMod/newLinkProgram';
+import { VivaWideLinkRenderer } from './VivaMod/VivaWideLinkRenderer';
 import { newNodeProgram } from './VivaMod/newNodeProgram';
 import { webglGraphics } from './VivaMod/webglGraphics';
 import { webglInputEvents } from './VivaMod/webglInputEvents';
@@ -44,14 +45,14 @@ export class VivaWebGLSimpleBackend {
         this._container = container;
 
         this._graphics.setNodeProgram(new VivaColoredNodeRenderer());
-        this._graphics.setLinkProgram(newLinkProgram());
+        this._graphics.setLinkProgram(new VivaWideLinkRenderer());//(newLinkProgram());
 
         this._graphics.init(this._container);
 
-        this._graphics.node((/** @type {Node} */node) => {
+        this._graphics.node((/** @type {NgraphGraph.Node} */node) => {
             return this._nodeBuilder.buildUI(this._graphics, node);
         });
-        this._graphics.link((/** @type {Edge} */ link) => {
+        this._graphics.link((/** @type {NgraphGraph.Link} */ link) => {
             return new VivaLinkUI(this._graphics, link);
             // HACK: сейчас _graphics пропатчен на то, чтобы самостоятельно запоминать link!
         });

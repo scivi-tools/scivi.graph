@@ -19,6 +19,7 @@ export class GraphState {
         /** @type {GraphController} */
         this._controller = controller
         this._metrics = new DummyMetrics(this._controller.monitoredValues);
+        this._edgeMetrics = new DummyMetrics(this._controller.monitoredValues);
         /** @type {number[][]} */
         this.groups = [];
         /** @type {Node[]} */
@@ -54,6 +55,8 @@ export class GraphState {
         this.nodes[fromId].addEdge(newEdge);
         this.nodes[toId].addEdge(newEdge);
         // TODO: count some metrics here
+        //@ts-ignore
+        this._edgeMetrics.accumulate(newEdge);
     };
 
     /**

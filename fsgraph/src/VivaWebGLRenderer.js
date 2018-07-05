@@ -176,12 +176,14 @@ export class VivaWebGLRenderer {
         // TODO: check for graph group count
         let result = new VivaStateView(colors, imgs, this);
         let metrics = this._graphController.metrics;
+        let edgeMetrics = this._graphController.edgeMetrics;
         // TODO: move this shit out of here (in enherited from VStateView class)
         result.onNodeRender = (nodeUI) => {
             nodeUI.node['size'] = nodeUI.size = result.getNodeUISize(nodeUI.node.data.weight, metrics.maxWeight);
             nodeUI.color = result._colorPairs[(1 + nodeUI.node.data.groupId) * 2 + (nodeUI.selected ? 1 : 0)];
         };
         result.onEdgeRender = (edgeUI) => {
+            edgeUI.edge['size'] = edgeUI.size = result.getEdgeUISize(edgeUI.edge.data.weight, edgeMetrics.maxWeight);
             edgeUI.color = result._colorPairs[(edgeUI.selected ? 1 : 0)];
         };
         return result;

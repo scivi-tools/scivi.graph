@@ -16,6 +16,8 @@ import 'jquery-ui/ui/widgets/slider'
 
 const _MaxNodeSizeDiap = [1, 50];
 const _DefNodeSizeDiap = [7, 45];
+const _MaxEdgeSizeDiap = [0.1, 50];
+const _DefEdgeSizeDiap = [1, 5];
 
 /**
  * Что-то типа ViewRules - правила отображения
@@ -37,6 +39,10 @@ export class VivaStateView {
         this._nodeSizeDiap = [];
         this._nodeSizeDiap[0] = _DefNodeSizeDiap[0];
         this._nodeSizeDiap[1] = _DefNodeSizeDiap[1];
+        /** @type {number[]} */
+        this._edgeSizeDiap = [];
+        this._edgeSizeDiap[0] = _DefEdgeSizeDiap[0];
+        this._edgeSizeDiap[1] = _DefEdgeSizeDiap[1];
 
         this._colorPairs = colorPairs;
 
@@ -54,22 +60,18 @@ export class VivaStateView {
         this.buildUI();
     }
 
-    get nodeSizeDiap() {
-        return this._nodeSizeDiap;
-    }
-
-    /**
-     * 
-     * @param {number} from 
-     * @param {number} to 
-     */
-    setNodeSizeDiap(from, to) {
-        let diap = this._nodeSizeDiap;
+    _setDiap(diap, from, to) {
         let changed = (from != diap[0]) || (to != diap[1]);
         if (changed) {
             diap[0] = from;
             diap[1] = to;
         }
+    }
+
+    _getInterpolated(diap, value, maxValue) {
+        return (value >= 0)
+        ? (diap[0] + (diap[1] - diap[0]) * value / maxValue)
+        : diap[0];
     }
 
     /**
@@ -79,11 +81,18 @@ export class VivaStateView {
      * @returns {number}
      */
     getNodeUISize(value = 1, maxValue = 1) {
-        let diap = this._nodeSizeDiap;
         // TODO: максимальный вес вершин нужно хранить где-то в состоянии графа (по группам!)
-        return (value >= 0)
-            ? (diap[0] + (diap[1] - diap[0]) * value / maxValue)
-            : diap[0];
+        return this._getInterpolated(this._nodeSizeDiap, value, maxValue);
+    }
+
+    /**
+     * 
+     * @param {number} value 
+     * @param {number} maxValue 
+     * @returns {number}
+     */
+    getEdgeUISize(value = 1, maxValue = 1) {
+        return this._getInterpolated(this._edgeSizeDiap, value, maxValue);
     }
 
     buildUI() {
@@ -91,7 +100,7 @@ export class VivaStateView {
         let innerContainer = document.createElement('div');
 
         let nameSpan = document.createElement('span');
-        nameSpan.innerHTML = '<br/>Node view:';
+        nameSpan.innerHTML = '<br/>Primitive view:';
         baseContainer.appendChild(nameSpan);
 
         let sliderSpan = document.createElement('span');
@@ -107,12 +116,29 @@ export class VivaStateView {
             step: 1,
             range: true,
             slide: (event, ui) => {
-                that.setNodeSizeDiap(ui.values ? ui.values[0] : 0, ui.values ? ui.values[1] : 1);
-                console.log(`Node size diap now [${that._nodeSizeDiap[0]}, ${that._nodeSizeDiap[1]}]`);
+                that._setDiap(that._nodeSizeDiap, ui.values ? ui.values[0] : 0, ui.values ? ui.values[1] : 1);
                 that._renderer.rerender();
             }
         });
         innerContainer.appendChild(sizeSlider);
+
+        let edgeSliderSpan = document.createElement('span');
+        edgeSliderSpan.textContent = 'Edge size diap:';
+        innerContainer.appendChild(edgeSliderSpan);
+
+        let edgeSizeSlider = document.createElement('div');
+        $(edgeSizeSlider).slider({
+            min: _MaxEdgeSizeDiap[0],
+            max: _MaxEdgeSizeDiap[1],
+            values: that._edgeSizeDiap,
+            step: 1,
+            range: true,
+            slide: (event, ui) => {
+                that._setDiap(that._edgeSizeDiap, ui.values ? ui.values[0] : 0, ui.values ? ui.values[1] : 1);
+                that._renderer.rerender();
+            }
+        });
+        innerContainer.appendChild(edgeSizeSlider);
 
         // TODO: colors & rest...
 
