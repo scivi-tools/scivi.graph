@@ -6,7 +6,6 @@ import { Point2D } from '../Point2D';
 import * as WGLU from './WebGLUtils';
 import { VivaBaseUI } from '../VivaBaseUI';
 import { VivaLinkUI } from '../VivaLinkUI';
-/// <reference path="../@types/ngraph.d.ts" />
 
 /**
  * u, v, x, y, color - 4 byte each, 6 vertex
@@ -31,6 +30,11 @@ export class VivaWideLinkRenderer {
         this._height = null;
         this._transform = null;
         this._sizeDirty = false;
+
+        // TODO: workaround assert if interface is implemented
+        // https://github.com/Microsoft/TypeScript/issues/17498#issuecomment-399439654   
+        /** @type {VivaGeneric.LinkProgram} */
+        const assertion = this;
     }
 
     // #region VivaAPI

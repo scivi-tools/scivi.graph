@@ -3,7 +3,6 @@
  * @author Me
  */
 //@ts-check
-/// <reference path="../@types/ngraph.d.ts" />
 import * as WGLU from './WebGLUtils';
 import { VivaBaseUI } from '../VivaBaseUI';
 import { VivaImageNodeUI } from '../VivaImageNodeUI';
@@ -17,6 +16,11 @@ export class VivaRombusNodeRenderer extends VivaColoredNodeRenderer {
         super(defBufferLength);
 
         this._nodesFS = createNodeFragmentShader();
+
+        // TODO: workaround assert if interface is implemented
+        // https://github.com/Microsoft/TypeScript/issues/17498#issuecomment-399439654   
+        /** @type {VivaGeneric.NodeProgram} */
+        const assertion = this;
     }
 
     /**

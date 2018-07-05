@@ -34,7 +34,10 @@ export class VivaTriangleNodeRenderer {
         this._transform = null;
         this._sizeDirty = false;
 
-        this.testvar = 0;
+        // TODO: workaround assert if interface is implemented
+        // https://github.com/Microsoft/TypeScript/issues/17498#issuecomment-399439654   
+        /** @type {VivaGeneric.NodeProgram} */
+        const assertion = this;
     }
 
     // #region VivaAPI
@@ -153,6 +156,10 @@ export class VivaTriangleNodeRenderer {
         this._gl.vertexAttribPointer(this._locations.color, 4, this._gl.UNSIGNED_BYTE, true, 5 * Float32Array.BYTES_PER_ELEMENT, 4 * 4);
     
         this._gl.drawArrays(this._gl.TRIANGLES, 0, this._nodesCount * 3);
+    }
+
+    replaceProperties(replacedNode, newNode) {
+        //unused
     }
     
     // #endregion

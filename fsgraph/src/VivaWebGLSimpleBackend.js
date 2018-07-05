@@ -2,6 +2,8 @@
 import Viva from './viva-proxy';
 import { VivaBaseUI } from './VivaBaseUI';
 import { VivaColoredNodeRenderer } from './VivaMod/VivaColoredNodeRenderer';
+import { VivaRombusNodeRenderer } from './VivaMod/VivaRombusNodeRenderer';
+import { VivaTriangleNodeRenderer } from './VivaMod/VivaTriangleNodeRenderer';
 import { VivaImageNodeUI } from './VivaImageNodeUI';
 import { VivaLinkUI } from './VivaLinkUI';
 import { newLinkProgram } from './VivaMod/newLinkProgram';
@@ -44,7 +46,7 @@ export class VivaWebGLSimpleBackend {
         /** @type {HTMLElement} */
         this._container = container;
 
-        this._graphics.setNodeProgram(new VivaColoredNodeRenderer());
+        this._graphics.setNodeProgram(new VivaTriangleNodeRenderer());//(new VivaColoredNodeRenderer());
         this._graphics.setLinkProgram(new VivaWideLinkRenderer());//(newLinkProgram());
 
         this._graphics.init(this._container);

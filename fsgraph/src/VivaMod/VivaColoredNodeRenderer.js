@@ -34,7 +34,10 @@ export class VivaColoredNodeRenderer {
         this._transform = null;
         this._sizeDirty = false;
 
-        this.testvar = 0;
+        // TODO: workaround assert if interface is implemented
+        // https://github.com/Microsoft/TypeScript/issues/17498#issuecomment-399439654   
+        /** @type {VivaGeneric.NodeProgram} */
+        const assertion = this;
     }
 
     // #region VivaAPI

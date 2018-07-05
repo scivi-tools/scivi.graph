@@ -1,5 +1,6 @@
 //@ts-check
 /// <reference path="./@types/ngraph.d.ts" />
+/// <reference path="./@types/viva.generic.d.ts" />
 import { VivaBaseUI } from './VivaBaseUI';
 import { Node } from './Node';
 import { Edge } from './Edge';
@@ -7,7 +8,7 @@ import { Point2D } from './Point2D';
 import * as $ from 'jquery';
 
 /**
- * @implements {NgraphGeneric.NodeUI}
+ * @implements {VivaGeneric.NodeUI}
  */
 export class VivaImageNodeUI extends VivaBaseUI {
     /**
@@ -35,7 +36,7 @@ export class VivaImageNodeUI extends VivaBaseUI {
 
         // TODO: workaround assert if interface is implemented
         // https://github.com/Microsoft/TypeScript/issues/17498#issuecomment-399439654   
-        /** @type {NgraphGeneric.NodeUI} */
+        /** @type {VivaGeneric.NodeUI} */
         const assertion = this;
     };
 
