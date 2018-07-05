@@ -1,7 +1,9 @@
 //@ts-check
 ///<reference path='./@types/ngraph.d.ts' />
 
-
+/**
+ * @implements {NgraphGraph.Position}
+ */
 export class Point2D {
     /**
      * 
@@ -11,6 +13,11 @@ export class Point2D {
     constructor(x = 0, y = 0) {
         this.x = x;
         this.y = y;
+
+        // TODO: workaround assert if interface is implemented
+        // https://github.com/Microsoft/TypeScript/issues/17498#issuecomment-399439654  
+        /** @type {NgraphGraph.Position} */
+        const assertion = this;
     }
 
     get angle() {

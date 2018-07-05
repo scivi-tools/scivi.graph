@@ -49,12 +49,11 @@ export class VivaWebGLSimpleBackend {
 
         this._graphics.init(this._container);
 
-        this._graphics.node((/** @type {NgraphGraph.Node} */node) => {
+        this._graphics.node((node) => {
             return this._nodeBuilder.buildUI(this._graphics, node);
         });
-        this._graphics.link((/** @type {NgraphGraph.Link} */ link) => {
+        this._graphics.link((link) => {
             return new VivaLinkUI(this._graphics, link);
-            // HACK: сейчас _graphics пропатчен на то, чтобы самостоятельно запоминать link!
         });
 
         // Устанавливаем действия при отображении примитивов

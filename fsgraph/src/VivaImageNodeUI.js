@@ -1,9 +1,10 @@
 //@ts-check
 /// <reference path="./@types/ngraph.d.ts" />
-import { VivaBaseUI } from './VivaBaseUI'
-import { Node } from './Node'
-import { Edge } from './Edge'
-import * as $ from 'jquery'
+import { VivaBaseUI } from './VivaBaseUI';
+import { Node } from './Node';
+import { Edge } from './Edge';
+import { Point2D } from './Point2D';
+import * as $ from 'jquery';
 
 /**
  * @implements {NgraphGeneric.NodeUI}
@@ -25,12 +26,17 @@ export class VivaImageNodeUI extends VivaBaseUI {
 
         this._graphics = graphics;
 
-        this.position = {};
+        this.position = new Point2D();
 
         // this._invalidateLabel();
 
         // TODO: соптимизировать получение корневого элемента где-то ещё
         this.detailedInfoHTML = $('#scivi_fsgraph_info')[0];
+
+        // TODO: workaround assert if interface is implemented
+        // https://github.com/Microsoft/TypeScript/issues/17498#issuecomment-399439654   
+        /** @type {NgraphGeneric.NodeUI} */
+        const assertion = this;
     };
 
     /**
@@ -87,7 +93,7 @@ export class VivaImageNodeUI extends VivaBaseUI {
                this._invalidateLabel();
                this._labelChanged = false;
             }
-            let domPos = { x: this['position'].x, y: this['position'].y - this['size'] - 1};
+            let domPos = { x: this.position.x, y: this.position.y - this.size - 1};
             this._graphics.transformGraphToClientCoordinates(domPos);
             this._span.style.left = `${domPos.x - this._spanWidth / 2}px`;
             this._span.style.top = `${domPos.y}px`;
