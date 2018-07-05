@@ -10,8 +10,8 @@ import { VivaImageNodeUI } from '../VivaImageNodeUI';
 /**
  * u, v, x, y, color - 4 byte each, 6 vertex
  */
-const ATTRIBUTES_PER_PRIMITIVE = 30;
-const _BYTES_PER_ELEMENT = 4 * Float32Array.BYTES_PER_ELEMENT + Uint32Array.BYTES_PER_ELEMENT;
+export const ATTRIBUTES_PER_PRIMITIVE = 30;
+export const _BYTES_PER_ELEMENT = 4 * Float32Array.BYTES_PER_ELEMENT + Uint32Array.BYTES_PER_ELEMENT;
 
 /**
  * Defines simple UI for nodes in webgl renderer. Each node is rendered as an image.
@@ -24,6 +24,7 @@ export class VivaColoredNodeRenderer {
         this._nodesFS = createNodeFragmentShader();
         this._nodesVS = createNodeVertexShader();
         this._program = null;
+        /** @type {WebGLRenderingContext} */
         this._gl = null;
         this._buffer = null;
         this._locations = null;
@@ -32,6 +33,8 @@ export class VivaColoredNodeRenderer {
         this._height = null;
         this._transform = null;
         this._sizeDirty = false;
+
+        this.testvar = 0;
     }
 
     // #region VivaAPI
@@ -59,7 +62,7 @@ export class VivaColoredNodeRenderer {
     /**
      * 
      * @param {VivaImageNodeUI} nodeUI 
-     * @param {*} pos 
+     * @param {NgraphGraph.Position} pos 
      */
     position(nodeUI, pos) {
         const idx = nodeUI.id * ATTRIBUTES_PER_PRIMITIVE;
