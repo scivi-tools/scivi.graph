@@ -174,7 +174,9 @@ function toggleRelatedWords(graph, renderer, nodeUI, toggled) {
             nodeUI.selected = toggled;
         }
         linkUI.selected = toggled;
-        renderer.graphics.bringLinkToFront(linkUI);
+        if (toggled) {
+            renderer.graphics.bringLinkToFront(linkUI);
+        }
 
         return false;
     });
