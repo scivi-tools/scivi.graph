@@ -10,15 +10,15 @@ import { VivaImageNodeUI } from '../VivaImageNodeUI';
 /**
  * u, v, x, y, color - 4 byte each, 6 vertex
  */
-export const ATTRIBUTES_PER_PRIMITIVE = 30;
+export const ATTRIBUTES_PER_PRIMITIVE = 15;
 export const _BYTES_PER_ELEMENT = 4 * Float32Array.BYTES_PER_ELEMENT + Uint32Array.BYTES_PER_ELEMENT;
 
 /**
  * Defines simple UI for nodes in webgl renderer. Each node is rendered as an image.
  */
-export class VivaColoredNodeRenderer {
+export class VivaTriangleNodeRenderer {
     constructor(defBufferLength = 64) {
-        this._byteStorage = new ArrayBuffer(defBufferLength * 6 * _BYTES_PER_ELEMENT);
+        this._byteStorage = new ArrayBuffer(defBufferLength * 3 * _BYTES_PER_ELEMENT);
         this._nodes = new Float32Array(this._byteStorage);
         this._colors = new Uint32Array(this._byteStorage);
         this._nodesFS = createNodeFragmentShader();
@@ -74,21 +74,9 @@ export class VivaColoredNodeRenderer {
         this._nodes[idx + 5 + 3] = -(pos.y - nodeUI.size);
         this._colors[idx + 5 + 4] = nodeUI.color;
     
-        this._nodes[idx + 10 + 2] = pos.x - nodeUI.size;
+        this._nodes[idx + 10 + 2] = pos.x;
         this._nodes[idx + 10 + 3] = -(pos.y + nodeUI.size);
         this._colors[idx + 10 + 4] = nodeUI.color;
-    
-        this._nodes[idx + 15 + 2] = pos.x - nodeUI.size;
-        this._nodes[idx + 15 + 3] = -(pos.y + nodeUI.size);
-        this._colors[idx + 15 + 4] = nodeUI.color;
-    
-        this._nodes[idx + 20 + 2] = pos.x + nodeUI.size;
-        this._nodes[idx + 20 + 3] = -(pos.y - nodeUI.size);
-        this._colors[idx + 20 + 4] = nodeUI.color;
-    
-        this._nodes[idx + 25 + 2] = pos.x + nodeUI.size;
-        this._nodes[idx + 25 + 3] = -(pos.y + nodeUI.size);
-        this._colors[idx + 25 + 4] = nodeUI.color;
     }
 
     /**
@@ -96,7 +84,7 @@ export class VivaColoredNodeRenderer {
      * @param {VivaImageNodeUI} ui 
      */
     createNode(ui) {
-        if ((this._nodesCount + 1) * _BYTES_PER_ELEMENT * 6 >= this._byteStorage.byteLength) {
+        if ((this._nodesCount + 1) * _BYTES_PER_ELEMENT * 3 >= this._byteStorage.byteLength) {
             let extendedStorage = new ArrayBuffer(this._byteStorage.byteLength * 2);
             let extNodes = new Float32Array(extendedStorage);
             let extColors = new Uint32Array(extendedStorage);
@@ -117,17 +105,8 @@ export class VivaColoredNodeRenderer {
         this._nodes[idx + 5] = 1;
         this._nodes[idx + 5 + 1] = 0;
 
-        this._nodes[idx + 10] = 0;
+        this._nodes[idx + 10] = 0.5;
         this._nodes[idx + 10 + 1] = 1;
-
-        this._nodes[idx + 15] = 0;
-        this._nodes[idx + 15 + 1] = 1;
-
-        this._nodes[idx + 20] = 1;
-        this._nodes[idx + 20 + 1] = 0;
-
-        this._nodes[idx + 25] = 1;
-        this._nodes[idx + 25 + 1] = 1;
 
         this._nodesCount += 1;
     }
@@ -145,10 +124,6 @@ export class VivaColoredNodeRenderer {
                 ATTRIBUTES_PER_PRIMITIVE
             );
         }
-    }
-  
-    replaceProperties(replacedNode, newNode) {
-        // unused
     }
   
     updateTransform(newTransform) {
@@ -177,7 +152,7 @@ export class VivaColoredNodeRenderer {
         this._gl.vertexAttribPointer(this._locations.vertexPos, 2, this._gl.FLOAT, false, 5 * Float32Array.BYTES_PER_ELEMENT, 2 * 4);
         this._gl.vertexAttribPointer(this._locations.color, 4, this._gl.UNSIGNED_BYTE, true, 5 * Float32Array.BYTES_PER_ELEMENT, 4 * 4);
     
-        this._gl.drawArrays(this._gl.TRIANGLES, 0, this._nodesCount * 6);
+        this._gl.drawArrays(this._gl.TRIANGLES, 0, this._nodesCount * 3);
     }
     
     // #endregion
@@ -194,7 +169,7 @@ function createNodeFragmentShader() {
         const float maxBorderOpacity = 0.8;
 
         void main(void) {
-            float d = sqrt(v_uv.x * v_uv.x + v_uv.y * v_uv.y);
+            float d = abs(v_uv.y);
             float inR = step(minBorderR, d);
             float outR = step(maxBorderR, d);
             gl_FragColor = mix(v_color, mix(vec4(0, 0, 0, v_color.a * maxBorderOpacity), vec4(0), outR), inR);
