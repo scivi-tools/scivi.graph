@@ -26,6 +26,7 @@ export class VivaWideLinkRenderer {
         this._buffer = null;
         this._locations = null;
         this._linksCount = 0;
+        this._frontLinkId = 0;
         this._width = null;
         this._height = null;
         this._transform = null;
@@ -129,6 +130,8 @@ export class VivaWideLinkRenderer {
         this._links[idx + 25 + 1] = 1;
 
         this._linksCount += 1;
+
+        this._frontLinkId = ui.id;
     }
   
     /**
@@ -177,14 +180,21 @@ export class VivaWideLinkRenderer {
         this._gl.vertexAttribPointer(this._locations.color, 4, this._gl.UNSIGNED_BYTE, true, 5 * Float32Array.BYTES_PER_ELEMENT, 4 * 4);
     
         this._gl.drawArrays(this._gl.TRIANGLES, 0, this._linksCount * 6);
+
+        this._frontLinkId = this._linksCount - 1;
     }
 
     bringToFront(link) {
-        // unused
+        if (this._frontLinkId > link.id) {
+            WGLU.SwapArrayPart(this._links, link.id * ATTRIBUTES_PER_PRIMITIVE, this._frontLinkId * ATTRIBUTES_PER_PRIMITIVE, ATTRIBUTES_PER_PRIMITIVE);
+        }
+        if (this._frontLinkId > 0) {
+            this._frontLinkId -= 1;
+        }
     }
 
     getFrontLinkId() {
-        return -1;
+        return this._frontLinkId;
     }
     
     // #endregion
