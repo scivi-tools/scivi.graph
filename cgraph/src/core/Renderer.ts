@@ -1319,8 +1319,10 @@ namespace SciViCGraph
             const ly = y - this.m_renderingCache.y;
             const s = this.m_renderingCache.currentScale();
             const idx = this.getRingIndexByPosition(lx, ly, s, r);
-            if (this.m_ringPlaceHolder.showForRing(r[0]))
+            if (this.m_ringPlaceHolder.showForRing(r[0])) {
+                this.m_ringScales[this.m_draggedRingIndex].dropHighlight();
                 this.render(true, true);
+            }
         }
 
         private dropRing(x: number, y: number): boolean
@@ -1354,6 +1356,7 @@ namespace SciViCGraph
                 this.reinit(false);
             else
                 this.render(true, true);
+            this.hoverGraph(x, y);
             return result;
         }
 
