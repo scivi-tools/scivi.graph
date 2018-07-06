@@ -247,6 +247,8 @@ namespace SciViCGraph
                 s = this.m_stage.scale.x;
             }
 
+            this.m_ringSegmentSelected = false;
+
             this.createStage();
             
             if (this.m_selectedNode !== null)
