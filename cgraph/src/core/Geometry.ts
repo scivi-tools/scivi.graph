@@ -4,11 +4,11 @@ namespace SciViCGraph
 
     export class Geometry
     {
-        private static EPSELEN = 0.000001;
+        private static EPSILON = 0.000001;
 
         public static solveCubicEq(a: number, b: number, c: number, d: number): number[]
         {
-            if (Math.abs(a) > Geometry.EPSELEN)
+            if (Math.abs(a) > Geometry.EPSILON)
             {
                 // Canonical form: x^3 + ax^2 + bx + d = 0.
                 // Solve by Cardan formula.
@@ -22,15 +22,15 @@ namespace SciViCGraph
                 let p3 = p * p * p;
                 let D = q * q + 4.0 * p3 / 27.0;
                 let offset = -a / 3.0;
-                if (D > Geometry.EPSELEN) {
+                if (D > Geometry.EPSILON) {
                     // Positive discriminant.
-                    z = Math.sqrt(D)
+                    z = Math.sqrt(D);
                     let u = (-q + z) / 2.0;
                     let v = (-q - z) / 2.0;
                     u = u >= 0.0 ? Math.pow(u, 1.0 / 3.0) : -Math.pow(-u, 1.0 / 3.0);
                     v = v >= 0.0 ? Math.pow(v, 1.0 / 3.0) : -Math.pow(-v, 1.0 / 3.0);
                     return [ u + v + offset ];
-                } else if (D < -Geometry.EPSELEN) {
+                } else if (D < -Geometry.EPSILON) {
                     // Negative discriminant.
                     let u = 2.0 * Math.sqrt(-p / 3.0);
                     let v = Math.acos(-Math.sqrt(-27.0 / p3) * q / 2.0) / 3.0;
@@ -53,21 +53,21 @@ namespace SciViCGraph
                 a = b;
                 b = c;
                 c = d;
-                if (Math.abs(a) <= Geometry.EPSELEN) {
-                    if (Math.abs(b) <= Geometry.EPSELEN)
+                if (Math.abs(a) <= Geometry.EPSILON) {
+                    if (Math.abs(b) <= Geometry.EPSILON)
                         return [];
                     else
                         return [-c / b];
                 }
                 let D = b * b - 4.0 * a * c;
-                if (D <= -Geometry.EPSELEN)
+                if (D <= -Geometry.EPSILON)
                     return [];
-                if (D > Geometry.EPSELEN) {
+                if (D > Geometry.EPSILON) {
                     // Positive discriminant.
                     D = Math.sqrt(D);
                     return [ (-b - D) / (2.0 * a),
                              (-b + D) / (2.0 * a) ];
-                } else if (D < -Geometry.EPSELEN) {
+                } else if (D < -Geometry.EPSILON) {
                     // Negative discriminant.
                     return [];
                 } else {
