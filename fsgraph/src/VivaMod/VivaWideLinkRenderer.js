@@ -1,34 +1,31 @@
 /**
- * @author Andrei Kashcha (aka anvaka)
  * @author Me
  */
 //@ts-check
+import { Point2D } from '../Point2D';
 import * as WGLU from './WebGLUtils';
 import { VivaBaseUI } from '../VivaBaseUI';
-import { VivaImageNodeUI } from '../VivaImageNodeUI';
+import { VivaLinkUI } from '../VivaLinkUI';
 
 /**
  * u, v, x, y, color - 4 byte each, 6 vertex
  */
-export const ATTRIBUTES_PER_PRIMITIVE = 30;
-export const _BYTES_PER_ELEMENT = 4 * Float32Array.BYTES_PER_ELEMENT + Uint32Array.BYTES_PER_ELEMENT;
+const ATTRIBUTES_PER_PRIMITIVE = 30;
+const _BYTES_PER_ELEMENT = 4 * Float32Array.BYTES_PER_ELEMENT + Uint32Array.BYTES_PER_ELEMENT;
 
-/**
- * Defines simple UI for nodes in webgl renderer. Each node is rendered as an image.
- */
-export class VivaColoredNodeRenderer {
+export class VivaWideLinkRenderer {
     constructor(defBufferLength = 64) {
         this._byteStorage = new ArrayBuffer(defBufferLength * 6 * _BYTES_PER_ELEMENT);
-        this._nodes = new Float32Array(this._byteStorage);
+        this._links = new Float32Array(this._byteStorage);
         this._colors = new Uint32Array(this._byteStorage);
         this._nodesFS = createNodeFragmentShader();
         this._nodesVS = createNodeVertexShader();
         this._program = null;
-        /** @type {WebGLRenderingContext} */
         this._gl = null;
         this._buffer = null;
         this._locations = null;
-        this._nodesCount = 0;
+        this._linksCount = 0;
+        this._frontLinkId = 0;
         this._width = null;
         this._height = null;
         this._transform = null;
@@ -36,7 +33,7 @@ export class VivaColoredNodeRenderer {
 
         // TODO: workaround assert if interface is implemented
         // https://github.com/Microsoft/TypeScript/issues/17498#issuecomment-399439654   
-        /** @type {VivaGeneric.NodeProgram} */
+        /** @type {VivaGeneric.LinkProgram} */
         const assertion = this;
     }
 
@@ -64,94 +61,100 @@ export class VivaColoredNodeRenderer {
 
     /**
      * 
-     * @param {VivaImageNodeUI} nodeUI 
-     * @param {NgraphGraph.Position} pos 
+     * @param {VivaLinkUI} linkUI 
+     * @param {NgraphGraph.Position} fromPos 
+     * @param {NgraphGraph.Position} toPos 
      */
-    position(nodeUI, pos) {
-        const idx = nodeUI.id * ATTRIBUTES_PER_PRIMITIVE;
-        this._nodes[idx + 2] = pos.x - nodeUI.size;
-        this._nodes[idx + 3] = -(pos.y - nodeUI.size);
-        this._colors[idx + 4] = nodeUI.color;
+    position(linkUI, fromPos, toPos) {
+        const idx = linkUI.id * ATTRIBUTES_PER_PRIMITIVE;
+        const angle = Point2D.Subtract(fromPos, toPos).angle;
+        const rotCos = -Math.sin(angle);
+        const rotSin = Math.cos(angle);
+
+        this._links[idx + 2] = fromPos.x + linkUI.size * rotCos;
+        this._links[idx + 3] = +(fromPos.y + linkUI.size * rotSin);
+        this._colors[idx + 4] = linkUI.color;
     
-        this._nodes[idx + 5 + 2] = pos.x + nodeUI.size;
-        this._nodes[idx + 5 + 3] = -(pos.y - nodeUI.size);
-        this._colors[idx + 5 + 4] = nodeUI.color;
+        this._links[idx + 5 + 2] = toPos.x + linkUI.size * rotCos;
+        this._links[idx + 5 + 3] = +(toPos.y + linkUI.size * rotSin);
+        this._colors[idx + 5 + 4] = linkUI.color;
     
-        this._nodes[idx + 10 + 2] = pos.x - nodeUI.size;
-        this._nodes[idx + 10 + 3] = -(pos.y + nodeUI.size);
-        this._colors[idx + 10 + 4] = nodeUI.color;
+        this._links[idx + 10 + 2] = fromPos.x - linkUI.size * rotCos;
+        this._links[idx + 10 + 3] = +(fromPos.y - linkUI.size * rotSin);
+        this._colors[idx + 10 + 4] = linkUI.color;
     
-        this._nodes[idx + 15 + 2] = pos.x - nodeUI.size;
-        this._nodes[idx + 15 + 3] = -(pos.y + nodeUI.size);
-        this._colors[idx + 15 + 4] = nodeUI.color;
+        this._links[idx + 15 + 2] = toPos.x + linkUI.size * rotCos;
+        this._links[idx + 15 + 3] = +(toPos.y + linkUI.size * rotSin);
+        this._colors[idx + 15 + 4] = linkUI.color;
     
-        this._nodes[idx + 20 + 2] = pos.x + nodeUI.size;
-        this._nodes[idx + 20 + 3] = -(pos.y - nodeUI.size);
-        this._colors[idx + 20 + 4] = nodeUI.color;
+        this._links[idx + 20 + 2] = toPos.x - linkUI.size * rotCos;
+        this._links[idx + 20 + 3] = +(toPos.y - linkUI.size * rotSin);
+        this._colors[idx + 20 + 4] = linkUI.color;
     
-        this._nodes[idx + 25 + 2] = pos.x + nodeUI.size;
-        this._nodes[idx + 25 + 3] = -(pos.y + nodeUI.size);
-        this._colors[idx + 25 + 4] = nodeUI.color;
+        this._links[idx + 25 + 2] = fromPos.x - linkUI.size * rotCos;
+        this._links[idx + 25 + 3] = +(fromPos.y - linkUI.size * rotSin);
+        this._colors[idx + 25 + 4] = linkUI.color;
     }
 
     /**
      * 
-     * @param {VivaImageNodeUI} ui 
+     * @param {VivaLinkUI} ui 
      */
-    createNode(ui) {
-        if ((this._nodesCount + 1) * _BYTES_PER_ELEMENT * 6 >= this._byteStorage.byteLength) {
+    createLink(ui) {
+        if ((this._linksCount + 1) * _BYTES_PER_ELEMENT * 6 >= this._byteStorage.byteLength) {
             let extendedStorage = new ArrayBuffer(this._byteStorage.byteLength * 2);
             let extNodes = new Float32Array(extendedStorage);
             let extColors = new Uint32Array(extendedStorage);
 
-            // extColors.set(this._colors);
-            extNodes.set(this._nodes);
+            extNodes.set(this._links);
 
             this._colors = extColors;
-            this._nodes = extNodes;
+            this._links = extNodes;
             this._byteStorage = extendedStorage;
         }
 
-        const idx = this._nodesCount * ATTRIBUTES_PER_PRIMITIVE
+        const idx = this._linksCount * ATTRIBUTES_PER_PRIMITIVE
 
-        this._nodes[idx] = 0;
-        this._nodes[idx + 1] = 0;
+        this._links[idx] = 0;
+        this._links[idx + 1] = 0;
 
-        this._nodes[idx + 5] = 1;
-        this._nodes[idx + 5 + 1] = 0;
+        this._links[idx + 5] = 1;
+        this._links[idx + 5 + 1] = 0;
 
-        this._nodes[idx + 10] = 0;
-        this._nodes[idx + 10 + 1] = 1;
+        this._links[idx + 10] = 0;
+        this._links[idx + 10 + 1] = 1;
 
-        this._nodes[idx + 15] = 0;
-        this._nodes[idx + 15 + 1] = 1;
+        this._links[idx + 15] = 1;
+        this._links[idx + 15 + 1] = 0;
 
-        this._nodes[idx + 20] = 1;
-        this._nodes[idx + 20 + 1] = 0;
+        this._links[idx + 20] = 1;
+        this._links[idx + 20 + 1] = 1;
 
-        this._nodes[idx + 25] = 1;
-        this._nodes[idx + 25 + 1] = 1;
+        this._links[idx + 25] = 0;
+        this._links[idx + 25 + 1] = 1;
 
-        this._nodesCount += 1;
+        this._linksCount += 1;
+
+        this._frontLinkId = ui.id;
     }
   
-    removeNode(nodeUI) {
-        if (this._nodesCount > 0) {
-            this._nodesCount -= 1;
+    /**
+     * 
+     * @param {VivaLinkUI} linkUI 
+     */
+    removeLink(linkUI) {
+        if (this._linksCount > 0) {
+            this._linksCount -= 1;
         }
 
-        if (nodeUI.id < this._nodesCount && this._nodesCount > 0) {
+        if (linkUI.id < this._linksCount && this._linksCount > 0) {
 
             WGLU.CopyArrayPart(this._colors,
-                nodeUI.id * ATTRIBUTES_PER_PRIMITIVE,
-                this._nodesCount * ATTRIBUTES_PER_PRIMITIVE,
+                linkUI.id * ATTRIBUTES_PER_PRIMITIVE,
+                this._linksCount * ATTRIBUTES_PER_PRIMITIVE,
                 ATTRIBUTES_PER_PRIMITIVE
             );
         }
-    }
-  
-    replaceProperties(replacedNode, newNode) {
-        // unused
     }
   
     updateTransform(newTransform) {
@@ -180,7 +183,22 @@ export class VivaColoredNodeRenderer {
         this._gl.vertexAttribPointer(this._locations.vertexPos, 2, this._gl.FLOAT, false, 5 * Float32Array.BYTES_PER_ELEMENT, 2 * 4);
         this._gl.vertexAttribPointer(this._locations.color, 4, this._gl.UNSIGNED_BYTE, true, 5 * Float32Array.BYTES_PER_ELEMENT, 4 * 4);
     
-        this._gl.drawArrays(this._gl.TRIANGLES, 0, this._nodesCount * 6);
+        this._gl.drawArrays(this._gl.TRIANGLES, 0, this._linksCount * 6);
+
+        this._frontLinkId = this._linksCount - 1;
+    }
+
+    bringToFront(link) {
+        if (this._frontLinkId > link.id) {
+            WGLU.SwapArrayPart(this._links, link.id * ATTRIBUTES_PER_PRIMITIVE, this._frontLinkId * ATTRIBUTES_PER_PRIMITIVE, ATTRIBUTES_PER_PRIMITIVE);
+        }
+        if (this._frontLinkId > 0) {
+            this._frontLinkId -= 1;
+        }
+    }
+
+    getFrontLinkId() {
+        return this._frontLinkId;
     }
     
     // #endregion
@@ -197,7 +215,7 @@ function createNodeFragmentShader() {
         const float maxBorderOpacity = 0.8;
 
         void main(void) {
-            float d = sqrt(v_uv.x * v_uv.x + v_uv.y * v_uv.y);
+            float d = sqrt(v_uv.y * v_uv.y);
             float inR = step(minBorderR, d);
             float outR = step(maxBorderR, d);
             gl_FragColor = mix(v_color, mix(vec4(0, 0, 0, v_color.a * maxBorderOpacity), vec4(0), outR), inR);

@@ -24,6 +24,7 @@ export class GraphController {
 
         this.monitoredValues = ['weight'];
         this._metrics = new DummyMetrics(this.monitoredValues);
+        this._edgeMetrics = new DummyMetrics(this.monitoredValues);
         
         this.layoutBuilder = LayoutBuilder.buildLayout(layoutName, this._graph);
         /** @type {NgraphGeneric.Layout} */
@@ -54,6 +55,7 @@ export class GraphController {
 
         // TODO: тут тоже геттеры нужны
         this._metrics.accumulateMetric(cs._metrics);
+        this._edgeMetrics.accumulateMetric(cs._edgeMetrics);
 
         this._currentStateId++;
     }
@@ -83,6 +85,11 @@ export class GraphController {
     /** @returns {DummyMetrics} */
     get metrics() {
         return this._metrics;
+    }
+
+    /** @returns {DummyMetrics} */
+    get edgeMetrics() {
+        return this._edgeMetrics;
     }
 
     set currentStateId(value) {

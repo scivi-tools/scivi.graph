@@ -5,6 +5,7 @@
  */
 // @ts-check
 /// <reference path="../@types/ngraph.d.ts" />
+/// <reference path="../@types/viva.generic.d.ts" />
 
 import { newLinkProgram } from './newLinkProgram'
 import { newNodeProgram } from './newNodeProgram'
@@ -72,7 +73,7 @@ export function webglGraphics(options) {
         nodeUIBuilder =
         /**
          * @param {NgraphGraph.Node} node
-         * @returns {NgraphGeneric.NodeUI}
+         * @returns {VivaGeneric.NodeUI}
          */
         function (node) {
             console.log("No node UI builder!");
@@ -83,7 +84,7 @@ export function webglGraphics(options) {
         linkUIBuilder =
         /**
          * @param {NgraphGraph.Link} link
-         * @returns {NgraphGeneric.LinkUI}
+         * @returns {VivaGeneric.LinkUI}
          */
         function (link) {
             console.log("No link UI builder!");
@@ -611,7 +612,7 @@ export function webglGraphics(options) {
         /**
          * @param {NgraphGraph.Position} clientPos
          * @param {function(any,any,any):boolean} preciseCheck
-         * @returns {NgraphGeneric.NodeUI}
+         * @returns {VivaGeneric.NodeUI}
          */
         getNodeAtClientPos: function (clientPos, preciseCheck) {
             if (typeof preciseCheck !== "function") {

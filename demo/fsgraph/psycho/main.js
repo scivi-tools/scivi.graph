@@ -20,6 +20,6 @@ function main() {
     var renderer = new FSGraph.VivaWebGLRenderer(document.body);
         
     renderer.graphController = controller;
-    renderer.viewRules = renderer.buildDefaultView(g_colors);
+    renderer.viewRules = renderer.buildDefaultView(g_colors, ['circle', 'romb']);
     renderer.run(1000);
 }

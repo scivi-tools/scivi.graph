@@ -133,6 +133,8 @@ export class VivaWebGLRenderer {
         this._backend.onRenderNodeCallback = value.onNodeRender;
         this._backend.onRenderEdgeCallback = value.onEdgeRender;
 
+        this._backend.nodeTypes = value.nodeTypes;
+
         // TODO: inverse dependency!
         this.graphicsInputListner.click((nodeUI) => {
             value.onNodeClick(nodeUI, this._graphBackend, this);
@@ -172,16 +174,18 @@ export class VivaWebGLRenderer {
         this.rerender();
     }
 
-    buildDefaultView(colors, imgs) {
+    buildDefaultView(colors, nodeTypes) {
         // TODO: check for graph group count
-        let result = new VivaStateView(colors, imgs, this);
+        let result = new VivaStateView(colors, nodeTypes || [], this);
         let metrics = this._graphController.metrics;
+        let edgeMetrics = this._graphController.edgeMetrics;
         // TODO: move this shit out of here (in enherited from VStateView class)
         result.onNodeRender = (nodeUI) => {
             nodeUI.node['size'] = nodeUI.size = result.getNodeUISize(nodeUI.node.data.weight, metrics.maxWeight);
             nodeUI.color = result._colorPairs[(1 + nodeUI.node.data.groupId) * 2 + (nodeUI.selected ? 1 : 0)];
         };
         result.onEdgeRender = (edgeUI) => {
+            edgeUI.link['size'] = edgeUI.size = result.getEdgeUISize(edgeUI.link.data.weight, edgeMetrics.maxWeight);
             edgeUI.color = result._colorPairs[(edgeUI.selected ? 1 : 0)];
         };
         return result;
@@ -314,6 +318,9 @@ export class VivaWebGLRenderer {
         this._animationTimer.restart();
     }
 
+    /**
+     * @param {NgraphGraph.Node} node 
+     */
     _listenNodeEvents(node) {
         // TODO: выбросить проверку, создавать обработчики один раз!
         if (!this._defDnDHandler) {
@@ -322,6 +329,9 @@ export class VivaWebGLRenderer {
         this._inputManager.bindDragNDrop(node, this._defDnDHandler);
     }
 
+    /**
+     * @param {NgraphGraph.Node} node 
+     */
     _releaseNodeEvents(node) {
         this._inputManager.unbindDragNDrop(node);
     }
@@ -509,7 +519,11 @@ export class VivaWebGLRenderer {
             });
     }
 
-    _buildUi(/** @type {HTMLElement} */baseContainer) {
+    /**
+     * 
+     * @param {HTMLElement} baseContainer 
+     */
+    _buildUi(baseContainer) {
         const that = this;
         baseContainer.innerHTML = `
         <div id="scivi_fsgraph_a" class="split split-horizontal">
@@ -646,7 +660,7 @@ export class VivaWebGLRenderer {
 
     /**
      * 
-     * @param {Point2D} pos in graph space
+     * @param {NgraphGraph.Position} pos in graph space
      */
     centerAtGraphPoint(pos) {
         const containerSize = Viva.Graph.Utils.getDimension(this._container);

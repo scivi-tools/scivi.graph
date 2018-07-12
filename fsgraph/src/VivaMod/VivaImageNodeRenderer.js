@@ -32,6 +32,11 @@ export class VivaImageNodeRenderer {
         this._height = null;
         this._transform = null;
         this._sizeDirty = false;
+
+        // TODO: workaround assert if interface is implemented
+        // https://github.com/Microsoft/TypeScript/issues/17498#issuecomment-399439654   
+        /** @type {VivaGeneric.NodeProgram} */
+        const assertion = this;
     }
 
     // #region VivaAPI
