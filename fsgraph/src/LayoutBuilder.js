@@ -28,6 +28,7 @@ export class LayoutBuilder {
         for (let key in this.settings) {
             let value = this.settings[key];
             if (value != null) {
+                let skipme = false;
                 let innerC = document.createElement('div');
                 innerC.innerHTML += `<span>${key}: </span>`;
 
@@ -46,8 +47,8 @@ export class LayoutBuilder {
                         break;
 
                     case 'number':
-                        let rangeEl = document.createElement('div');
                         if (_NumRanges[this.name] && _NumRanges[this.name][key]) {
+                            let rangeEl = document.createElement('div');
                             let range = _NumRanges[this.name][key];
                             $(rangeEl).slider({
                                 min: range[0],
@@ -60,18 +61,20 @@ export class LayoutBuilder {
                                     renderer.kick();
                                 }
                             });
+                            innerC.appendChild(rangeEl);
                         } else {
-                            rangeEl.innerText = `${value} (unchangeable)`;
+                            skipme = true;
                         }
-                        innerC.appendChild(rangeEl);
                         break;
 
                     default:
                         console.log(`Skipping unsupported layout setting ${key} of type ${type}`);
-                        innerC.innerHTML += '<span>Unsupported</span>';
+                        skipme = true;
                         break;
                 }
-                c.appendChild(innerC);
+                if (!skipme) {
+                    c.appendChild(innerC);
+                }
             } else {
                 console.log(`Skipping null-valued layout setting ${key}`);
             }
