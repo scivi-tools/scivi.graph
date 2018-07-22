@@ -261,15 +261,22 @@ export class GraphState {
     _checkBuildFilters(prevKnownValues, renderer) {
         if (!this._filtersContainer) {
             this._filtersContainer = document.createElement('div');
-
+            this._filtersContainer.innerHTML = '<span>Show nodes with weight within specified range:</span>';
+            let filtersList = document.createElement('ul');
             const that = this;
             // так себе допущение
             let groupCount = this._metrics.maxGroupId + 1;
+            // HACK: вот уж где так нехватает реактивного программирования, как здесь
             for (let i = 0; i < groupCount; i++) {
+                let listItem = document.createElement('li');
+                listItem.innerHTML = `<span><label>For group</label><label> ${i}: </label><label id="scivi_fsgraph_filter_${i}_values"></label></span>`;
+                // TODO: inefficient!
+                let filterLabel = /** @type {HTMLElement} */(listItem.childNodes.item(0).childNodes.item(2));
+                const setLabel = (values) => {
+                    filterLabel.innerText = `${values[0]}..${values[1]}`;
+                };
+                setLabel(this._metrics.minMaxValuesPerGroup[i]['weight']);
                 let filterSlider = document.createElement('div');
-                let descrSpan = document.createElement('span');
-                descrSpan.innerText = `Filter for group ${i}:`;
-                filterSlider.style.margin = '10px';
                 $(filterSlider).slider({
                     // TODO: эти четыре будут задаваться после получения prevKnownValues
                     min: this._metrics.minMaxValuesPerGroup[i]['weight'][0],
@@ -280,14 +287,18 @@ export class GraphState {
                     slide: (event, ui) => {
                         that.prevKnownValues[i]['weight'][0] = ui.values[0];
                         that.prevKnownValues[i]['weight'][1] = ui.values[1];
+                        setLabel(ui.values);
                         that._applyFilterRange();
                         renderer.rerender();
                     } 
                 });
-                this._filtersContainer.appendChild(descrSpan);
-                this._filtersContainer.appendChild(filterSlider);
+                listItem.appendChild(filterSlider);
+                filtersList.appendChild(listItem);
             }
+            this._filtersContainer.appendChild(filtersList);
         }
+        this._filtersContainer.id = "scivi_fsgraph_filters_control";
+
         let parent = $('#scivi_fsgraph_control')[0];
 
         if (prevKnownValues) {

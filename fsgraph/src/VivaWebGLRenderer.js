@@ -171,6 +171,7 @@ export class VivaWebGLRenderer {
 
     onContainerResize() {
         this._graphics.updateSize();
+        $('#scivi_fsgraph_tabs').resize();
         this.rerender();
     }
 
