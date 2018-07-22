@@ -4,6 +4,7 @@
 export * from './GraphController.js'
 export * from './VivaWebGLRenderer.js'
 export * from './VivaStateView'
+export * from './Misc/Translator'
 
 /**
  * 
