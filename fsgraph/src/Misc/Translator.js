@@ -33,10 +33,11 @@ export class Translator {
     }
 
     /**
-     * 
+     * Do not use it, too slow too damned
+     * @deprecated
      * @param {Node} item 
      */
-    /*applyRecursively(item) {
+    applyRecursively(item) {
         if (item.nodeType === Node.TEXT_NODE) {
             item.nodeValue = this.apply(item.nodeValue);
         } else {
@@ -46,5 +47,5 @@ export class Translator {
                 this.applyRecursively(childitem);
             }
         }
-    }*/
+    }
 }
