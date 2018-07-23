@@ -19,17 +19,15 @@ export class LayoutBuilder {
     }
 
     buildUI(/** @type {VivaWebGLRenderer} */renderer) {
-        let baseContainer = $('#scivi_fsgraph_settings_layout');
+        const baseContainer = $('#scivi_fsgraph_settings_layout');
         
-        let label = document.createElement('span');
-        label.textContent = 'Настройки укладки:';
-        let c = document.createElement('div');
-        baseContainer.append(label);
+        const c = document.createElement('ul');
+        c.classList.add('pseudo-list');
         for (let key in this.settings) {
             let value = this.settings[key];
             if (value != null) {
                 let skipme = false;
-                let innerC = document.createElement('div');
+                const innerC = document.createElement('li');
                 innerC.innerHTML += `<span>${key}: </span>`;
 
                 const type = typeof value
@@ -40,7 +38,6 @@ export class LayoutBuilder {
                         cb.checked = value;
                         cb.onchange = (ev) => {
                             this.settings[key] = cb.checked;
-                            console.log(`Setting ${key} now ${this.settings[key]}`);
                             renderer.kick();
                         };
                         innerC.appendChild(cb);
@@ -48,6 +45,9 @@ export class LayoutBuilder {
 
                     case 'number':
                         if (_NumRanges[this.name] && _NumRanges[this.name][key]) {
+                            const valueLabel = document.createElement('span');
+                            valueLabel.innerText = value;
+
                             let rangeEl = document.createElement('div');
                             let range = _NumRanges[this.name][key];
                             $(rangeEl).slider({
@@ -57,10 +57,11 @@ export class LayoutBuilder {
                                 step: range[2],
                                 slide: (event, ui) => {
                                     this.settings[key] = ui.value;
-                                    console.log(`Setting ${key} now ${this.settings[key]}`);
+                                    valueLabel.innerText = ui.value.toString();
                                     renderer.kick();
                                 }
                             });
+                            innerC.appendChild(valueLabel);
                             innerC.appendChild(rangeEl);
                         } else {
                             skipme = true;
