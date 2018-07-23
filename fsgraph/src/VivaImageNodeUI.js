@@ -123,23 +123,31 @@ export class VivaImageNodeUI extends VivaBaseUI {
             header.appendChild(dateLabel);
         }
 
-        let nodesList = document.createElement("div");
-        let connList = "<span>Linked nodes:</span><ul>";
+        let nodeListContainer = document.createElement("div");
+        nodeListContainer.id = 'scivi_fsgraph_nodelist_container';
+        let outcomingNodesList = document.createElement("div");
+        let incomingNodesList = document.createElement("div");
+        let connList = "<span>Outcoming nodes:</span><ul>";
+        let connList2 = "<span>Incoming nodes:</span><ul>";
         this._realNode.edges.forEach((edge) => {
             if (edge.visible) {
                 if (edge.toId != this._realNode.id)
-                    connList += `<li><span>${this._realNode._state.nodes[edge.toId].label} --+</span></li>`;
+                    connList += `<li><span>${this._realNode._state.nodes[edge.toId].label}</span></li>`;
                 else
-                    connList += `<li><span>+-- ${this._realNode._state.nodes[edge.fromId].label}</span></li>`;
+                    connList2 += `<li><span>${this._realNode._state.nodes[edge.fromId].label}</span></li>`;
             }
         });
         connList += "</ul>";
-        nodesList.innerHTML = connList;
+        connList2 += "</ul>";
+        outcomingNodesList.innerHTML = connList;
+        incomingNodesList.innerHTML = connList2;
 
         this.detailedInfoHTML.innerHTML = '';
 
         this.detailedInfoHTML.appendChild(header);
-        this.detailedInfoHTML.appendChild(nodesList);
+        nodeListContainer.appendChild(outcomingNodesList);
+        nodeListContainer.appendChild(incomingNodesList);
+        this.detailedInfoHTML.appendChild(nodeListContainer);
     };
 };
 

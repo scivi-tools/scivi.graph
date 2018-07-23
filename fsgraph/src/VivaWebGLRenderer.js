@@ -173,6 +173,8 @@ export class VivaWebGLRenderer {
     onContainerResize() {
         this._graphics.updateSize();
         $('#scivi_fsgraph_tabs').resize();
+        $("#scivi_fsgraph_tabs").tabs('refresh');
+        $('#scivi_fsgraph_settings_accordion').accordion('refresh');
         this.rerender();
     }
 
@@ -562,11 +564,7 @@ export class VivaWebGLRenderer {
             gutterSize: 8,
             cursor: 'col-resize',
             sizes: [75, 25],
-            onDrag: () => {
-                that.onContainerResize();
-                $("#scivi_fsgraph_tabs").tabs('refresh');
-                $('#scivi_fsgraph_settings_accordion').accordion('refresh');
-            }
+            onDrag: () =>  that.onContainerResize()
         });
 
         $("#scivi_fsgraph_tabs").tabs({
@@ -654,6 +652,12 @@ export class VivaWebGLRenderer {
         this._listContainer.innerHTML = '';
         let cs = this._graphController.currentState;
 
+        // hint
+        const hint = document.createElement('span');
+        hint.innerText = 'Click on list entry to center screen on specific node';
+        this._listContainer.appendChild(hint);
+        this._listContainer.appendChild(document.createElement('br'));
+
         // кнопки "скрыт/показать всё"
         let showAllButton = document.createElement('button');
         showAllButton.textContent = 'Show all non-filtered';
@@ -671,9 +675,14 @@ export class VivaWebGLRenderer {
         };
         this._listContainer.appendChild(hideAllButton);
 
+        const listItself = document.createElement('ul');
+        listItself.classList.add('pseudo-list');
+
         cs.forEachNode((node) => {
-            this._listContainer.appendChild(node.postListItem(this));
+            listItself.appendChild(node.postListItem(this));
         });
+
+        this._listContainer.appendChild(listItself);
     }
 
     /**
