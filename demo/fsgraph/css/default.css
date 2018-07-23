@@ -81,3 +81,9 @@
 {
     margin: 1em 0em;
 }
+
+#scivi_fsgraph_settings_nodelabel > input
+{
+    width: 3em;
+    margin-right: 10px;
+}

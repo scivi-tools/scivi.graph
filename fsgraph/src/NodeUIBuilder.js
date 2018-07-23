@@ -3,9 +3,9 @@
 import { VivaWebGLRenderer } from './VivaWebGLRenderer';
 import { VivaImageNodeUI } from './VivaImageNodeUI';
 import * as $ from 'jquery';
-import 'jquery-ui/ui/widgets/slider';
+import 'jquery-ui/ui/widgets/spinner';
 
-const _FontSizeDiap = [10, 36];
+const _FontSizeDiap = [4, 72];
 
 export class NodeUIBuilder {
     /**
@@ -78,23 +78,32 @@ export class NodeUIBuilder {
     _buildUi() {
         let baseContainer = $('#scivi_fsgraph_settings_appearance')[0];
 
+        const innerContainer = document.createElement('div');
+        innerContainer.id = 'scivi_fsgraph_settings_nodelabel';
+
         let nameSpan = document.createElement('span');
         nameSpan.textContent = 'Font size: ';
 
-        let slider = document.createElement('div');
+        let spinner = document.createElement('input');
+        spinner.value = this._fontSize.toString();
 
+        const confirmBuuton = document.createElement('div');
         const that = this;
-        $(slider).slider({
-            min: _FontSizeDiap[0],
-            max: _FontSizeDiap[1],
-            value: that._fontSize,
-            step: 1,
-            slide: (event, ui) => {
-                that.fontSize = ui.value || 0;
+        $(confirmBuuton).button({
+            label: 'Apply'
+        });
+        $(confirmBuuton).click((event) => {
+            const realFontSize = parseInt(spinner.value);
+            if ((_FontSizeDiap[0] <= realFontSize) && (_FontSizeDiap[1] >= realFontSize)) {
+                that.fontSize = realFontSize;
             }
+            spinner.value = that._fontSize.toString();
         });
 
-        baseContainer.appendChild(nameSpan);
-        baseContainer.appendChild(slider);
+        innerContainer.appendChild(nameSpan);
+        innerContainer.appendChild(document.createElement('br'));
+        innerContainer.appendChild(spinner);
+        innerContainer.appendChild(confirmBuuton);
+        baseContainer.appendChild(innerContainer)
     }
 }
