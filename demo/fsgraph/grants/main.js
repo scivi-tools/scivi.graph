@@ -11,6 +11,7 @@ var g_colors = [
 ];
 
 var FSGraph = SciViFSGraph.main;
+var g_renderer = null;
 
 function main() {
     var usedLayout = FSGraph.getParameterByName("layout") || "forceAtlas2";
@@ -20,4 +21,6 @@ function main() {
     renderer.graphController = controller;
     renderer.viewRules = renderer.buildDefaultView(g_colors);
     renderer.run(1000);
+
+    g_renderer = renderer;
 }

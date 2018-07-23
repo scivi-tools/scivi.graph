@@ -12,7 +12,7 @@ import * as $ from 'jquery';
  */
 export class VivaImageNodeUI extends VivaBaseUI {
     /**
-     * 
+     * @param {*} graphics webglGraphics
      * @param {NgraphGraph.Node} node
      * @param {HTMLSpanElement} titleSpan 
      */
@@ -22,6 +22,7 @@ export class VivaImageNodeUI extends VivaBaseUI {
         this._offset = 0;
         this._span = titleSpan;
         this._spanWidth = 0;
+        this._spanHeight = 0;
         this._labelChanged = true;
         this._showLabel = false;
 
@@ -86,6 +87,7 @@ export class VivaImageNodeUI extends VivaBaseUI {
     _invalidateLabel() {
         this._span.innerText = this._realNode.label;
         this._spanWidth = $(this._span).width();
+        this._spanHeight = $(this._span).height();
     }
 
     onRender() {
@@ -94,10 +96,10 @@ export class VivaImageNodeUI extends VivaBaseUI {
                this._invalidateLabel();
                this._labelChanged = false;
             }
-            let domPos = { x: this.position.x, y: this.position.y - this.size - 1};
+            let domPos = { x: this.position.x, y: this.position.y - this.size };
             this._graphics.transformGraphToClientCoordinates(domPos);
             this._span.style.left = `${domPos.x - this._spanWidth / 2}px`;
-            this._span.style.top = `${domPos.y}px`;
+            this._span.style.top = `${domPos.y - this._spanHeight}px`;
         }
     }
 
