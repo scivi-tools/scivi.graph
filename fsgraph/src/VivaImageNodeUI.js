@@ -92,9 +92,14 @@ export class VivaImageNodeUI extends VivaBaseUI {
 
     onRender() {
         if (this._showLabel) {
+            // HACK: вах какой костыль!
+            if (this._span.hidden === this._showLabel) {
+                this._labelChanged = true;
+                this.showLabel = this._showLabel;
+            }
             if (this._labelChanged) {
-               this._invalidateLabel();
-               this._labelChanged = false;
+                this._invalidateLabel();
+                this._labelChanged = false;
             }
             let domPos = { x: this.position.x, y: this.position.y - this.size };
             this._graphics.transformGraphToClientCoordinates(domPos);

@@ -49,8 +49,12 @@ export class NodeUIBuilder {
         for (let label of this._labels) {
             if (label) {
                 label.style.fontSize = fontString;
+                // HACK: костыль! лень ыло заводить лишнюю переменную или не менее костыльно прокидывать событие изменения размера шрифта каждому визуалу
+                label.hidden = true;
             }
         }
+
+        this._renderer.rerender();
     }
 
     get fontSizeString() {
