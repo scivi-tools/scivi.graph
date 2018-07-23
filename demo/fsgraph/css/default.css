@@ -47,12 +47,24 @@
     background-color: white;
 }
 
+#scivi_fsgraph_tabs
+{
+    /* TODO: WHY?! */
+    height: 99%;
+}
+
+#scivi_fsgraph_settings_accordion
+{
+    /* TODO: WHY?! */
+    height: calc(100% - 5px);
+}
+
 #scivi_fsgraph_filters_control
 {
     margin-top: 10px;
 }
 
-#scivi_fsgraph_filters_control > ul
+#scivi_fsgraph_filters_control > ul, #scivi_fsgraph_settings_stateview > ul
 {
     margin: unset;
     margin-top: 0.5em;
@@ -60,9 +72,12 @@
     padding-left: 0px;
 }
 
-#scivi_fsgraph_filters_control .ui-slider
+#scivi_fsgraph_filters_control .ui-slider, #scivi_fsgraph_settings_stateview .ui-slider
 {
     margin: 10px;
 }
 
-
+#scivi_fsgraph_settings_stateview
+{
+    margin: 1em 0em;
+}

@@ -98,49 +98,45 @@ export class VivaStateView {
     }
 
     buildUI() {
-        let baseContainer = $('#scivi_fsgraph_settings')[0];
+        let baseContainer = $('#scivi_fsgraph_settings_appearance')[0];
         let innerContainer = document.createElement('div');
+        innerContainer.id = 'scivi_fsgraph_settings_stateview';
 
-        let nameSpan = document.createElement('span');
-        nameSpan.innerHTML = '<br/>Primitive view:';
-        baseContainer.appendChild(nameSpan);
+        // let nameSpan = document.createElement('span');
+        // nameSpan.innerText = 'Внешний вид:';
+        // innerContainer.appendChild(nameSpan);
 
-        let sliderSpan = document.createElement('span');
-        sliderSpan.textContent = 'Node size diap:';
-        innerContainer.appendChild(sliderSpan);
+        const namedDiaps = document.createElement('ul');
 
-        let sizeSlider = document.createElement('div');
-        const that = this;
-        $(sizeSlider).slider({
-            min: _MaxNodeSizeDiap[0],
-            max: _MaxNodeSizeDiap[1],
-            values: that._nodeSizeDiap,
-            step: 1,
-            range: true,
-            slide: (event, ui) => {
-                that._setDiap(that._nodeSizeDiap, ui.values ? ui.values[0] : 0, ui.values ? ui.values[1] : 1);
-                that._renderer.rerender();
-            }
-        });
-        innerContainer.appendChild(sizeSlider);
+        // TODO: done this right way
+        const diapNames = ['Node size diap:', 'Edge size diap:'];
+        const diapRanges = [_MaxNodeSizeDiap, _MaxEdgeSizeDiap];
+        const diapSetters = [this._nodeSizeDiap, this._edgeSizeDiap];
+        for (let i = 0; i < 2; i++) {
+            const diapLi = document.createElement('li');
+            const label = document.createElement('span');
+            label.innerText = diapNames[i];
 
-        let edgeSliderSpan = document.createElement('span');
-        edgeSliderSpan.textContent = 'Edge size diap:';
-        innerContainer.appendChild(edgeSliderSpan);
+            const slider = document.createElement('div');
+            const that = this;
+            $(slider).slider({
+                min: diapRanges[i][0],
+                max: diapRanges[i][1],
+                values: diapSetters[i],
+                step: 1,
+                range: true,
+                slide: (event, ui) => {
+                    that._setDiap(diapSetters[i], ui.values ? ui.values[0] : 0, ui.values ? ui.values[1] : 1);
+                    that._renderer.rerender();
+                }
+            });
 
-        let edgeSizeSlider = document.createElement('div');
-        $(edgeSizeSlider).slider({
-            min: _MaxEdgeSizeDiap[0],
-            max: _MaxEdgeSizeDiap[1],
-            values: that._edgeSizeDiap,
-            step: 1,
-            range: true,
-            slide: (event, ui) => {
-                that._setDiap(that._edgeSizeDiap, ui.values ? ui.values[0] : 0, ui.values ? ui.values[1] : 1);
-                that._renderer.rerender();
-            }
-        });
-        innerContainer.appendChild(edgeSizeSlider);
+            diapLi.appendChild(label);
+            diapLi.appendChild(slider);
+            namedDiaps.appendChild(diapLi);
+        }
+
+        innerContainer.appendChild(namedDiaps);
 
         // TODO: colors & rest...
 

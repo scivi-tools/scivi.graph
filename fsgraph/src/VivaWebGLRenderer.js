@@ -10,6 +10,7 @@ import 'jquery-ui/ui/keycode';
 import 'jquery-ui/ui/widgets/selectable';
 import 'jquery-ui/ui/widgets/button';
 import 'jquery-ui/ui/widgets/tabs';
+import 'jquery-ui/ui/widgets/accordion';
 import Split from 'split.js';
 import { Point2D } from './Point2D';
 import { NodeUIBuilder } from './NodeUIBuilder';
@@ -545,7 +546,14 @@ export class VivaWebGLRenderer {
                 <div id="scivi_fsgraph_control"></div>
                 <div id="scivi_fsgraph_info"></div>
                 <div id="scivi_fsgraph_list"></div>
-                <div id="scivi_fsgraph_settings"></div>
+                <div id="scivi_fsgraph_settings">
+                    <div id="scivi_fsgraph_settings_accordion">
+                        <h3>Отображение</h3>
+                        <div id="scivi_fsgraph_settings_appearance"></div>
+                        <h3>Укладка</h3>
+                        <div id="scivi_fsgraph_settings_layout"></div>
+                    </div>
+                </div>
                 <div id="scivi_fsgraph_stats"></div>
             </div>
         </div>`;
@@ -554,10 +562,14 @@ export class VivaWebGLRenderer {
             gutterSize: 8,
             cursor: 'col-resize',
             sizes: [75, 25],
-            onDrag: () => that.onContainerResize()
+            onDrag: () => {
+                that.onContainerResize();
+                $("#scivi_fsgraph_tabs").tabs('refresh');
+                $('#scivi_fsgraph_settings_accordion').accordion('refresh');
+            }
         });
 
-       $("#scivi_fsgraph_tabs").tabs({
+        $("#scivi_fsgraph_tabs").tabs({
             heightStyle: "fill"
         });
     
@@ -571,7 +583,12 @@ export class VivaWebGLRenderer {
             }
         });
 
+        $('#scivi_fsgraph_settings_accordion').accordion({
+            heightStyle: 'fill'
+        });
+
         // TODO: добавляем кнопку старт/стоп и вращение здесь!
+        // + "fit to screen"
         const controlElement = $('#scivi_fsgraph_control')[0];
         let startStopButton = document.createElement('button');
 

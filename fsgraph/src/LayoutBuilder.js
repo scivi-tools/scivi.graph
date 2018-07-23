@@ -19,7 +19,7 @@ export class LayoutBuilder {
     }
 
     buildUI(/** @type {VivaWebGLRenderer} */renderer) {
-        let baseContainer = $('#scivi_fsgraph_settings');
+        let baseContainer = $('#scivi_fsgraph_settings_layout');
         
         let label = document.createElement('span');
         label.textContent = 'Настройки укладки:';

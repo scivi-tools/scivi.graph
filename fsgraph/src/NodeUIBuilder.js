@@ -76,7 +76,7 @@ export class NodeUIBuilder {
     }
 
     _buildUi() {
-        let baseContainer = $('#scivi_fsgraph_settings')[0];
+        let baseContainer = $('#scivi_fsgraph_settings_appearance')[0];
 
         let nameSpan = document.createElement('span');
         nameSpan.textContent = 'Font size: ';
