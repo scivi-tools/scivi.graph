@@ -510,9 +510,14 @@ export class VivaWebGLRenderer {
                 let transform = this._graphics.getTransform();
                 // TODO: move matrix op-s into separate module, get rid of duplicated code
                 let newOffset = [(offset.x * transform[0] + offset.y * transform[4]), (offset.x * transform[1] + offset.y * transform[5])];
+
+                // TODO: drop such a kostyl'
+                const dpi = this._graphics.pixelRatio();
+                const scaleCoef = this._transform.scale * this._transform.scale;// * dpi;
+
                 this._layoutBackend.setNodePosition(node.id,
-                    oldPos.x + newOffset[0] * 2 / this._transform.scale / this._transform.scale,
-                    oldPos.y + newOffset[1] * 2 / this._transform.scale / this._transform.scale);
+                    oldPos.x + newOffset[0] * 2 / scaleCoef,
+                    oldPos.y + newOffset[1] * 2 / scaleCoef);
 
                 this._userInteraction = true;
                 this._renderGraph();

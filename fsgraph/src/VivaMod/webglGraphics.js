@@ -38,6 +38,7 @@ export function webglGraphics(options) {
         }
     }));
 
+    const realPixelRatio = window.devicePixelRatio || 1;
     /** @type {HTMLElement} */
     var container;
     /** @type {HTMLCanvasElement} */
@@ -97,32 +98,28 @@ export function webglGraphics(options) {
         },
 
         resetScaleInternal = function () {
-            let realScale = window.devicePixelRatio || 1;
-            transform = [realScale, 0, 0, 0,
-                        0, realScale, 0, 0,
-                        0, 0, 1, 0,
+            transform = [realPixelRatio, 0, 0, 0,
+                        0, realPixelRatio, 0, 0,
+                        0, 0, realPixelRatio, 0,
                         0, 0, 0, 1];
         },
 
         updateSize = function () {
             if (container && graphicsRoot) {
-                let realScale = window.devicePixelRatio || 1;
                 width = Math.max(container.clientWidth, 1);
                 height = Math.max(container.clientHeight, 1);
                 graphicsRoot.style.width = `${width}px`;
                 graphicsRoot.style.height = `${height}px`;
-                let realWidth = width * realScale;
-                let realHeight = height * realScale;
-                graphicsRoot.width = realWidth;
-                graphicsRoot.height = realHeight;
+                graphicsRoot.width = width;
+                graphicsRoot.height = height;
                 if (gl) {
-                    gl.viewport(0, 0, realWidth, realHeight);
+                    gl.viewport(0, 0, width, height);
                 }
                 if (linkProgram) {
-                    linkProgram.updateSize(realWidth / 2, realHeight / 2);
+                    linkProgram.updateSize(width / 2, height / 2);
                 }
                 if (nodeProgram) {
-                    nodeProgram.updateSize(realWidth / 2, realHeight / 2);
+                    nodeProgram.updateSize(width / 2, height / 2);
                 }
             }
         },
@@ -663,6 +660,10 @@ export function webglGraphics(options) {
 
         getTransform : function () {
             return transform;
+        },
+
+        pixelRatio : function () {
+            return realPixelRatio;
         }
     };
 
