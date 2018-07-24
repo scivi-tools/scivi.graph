@@ -186,10 +186,10 @@ export class GraphState {
     pseudoActualize() {
         // TODO: get rid of duplicated code
         this.forEachNode((n) => {
-            this.toggleNodeExt(n, (n) => this._applyFilter(n));
+            this.toggleNodeExt(n, (n) => this._applyFilter(n), true);
         });
         for (let e of this.edges) {
-            this.restoreEdge(e);
+            this.toggleEdge(this._controller.graph, e);
         }
     }
 
