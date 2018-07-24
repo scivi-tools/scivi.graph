@@ -15,8 +15,10 @@ import 'jquery-ui/ui/widgets/slider'
  */
 
 const _MaxNodeSizeDiap = [1, 50];
+const _NodeSizeStep = 1;
 const _DefNodeSizeDiap = [7, 45];
-const _MaxEdgeSizeDiap = [0.1, 50];
+const _MaxEdgeSizeDiap = [0.5, 50];
+const _EdgeSizeStep = 0.5;
 const _DefEdgeSizeDiap = [1, 5];
 
 /**
@@ -109,13 +111,20 @@ export class VivaStateView {
         const namedDiaps = document.createElement('ul');
 
         // TODO: done this right way
-        const diapNames = ['Node size diap:', 'Edge size diap:'];
+        const diapNames = ['Node size diap', 'Edge size diap'];
         const diapRanges = [_MaxNodeSizeDiap, _MaxEdgeSizeDiap];
+        const diapSteps = [_NodeSizeStep, _EdgeSizeStep];
         const diapSetters = [this._nodeSizeDiap, this._edgeSizeDiap];
         for (let i = 0; i < 2; i++) {
             const diapLi = document.createElement('li');
             const label = document.createElement('span');
-            label.innerText = diapNames[i];
+            label.innerText = `${diapNames[i]}: `;
+            const numLabel = document.createElement('span');
+            // TODO: should be done another way
+            const setDiapLabel = (values) => {
+                numLabel.innerText = `${values[0]}..${values[1]}`;
+            };
+            setDiapLabel(diapSetters[i]);
 
             const slider = document.createElement('div');
             const that = this;
@@ -123,15 +132,17 @@ export class VivaStateView {
                 min: diapRanges[i][0],
                 max: diapRanges[i][1],
                 values: diapSetters[i],
-                step: 1,
+                step: diapSteps[i],
                 range: true,
                 slide: (event, ui) => {
-                    that._setDiap(diapSetters[i], ui.values ? ui.values[0] : 0, ui.values ? ui.values[1] : 1);
+                    that._setDiap(diapSetters[i], ui.values[0], ui.values[1]);
+                    setDiapLabel(ui.values);
                     that._renderer.rerender();
                 }
             });
 
             diapLi.appendChild(label);
+            diapLi.appendChild(numLabel);
             diapLi.appendChild(slider);
             namedDiaps.appendChild(diapLi);
         }
