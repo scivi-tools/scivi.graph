@@ -119,6 +119,7 @@ const _NumRanges = {
         'barnesHutTheta': [0.1, 0.9, 0.1]
     },
     'forceAtlas2f': {
+        'edgeWeightInfluence': [0, 2, 0.1],
         'springLength': [5, 50, 5],
         'springCoeff': [0, 0.0016, 0.0001]
     }
@@ -126,9 +127,11 @@ const _NumRanges = {
 
 const _DefaultSettings = {
     'forceAtlas2': {
-        'barnesHutOptimize' : false,
-        'linLogMode' : true,
-        'outboundAttractionDistribution' : true,
+        'barnesHutOptimize': false,
+        'linLogMode': true,
+        'outboundAttractionDistribution': true,
+        'adjustSizes': false,
+        'strongGravityMode': false,
         'edgeWeightInfluence': 1
     },
     'forceAtlas2f': {

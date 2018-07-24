@@ -15,7 +15,7 @@ var g_colors = [
 var FSGraph = SciViFSGraph.main;
 
 function main() {
-    var usedLayout = FSGraph.getParameterByName("layout") || "forceAtlas2";
+    var usedLayout = FSGraph.getParameterByName("layout") || "forceAtlas2f";
     var controller = FSGraph.GraphController.fromJson(g_data, usedLayout);
     var renderer = new FSGraph.VivaWebGLRenderer(document.body);
         

@@ -14,7 +14,7 @@ var FSGraph = SciViFSGraph.main;
 var g_renderer = null;
 
 function main() {
-    var usedLayout = FSGraph.getParameterByName("layout") || "forceAtlas2";
+    var usedLayout = FSGraph.getParameterByName("layout") || "forceAtlas2f";
     var controller = FSGraph.GraphController.fromStatedJson(g_data, usedLayout);
     var renderer = new FSGraph.VivaWebGLRenderer(document.body);
         
