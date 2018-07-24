@@ -37,7 +37,7 @@ export class GraphController {
         }
         let cs = this.states[this._currentStateId];
         if (!cs) {
-            cs = new GraphState(this, state.nodes.length, state.edges.length);
+            cs = new GraphState(this, state.nodes.length, state.edges.length, state.label || '?');
             this.states[this._currentStateId] = cs;
         }
         // ...

@@ -46,15 +46,17 @@
 
 #scivi_fsgraph_stateline_container
 {
-    padding: 20px;
     z-index: 2;
     background-color: white;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
-.scivi_fsgraph_stateline_label
+#scivi_fsgraph_stateline_labels > .scivi_fsgraph_stateline_label
 {
     text-align: center;
-    position: absolute;
+    display: inline-block;
+    vertical-align: top;
 }
 
 #scivi_fsgraph_tabs

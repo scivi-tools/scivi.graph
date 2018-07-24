@@ -624,16 +624,19 @@ export class VivaWebGLRenderer {
     }
 
     _buildTimeline() {
-        let statesCount = this._graphController.states.length;
+        const statesCount = this._graphController.states.length;
         if (statesCount == 1) {
             return;
         }
 
-        let tlContainer = document.createElement('div');
-        let timeline = document.createElement('div');
+        const tlContainer = document.createElement('div');
+        const innerTlContainer = document.createElement('div');
+        const timeline = document.createElement('div');
         timeline.id = 'scivi_fsgraph_stateline';
         tlContainer.id = 'scivi_fsgraph_stateline_container';
-        tlContainer.appendChild(timeline);
+        innerTlContainer.id = 'scivi_fsgraph_stateline_inner';
+        innerTlContainer.appendChild(timeline);
+        tlContainer.appendChild(innerTlContainer);
         $('#scivi_fsgraph_a').append(tlContainer);
 
         const that = this;
@@ -647,6 +650,21 @@ export class VivaWebGLRenderer {
                 that.rerender();
             }
         });
+
+        const labelContainer = document.createElement('div');
+        labelContainer.id = 'scivi_fsgraph_stateline_labels';
+        
+        const defWidth = 100.0 / statesCount;
+        const defWidthStr = `${defWidth}%`;
+        innerTlContainer.style.marginLeft = innerTlContainer.style.marginRight = `${(defWidth / 2)}%`;
+        for (let i = 0; i < statesCount; i++) {
+            const label = document.createElement('div');
+            label.classList.add('scivi_fsgraph_stateline_label');
+            label.innerHTML = `<span>|</span><br /><label>${this._graphController.states[i].label}</label>`;
+            label.style.width = defWidthStr;
+            labelContainer.appendChild(label);
+        }
+        tlContainer.appendChild(labelContainer);
     }
 
     buildNodeListInfo() {

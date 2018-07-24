@@ -14,8 +14,9 @@ export class GraphState {
      * @param {GraphController} controller 
      * @param {number} nCount 
      * @param {number} eCount 
+     * @param {string} label
      */
-    constructor(controller, nCount, eCount) {
+    constructor(controller, nCount, eCount, label) {
         /** @type {GraphController} */
         this._controller = controller
         this._metrics = new DummyMetrics(this._controller.monitoredValues);
@@ -26,6 +27,7 @@ export class GraphState {
         this.nodes = [];
         /** @type {Edge[]} */
         this.edges = [];
+        this._label = label;
 
         /** @type {HTMLElement} */
         this._filtersContainer = null;
@@ -33,6 +35,10 @@ export class GraphState {
 
         this._visited = false;
     };
+
+    get label() {
+        return this._label;
+    }
 
     addNode(id, groupId, data) {
         // ensure that group alredy exists before pushing to it
