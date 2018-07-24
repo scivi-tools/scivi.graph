@@ -10,6 +10,8 @@
     color: black;
     z-index: 0;
     font-size: 16px;
+    white-space: nowrap;
+    text-align: center;
 }
 
 #scivi_fsgraph_a
