@@ -587,7 +587,8 @@ export class VivaWebGLRenderer {
         });
 
         $('#scivi_fsgraph_settings_accordion').accordion({
-            heightStyle: 'fill'
+            heightStyle: 'content',
+            collapsible: true
         });
 
         // TODO: добавляем кнопку старт/стоп и вращение здесь!
