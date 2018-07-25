@@ -11,6 +11,7 @@ import 'jquery-ui/ui/widgets/selectable';
 import 'jquery-ui/ui/widgets/button';
 import 'jquery-ui/ui/widgets/tabs';
 import 'jquery-ui/ui/widgets/accordion';
+import 'jquery-ui/ui/widgets/dialog';
 import Split from 'split.js';
 import { Point2D } from './Point2D';
 import { NodeUIBuilder } from './NodeUIBuilder';
@@ -220,14 +221,8 @@ export class VivaWebGLRenderer {
      */
     run(prepareIterations = 0) {
         if (prepareIterations > 0) {
-            /*setTimeout(() => {
-                const step = 250;
-                for (let i = 0; i < Math.min(step, prepareIterations); i++) {
-                    this._layoutBackend.step();
-                }
-                this.run(prepareIterations - step);
-            }, 30);
-            return;*/
+            this._initPrelayoutEnv(prepareIterations);
+            return;
         }
         if (!this._isInitialized) {
             this._initDom();
@@ -299,8 +294,56 @@ export class VivaWebGLRenderer {
 
     // #region Private stuff
 
-    get _frameTicks() {
-        return 30;
+    /**
+     * 
+     * @param {number} iterations 
+     */
+    _initPrelayoutEnv(iterations) {
+        const itersPerStep = 250;
+        const progressLabel = document.createElement('span');
+        let forceStop = false;
+        progressLabel.innerText = '0';
+        const dialog = $(`<div title="Precalculating layout">
+        <span>out of ${iterations}</span></div>`);
+        dialog.css('vertical-align', 'center').css('text-align', 'center');
+        const onDialogClose = (enableLayout) => {
+            forceStop = true;
+            dialog.dialog('close');
+            this.run(0);
+            if (!enableLayout) {
+                this.pause();
+            }
+        };
+        dialog.prepend(progressLabel);
+        dialog.dialog({
+            modal: true,
+            buttons: {
+                'Cancel': () => onDialogClose(true)
+            }
+        })
+        /**
+         * 
+         * @param {number} it 
+         * @param {number} remaing 
+         */
+        const onStep = (it, remaing) => {
+            setTimeout(() => {
+                if (forceStop) {
+                    return;
+                }
+                progressLabel.innerText = it.toString();
+                if (remaing <= 0) {
+                    onDialogClose(false);
+                    return;
+                }
+                let totalCount = Math.min(itersPerStep, remaing);
+                for (let i = 0; i < totalCount; i++) {
+                    this._layoutBackend.step();
+                }
+                onStep(it + totalCount, remaing - totalCount);
+            }, 30)
+        };
+        onStep(0, iterations);
     }
 
     _renderGraph() {
