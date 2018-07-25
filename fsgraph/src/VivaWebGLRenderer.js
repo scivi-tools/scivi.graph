@@ -580,7 +580,9 @@ export class VivaWebGLRenderer {
         baseContainer.innerHTML = `
         <div id="scivi_fsgraph_a" class="split split-horizontal">
             <div id="scivi_fsgraph_rotate_bar_container">
-                <div id="scivi_fsgraph_rotate_bar"></div>
+                <div id="scivi_fsgraph_rotate_bar">
+                    <div id="rotate_bar_handle" class="ui-slider-handle"></div>
+                </div>
             </div>
             <div id="scivi_fsgraph_view"></div>
         </div>
@@ -619,14 +621,20 @@ export class VivaWebGLRenderer {
             heightStyle: "fill"
         });
     
+        const customHandle = $('#rotate_bar_handle');
+        const setHandleText = (value) => {
+            customHandle.text(`${value}°`);
+        };
         $("#scivi_fsgraph_rotate_bar").slider({
-            min: -179,
-            max: 179,
+            min: -180,
+            max: 180,
             value: 0,
-            step: 1,
+            step: 5,
             slide: (event, ui) => {
                 that.angleDegrees = ui.value;
-            }
+                setHandleText(ui.value);
+            },
+            create: () => setHandleText(0)
         });
 
         $('#scivi_fsgraph_settings_accordion').accordion({

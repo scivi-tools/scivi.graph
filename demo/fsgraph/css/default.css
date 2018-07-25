@@ -29,9 +29,16 @@
 
 #scivi_fsgraph_rotate_bar_container
 {
-    padding: 10px;
+    padding: 10px 1.5em;
     z-index: 2;
     background-color: white;
+}
+
+#rotate_bar_handle
+{
+    width: 2.5em;
+    margin-left: -1.25em;
+    text-align: center;
 }
 
 #scivi_fsgraph_view
