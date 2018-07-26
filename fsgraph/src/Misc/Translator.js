@@ -17,10 +17,12 @@ export class Translator {
 
     /**
      * 
-     * @param {Object.<string, string>} dict 
+     * @param {Object.<string, Object.<string, string>>} dict 
      */
     extend(dict) {
-        this._instance.extend(dict);
+        this._instance.extend(dict[this._locale]);
+
+        return this;
     }
 
     /**
@@ -48,4 +50,13 @@ export class Translator {
             }
         }
     }
+}
+/** @type {Translator} */
+let TranslatorInstance = null;
+
+export function getOrCreateTranslatorInstance(lang = '') {
+    if (TranslatorInstance === null) {
+        TranslatorInstance = new Translator(lang);
+    }
+    return TranslatorInstance;
 }

@@ -32,9 +32,9 @@
                 var lang = SciViFSGraph.main.getParameterByName("lang") || "ru";
                 document.documentElement.lang = lang;
 
-                var tr = new SciViFSGraph.main.Translator(lang);
-                tr.extend(tr_list[lang]);
-                tr.applyRecursively(document.getElementById("examples-list-contaner"));
+                SciViFSGraph.main.getOrCreateTranslatorInstance(lang)
+                    .extend(tr_list)
+                    .applyRecursively(document.getElementById("examples-list-contaner"));
 
                 hookLinksWithLang(lang);
 
