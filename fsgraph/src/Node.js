@@ -31,7 +31,7 @@ export class Node {
         /** @type {Edge[]} */
         this.edges = [];
 
-        this.visible = true;
+        this.visible = false;
 
         /** @type {(function():void)?} */
         this.onBeforeHideCallback = null;

@@ -68,19 +68,18 @@ export class GraphState {
 
     /**
      * 
-     * @param {NgraphGraph.Graph} graph 
      * @param {Node} node
      */
-    restoreNode(graph, node) {
+    restoreNode(node) {
         if (!node.visible) {
             return;
         }
 
-        graph.beginUpdate();
-        let graphNode = graph.addNode(node.id, node);
+        this._controller.graph.beginUpdate();
+        let graphNode = this._controller.graph.addNode(node.id, node);
         graphNode['position'] = node.position;
         graphNode['size'] = 42;
-        graph.endUpdate();
+        this._controller.graph.endUpdate();
     };
 
     /**
@@ -99,45 +98,27 @@ export class GraphState {
     };
 
     /**
-     * 
+     * Добавляем/удаляем узел в зависимости от фильтра
+     * Последним параметром можно игнорировать изменение связей
      * @param {Node} node 
      * @param {function(Node):boolean} filterFunc 
      * @param {boolean} softMode
      */
     toggleNodeExt(node, filterFunc, softMode = false) {
-        this.toggleNode(this._controller.graph, this._controller.layoutInstance, node, filterFunc, softMode);
-    }
-
-    /**
-     * Добавляем/удаляем узел в зависимости от фильтра
-     * Последним параметром можно игнорировать изменение связей
-     * @param {NgraphGraph.Graph} graph
-     * @param {NgraphGeneric.Layout} layout
-     * @param {Node} node 
-     * @param {function(Node):boolean} filterFunc
-     * @param {boolean} softMode 
-     */
-    toggleNode(graph, layout, node, filterFunc, softMode = false) {
         let prevVisible = node.visible;
         // применяем фильтр!
         let newVisible = filterFunc(node);
-        if ((newVisible != prevVisible) || (softMode)) {
+        if (newVisible != prevVisible) {
             node.visible = newVisible;
             if (newVisible) {
-                this.restoreNode(graph, node);
-                // добавим вся связанные
-                if (!softMode) {
-                    for (let edge of node.edges) {
-                        this.toggleEdge(graph, edge);
-                    }
-                }
+                this.restoreNode(node);
             } else {
-                this.hideNode(graph, layout, node);
-                // и выбросим все связанные 
-                if (!softMode) {
-                    for (let edge of node.edges) {
-                        this.toggleEdge(graph, edge);
-                    }
+                this.hideNode(node);
+            }
+            // добавим или выбросим все связанные 
+            if (!softMode) {
+                for (let edge of node.edges) {
+                    this.toggleEdge(edge);
                 }
             }
         }
@@ -145,27 +126,42 @@ export class GraphState {
 
     /**
      * 
-     * @param {NgraphGraph.Graph} graph 
-     * @param {NgraphGeneric.Layout} layout 
      * @param {Node} node 
+     * @param {function(Node):boolean} filterFunc 
      */
-    hideNode(graph, layout, node) {
-        node.onBeforeHide(layout);
-        graph.removeNode(node.id);
+    restoreNodeIf(node, filterFunc) {
+        node.visible = filterFunc(node);
+        this.restoreNode(node);
     }
 
     /**
      * 
-     * @param {NgraphGraph.Graph} graph 
+     * @param {Node} node 
+     */
+    hideNode(node) {
+        node.onBeforeHide(this._controller.layoutInstance);
+        this._controller.graph.removeNode(node.id);
+    }
+
+    /**
+     * 
      * @param {Edge} edge 
      */
-    toggleEdge(graph, edge) {
+    hideEdge(edge) {
+        let graphEdge = this._controller.graph.getLink(edge.fromId, edge.toId);
+        this._controller.graph.removeLink(graphEdge);
+    }
+
+    /**
+     * 
+     * @param {Edge} edge 
+     */
+    toggleEdge(edge) {
         if (edge.visibleChanged) {
             if (edge.visible) {
                 this.restoreEdge(edge);
             } else {
-                let graphEdge = graph.getLink(edge.fromId, edge.toId);
-                graph.removeLink(graphEdge);
+                this.hideEdge(edge);
             }
         }
     }
@@ -180,7 +176,7 @@ export class GraphState {
         // восстанавливаем узлы и связи, не забыв про их позиции и видимость
         // graph.beginUpdate();
         this.forEachNode((n) => {
-            this.toggleNodeExt(n, (n) => this._applyFilter(n), true);
+            this.restoreNodeIf(n, (n) => this._applyFilter(n));
         });
         for (let e of this.edges) {
             this.restoreEdge(e);
@@ -193,16 +189,13 @@ export class GraphState {
     pseudoActualize() {
         // TODO: get rid of duplicated code
         this.forEachNode((n) => {
-            this.toggleNodeExt(n, (n) => this._applyFilter(n), true);
+            this.toggleNodeExt(n, (n) => this._applyFilter(n), false);
         });
-        for (let e of this.edges) {
-            this.toggleEdge(this._controller.graph, e);
-        }
     }
 
     pseudoDisable() {
         this.forEachNode((n) => {
-            this.toggleNodeExt(n, (n) => false);
+            this.toggleNodeExt(n, (n) => false, false);
         });
     }
 

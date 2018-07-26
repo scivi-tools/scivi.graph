@@ -10,7 +10,7 @@ export class Edge {
         /** @type {number} */
         this.weight = DH.getValueDef(data, 'weight', 'number', 1);
         
-        this._visibleStored = true;
+        this._visibleStored = false;
     }
 
     get visibleChanged() {
