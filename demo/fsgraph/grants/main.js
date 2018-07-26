@@ -15,6 +15,10 @@ var g_renderer = null;
 
 function main() {
     var usedLayout = FSGraph.getParameterByName("layout") || "forceAtlas2f";
+    var lang = SciViFSGraph.main.getParameterByName("lang") || "ru";
+    document.documentElement.lang = lang;
+    FSGraph.getOrCreateTranslatorInstance(lang).extend(g_fsgraph_loc);
+
     var controller = FSGraph.GraphController.fromStatedJson(g_data, usedLayout);
     var renderer = new FSGraph.VivaWebGLRenderer(document.body);
         

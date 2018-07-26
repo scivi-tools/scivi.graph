@@ -15,6 +15,7 @@ import 'jquery-ui/ui/widgets/dialog';
 import Split from 'split.js';
 import { Point2D } from './Point2D';
 import { NodeUIBuilder } from './NodeUIBuilder';
+import { getOrCreateTranslatorInstance } from './Misc/Translator';
 
 class RendererTransform {
     constructor(scale = 1, offsetX = 0, offsetY = 0, rot = 0) {
@@ -576,6 +577,7 @@ export class VivaWebGLRenderer {
      * @param {HTMLElement} baseContainer 
      */
     _buildUi(baseContainer) {
+        const tr = getOrCreateTranslatorInstance();
         const that = this;
         baseContainer.innerHTML = `
         <div id="scivi_fsgraph_a" class="split split-horizontal">
@@ -589,11 +591,11 @@ export class VivaWebGLRenderer {
         <div id="scivi_fsgraph_b" class="split split-horizontal">
             <div id="scivi_fsgraph_tabs">
                 <ul>
-                    <li><a id="scivi_fsgraph_lnk_control" href="#scivi_fsgraph_control">Управление</a></li>
-                    <li><a id="scivi_fsgraph_lnk_info" href="#scivi_fsgraph_info">Информация</a></li>
-                    <li><a id="scivi_fsgraph_lnk_list" href="#scivi_fsgraph_list">Вершины</a></li>
-                    <li><a id="scivi_fsgraph_lnk_settings" href="#scivi_fsgraph_settings">Настройки</a></li>
-                    <li><a id="scivi_fsgraph_lnk_stats" href="#scivi_fsgraph_stats">Статистика</a></li>
+                    <li><a id="scivi_fsgraph_lnk_control" href="#scivi_fsgraph_control">${tr.apply('#control')}</a></li>
+                    <li><a id="scivi_fsgraph_lnk_info" href="#scivi_fsgraph_info">${tr.apply('#node_info')}</a></li>
+                    <li><a id="scivi_fsgraph_lnk_list" href="#scivi_fsgraph_list">${tr.apply('#node_list')}</a></li>
+                    <li><a id="scivi_fsgraph_lnk_settings" href="#scivi_fsgraph_settings">${tr.apply('#settings')}</a></li>
+                    <li><a id="scivi_fsgraph_lnk_stats" href="#scivi_fsgraph_stats">${tr.apply('#stats')}</a></li>
                 </ul>
                 <div id="scivi_fsgraph_control"></div>
                 <div id="scivi_fsgraph_info"></div>
@@ -656,7 +658,7 @@ export class VivaWebGLRenderer {
         // Ну и сущий пустяк: реализация позволяет указать "create" callback, а в типах про него пусто!
         // кто и как этим пользуется - загадка
         $(startStopButton).button({
-            label: "Pause/Resume layout"
+            label: tr.apply('#pause_resume')
         });
         $(startStopButton).click((ev) => {
             if (that.isManuallyPaused) {
