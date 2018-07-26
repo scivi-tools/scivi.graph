@@ -5,6 +5,7 @@ import { VivaBaseUI } from './VivaBaseUI';
 import { Node } from './Node';
 import { Edge } from './Edge';
 import { Point2D } from './Point2D';
+import { getOrCreateTranslatorInstance } from './Misc/Translator';
 import * as $ from 'jquery';
 
 /**
@@ -109,6 +110,7 @@ export class VivaImageNodeUI extends VivaBaseUI {
     }
 
     buildDetailedInfo() {
+        const tr = getOrCreateTranslatorInstance();
         let header = document.createElement("div");
         let name = document.createElement("input");
         name.type = "text";
@@ -117,7 +119,7 @@ export class VivaImageNodeUI extends VivaBaseUI {
         name.style.width = "300px";
         name.style.marginRight = "5px";
         let changeName = document.createElement("button");
-        changeName.innerHTML = "Change name";
+        changeName.innerText = tr.apply('#change_name');
         changeName.onclick = () => {
             this.label = name.value;
         };
@@ -134,8 +136,8 @@ export class VivaImageNodeUI extends VivaBaseUI {
         nodeListContainer.id = 'scivi_fsgraph_nodelist_container';
         let outcomingNodesList = document.createElement("div");
         let incomingNodesList = document.createElement("div");
-        let connList = "<span>Outcoming nodes:</span><ul>";
-        let connList2 = "<span>Incoming nodes:</span><ul>";
+        let connList = `<span>${tr.apply('#outcoming_nodes')}:</span><ul>`;
+        let connList2 = `<span>${tr.apply('#incoming_nodes')}:</span><ul>`;
         this._realNode.edges.forEach((edge) => {
             if (edge.visible) {
                 if (edge.toId != this._realNode.id)

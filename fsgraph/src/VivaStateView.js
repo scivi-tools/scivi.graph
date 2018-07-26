@@ -3,6 +3,7 @@ import { Node } from './Node'
 import { VivaImageNodeUI } from './VivaImageNodeUI'
 import { VivaLinkUI } from './VivaLinkUI'
 import { VivaWebGLRenderer } from './VivaWebGLRenderer'
+import { getOrCreateTranslatorInstance } from './Misc/Translator'
 import * as $ from 'jquery'
 import 'jquery-ui/ui/widgets/slider'
 /// <reference path="./types/ngraph.types.js" />
@@ -108,10 +109,12 @@ export class VivaStateView {
         // nameSpan.innerText = 'Внешний вид:';
         // innerContainer.appendChild(nameSpan);
 
+        const tr = getOrCreateTranslatorInstance();
+
         const namedDiaps = document.createElement('ul');
 
         // TODO: done this right way
-        const diapNames = ['Node size diap', 'Edge size diap'];
+        const diapNames = [tr.apply('#node_size_diap'), tr.apply('#edge_size_diap')];
         const diapRanges = [_MaxNodeSizeDiap, _MaxEdgeSizeDiap];
         const diapSteps = [_NodeSizeStep, _EdgeSizeStep];
         const diapSetters = [this._nodeSizeDiap, this._edgeSizeDiap];

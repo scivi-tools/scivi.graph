@@ -2,6 +2,7 @@
 import Viva from './viva-proxy'
 import merge from 'ngraph.merge'
 import { VivaWebGLRenderer } from './VivaWebGLRenderer'
+import { getOrCreateTranslatorInstance } from './Misc/Translator'
 import * as $ from 'jquery'
 import 'jquery-ui/ui/widgets/slider'
 /// <reference path="./@types/ngraph.d.ts" />
@@ -19,6 +20,7 @@ export class LayoutBuilder {
     }
 
     buildUI(/** @type {VivaWebGLRenderer} */renderer) {
+        const tr = getOrCreateTranslatorInstance();
         const baseContainer = $('#scivi_fsgraph_settings_layout');
         
         const c = document.createElement('ul');
@@ -28,7 +30,7 @@ export class LayoutBuilder {
             if (value != null) {
                 let skipme = false;
                 const innerC = document.createElement('li');
-                innerC.innerHTML += `<span>${key}: </span>`;
+                innerC.innerHTML += `<span>${tr.apply(`#layout_settigns.#${key}`)}: </span>`;
 
                 const type = typeof value
                 switch (type) {

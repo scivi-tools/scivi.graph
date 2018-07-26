@@ -2,6 +2,7 @@
 /// <reference path="./@types/ngraph.d.ts" />
 import { VivaWebGLRenderer } from './VivaWebGLRenderer';
 import { VivaImageNodeUI } from './VivaImageNodeUI';
+import { getOrCreateTranslatorInstance } from './Misc/Translator';
 import * as $ from 'jquery';
 import 'jquery-ui/ui/widgets/spinner';
 
@@ -80,13 +81,14 @@ export class NodeUIBuilder {
     }
 
     _buildUi() {
+        const tr = getOrCreateTranslatorInstance();
         let baseContainer = $('#scivi_fsgraph_settings_appearance')[0];
 
         const innerContainer = document.createElement('div');
         innerContainer.id = 'scivi_fsgraph_settings_nodelabel';
 
         let nameSpan = document.createElement('span');
-        nameSpan.textContent = 'Font size: ';
+        nameSpan.textContent = `${tr.apply('#font_size')}: `;
 
         let spinner = document.createElement('input');
         spinner.value = this._fontSize.toString();
@@ -94,7 +96,7 @@ export class NodeUIBuilder {
         const confirmBuuton = document.createElement('div');
         const that = this;
         $(confirmBuuton).button({
-            label: 'Apply'
+            label: tr.apply('#apply')
         });
         $(confirmBuuton).click((event) => {
             const realFontSize = parseInt(spinner.value);

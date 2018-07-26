@@ -602,9 +602,9 @@ export class VivaWebGLRenderer {
                 <div id="scivi_fsgraph_list"></div>
                 <div id="scivi_fsgraph_settings">
                     <div id="scivi_fsgraph_settings_accordion">
-                        <h3>Отображение</h3>
+                        <h3>${tr.apply('#appearance')}</h3>
                         <div id="scivi_fsgraph_settings_appearance"></div>
-                        <h3>Укладка</h3>
+                        <h3>${tr.apply('#layout')}</h3>
                         <div id="scivi_fsgraph_settings_layout"></div>
                     </div>
                 </div>
@@ -729,15 +729,16 @@ export class VivaWebGLRenderer {
         this._listContainer.innerHTML = '';
         let cs = this._graphController.currentState;
 
+        const tr = getOrCreateTranslatorInstance();
         // hint
         const hint = document.createElement('span');
-        hint.innerText = 'Click on list entry to center screen on specific node';
+        hint.innerText = tr.apply('#node_list_hint');
         this._listContainer.appendChild(hint);
         this._listContainer.appendChild(document.createElement('br'));
 
         // кнопки "скрыт/показать всё"
         let showAllButton = document.createElement('button');
-        showAllButton.textContent = 'Show all non-filtered';
+        showAllButton.textContent = tr.apply('#show_non_filtered');
         showAllButton.onclick = (ev) => {
             cs.pseudoActualize();
             this.rerender();
@@ -745,7 +746,7 @@ export class VivaWebGLRenderer {
         this._listContainer.appendChild(showAllButton);
 
         let hideAllButton = document.createElement('button');
-        hideAllButton.textContent = 'Hide all';
+        hideAllButton.textContent = tr.apply('#hide_all_nodes');
         hideAllButton.onclick = (ev) => {
             cs.pseudoDisable();
             this.rerender();

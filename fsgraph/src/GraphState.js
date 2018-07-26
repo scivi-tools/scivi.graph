@@ -5,6 +5,7 @@ import { Edge } from './Edge';
 import { VivaStateView } from './VivaStateView';
 import { GraphController } from './GraphController';
 import { DummyMetrics } from './DummyMetrics';
+import { getOrCreateTranslatorInstance } from './Misc/Translator';
 import * as $ from 'jquery';
 import 'jquery-ui/ui/widgets/slider';
 
@@ -266,8 +267,9 @@ export class GraphState {
      */
     _checkBuildFilters(prevKnownValues, renderer) {
         if (!this._filtersContainer) {
+            const tr = getOrCreateTranslatorInstance();
             this._filtersContainer = document.createElement('div');
-            this._filtersContainer.innerHTML = '<span>Show nodes with weight within specified range:</span>';
+            this._filtersContainer.innerHTML = `<span>${tr.apply('#state_hint')}: </span>`;
             let filtersList = document.createElement('ul');
             const that = this;
             // так себе допущение
@@ -275,7 +277,7 @@ export class GraphState {
             // HACK: вот уж где так нехватает реактивного программирования, как здесь
             for (let i = 0; i < groupCount; i++) {
                 let listItem = document.createElement('li');
-                listItem.innerHTML = `<span><label>For group</label><label> ${i}: </label><label id="scivi_fsgraph_filter_${i}_values"></label></span>`;
+                listItem.innerHTML = `<span><label>${tr.apply('#for_group')}</label><label> ${i}: </label><label id="scivi_fsgraph_filter_${i}_values"></label></span>`;
                 // TODO: inefficient!
                 let filterLabel = /** @type {HTMLElement} */(listItem.childNodes.item(0).childNodes.item(2));
                 const setLabel = (values) => {
