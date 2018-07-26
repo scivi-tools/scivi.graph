@@ -391,15 +391,9 @@ export class VivaWebGLRenderer {
         if (change.changeType === 'add') {
             this._createNodeUi(node);
             this._listenNodeEvents(node);
-            if (this._updateCenterRequired) {
-                this._updateCenter();
-            }
         } else if (change.changeType === 'remove') {
             this._releaseNodeEvents(node);
             this._removeNodeUi(node);
-            if (this._graphBackend.getNodesCount() === 0) {
-                this._updateCenterRequired = true; // Next time when node is added - center the graph.
-            }
         } else if (change.changeType === 'update') {
             this._releaseNodeEvents(node);
             this._removeNodeUi(node);
@@ -440,8 +434,8 @@ export class VivaWebGLRenderer {
 
         var cx = (graphRect.x2 + graphRect.x1) / 2;
         var cy = (graphRect.y2 + graphRect.y1) / 2;
-        this._transform.offsetX = containerSize.width / 2 - (cx * this._transform.scale - cx);
-        this._transform.offsetY = containerSize.height / 2 - (cy * this._transform.scale - cy);
+        this._transform.offsetX = containerSize.width / 2 - (cx * this._transform.scale / 2);
+        this._transform.offsetY = containerSize.height / 2 - (cy * this._transform.scale / 2);
         this._graphics.graphCenterChanged(this._transform.offsetX, this._transform.offsetY);
 
         this._updateCenterRequired = false;
