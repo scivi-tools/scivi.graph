@@ -18,14 +18,16 @@ declare namespace NgraphGraph {
         id: ElementId,
         fromId: ElementId,
         toId: ElementId,
-        data?: any
+        data?: any,
+        [_: string]: any
     };
 
     export type Node = {
         id: ElementId,
         links: Link[],
         data?: any,
-        position? : Position
+        position? : Position,
+        [_: string]: any
     };
 
     export type NodeCallback = (Node) => boolean;

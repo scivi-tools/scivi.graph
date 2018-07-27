@@ -75,8 +75,10 @@ export class VivaWebGLRenderer {
         this._updateCenterRequired = false;
         // HACK: пока к-т масштабирования зависит от dpi
         this._transform = new RendererTransform(this._graphics.getTransform()[10]);
-        /** @type {WebGLDnDManager} */
+        
         this._inputManager = null;
+
+        this._defDnDHandler = null;
         //
         this._containerDrag = null;
 
@@ -243,8 +245,10 @@ export class VivaWebGLRenderer {
     }
 
     pause() {
-        this._animationTimer.stop();
-        this._isManuallyPaused = true;
+        if (this._animationTimer) {
+            this._animationTimer.stop();
+            this._isManuallyPaused = true;
+        }
         return this;
     }
 
@@ -271,7 +275,12 @@ export class VivaWebGLRenderer {
         throw new Error("Not implemented!");
     }
 
-    moveTo (x, y) {
+    /**
+     * 
+     * @param {number} x 
+     * @param {number} y 
+     */
+    moveTo(x, y) {
         throw new Error("Not implemented!");
     }
 
@@ -283,10 +292,20 @@ export class VivaWebGLRenderer {
         throw new Error("Not implemented!");
     }
 
+    /**
+     * 
+     * @param {string} eventName 
+     * @param {function} callback 
+     */
     on(eventName, callback) {
         throw new Error("Not implemented!");
     }
 
+    /**
+     * 
+     * @param {string} eventName 
+     * @param {function} callback 
+     */
     off(eventName, callback) {
         throw new Error("Not implemented!");
     }
@@ -307,6 +326,10 @@ export class VivaWebGLRenderer {
         const dialog = $(`<div title="Precalculating layout">
         <span>out of ${iterations}</span></div>`);
         dialog.css('vertical-align', 'center').css('text-align', 'center');
+        /**
+         * 
+         * @param {boolean} enableLayout 
+         */
         const onDialogClose = (enableLayout) => {
             forceStop = true;
             dialog.dialog('close');
@@ -363,7 +386,9 @@ export class VivaWebGLRenderer {
     
     _resetStable() {
         this._isStable = false;
-        this._animationTimer.restart();
+        if (this._animationTimer) {
+            this._animationTimer.restart();
+        }
     }
 
     /**
@@ -373,6 +398,9 @@ export class VivaWebGLRenderer {
         // TODO: выбросить проверку, создавать обработчики один раз!
         if (!this._defDnDHandler) {
             this._buildDefaultDnDHandler();
+            if (!this._defDnDHandler) {
+                throw new Error('Somethin wens wrong with default drag\'n\'drop handler');
+            }
         }
         this._inputManager.bindDragNDrop(node, this._defDnDHandler);
     }
@@ -652,6 +680,10 @@ export class VivaWebGLRenderer {
         });
     
         const customHandle = $('#rotate_bar_handle');
+        /**
+         * 
+         * @param {number} value 
+         */
         const setHandleText = (value) => {
             customHandle.text(`${value}°`);
         };
@@ -661,8 +693,8 @@ export class VivaWebGLRenderer {
             value: 0,
             step: 5,
             slide: (event, ui) => {
-                that.angleDegrees = ui.value;
-                setHandleText(ui.value);
+                that.angleDegrees = ui.value || 0;
+                setHandleText(that.angleDegrees);
             },
             create: () => setHandleText(0)
         });
@@ -676,6 +708,10 @@ export class VivaWebGLRenderer {
         const controlElement = $('#scivi_fsgraph_control');
 
         const startStopButton = document.createElement('button');
+        /**
+         * 
+         * @param {string} name 
+         */
         const changeIcon = (name) => {
             $(startStopButton).button('option', 'icon', name);
         };
@@ -734,7 +770,7 @@ export class VivaWebGLRenderer {
             value: 0,
             step: 1,
             slide: (event, ui) => {
-                that.currentStateId = ui.value;
+                that.currentStateId = ui.value || 0;
                 that.rerender();
             }
         });
