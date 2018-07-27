@@ -73,8 +73,8 @@ export class VivaWebGLRenderer {
         this._userInteraction = false;
         //
         this._updateCenterRequired = false;
-        //
-        this._transform = new RendererTransform();
+        // HACK: пока к-т масштабирования зависит от dpi
+        this._transform = new RendererTransform(this._graphics.getTransform()[10]);
         /** @type {WebGLDnDManager} */
         this._inputManager = null;
         //
@@ -227,7 +227,7 @@ export class VivaWebGLRenderer {
         }
         if (!this._isInitialized) {
             this._initDom();
-            this._updateCenter();
+            this._fitToScreen();
             this._isInitialized = true;
         }
         if (!this._animationTimer) {
@@ -428,17 +428,51 @@ export class VivaWebGLRenderer {
         this.kick();
     }
 
-    _updateCenter() {
-        var graphRect = this._layoutBackend.getGraphRect(),
-            containerSize = Viva.Graph.Utils.getDimension(this._container);
-
-        var cx = (graphRect.x2 + graphRect.x1) / 2;
-        var cy = (graphRect.y2 + graphRect.y1) / 2;
+    /**
+     * 
+     * @param {NgraphGeneric.Rect} graphRect 
+     * @param {{width:number, height:number}} containerSize 
+     */
+    _updateCenterReal(graphRect, containerSize) {
+        const cx = (graphRect.x2 + graphRect.x1) / 2;
+        const cy = (graphRect.y2 + graphRect.y1) / 2;
         this._transform.offsetX = containerSize.width / 2 - (cx * this._transform.scale / 2);
         this._transform.offsetY = containerSize.height / 2 - (cy * this._transform.scale / 2);
         this._graphics.graphCenterChanged(this._transform.offsetX, this._transform.offsetY);
 
         this._updateCenterRequired = false;
+    }
+
+    /**
+     * 
+     * @param {NgraphGeneric.Rect} graphRect 
+     * @param {{width:number, height:number}} containerSize 
+     */
+    _scaleToScreen(graphRect, containerSize) {
+        const oldScale = this._transform.scale;
+        const someAccidentPadding = 100;
+
+        const graphWidth = (graphRect.x2 - graphRect.x1) + someAccidentPadding;
+        const graphHeight = (graphRect.y2 - graphRect.y1) + someAccidentPadding;
+
+        const scaleRatio = 1 / Math.max(graphWidth / containerSize.width, graphHeight / containerSize.height);
+
+        this._transform.scale = this._graphics.scale(scaleRatio / oldScale * 2, new Point2D(this._transform.offsetX, this._transform.offsetY));
+    }
+
+    _updateCenter() {
+        const graphRect = this._layoutBackend.getGraphRect();
+        const containerSize = Viva.Graph.Utils.getDimension(this._container);
+
+        this._updateCenterReal(graphRect, containerSize);
+    }
+
+    _fitToScreen() {
+        const graphRect = this._layoutBackend.getGraphRect();
+        const containerSize = Viva.Graph.Utils.getDimension(this._container);
+
+        this._updateCenterReal(graphRect, containerSize);
+        this._scaleToScreen(graphRect, containerSize);
     }
 
     _initDom() {
