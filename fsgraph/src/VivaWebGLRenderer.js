@@ -672,15 +672,13 @@ export class VivaWebGLRenderer {
             collapsible: true
         });
 
-        // TODO: добавляем кнопку старт/стоп и вращение здесь!
-        // + "fit to screen"
-        const controlElement = $('#scivi_fsgraph_control')[0];
-        let startStopButton = document.createElement('button');
+        // добавляем кнопку старт/стоп и "fit to screen" здесь
+        const controlElement = $('#scivi_fsgraph_control');
 
+        const startStopButton = document.createElement('button');
         const changeIcon = (name) => {
             $(startStopButton).button('option', 'icon', name);
         };
-
         // HACK: Ни дня без веселья! Оказывается, описание типов не соответствует реализации:
         // первое говорит, что в настройках конпки есть "click" callback, а в реализации такого нет!
         // Ну и сущий пустяк: реализация позволяет указать "create" callback, а в типах про него пусто!
@@ -698,8 +696,17 @@ export class VivaWebGLRenderer {
             }
         });
         changeIcon('ui-icon-pause');
+        controlElement.append(startStopButton);
 
-        controlElement.appendChild(startStopButton);
+        const fitToScreenButton = document.createElement('button');
+        $(fitToScreenButton).button({
+            label: tr.apply('#fit_to_screen')
+        });
+        $(fitToScreenButton).click((ev) => {
+            that._fitToScreen();
+            that.rerender();
+        });
+        controlElement.append(fitToScreenButton);
 
         return $('#scivi_fsgraph_view')[0];
     }
