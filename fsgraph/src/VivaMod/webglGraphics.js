@@ -5,6 +5,7 @@
  */
 // @ts-check
 /// <reference path="../@types/ngraph.d.ts" />
+/// <reference path="../@types/viva.generic.d.ts" />
 
 import { newLinkProgram } from './newLinkProgram'
 import { newNodeProgram } from './newNodeProgram'
@@ -37,6 +38,7 @@ export function webglGraphics(options) {
         }
     }));
 
+    const realPixelRatio = window.devicePixelRatio || 1;
     /** @type {HTMLElement} */
     var container;
     /** @type {HTMLCanvasElement} */
@@ -72,7 +74,7 @@ export function webglGraphics(options) {
         nodeUIBuilder =
         /**
          * @param {NgraphGraph.Node} node
-         * @returns {NgraphGeneric.NodeUI}
+         * @returns {VivaGeneric.NodeUI}
          */
         function (node) {
             console.log("No node UI builder!");
@@ -83,7 +85,7 @@ export function webglGraphics(options) {
         linkUIBuilder =
         /**
          * @param {NgraphGraph.Link} link
-         * @returns {NgraphGeneric.LinkUI}
+         * @returns {VivaGeneric.LinkUI}
          */
         function (link) {
             console.log("No link UI builder!");
@@ -96,32 +98,28 @@ export function webglGraphics(options) {
         },
 
         resetScaleInternal = function () {
-            let realScale = window.devicePixelRatio || 1;
-            transform = [realScale, 0, 0, 0,
-                        0, realScale, 0, 0,
-                        0, 0, 1, 0,
+            transform = [realPixelRatio, 0, 0, 0,
+                        0, realPixelRatio, 0, 0,
+                        0, 0, realPixelRatio, 0,
                         0, 0, 0, 1];
         },
 
         updateSize = function () {
             if (container && graphicsRoot) {
-                let realScale = window.devicePixelRatio || 1;
                 width = Math.max(container.clientWidth, 1);
                 height = Math.max(container.clientHeight, 1);
                 graphicsRoot.style.width = `${width}px`;
                 graphicsRoot.style.height = `${height}px`;
-                let realWidth = width * realScale;
-                let realHeight = height * realScale;
-                graphicsRoot.width = realWidth;
-                graphicsRoot.height = realHeight;
+                graphicsRoot.width = width;
+                graphicsRoot.height = height;
                 if (gl) {
-                    gl.viewport(0, 0, realWidth, realHeight);
+                    gl.viewport(0, 0, width, height);
                 }
                 if (linkProgram) {
-                    linkProgram.updateSize(realWidth / 2, realHeight / 2);
+                    linkProgram.updateSize(width / 2, height / 2);
                 }
                 if (nodeProgram) {
-                    nodeProgram.updateSize(realWidth / 2, realHeight / 2);
+                    nodeProgram.updateSize(width / 2, height / 2);
                 }
             }
         },
@@ -611,7 +609,7 @@ export function webglGraphics(options) {
         /**
          * @param {NgraphGraph.Position} clientPos
          * @param {function(any,any,any):boolean} preciseCheck
-         * @returns {NgraphGeneric.NodeUI}
+         * @returns {VivaGeneric.NodeUI}
          */
         getNodeAtClientPos: function (clientPos, preciseCheck) {
             if (typeof preciseCheck !== "function") {
@@ -662,6 +660,10 @@ export function webglGraphics(options) {
 
         getTransform : function () {
             return transform;
+        },
+
+        pixelRatio : function () {
+            return realPixelRatio;
         }
     };
 

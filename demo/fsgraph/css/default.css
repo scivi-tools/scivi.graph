@@ -10,6 +10,8 @@
     color: black;
     z-index: 0;
     font-size: 16px;
+    white-space: nowrap;
+    text-align: center;
 }
 
 #scivi_fsgraph_a
@@ -27,9 +29,16 @@
 
 #scivi_fsgraph_rotate_bar_container
 {
-    padding: 10px;
+    padding: 10px 1.5em;
     z-index: 2;
     background-color: white;
+}
+
+#rotate_bar_handle
+{
+    width: 2.5em;
+    margin-left: -1.25em;
+    text-align: center;
 }
 
 #scivi_fsgraph_view
@@ -37,12 +46,79 @@
     flex: 1;
     display: flex;
     min-height: 0;
+    position: relative;
+    overflow: hidden;
 }
 
 
 #scivi_fsgraph_stateline_container
 {
-    padding: 20px;
     z-index: 2;
     background-color: white;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#scivi_fsgraph_stateline_labels > .scivi_fsgraph_stateline_label
+{
+    text-align: center;
+    display: inline-block;
+    vertical-align: top;
+}
+
+#scivi_fsgraph_tabs
+{
+    /* TODO: WHY?! */
+    height: 99%;
+}
+
+#scivi_fsgraph_settings_accordion
+{
+    /* TODO: WHY?! */
+    height: calc(100% - 5px);
+}
+
+#scivi_fsgraph_filters_control
+{
+    margin-top: 10px;
+}
+
+#scivi_fsgraph_filters_control > ul, #scivi_fsgraph_settings_stateview > ul, ul.pseudo-list
+{
+    margin: unset;
+    margin-top: 0.5em;
+    list-style-type: none;
+    padding-left: 0px;
+}
+
+#scivi_fsgraph_filters_control .ui-slider, #scivi_fsgraph_settings_stateview .ui-slider, ul.pseudo-list .ui-slider, ul.pseudo-list input[type=checkbox]
+{
+    margin: 10px;
+}
+
+#scivi_fsgraph_settings_stateview
+{
+    margin: 1em 0em;
+}
+
+#scivi_fsgraph_settings_nodelabel > input
+{
+    width: 3em;
+    margin-right: 10px;
+}
+
+#scivi_fsgraph_nodelist_container > *
+{
+    display: inline-block;
+    margin-top: 0.5em;
+}
+
+#scivi_fsgraph_nodelist_container li
+{
+    margin-top: 0.5em;
+}
+
+#scivi_fsgraph_list > div > span
+{
+    display: block;
 }

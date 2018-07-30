@@ -31,7 +31,7 @@ export class Node {
         /** @type {Edge[]} */
         this.edges = [];
 
-        this.visible = true;
+        this.visible = false;
 
         /** @type {(function():void)?} */
         this.onBeforeHideCallback = null;
@@ -85,7 +85,7 @@ export class Node {
     }
 
     postListItem(renderer) {
-        let itemDiv = document.createElement('div');
+        let itemDiv = document.createElement('li');
 
         // Проверочка видимости
         this._visibleChekbox.onchange = (ev) => {

@@ -1,16 +1,19 @@
 //@ts-check
 /// <reference path="./@types/ngraph.d.ts" />
-import { VivaBaseUI } from './VivaBaseUI'
-import { Node } from './Node'
-import { Edge } from './Edge'
-import * as $ from 'jquery'
+/// <reference path="./@types/viva.generic.d.ts" />
+import { VivaBaseUI } from './VivaBaseUI';
+import { Node } from './Node';
+import { Edge } from './Edge';
+import { Point2D } from './Point2D';
+import { getOrCreateTranslatorInstance } from './Misc/Translator';
+import * as $ from 'jquery';
 
 /**
- * @implements {NgraphGeneric.NodeUI}
+ * @implements {VivaGeneric.NodeUI}
  */
 export class VivaImageNodeUI extends VivaBaseUI {
     /**
-     * 
+     * @param {*} graphics webglGraphics
      * @param {NgraphGraph.Node} node
      * @param {HTMLSpanElement} titleSpan 
      */
@@ -20,17 +23,23 @@ export class VivaImageNodeUI extends VivaBaseUI {
         this._offset = 0;
         this._span = titleSpan;
         this._spanWidth = 0;
+        this._spanHeight = 0;
         this._labelChanged = true;
         this._showLabel = false;
 
         this._graphics = graphics;
 
-        this.position = {};
+        this.position = new Point2D();
 
         // this._invalidateLabel();
 
         // TODO: соптимизировать получение корневого элемента где-то ещё
         this.detailedInfoHTML = $('#scivi_fsgraph_info')[0];
+
+        // TODO: workaround assert if interface is implemented
+        // https://github.com/Microsoft/TypeScript/issues/17498#issuecomment-399439654   
+        /** @type {VivaGeneric.NodeUI} */
+        const assertion = this;
     };
 
     /**
@@ -79,22 +88,29 @@ export class VivaImageNodeUI extends VivaBaseUI {
     _invalidateLabel() {
         this._span.innerText = this._realNode.label;
         this._spanWidth = $(this._span).width();
+        this._spanHeight = $(this._span).height();
     }
 
     onRender() {
         if (this._showLabel) {
-            if (this._labelChanged) {
-               this._invalidateLabel();
-               this._labelChanged = false;
+            // HACK: вах какой костыль!
+            if (this._span.hidden === this._showLabel) {
+                this._labelChanged = true;
+                this.showLabel = this._showLabel;
             }
-            let domPos = { x: this['position'].x, y: this['position'].y - this['size'] - 1};
+            if (this._labelChanged) {
+                this._invalidateLabel();
+                this._labelChanged = false;
+            }
+            let domPos = { x: this.position.x, y: this.position.y - this.size };
             this._graphics.transformGraphToClientCoordinates(domPos);
             this._span.style.left = `${domPos.x - this._spanWidth / 2}px`;
-            this._span.style.top = `${domPos.y}px`;
+            this._span.style.top = `${domPos.y - this._spanHeight}px`;
         }
     }
 
     buildDetailedInfo() {
+        const tr = getOrCreateTranslatorInstance();
         let header = document.createElement("div");
         let name = document.createElement("input");
         name.type = "text";
@@ -103,7 +119,7 @@ export class VivaImageNodeUI extends VivaBaseUI {
         name.style.width = "300px";
         name.style.marginRight = "5px";
         let changeName = document.createElement("button");
-        changeName.innerHTML = "Change name";
+        changeName.innerText = tr.apply('#change_name');
         changeName.onclick = () => {
             this.label = name.value;
         };
@@ -116,23 +132,31 @@ export class VivaImageNodeUI extends VivaBaseUI {
             header.appendChild(dateLabel);
         }
 
-        let nodesList = document.createElement("div");
-        let connList = "<span>Linked nodes:</span><ul>";
+        let nodeListContainer = document.createElement("div");
+        nodeListContainer.id = 'scivi_fsgraph_nodelist_container';
+        let outcomingNodesList = document.createElement("div");
+        let incomingNodesList = document.createElement("div");
+        let connList = `<span>${tr.apply('#outcoming_nodes')}:</span><ul>`;
+        let connList2 = `<span>${tr.apply('#incoming_nodes')}:</span><ul>`;
         this._realNode.edges.forEach((edge) => {
             if (edge.visible) {
                 if (edge.toId != this._realNode.id)
-                    connList += `<li><span>${this._realNode._state.nodes[edge.toId].label} --+</span></li>`;
+                    connList += `<li><span>${this._realNode._state.nodes[edge.toId].label}</span></li>`;
                 else
-                    connList += `<li><span>+-- ${this._realNode._state.nodes[edge.fromId].label}</span></li>`;
+                    connList2 += `<li><span>${this._realNode._state.nodes[edge.fromId].label}</span></li>`;
             }
         });
         connList += "</ul>";
-        nodesList.innerHTML = connList;
+        connList2 += "</ul>";
+        outcomingNodesList.innerHTML = connList;
+        incomingNodesList.innerHTML = connList2;
 
         this.detailedInfoHTML.innerHTML = '';
 
         this.detailedInfoHTML.appendChild(header);
-        this.detailedInfoHTML.appendChild(nodesList);
+        nodeListContainer.appendChild(outcomingNodesList);
+        nodeListContainer.appendChild(incomingNodesList);
+        this.detailedInfoHTML.appendChild(nodeListContainer);
     };
 };
 

@@ -9,7 +9,7 @@ declare namespace NgraphGeneric {
         x2 : number;
         y1 : number;
         y2 : number;
-    };
+    }
 
     export interface Layout {
         step() : boolean,
@@ -20,17 +20,5 @@ declare namespace NgraphGeneric {
         isNodePinned(node : NgraphGraph.Node) : boolean,
         pinNode(node : NgraphGraph.Node, pin : boolean) : void,
         lastMove : number
-    };
-
-    export interface NodeUI {
-        id: number,
-        position: NgraphGraph.Position,
-        node: NgraphGraph.Node
-    }
-
-    export interface LinkUI {
-        id: number,
-        pos: NgraphGraph.Position2,
-        link: NgraphGraph.Link
     }
 }

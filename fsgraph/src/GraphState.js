@@ -5,6 +5,7 @@ import { Edge } from './Edge';
 import { VivaStateView } from './VivaStateView';
 import { GraphController } from './GraphController';
 import { DummyMetrics } from './DummyMetrics';
+import { getOrCreateTranslatorInstance } from './Misc/Translator';
 import * as $ from 'jquery';
 import 'jquery-ui/ui/widgets/slider';
 
@@ -14,17 +15,20 @@ export class GraphState {
      * @param {GraphController} controller 
      * @param {number} nCount 
      * @param {number} eCount 
+     * @param {string} label
      */
-    constructor(controller, nCount, eCount) {
+    constructor(controller, nCount, eCount, label) {
         /** @type {GraphController} */
         this._controller = controller
         this._metrics = new DummyMetrics(this._controller.monitoredValues);
+        this._edgeMetrics = new DummyMetrics(this._controller.monitoredValues);
         /** @type {number[][]} */
         this.groups = [];
         /** @type {Node[]} */
         this.nodes = [];
         /** @type {Edge[]} */
         this.edges = [];
+        this._label = label;
 
         /** @type {HTMLElement} */
         this._filtersContainer = null;
@@ -32,6 +36,10 @@ export class GraphState {
 
         this._visited = false;
     };
+
+    get label() {
+        return this._label;
+    }
 
     addNode(id, groupId, data) {
         // ensure that group alredy exists before pushing to it
@@ -54,23 +62,24 @@ export class GraphState {
         this.nodes[fromId].addEdge(newEdge);
         this.nodes[toId].addEdge(newEdge);
         // TODO: count some metrics here
+        //@ts-ignore
+        this._edgeMetrics.accumulate(newEdge);
     };
 
     /**
      * 
-     * @param {NgraphGraph.Graph} graph 
      * @param {Node} node
      */
-    restoreNode(graph, node) {
+    restoreNode(node) {
         if (!node.visible) {
             return;
         }
 
-        graph.beginUpdate();
-        let graphNode = graph.addNode(node.id, node);
+        this._controller.graph.beginUpdate();
+        let graphNode = this._controller.graph.addNode(node.id, node);
         graphNode['position'] = node.position;
         graphNode['size'] = 42;
-        graph.endUpdate();
+        this._controller.graph.endUpdate();
     };
 
     /**
@@ -89,45 +98,27 @@ export class GraphState {
     };
 
     /**
-     * 
+     * Добавляем/удаляем узел в зависимости от фильтра
+     * Последним параметром можно игнорировать изменение связей
      * @param {Node} node 
      * @param {function(Node):boolean} filterFunc 
      * @param {boolean} softMode
      */
     toggleNodeExt(node, filterFunc, softMode = false) {
-        this.toggleNode(this._controller.graph, this._controller.layoutInstance, node, filterFunc, softMode);
-    }
-
-    /**
-     * Добавляем/удаляем узел в зависимости от фильтра
-     * Последним параметром можно игнорировать изменение связей
-     * @param {NgraphGraph.Graph} graph
-     * @param {NgraphGeneric.Layout} layout
-     * @param {Node} node 
-     * @param {function(Node):boolean} filterFunc
-     * @param {boolean} softMode 
-     */
-    toggleNode(graph, layout, node, filterFunc, softMode = false) {
         let prevVisible = node.visible;
         // применяем фильтр!
         let newVisible = filterFunc(node);
-        if ((newVisible != prevVisible) || (softMode)) {
+        if (newVisible != prevVisible) {
             node.visible = newVisible;
             if (newVisible) {
-                this.restoreNode(graph, node);
-                // добавим вся связанные
-                if (!softMode) {
-                    for (let edge of node.edges) {
-                        this.toggleEdge(graph, edge);
-                    }
-                }
+                this.restoreNode(node);
             } else {
-                this.hideNode(graph, layout, node);
-                // и выбросим все связанные 
-                if (!softMode) {
-                    for (let edge of node.edges) {
-                        this.toggleEdge(graph, edge);
-                    }
+                this.hideNode(node);
+            }
+            // добавим или выбросим все связанные 
+            if (!softMode) {
+                for (let edge of node.edges) {
+                    this.toggleEdge(edge);
                 }
             }
         }
@@ -135,27 +126,42 @@ export class GraphState {
 
     /**
      * 
-     * @param {NgraphGraph.Graph} graph 
-     * @param {NgraphGeneric.Layout} layout 
      * @param {Node} node 
+     * @param {function(Node):boolean} filterFunc 
      */
-    hideNode(graph, layout, node) {
-        node.onBeforeHide(layout);
-        graph.removeNode(node.id);
+    restoreNodeIf(node, filterFunc) {
+        node.visible = filterFunc(node);
+        this.restoreNode(node);
     }
 
     /**
      * 
-     * @param {NgraphGraph.Graph} graph 
+     * @param {Node} node 
+     */
+    hideNode(node) {
+        node.onBeforeHide(this._controller.layoutInstance);
+        this._controller.graph.removeNode(node.id);
+    }
+
+    /**
+     * 
      * @param {Edge} edge 
      */
-    toggleEdge(graph, edge) {
+    hideEdge(edge) {
+        let graphEdge = this._controller.graph.getLink(edge.fromId, edge.toId);
+        this._controller.graph.removeLink(graphEdge);
+    }
+
+    /**
+     * 
+     * @param {Edge} edge 
+     */
+    toggleEdge(edge) {
         if (edge.visibleChanged) {
             if (edge.visible) {
                 this.restoreEdge(edge);
             } else {
-                let graphEdge = graph.getLink(edge.fromId, edge.toId);
-                graph.removeLink(graphEdge);
+                this.hideEdge(edge);
             }
         }
     }
@@ -170,7 +176,7 @@ export class GraphState {
         // восстанавливаем узлы и связи, не забыв про их позиции и видимость
         // graph.beginUpdate();
         this.forEachNode((n) => {
-            this.toggleNodeExt(n, (n) => this._applyFilter(n), true);
+            this.restoreNodeIf(n, (n) => this._applyFilter(n));
         });
         for (let e of this.edges) {
             this.restoreEdge(e);
@@ -183,16 +189,13 @@ export class GraphState {
     pseudoActualize() {
         // TODO: get rid of duplicated code
         this.forEachNode((n) => {
-            this.toggleNodeExt(n, (n) => this._applyFilter(n));
+            this.toggleNodeExt(n, (n) => this._applyFilter(n), false);
         });
-        for (let e of this.edges) {
-            this.restoreEdge(e);
-        }
     }
 
     pseudoDisable() {
         this.forEachNode((n) => {
-            this.toggleNodeExt(n, (n) => false);
+            this.toggleNodeExt(n, (n) => false, false);
         });
     }
 
@@ -257,16 +260,24 @@ export class GraphState {
      */
     _checkBuildFilters(prevKnownValues, renderer) {
         if (!this._filtersContainer) {
+            const tr = getOrCreateTranslatorInstance();
             this._filtersContainer = document.createElement('div');
-
+            this._filtersContainer.innerHTML = `<span>${tr.apply('#state_hint')}: </span>`;
+            let filtersList = document.createElement('ul');
             const that = this;
             // так себе допущение
             let groupCount = this._metrics.maxGroupId + 1;
+            // HACK: вот уж где так нехватает реактивного программирования, как здесь
             for (let i = 0; i < groupCount; i++) {
+                let listItem = document.createElement('li');
+                listItem.innerHTML = `<span><label>${tr.apply('#for_group')}</label><label> ${i}: </label><label id="scivi_fsgraph_filter_${i}_values"></label></span>`;
+                // TODO: inefficient!
+                let filterLabel = /** @type {HTMLElement} */(listItem.childNodes.item(0).childNodes.item(2));
+                const setLabel = (values) => {
+                    filterLabel.innerText = `${values[0]}..${values[1]}`;
+                };
+                setLabel(this._metrics.minMaxValuesPerGroup[i]['weight']);
                 let filterSlider = document.createElement('div');
-                let descrSpan = document.createElement('span');
-                descrSpan.innerText = `Filter for group ${i}:`;
-                filterSlider.style.margin = '10px';
                 $(filterSlider).slider({
                     // TODO: эти четыре будут задаваться после получения prevKnownValues
                     min: this._metrics.minMaxValuesPerGroup[i]['weight'][0],
@@ -277,14 +288,18 @@ export class GraphState {
                     slide: (event, ui) => {
                         that.prevKnownValues[i]['weight'][0] = ui.values[0];
                         that.prevKnownValues[i]['weight'][1] = ui.values[1];
+                        setLabel(ui.values);
                         that._applyFilterRange();
                         renderer.rerender();
                     } 
                 });
-                this._filtersContainer.appendChild(descrSpan);
-                this._filtersContainer.appendChild(filterSlider);
+                listItem.appendChild(filterSlider);
+                filtersList.appendChild(listItem);
             }
+            this._filtersContainer.appendChild(filtersList);
         }
+        this._filtersContainer.id = "scivi_fsgraph_filters_control";
+
         let parent = $('#scivi_fsgraph_control')[0];
 
         if (prevKnownValues) {

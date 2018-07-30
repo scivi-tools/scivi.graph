@@ -10,9 +10,12 @@ import 'jquery-ui/ui/keycode';
 import 'jquery-ui/ui/widgets/selectable';
 import 'jquery-ui/ui/widgets/button';
 import 'jquery-ui/ui/widgets/tabs';
+import 'jquery-ui/ui/widgets/accordion';
+import 'jquery-ui/ui/widgets/dialog';
 import Split from 'split.js';
 import { Point2D } from './Point2D';
 import { NodeUIBuilder } from './NodeUIBuilder';
+import { getOrCreateTranslatorInstance } from './Misc/Translator';
 
 class RendererTransform {
     constructor(scale = 1, offsetX = 0, offsetY = 0, rot = 0) {
@@ -133,6 +136,8 @@ export class VivaWebGLRenderer {
         this._backend.onRenderNodeCallback = value.onNodeRender;
         this._backend.onRenderEdgeCallback = value.onEdgeRender;
 
+        this._backend.nodeTypes = value.nodeTypes;
+
         // TODO: inverse dependency!
         this.graphicsInputListner.click((nodeUI) => {
             value.onNodeClick(nodeUI, this._graphBackend, this);
@@ -169,19 +174,24 @@ export class VivaWebGLRenderer {
 
     onContainerResize() {
         this._graphics.updateSize();
+        $('#scivi_fsgraph_tabs').resize();
+        $("#scivi_fsgraph_tabs").tabs('refresh');
+        $('#scivi_fsgraph_settings_accordion').accordion('refresh');
         this.rerender();
     }
 
-    buildDefaultView(colors, imgs) {
+    buildDefaultView(colors, nodeTypes) {
         // TODO: check for graph group count
-        let result = new VivaStateView(colors, imgs, this);
+        let result = new VivaStateView(colors, nodeTypes || [], this);
         let metrics = this._graphController.metrics;
+        let edgeMetrics = this._graphController.edgeMetrics;
         // TODO: move this shit out of here (in enherited from VStateView class)
         result.onNodeRender = (nodeUI) => {
             nodeUI.node['size'] = nodeUI.size = result.getNodeUISize(nodeUI.node.data.weight, metrics.maxWeight);
             nodeUI.color = result._colorPairs[(1 + nodeUI.node.data.groupId) * 2 + (nodeUI.selected ? 1 : 0)];
         };
         result.onEdgeRender = (edgeUI) => {
+            edgeUI.link['size'] = edgeUI.size = result.getEdgeUISize(edgeUI.link.data.weight, edgeMetrics.maxWeight);
             edgeUI.color = result._colorPairs[(edgeUI.selected ? 1 : 0)];
         };
         return result;
@@ -212,14 +222,8 @@ export class VivaWebGLRenderer {
      */
     run(prepareIterations = 0) {
         if (prepareIterations > 0) {
-            /*setTimeout(() => {
-                const step = 250;
-                for (let i = 0; i < Math.min(step, prepareIterations); i++) {
-                    this._layoutBackend.step();
-                }
-                this.run(prepareIterations - step);
-            }, 30);
-            return;*/
+            this._initPrelayoutEnv(prepareIterations);
+            return;
         }
         if (!this._isInitialized) {
             this._initDom();
@@ -291,8 +295,56 @@ export class VivaWebGLRenderer {
 
     // #region Private stuff
 
-    get _frameTicks() {
-        return 30;
+    /**
+     * 
+     * @param {number} iterations 
+     */
+    _initPrelayoutEnv(iterations) {
+        const itersPerStep = 250;
+        const progressLabel = document.createElement('span');
+        let forceStop = false;
+        progressLabel.innerText = '0';
+        const dialog = $(`<div title="Precalculating layout">
+        <span>out of ${iterations}</span></div>`);
+        dialog.css('vertical-align', 'center').css('text-align', 'center');
+        const onDialogClose = (enableLayout) => {
+            forceStop = true;
+            dialog.dialog('close');
+            this.run(0);
+            if (!enableLayout) {
+                this.pause();
+            }
+        };
+        dialog.prepend(progressLabel);
+        dialog.dialog({
+            modal: true,
+            buttons: {
+                'Cancel': () => onDialogClose(true)
+            }
+        })
+        /**
+         * 
+         * @param {number} it 
+         * @param {number} remaing 
+         */
+        const onStep = (it, remaing) => {
+            setTimeout(() => {
+                if (forceStop) {
+                    return;
+                }
+                progressLabel.innerText = it.toString();
+                if (remaing <= 0) {
+                    onDialogClose(false);
+                    return;
+                }
+                let totalCount = Math.min(itersPerStep, remaing);
+                for (let i = 0; i < totalCount; i++) {
+                    this._layoutBackend.step();
+                }
+                onStep(it + totalCount, remaing - totalCount);
+            }, 30)
+        };
+        onStep(0, iterations);
     }
 
     _renderGraph() {
@@ -314,6 +366,9 @@ export class VivaWebGLRenderer {
         this._animationTimer.restart();
     }
 
+    /**
+     * @param {NgraphGraph.Node} node 
+     */
     _listenNodeEvents(node) {
         // TODO: выбросить проверку, создавать обработчики один раз!
         if (!this._defDnDHandler) {
@@ -322,6 +377,9 @@ export class VivaWebGLRenderer {
         this._inputManager.bindDragNDrop(node, this._defDnDHandler);
     }
 
+    /**
+     * @param {NgraphGraph.Node} node 
+     */
     _releaseNodeEvents(node) {
         this._inputManager.unbindDragNDrop(node);
     }
@@ -333,15 +391,9 @@ export class VivaWebGLRenderer {
         if (change.changeType === 'add') {
             this._createNodeUi(node);
             this._listenNodeEvents(node);
-            if (this._updateCenterRequired) {
-                this._updateCenter();
-            }
         } else if (change.changeType === 'remove') {
             this._releaseNodeEvents(node);
             this._removeNodeUi(node);
-            if (this._graphBackend.getNodesCount() === 0) {
-                this._updateCenterRequired = true; // Next time when node is added - center the graph.
-            }
         } else if (change.changeType === 'update') {
             this._releaseNodeEvents(node);
             this._removeNodeUi(node);
@@ -382,8 +434,8 @@ export class VivaWebGLRenderer {
 
         var cx = (graphRect.x2 + graphRect.x1) / 2;
         var cy = (graphRect.y2 + graphRect.y1) / 2;
-        this._transform.offsetX = containerSize.width / 2 - (cx * this._transform.scale - cx);
-        this._transform.offsetY = containerSize.height / 2 - (cy * this._transform.scale - cy);
+        this._transform.offsetX = containerSize.width / 2 - (cx * this._transform.scale / 2);
+        this._transform.offsetY = containerSize.height / 2 - (cy * this._transform.scale / 2);
         this._graphics.graphCenterChanged(this._transform.offsetX, this._transform.offsetY);
 
         this._updateCenterRequired = false;
@@ -496,9 +548,14 @@ export class VivaWebGLRenderer {
                 let transform = this._graphics.getTransform();
                 // TODO: move matrix op-s into separate module, get rid of duplicated code
                 let newOffset = [(offset.x * transform[0] + offset.y * transform[4]), (offset.x * transform[1] + offset.y * transform[5])];
+
+                // TODO: drop such a kostyl'
+                const dpi = this._graphics.pixelRatio();
+                const scaleCoef = this._transform.scale * this._transform.scale;// * dpi;
+
                 this._layoutBackend.setNodePosition(node.id,
-                    oldPos.x + newOffset[0] * 2 / this._transform.scale / this._transform.scale,
-                    oldPos.y + newOffset[1] * 2 / this._transform.scale / this._transform.scale);
+                    oldPos.x + newOffset[0] * 2 / scaleCoef,
+                    oldPos.y + newOffset[1] * 2 / scaleCoef);
 
                 this._userInteraction = true;
                 this._renderGraph();
@@ -509,28 +566,42 @@ export class VivaWebGLRenderer {
             });
     }
 
-    _buildUi(/** @type {HTMLElement} */baseContainer) {
+    /**
+     * 
+     * @param {HTMLElement} baseContainer 
+     */
+    _buildUi(baseContainer) {
+        const tr = getOrCreateTranslatorInstance();
         const that = this;
         baseContainer.innerHTML = `
         <div id="scivi_fsgraph_a" class="split split-horizontal">
             <div id="scivi_fsgraph_rotate_bar_container">
-                <div id="scivi_fsgraph_rotate_bar"></div>
+                <div id="scivi_fsgraph_rotate_bar">
+                    <div id="rotate_bar_handle" class="ui-slider-handle"></div>
+                </div>
             </div>
             <div id="scivi_fsgraph_view"></div>
         </div>
         <div id="scivi_fsgraph_b" class="split split-horizontal">
             <div id="scivi_fsgraph_tabs">
                 <ul>
-                    <li><a id="scivi_fsgraph_lnk_control" href="#scivi_fsgraph_control">Управление</a></li>
-                    <li><a id="scivi_fsgraph_lnk_info" href="#scivi_fsgraph_info">Информация</a></li>
-                    <li><a id="scivi_fsgraph_lnk_list" href="#scivi_fsgraph_list">Вершины</a></li>
-                    <li><a id="scivi_fsgraph_lnk_settings" href="#scivi_fsgraph_settings">Настройки</a></li>
-                    <li><a id="scivi_fsgraph_lnk_stats" href="#scivi_fsgraph_stats">Статистика</a></li>
+                    <li><a id="scivi_fsgraph_lnk_control" href="#scivi_fsgraph_control">${tr.apply('#control')}</a></li>
+                    <li><a id="scivi_fsgraph_lnk_info" href="#scivi_fsgraph_info">${tr.apply('#node_info')}</a></li>
+                    <li><a id="scivi_fsgraph_lnk_list" href="#scivi_fsgraph_list">${tr.apply('#node_list')}</a></li>
+                    <li><a id="scivi_fsgraph_lnk_settings" href="#scivi_fsgraph_settings">${tr.apply('#settings')}</a></li>
+                    <li><a id="scivi_fsgraph_lnk_stats" href="#scivi_fsgraph_stats">${tr.apply('#stats')}</a></li>
                 </ul>
                 <div id="scivi_fsgraph_control"></div>
                 <div id="scivi_fsgraph_info"></div>
                 <div id="scivi_fsgraph_list"></div>
-                <div id="scivi_fsgraph_settings"></div>
+                <div id="scivi_fsgraph_settings">
+                    <div id="scivi_fsgraph_settings_accordion">
+                        <h3>${tr.apply('#appearance')}</h3>
+                        <div id="scivi_fsgraph_settings_appearance"></div>
+                        <h3>${tr.apply('#layout')}</h3>
+                        <div id="scivi_fsgraph_settings_layout"></div>
+                    </div>
+                </div>
                 <div id="scivi_fsgraph_stats"></div>
             </div>
         </div>`;
@@ -539,24 +610,36 @@ export class VivaWebGLRenderer {
             gutterSize: 8,
             cursor: 'col-resize',
             sizes: [75, 25],
-            onDrag: () => that.onContainerResize()
+            onDrag: () =>  that.onContainerResize()
         });
 
-       $("#scivi_fsgraph_tabs").tabs({
+        $("#scivi_fsgraph_tabs").tabs({
             heightStyle: "fill"
         });
     
+        const customHandle = $('#rotate_bar_handle');
+        const setHandleText = (value) => {
+            customHandle.text(`${value}°`);
+        };
         $("#scivi_fsgraph_rotate_bar").slider({
-            min: -179,
-            max: 179,
+            min: -180,
+            max: 180,
             value: 0,
-            step: 1,
+            step: 5,
             slide: (event, ui) => {
                 that.angleDegrees = ui.value;
-            }
+                setHandleText(ui.value);
+            },
+            create: () => setHandleText(0)
+        });
+
+        $('#scivi_fsgraph_settings_accordion').accordion({
+            heightStyle: 'content',
+            collapsible: true
         });
 
         // TODO: добавляем кнопку старт/стоп и вращение здесь!
+        // + "fit to screen"
         const controlElement = $('#scivi_fsgraph_control')[0];
         let startStopButton = document.createElement('button');
 
@@ -569,7 +652,7 @@ export class VivaWebGLRenderer {
         // Ну и сущий пустяк: реализация позволяет указать "create" callback, а в типах про него пусто!
         // кто и как этим пользуется - загадка
         $(startStopButton).button({
-            label: "Pause/Resume layout"
+            label: tr.apply('#pause_resume')
         });
         $(startStopButton).click((ev) => {
             if (that.isManuallyPaused) {
@@ -588,16 +671,19 @@ export class VivaWebGLRenderer {
     }
 
     _buildTimeline() {
-        let statesCount = this._graphController.states.length;
+        const statesCount = this._graphController.states.length;
         if (statesCount == 1) {
             return;
         }
 
-        let tlContainer = document.createElement('div');
-        let timeline = document.createElement('div');
+        const tlContainer = document.createElement('div');
+        const innerTlContainer = document.createElement('div');
+        const timeline = document.createElement('div');
         timeline.id = 'scivi_fsgraph_stateline';
         tlContainer.id = 'scivi_fsgraph_stateline_container';
-        tlContainer.appendChild(timeline);
+        innerTlContainer.id = 'scivi_fsgraph_stateline_inner';
+        innerTlContainer.appendChild(timeline);
+        tlContainer.appendChild(innerTlContainer);
         $('#scivi_fsgraph_a').append(tlContainer);
 
         const that = this;
@@ -611,6 +697,21 @@ export class VivaWebGLRenderer {
                 that.rerender();
             }
         });
+
+        const labelContainer = document.createElement('div');
+        labelContainer.id = 'scivi_fsgraph_stateline_labels';
+        
+        const defWidth = 100.0 / statesCount;
+        const defWidthStr = `${defWidth}%`;
+        innerTlContainer.style.marginLeft = innerTlContainer.style.marginRight = `${(defWidth / 2)}%`;
+        for (let i = 0; i < statesCount; i++) {
+            const label = document.createElement('div');
+            label.classList.add('scivi_fsgraph_stateline_label');
+            label.innerHTML = `<span>|</span><br /><label>${this._graphController.states[i].label}</label>`;
+            label.style.width = defWidthStr;
+            labelContainer.appendChild(label);
+        }
+        tlContainer.appendChild(labelContainer);
     }
 
     buildNodeListInfo() {
@@ -622,9 +723,16 @@ export class VivaWebGLRenderer {
         this._listContainer.innerHTML = '';
         let cs = this._graphController.currentState;
 
+        const tr = getOrCreateTranslatorInstance();
+        // hint
+        const hint = document.createElement('span');
+        hint.innerText = tr.apply('#node_list_hint');
+        this._listContainer.appendChild(hint);
+        this._listContainer.appendChild(document.createElement('br'));
+
         // кнопки "скрыт/показать всё"
         let showAllButton = document.createElement('button');
-        showAllButton.textContent = 'Show all non-filtered';
+        showAllButton.textContent = tr.apply('#show_non_filtered');
         showAllButton.onclick = (ev) => {
             cs.pseudoActualize();
             this.rerender();
@@ -632,21 +740,26 @@ export class VivaWebGLRenderer {
         this._listContainer.appendChild(showAllButton);
 
         let hideAllButton = document.createElement('button');
-        hideAllButton.textContent = 'Hide all';
+        hideAllButton.textContent = tr.apply('#hide_all_nodes');
         hideAllButton.onclick = (ev) => {
             cs.pseudoDisable();
             this.rerender();
         };
         this._listContainer.appendChild(hideAllButton);
 
+        const listItself = document.createElement('ul');
+        listItself.classList.add('pseudo-list');
+
         cs.forEachNode((node) => {
-            this._listContainer.appendChild(node.postListItem(this));
+            listItself.appendChild(node.postListItem(this));
         });
+
+        this._listContainer.appendChild(listItself);
     }
 
     /**
      * 
-     * @param {Point2D} pos in graph space
+     * @param {NgraphGraph.Position} pos in graph space
      */
     centerAtGraphPoint(pos) {
         const containerSize = Viva.Graph.Utils.getDimension(this._container);

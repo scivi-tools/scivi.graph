@@ -2,6 +2,7 @@
 import Viva from './viva-proxy'
 import merge from 'ngraph.merge'
 import { VivaWebGLRenderer } from './VivaWebGLRenderer'
+import { getOrCreateTranslatorInstance } from './Misc/Translator'
 import * as $ from 'jquery'
 import 'jquery-ui/ui/widgets/slider'
 /// <reference path="./@types/ngraph.d.ts" />
@@ -19,17 +20,17 @@ export class LayoutBuilder {
     }
 
     buildUI(/** @type {VivaWebGLRenderer} */renderer) {
-        let baseContainer = $('#scivi_fsgraph_settings');
+        const tr = getOrCreateTranslatorInstance();
+        const baseContainer = $('#scivi_fsgraph_settings_layout');
         
-        let label = document.createElement('span');
-        label.textContent = 'Настройки укладки:';
-        let c = document.createElement('div');
-        baseContainer.append(label);
+        const c = document.createElement('ul');
+        c.classList.add('pseudo-list');
         for (let key in this.settings) {
             let value = this.settings[key];
             if (value != null) {
-                let innerC = document.createElement('div');
-                innerC.innerHTML += `<span>${key}: </span>`;
+                let skipme = false;
+                const innerC = document.createElement('li');
+                innerC.innerHTML += `<span>${tr.apply(`#layout_settigns.#${key}`)}: </span>`;
 
                 const type = typeof value
                 switch (type) {
@@ -39,15 +40,17 @@ export class LayoutBuilder {
                         cb.checked = value;
                         cb.onchange = (ev) => {
                             this.settings[key] = cb.checked;
-                            console.log(`Setting ${key} now ${this.settings[key]}`);
                             renderer.kick();
                         };
                         innerC.appendChild(cb);
                         break;
 
                     case 'number':
-                        let rangeEl = document.createElement('div');
                         if (_NumRanges[this.name] && _NumRanges[this.name][key]) {
+                            const valueLabel = document.createElement('span');
+                            valueLabel.innerText = value;
+
+                            let rangeEl = document.createElement('div');
                             let range = _NumRanges[this.name][key];
                             $(rangeEl).slider({
                                 min: range[0],
@@ -56,22 +59,25 @@ export class LayoutBuilder {
                                 step: range[2],
                                 slide: (event, ui) => {
                                     this.settings[key] = ui.value;
-                                    console.log(`Setting ${key} now ${this.settings[key]}`);
+                                    valueLabel.innerText = ui.value.toString();
                                     renderer.kick();
                                 }
                             });
+                            innerC.appendChild(valueLabel);
+                            innerC.appendChild(rangeEl);
                         } else {
-                            rangeEl.innerText = `${value} (unchangeable)`;
+                            skipme = true;
                         }
-                        innerC.appendChild(rangeEl);
                         break;
 
                     default:
                         console.log(`Skipping unsupported layout setting ${key} of type ${type}`);
-                        innerC.innerHTML += '<span>Unsupported</span>';
+                        skipme = true;
                         break;
                 }
-                c.appendChild(innerC);
+                if (!skipme) {
+                    c.appendChild(innerC);
+                }
             } else {
                 console.log(`Skipping null-valued layout setting ${key}`);
             }
@@ -115,6 +121,7 @@ const _NumRanges = {
         'barnesHutTheta': [0.1, 0.9, 0.1]
     },
     'forceAtlas2f': {
+        'edgeWeightInfluence': [0, 2, 0.1],
         'springLength': [5, 50, 5],
         'springCoeff': [0, 0.0016, 0.0001]
     }
@@ -122,9 +129,11 @@ const _NumRanges = {
 
 const _DefaultSettings = {
     'forceAtlas2': {
-        'barnesHutOptimize' : false,
-        'linLogMode' : true,
-        'outboundAttractionDistribution' : true,
+        'barnesHutOptimize': false,
+        'linLogMode': true,
+        'outboundAttractionDistribution': true,
+        'adjustSizes': false,
+        'strongGravityMode': false,
         'edgeWeightInfluence': 1
     },
     'forceAtlas2f': {
