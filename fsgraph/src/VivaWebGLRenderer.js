@@ -73,10 +73,12 @@ export class VivaWebGLRenderer {
         this._userInteraction = false;
         //
         this._updateCenterRequired = false;
-        //
-        this._transform = new RendererTransform();
-        /** @type {WebGLDnDManager} */
+        // HACK: пока к-т масштабирования зависит от dpi
+        this._transform = new RendererTransform(this._graphics.getTransform()[10]);
+        
         this._inputManager = null;
+
+        this._defDnDHandler = null;
         //
         this._containerDrag = null;
 
@@ -227,7 +229,7 @@ export class VivaWebGLRenderer {
         }
         if (!this._isInitialized) {
             this._initDom();
-            this._updateCenter();
+            this._fitToScreen();
             this._isInitialized = true;
         }
         if (!this._animationTimer) {
@@ -243,8 +245,10 @@ export class VivaWebGLRenderer {
     }
 
     pause() {
-        this._animationTimer.stop();
-        this._isManuallyPaused = true;
+        if (this._animationTimer) {
+            this._animationTimer.stop();
+            this._isManuallyPaused = true;
+        }
         return this;
     }
 
@@ -271,7 +275,12 @@ export class VivaWebGLRenderer {
         throw new Error("Not implemented!");
     }
 
-    moveTo (x, y) {
+    /**
+     * 
+     * @param {number} x 
+     * @param {number} y 
+     */
+    moveTo(x, y) {
         throw new Error("Not implemented!");
     }
 
@@ -283,10 +292,20 @@ export class VivaWebGLRenderer {
         throw new Error("Not implemented!");
     }
 
+    /**
+     * 
+     * @param {string} eventName 
+     * @param {function} callback 
+     */
     on(eventName, callback) {
         throw new Error("Not implemented!");
     }
 
+    /**
+     * 
+     * @param {string} eventName 
+     * @param {function} callback 
+     */
     off(eventName, callback) {
         throw new Error("Not implemented!");
     }
@@ -307,6 +326,10 @@ export class VivaWebGLRenderer {
         const dialog = $(`<div title="Precalculating layout">
         <span>out of ${iterations}</span></div>`);
         dialog.css('vertical-align', 'center').css('text-align', 'center');
+        /**
+         * 
+         * @param {boolean} enableLayout 
+         */
         const onDialogClose = (enableLayout) => {
             forceStop = true;
             dialog.dialog('close');
@@ -363,7 +386,9 @@ export class VivaWebGLRenderer {
     
     _resetStable() {
         this._isStable = false;
-        this._animationTimer.restart();
+        if (this._animationTimer) {
+            this._animationTimer.restart();
+        }
     }
 
     /**
@@ -373,6 +398,9 @@ export class VivaWebGLRenderer {
         // TODO: выбросить проверку, создавать обработчики один раз!
         if (!this._defDnDHandler) {
             this._buildDefaultDnDHandler();
+            if (!this._defDnDHandler) {
+                throw new Error('Somethin wens wrong with default drag\'n\'drop handler');
+            }
         }
         this._inputManager.bindDragNDrop(node, this._defDnDHandler);
     }
@@ -428,17 +456,51 @@ export class VivaWebGLRenderer {
         this.kick();
     }
 
-    _updateCenter() {
-        var graphRect = this._layoutBackend.getGraphRect(),
-            containerSize = Viva.Graph.Utils.getDimension(this._container);
-
-        var cx = (graphRect.x2 + graphRect.x1) / 2;
-        var cy = (graphRect.y2 + graphRect.y1) / 2;
+    /**
+     * 
+     * @param {NgraphGeneric.Rect} graphRect 
+     * @param {{width:number, height:number}} containerSize 
+     */
+    _updateCenterReal(graphRect, containerSize) {
+        const cx = (graphRect.x2 + graphRect.x1) / 2;
+        const cy = (graphRect.y2 + graphRect.y1) / 2;
         this._transform.offsetX = containerSize.width / 2 - (cx * this._transform.scale / 2);
         this._transform.offsetY = containerSize.height / 2 - (cy * this._transform.scale / 2);
         this._graphics.graphCenterChanged(this._transform.offsetX, this._transform.offsetY);
 
         this._updateCenterRequired = false;
+    }
+
+    /**
+     * 
+     * @param {NgraphGeneric.Rect} graphRect 
+     * @param {{width:number, height:number}} containerSize 
+     */
+    _scaleToScreen(graphRect, containerSize) {
+        const oldScale = this._transform.scale;
+        const someAccidentPadding = 100;
+
+        const graphWidth = (graphRect.x2 - graphRect.x1) + someAccidentPadding;
+        const graphHeight = (graphRect.y2 - graphRect.y1) + someAccidentPadding;
+
+        const scaleRatio = 1 / Math.max(graphWidth / containerSize.width, graphHeight / containerSize.height);
+
+        this._transform.scale = this._graphics.scale(scaleRatio / oldScale * 2, new Point2D(this._transform.offsetX, this._transform.offsetY));
+    }
+
+    _updateCenter() {
+        const graphRect = this._layoutBackend.getGraphRect();
+        const containerSize = Viva.Graph.Utils.getDimension(this._container);
+
+        this._updateCenterReal(graphRect, containerSize);
+    }
+
+    _fitToScreen() {
+        const graphRect = this._layoutBackend.getGraphRect();
+        const containerSize = Viva.Graph.Utils.getDimension(this._container);
+
+        this._updateCenterReal(graphRect, containerSize);
+        this._scaleToScreen(graphRect, containerSize);
     }
 
     _initDom() {
@@ -618,6 +680,10 @@ export class VivaWebGLRenderer {
         });
     
         const customHandle = $('#rotate_bar_handle');
+        /**
+         * 
+         * @param {number} value 
+         */
         const setHandleText = (value) => {
             customHandle.text(`${value}°`);
         };
@@ -627,8 +693,8 @@ export class VivaWebGLRenderer {
             value: 0,
             step: 5,
             slide: (event, ui) => {
-                that.angleDegrees = ui.value;
-                setHandleText(ui.value);
+                that.angleDegrees = ui.value || 0;
+                setHandleText(that.angleDegrees);
             },
             create: () => setHandleText(0)
         });
@@ -638,15 +704,17 @@ export class VivaWebGLRenderer {
             collapsible: true
         });
 
-        // TODO: добавляем кнопку старт/стоп и вращение здесь!
-        // + "fit to screen"
-        const controlElement = $('#scivi_fsgraph_control')[0];
-        let startStopButton = document.createElement('button');
+        // добавляем кнопку старт/стоп и "fit to screen" здесь
+        const controlElement = $('#scivi_fsgraph_control');
 
+        const startStopButton = document.createElement('button');
+        /**
+         * 
+         * @param {string} name 
+         */
         const changeIcon = (name) => {
             $(startStopButton).button('option', 'icon', name);
         };
-
         // HACK: Ни дня без веселья! Оказывается, описание типов не соответствует реализации:
         // первое говорит, что в настройках конпки есть "click" callback, а в реализации такого нет!
         // Ну и сущий пустяк: реализация позволяет указать "create" callback, а в типах про него пусто!
@@ -664,8 +732,17 @@ export class VivaWebGLRenderer {
             }
         });
         changeIcon('ui-icon-pause');
+        controlElement.append(startStopButton);
 
-        controlElement.appendChild(startStopButton);
+        const fitToScreenButton = document.createElement('button');
+        $(fitToScreenButton).button({
+            label: tr.apply('#fit_to_screen')
+        });
+        $(fitToScreenButton).click((ev) => {
+            that._fitToScreen();
+            that.rerender();
+        });
+        controlElement.append(fitToScreenButton);
 
         return $('#scivi_fsgraph_view')[0];
     }
@@ -693,7 +770,7 @@ export class VivaWebGLRenderer {
             value: 0,
             step: 1,
             slide: (event, ui) => {
-                that.currentStateId = ui.value;
+                that.currentStateId = ui.value || 0;
                 that.rerender();
             }
         });
