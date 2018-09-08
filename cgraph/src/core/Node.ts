@@ -16,7 +16,7 @@ namespace SciViCGraph
         private m_cbInput: HTMLInputElement;
         private m_hoveredEdge: Edge;
 
-        public static passiveTextAlpha = 0.3;
+        public static passiveTextAlpha = 0.5;
         private static readonly m_hoveredTextAlpha = 1.0;
         private static readonly m_selectedTextAlpha = 1.0;
 
