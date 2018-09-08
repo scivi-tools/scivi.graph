@@ -392,16 +392,18 @@ namespace SciViCGraph
 
         private updateStateLineLabels()
         {
-            const lp = parseFloat($("#scivi_cgraph_stateline").css('padding-left'));
-            const rp = parseFloat($("#scivi_cgraph_stateline").css('padding-right'));
-            const m = Math.min(lp, rp) * 2;
-            let w = (this.m_stateline.clientWidth - lp - rp) / this.m_data.length;
-            if (w < 30)
-                w = 30;
-            else if (w > m)
-                w = m;
-            $(".scivi_stateline_label").css("width", w + "px");
-            $(".scivi_stateline_label").css("margin-left", (-w * 0.5) + "px");
+            if (this.m_stateline) {
+                const lp = parseFloat($("#scivi_cgraph_stateline").css('padding-left'));
+                const rp = parseFloat($("#scivi_cgraph_stateline").css('padding-right'));
+                const m = Math.min(lp, rp) * 2;
+                let w = (this.m_stateline.clientWidth - lp - rp) / this.m_data.length;
+                if (w < 30)
+                    w = 30;
+                else if (w > m)
+                    w = m;
+                $(".scivi_stateline_label").css("width", w + "px");
+                $(".scivi_stateline_label").css("margin-left", (-w * 0.5) + "px");
+            }
         }
 
         private initInterface()
