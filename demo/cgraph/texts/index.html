@@ -39,7 +39,7 @@
                 console.log("Number of nodes: " + g.nodes.length);
                 console.log("Number of edges: " + g.edges.length);
 
-                g.nodes.sort((x1, x2) => { return x1.nmb - x2.nmb; });
+                g.nodes.sort(function (x1, x2) { return x1.custom["nmb"] - x2.custom["nmb"]; });
 
                 var renderer = graph.run(loc, [g], []);
             }
