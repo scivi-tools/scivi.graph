@@ -122,3 +122,8 @@
 {
     display: block;
 }
+
+.ui-slider-horizontal
+{
+    height: 0.6em;
+}
