@@ -693,8 +693,9 @@ export class VivaWebGLRenderer {
             value: 0,
             step: 5,
             slide: (event, ui) => {
-                that.angleDegrees = ui.value || 0;
-                setHandleText(that.angleDegrees);
+                const value = ui.value || 0
+                that.angleDegrees = value;
+                setHandleText(value);
             },
             create: () => setHandleText(0)
         });
