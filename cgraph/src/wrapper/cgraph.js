@@ -45,17 +45,29 @@ CGraph.prototype.run = function (loc, data, scales, colors)
     split1.attr("id", "scivi_cgraph_a");
     split1.attr("class", "split split-horizontal");
 
+    var filtersTab = 
+        "<div id=\"scivi_cgraph_filters_tab\">" +
+        "    <ul>" +
+        "        <li><a href=\"#scivi_cgraph_nodefilters\">" + loc["LOC_NODES"] + "</a>" +
+        "        <li><a href=\"#scivi_cgraph_edgefilters\">" + loc["LOC_EDGES"] + "</a>" +
+        "    </ul>" +
+        "    <div id=\"scivi_cgraph_nodefilters\"></div>" +
+        "    <div id=\"scivi_cgraph_edgefilters\"></div>" + 
+        "</div>";
+
     var split2 = $("<div>").html(
         "<div id=\"scivi_cgraph_tabs\">" +
         "    <ul>" +
         "        <li><a href=\"#scivi_cgraph_info\">" + loc["LOC_INFO"] + "</a></li>" +
         "        <li><a href=\"#scivi_cgraph_list\">" + loc["LOC_NODES"] + "</a></li>" +
         "        <li><a href=\"#scivi_cgraph_settings\">" + loc["LOC_SETTINGS"] + "</a></li>" +
+        "        <li><a href=\"#scivi_cgraph_filters\">" + loc["LOC_FILTERS"] + "</a></li>" +
         "        <li><a href=\"#scivi_cgraph_stats\">" + loc["LOC_GROUPS"] + "</a></li>" +
         "    </ul>" +
         "    <div id=\"scivi_cgraph_info\"></div>" +
         "    <div id=\"scivi_cgraph_list\"></div>" +
         "    <div id=\"scivi_cgraph_settings\"></div>" +
+        "    <div id=\"scivi_cgraph_filters\">" + filtersTab + "</div>" +
         "    <div id=\"scivi_cgraph_stats\"></div>" +
         "</div>"
     );
@@ -67,6 +79,7 @@ CGraph.prototype.run = function (loc, data, scales, colors)
 
     var renderer = new SciViCGraph.Renderer($("#scivi_cgraph_view")[0], $("#scivi_cgraph_info")[0],
                                             $("#scivi_cgraph_list")[0], $("#scivi_cgraph_settings")[0],
+                                            $("#scivi_cgraph_nodefilters")[0], $("#scivi_cgraph_edgefilters")[0],
                                             $("#scivi_cgraph_stats")[0],
                                             data.length > 1 ? $("#scivi_cgraph_stateline")[0] : null,
                                             loc);
@@ -78,6 +91,7 @@ CGraph.prototype.run = function (loc, data, scales, colors)
     });
 
     $("#scivi_cgraph_tabs").tabs({heightStyle: "fill"});
+    $("#scivi_cgraph_filters_tab").tabs({heightStyle: "fill"});
 
     colors = colors || [0x00aa00, 0x0000aa, 0x00aaaa, 0xe6194b,
                         0x3cb44b, 0x0082c8, 0x911eb4, 0x46f0f0,

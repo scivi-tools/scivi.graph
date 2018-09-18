@@ -92,6 +92,8 @@ namespace SciViCGraph
                     private m_info: HTMLElement, 
                     private m_list: HTMLElement,
                     private m_settings: HTMLElement,
+                    private m_nodeFilters: HTMLElement,
+                    private m_edgeFilters: HTMLElement,
                     private m_stats: HTMLElement,
                     private m_stateline: HTMLElement,
                     private m_localizer: {})
@@ -527,12 +529,6 @@ namespace SciViCGraph
             this.m_view.onwheel = onWheel;
 
             this.m_settings.innerHTML = 
-            "<div>" + this.m_localizer["LOC_EDGETHRESHOLD"] + "&nbsp;<span id='scivi_edge_treshold'>" +
-                this.roundValS(this.m_edgeWeight.min, this.m_edgeWeight.step) + " .. " + this.roundValS(this.m_edgeWeight.max, this.m_edgeWeight.step) + "</span></div>" +
-                "<div id='scivi_edge_treshold_slider' style='margin: 10px 10px 10px 5px'></div>" +
-            "<div>" + this.m_localizer["LOC_NODETHRESHOLD"] + "&nbsp;<span id='scivi_node_treshold'>" +
-                this.roundValS(this.m_nodeWeight.min, this.m_nodeWeight.step) + " .. " + this.roundValS(this.m_nodeWeight.max, this.m_nodeWeight.step) + "</span></div>" +
-                "<div id='scivi_node_treshold_slider' style='margin: 10px 10px 10px 5px'></div><br/><hr/><br/>" +
             "<div>" + this.m_localizer["LOC_PASSIVETEXTALPHA"] + "&nbsp;<span id='scivi_node_alpha'>" +
                 Node.passiveTextAlpha.toString() + "</span></div>" +
                 "<div id='scivi_node_alpha_slider' style='margin: 10px 10px 10px 5px'></div>" +
@@ -557,6 +553,17 @@ namespace SciViCGraph
             "<label for='scivi_ring_filter_2'>" + this.m_localizer["LOC_RING_FILTER_2"] + "</label><br/><br/><hr/><br/>" +
             "<input id='scivi_fit_to_screen' type='button' value='" + this.m_localizer["LOC_FIT_TO_SCREEN"] + "'/>" +
             "<input id='scivi_sort_by_ring' type='button' value='" + this.m_localizer["LOC_SORT_BY_RING"] + "'/>";
+
+            this.m_nodeFilters.innerHTML =
+            "<div>" + this.m_localizer["LOC_NODETHRESHOLD"] + "&nbsp;<span id='scivi_node_treshold'>" +
+                this.roundValS(this.m_nodeWeight.min, this.m_nodeWeight.step) + " .. " + this.roundValS(this.m_nodeWeight.max, this.m_nodeWeight.step) + "</span></div>" +
+                "<div id='scivi_node_treshold_slider' style='margin: 10px 10px 10px 5px'></div><br/><hr/><br/>";
+
+            this.m_edgeFilters.innerHTML =
+            "<div>" + this.m_localizer["LOC_EDGETHRESHOLD"] + "&nbsp;<span id='scivi_edge_treshold'>" +
+                this.roundValS(this.m_edgeWeight.min, this.m_edgeWeight.step) + " .. " + this.roundValS(this.m_edgeWeight.max, this.m_edgeWeight.step) + "</span></div>" +
+                "<div id='scivi_edge_treshold_slider' style='margin: 10px 10px 10px 5px'></div>";
+
 
             $("#scivi_edge_treshold_slider").slider({
                 min: this.m_edgeWeight.min,
