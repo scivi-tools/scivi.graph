@@ -557,12 +557,12 @@ namespace SciViCGraph
             this.m_nodeFilters.innerHTML =
             "<div>" + this.m_localizer["LOC_NODETHRESHOLD"] + "&nbsp;<span id='scivi_node_treshold'>" +
                 this.roundValS(this.m_nodeWeight.min, this.m_nodeWeight.step) + " .. " + this.roundValS(this.m_nodeWeight.max, this.m_nodeWeight.step) + "</span></div>" +
-                "<div id='scivi_node_treshold_slider' style='margin: 10px 10px 10px 5px'></div><br/><hr/><br/>";
+                "<div id='scivi_node_treshold_slider' style='margin: 10px 10px 10px 5px'></div><hr/><br/>";
 
             this.m_edgeFilters.innerHTML =
             "<div>" + this.m_localizer["LOC_EDGETHRESHOLD"] + "&nbsp;<span id='scivi_edge_treshold'>" +
                 this.roundValS(this.m_edgeWeight.min, this.m_edgeWeight.step) + " .. " + this.roundValS(this.m_edgeWeight.max, this.m_edgeWeight.step) + "</span></div>" +
-                "<div id='scivi_edge_treshold_slider' style='margin: 10px 10px 10px 5px'></div>";
+                "<div id='scivi_edge_treshold_slider' style='margin: 10px 10px 10px 5px'></div><hr/><br/>";
 
 
             $("#scivi_edge_treshold_slider").slider({
@@ -582,6 +582,36 @@ namespace SciViCGraph
                 step: this.m_nodeWeight.step,
                 slide: (event, ui) => { this.changeNodeTreshold(ui.values); }
             });
+
+            if (this.m_scaleLevels) {
+                this.m_scaleLevels.forEach((scale, index) => {
+                    let n = scale.groupCount;
+                    for (let i = 0; i < n; ++i) {
+                        if (scale.groupHasContent(i)) {
+                            let idx = index.toString() + "_" + i.toString();
+                            this.m_nodeFilters.innerHTML +=
+                                "<div><div style='background-color: " +
+                                color2string(scale.getColor(i)) +
+                                "; border-radius: 5px; width: 10px; height: 10px; display: inline-block; margin-right: 5px'></div>" +
+                                scale.getName(i) +
+                                "&nbsp;<span id='scivi_node_treshold_" + idx + "'>" +
+                                this.roundValS(this.m_nodeWeight.min, this.m_nodeWeight.step) + " .. " +  // FIXME
+                                this.roundValS(this.m_nodeWeight.max, this.m_nodeWeight.step) + // FIXME
+                                "</span></div>" +
+                                "<div id='scivi_node_treshold_slider_" + idx +
+                                "' style='margin: 10px 10px 10px 5px'></div><br/>";
+                            $("#scivi_node_treshold_slider_" + idx).slider({
+                                min: this.m_nodeWeight.min, // FIXME
+                                max: this.m_nodeWeight.max, // FIXME
+                                range: true,
+                                values: [this.m_nodeWeight.min, this.m_nodeWeight.max], // FIXME
+                                step: this.m_nodeWeight.step, // FIXME
+                                slide: (event, ui) => { this.changeNodeTreshold(ui.values); } // FIXME
+                            });
+                        }
+                    }
+                });
+            }
 
             $("#scivi_node_alpha_slider").slider({
                 min: 0,
@@ -788,7 +818,7 @@ namespace SciViCGraph
                 this.m_ringScales.push(rs);
 
                 this.currentData().nodes.forEach((node: Node, i: number) => {
-                    let stepID = scale.getStepID(node);
+                    let stepID = scale.classifyNode(node);
                     if (stepID !== segment.id) {
                         let a = (i - 0.5) * angleStep;
                         if (segment.id !== undefined) {

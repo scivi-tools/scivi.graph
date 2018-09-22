@@ -91,7 +91,7 @@ CGraph.prototype.run = function (loc, data, scales, colors)
     });
 
     $("#scivi_cgraph_tabs").tabs({heightStyle: "fill"});
-    $("#scivi_cgraph_filters_tab").tabs({heightStyle: "fill"});
+    $("#scivi_cgraph_filters_tab").tabs({heightStyle: "content"});
 
     colors = colors || [0x00aa00, 0x0000aa, 0x00aaaa, 0xe6194b,
                         0x3cb44b, 0x0082c8, 0x911eb4, 0x46f0f0,
