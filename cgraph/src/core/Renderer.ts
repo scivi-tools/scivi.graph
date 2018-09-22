@@ -92,8 +92,7 @@ namespace SciViCGraph
                     private m_info: HTMLElement, 
                     private m_list: HTMLElement,
                     private m_settings: HTMLElement,
-                    private m_nodeFilters: HTMLElement,
-                    private m_edgeFilters: HTMLElement,
+                    private m_filters: HTMLElement,
                     private m_stats: HTMLElement,
                     private m_stateline: HTMLElement,
                     private m_localizer: {})
@@ -554,12 +553,10 @@ namespace SciViCGraph
             "<input id='scivi_fit_to_screen' type='button' value='" + this.m_localizer["LOC_FIT_TO_SCREEN"] + "'/>" +
             "<input id='scivi_sort_by_ring' type='button' value='" + this.m_localizer["LOC_SORT_BY_RING"] + "'/>";
 
-            this.m_nodeFilters.innerHTML =
+            this.m_filters.innerHTML =
             "<div>" + this.m_localizer["LOC_NODETHRESHOLD"] + "&nbsp;<span id='scivi_node_treshold'>" +
                 this.roundValS(this.m_nodeWeight.min, this.m_nodeWeight.step) + " .. " + this.roundValS(this.m_nodeWeight.max, this.m_nodeWeight.step) + "</span></div>" +
-                "<div id='scivi_node_treshold_slider' style='margin: 10px 10px 10px 5px'></div><hr/><br/>";
-
-            this.m_edgeFilters.innerHTML =
+                "<div id='scivi_node_treshold_slider' style='margin: 10px 10px 10px 5px'></div>" +
             "<div>" + this.m_localizer["LOC_EDGETHRESHOLD"] + "&nbsp;<span id='scivi_edge_treshold'>" +
                 this.roundValS(this.m_edgeWeight.min, this.m_edgeWeight.step) + " .. " + this.roundValS(this.m_edgeWeight.max, this.m_edgeWeight.step) + "</span></div>" +
                 "<div id='scivi_edge_treshold_slider' style='margin: 10px 10px 10px 5px'></div><hr/><br/>";
@@ -589,7 +586,7 @@ namespace SciViCGraph
                     for (let i = 0; i < n; ++i) {
                         if (scale.groupHasContent(i)) {
                             let idx = index.toString() + "_" + i.toString();
-                            this.m_nodeFilters.innerHTML +=
+                            this.m_filters.innerHTML +=
                                 "<div><div style='background-color: " +
                                 color2string(scale.getColor(i)) +
                                 "; border-radius: 5px; width: 10px; height: 10px; display: inline-block; margin-right: 5px'></div>" +

@@ -35,14 +35,9 @@ ul
     padding: 10px 10px 10px 20px;
 }
 
-#scivi_cgraph_settings
+#scivi_cgraph_settings, #scivi_cgraph_filters
 {
     padding: 10px;
-    font: 12px Helvetica Neue, Helvetica, Arial, sans-serif;
-}
-
-#scivi_cgraph_nodefilters, #scivi_cgraph_edgefilters
-{
     font: 12px Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
