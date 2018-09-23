@@ -568,67 +568,6 @@ namespace SciViCGraph
                 this.roundValS(this.m_edgeWeight.max, this.m_edgeWeight.step) + "</span>" +
                 "<div id='scivi_edge_treshold_slider' style='margin: 10px 10px 10px 5px'></div></div><hr/><br/>";
 
-            if (this.m_scaleLevels) {
-                this.m_scaleLevels.forEach((scale, index) => {
-                    let n = scale.groupCount;
-                    for (let i = 0; i < n; ++i) {
-                        if (scale.groupHasContent(i)) {
-                            let idx = index.toString() + "_" + i.toString();
-
-                            this.m_filters.innerHTML +=
-                                "<div><div align='center'><div style='background-color: " +
-                                color2string(scale.getColor(i)) +
-                                "; color: " +
-                                color2string(scale.getTextColor(i)) +
-                                "; border-radius: 5px; margin-bottom: 10px;'><b>" +
-                                scale.getName(i) + "</b></div></div>" +
-                                
-                                "<div>" + this.m_localizer["LOC_NODES"] +
-                                ":&nbsp;<span id='scivi_node_treshold_" + idx + "'>" +
-                                this.roundValS(this.m_nodeWeight.min, this.m_nodeWeight.step) + " .. " +  // FIXME
-                                this.roundValS(this.m_nodeWeight.max, this.m_nodeWeight.step) + // FIXME
-                                "</span></div>" +
-                                "<div id='scivi_node_treshold_slider_" + idx +
-                                "' style='margin: 10px 10px 10px 5px'></div>" +
-
-                                "<div>" + this.m_localizer["LOC_EDGES"] +
-                                ":&nbsp;<span id='scivi_edge_treshold_" + idx + "'>" +
-                                this.roundValS(this.m_edgeWeight.min, this.m_edgeWeight.step) + " .. " +  // FIXME
-                                this.roundValS(this.m_edgeWeight.max, this.m_edgeWeight.step) + // FIXME
-                                "</span></div>" +
-                                "<div id='scivi_edge_treshold_slider_" + idx +
-                                "' style='margin: 10px 10px 10px 5px'></div><hr/><br/>";
-                        }
-                    }
-                });
-                this.m_scaleLevels.forEach((scale, index) => {
-                    let n = scale.groupCount;
-                    for (let i = 0; i < n; ++i) {
-                        if (scale.groupHasContent(i)) {
-                            let idx = index.toString() + "_" + i.toString();
-
-                            $("#scivi_node_treshold_slider_" + idx).slider({
-                                min: this.m_nodeWeight.min, // FIXME
-                                max: this.m_nodeWeight.max, // FIXME
-                                range: true,
-                                values: [this.m_nodeWeight.min, this.m_nodeWeight.max], // FIXME
-                                step: this.m_nodeWeight.step, // FIXME
-                                slide: (event, ui) => { this.changeNodeTreshold(ui.values); } // FIXME
-                            });
-
-                            $("#scivi_edge_treshold_slider_" + idx).slider({
-                                min: this.m_edgeWeight.min, // FIXME
-                                max: this.m_edgeWeight.max, // FIXME
-                                range: true,
-                                values: [this.m_edgeWeight.min, this.m_edgeWeight.max], // FIXME
-                                step: this.m_edgeWeight.step, // FIXME
-                                slide: (event, ui) => { this.changeEdgeTreshold(ui.values); } // FIXME
-                            });
-                        }
-                    }
-                });
-            }
-
             $("#scivi_edge_treshold_slider").slider({
                 min: this.m_edgeWeight.min,
                 max: this.m_edgeWeight.max,
@@ -646,8 +585,6 @@ namespace SciViCGraph
                 step: this.m_nodeWeight.step,
                 slide: (event, ui) => { this.changeNodeTreshold(ui.values); }
             });
-
-
 
             $("#scivi_node_alpha_slider").slider({
                 min: 0,

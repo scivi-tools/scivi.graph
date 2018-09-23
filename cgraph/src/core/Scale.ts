@@ -2,21 +2,15 @@ namespace SciViCGraph
 {
     export class Scale
     {
-        private m_nodeGroups: Node[][];
-
         constructor(private m_steps: any[], private m_colors: number[], private m_textColors: number[],
                     private m_names: string[], public getValue: (node: Node) => any)
         {
-            this.m_nodeGroups = [];
-            for (let i = 0; i < this.m_names.length; ++i)
-                this.m_nodeGroups.push([]);
+            // nop
         }
 
         public classifyNode(node: Node): number
         {
-            const result = this.getStepID(node);
-            this.m_nodeGroups[result].push(node);
-            return result;
+            return this.getStepID(node);
         }
 
         public getStepID(node: Node): number
@@ -43,16 +37,6 @@ namespace SciViCGraph
         public getTextColor(id: number): number
         {
             return this.m_textColors[id % this.m_textColors.length];
-        }
-
-        get groupCount(): number
-        {
-            return this.m_nodeGroups.length;
-        }
-
-        public groupHasContent(id: number): boolean
-        {
-            return this.m_nodeGroups[id].length > 0;
         }
     }
 }
