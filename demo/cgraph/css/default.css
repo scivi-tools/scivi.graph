@@ -130,3 +130,14 @@ ul
     top: -4px;
     margin-left: -8.5px;
 }
+
+.scivi_remove
+{
+    background-color: #f00000;
+    color: #fff;
+    border-radius: 10px;
+    margin-left: 5px;
+    display: inline-block;
+    width: 15px;
+    cursor: pointer;
+}

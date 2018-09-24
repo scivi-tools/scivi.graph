@@ -55,11 +55,13 @@ namespace SciViCGraph
             }
 
             r = this.m_outRadius - this.m_width / 2.0;
-            const hl = new RingScaleSegment(from, to, r - this.m_inRadius, (r + this.m_inRadius) / 2.0, color, 0.1);
+            const hl = new RingScaleSegment(from, to, r - this.m_inRadius, (r + this.m_inRadius) / 2.0, color, 0.1,
+                                            name, textColor);
             this.addChild(hl);
             this.m_highlights.push(hl);
 
-            const sl = new RingScaleSegment(from, to, this.m_width, this.m_outRadius, 0xFD3C00, 0.5);
+            const sl = new RingScaleSegment(from, to, this.m_width, this.m_outRadius, 0xFD3C00, 0.5,
+                                            name, textColor);
             this.addChild(sl);
             this.m_selections.push(sl);
 
@@ -188,6 +190,11 @@ namespace SciViCGraph
         get segmentSelected(): boolean
         {
             return this.m_selectedSegment !== -1;
+        }
+
+        get highlightedSegment(): RingScaleSegment
+        {
+            return this.m_highlightedSegment === -1 ? null : this.m_highlights[this.m_highlightedSegment];
         }
     }
 }

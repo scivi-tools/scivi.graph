@@ -83,6 +83,7 @@ namespace SciViCGraph
         private m_ringBorder: RingBorder;
         private m_ringSegmentFilterBothEnds: boolean;
         private m_ringSegmentSelected: boolean;
+        private m_equalizer: EqualizerItem[];
 
         static readonly m_ringScaleWidth = 30;
         static readonly m_minFontSize = 5;
@@ -114,6 +115,7 @@ namespace SciViCGraph
             this.m_ringBorder = null;
             this.m_ringSegmentFilterBothEnds = true;
             this.m_ringSegmentSelected = false;
+            this.m_equalizer = [];
 
             let tooltip = document.createElement("div");
             tooltip.className = "scivi_graph_tooltip";
@@ -154,6 +156,11 @@ namespace SciViCGraph
         private currentData(): GraphData
         {
             return this.m_data[this.m_currentState];
+        }
+
+        get data(): GraphData[]
+        {
+            return this.m_data;
         }
 
         private calcWeights()
@@ -386,7 +393,7 @@ namespace SciViCGraph
             }
         }
 
-        private roundValS(x: number, s: number): string
+        public roundValS(x: number, s: number): string
         {
             return this.roundVal(x, s).toString();
         }
@@ -513,8 +520,12 @@ namespace SciViCGraph
                             const node = this.getNodeByPosition(x, y, s, isInRing);
                             if (!isInRing[0])
                                 this.selectNode(node);
-                            if (!node && e.shiftKey)
-                                this.selectRingSegment();
+                            if (!node) {
+                                if (e.shiftKey)
+                                    this.selectRingSegment();
+                                else if (e.ctrlKey)
+                                    this.addEqualizerItem(); // FIXME: make a menu, don't fuck the mind
+                            }
                         }
                     }
                     this.m_panning = false;
@@ -566,7 +577,8 @@ namespace SciViCGraph
                 "&nbsp;<span id='scivi_edge_treshold'>" +
                 this.roundValS(this.m_edgeWeight.min, this.m_edgeWeight.step) + " .. " + 
                 this.roundValS(this.m_edgeWeight.max, this.m_edgeWeight.step) + "</span>" +
-                "<div id='scivi_edge_treshold_slider' style='margin: 10px 10px 10px 5px'></div></div><hr/><br/>";
+                "<div id='scivi_edge_treshold_slider' style='margin: 10px 10px 10px 5px'></div></div><hr/><br/>" +
+                "<div id='scivi_equalizer'></div>";
 
             $("#scivi_edge_treshold_slider").slider({
                 min: this.m_edgeWeight.min,
@@ -1141,6 +1153,27 @@ namespace SciViCGraph
             }
             const f2 = this.filterEdges();
             this.render(f1 || f2, true);
+        }
+
+        private addEqualizerItem()
+        {
+            if (this.m_ringScales) {
+                for (let i = 0, n = this.m_ringScales.length; i < n; ++i) {
+                    const segm = this.m_ringScales[i].highlightedSegment;
+                    if (segm) {
+                        let needsCraete = true;
+                        for (let j = 0, m = this.m_equalizer.length; j < m; ++j) {
+                            if (this.m_equalizer[j].matches(segm)) {
+                                needsCraete = false;
+                                break;
+                            }
+                        }
+                        if (needsCraete)
+                            this.m_equalizer.push(new EqualizerItem(this, segm));
+                        break;
+                    }
+                }
+            }
         }
 
         public updateNodesVisibility()
