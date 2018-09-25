@@ -1,6 +1,6 @@
 /// <reference path="./ngraph.events.d.ts" />
 /// <reference path="./ngraph.merge.d.ts" />
-/// <reference path="./ngraph.graph.d.ts" />
+/// <reference path="./ngraph.graph/index.d.ts" />
 
 declare namespace NgraphGeneric {
 

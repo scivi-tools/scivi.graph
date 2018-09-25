@@ -1,5 +1,5 @@
 // @ts-check
-/// <reference path="./ngraph.events.d.ts" />
+/// <reference path="../ngraph.events.d.ts" />
 
 declare namespace NgraphGraph {
 
@@ -30,8 +30,8 @@ declare namespace NgraphGraph {
         [_: string]: any
     };
 
-    export type NodeCallback = (Node) => boolean;
-    export type LinkCallback = (Link) => boolean;
+    export type NodeCallback = (_: Node) => boolean;
+    export type LinkCallback = (_: Link) => boolean;
 
     export interface Graph extends NgraphEvents.EventifiedObject {
         addNode(id: ElementId, data?: any) : Node,
