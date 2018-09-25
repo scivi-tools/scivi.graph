@@ -1,8 +1,7 @@
 //@ts-check
-///<reference path='./@types/ngraph.d.ts' />
 
 /**
- * @implements {NgraphGraph.Position}
+ * @implements {Ngraph.Graph.Position}
  */
 export class Point2D {
     /**
@@ -16,7 +15,7 @@ export class Point2D {
 
         // TODO: workaround assert if interface is implemented
         // https://github.com/Microsoft/TypeScript/issues/17498#issuecomment-399439654  
-        /** @type {NgraphGraph.Position} */
+        /** @type {Ngraph.Graph.Position} */
         const assertion = this;
     }
 
@@ -26,8 +25,8 @@ export class Point2D {
 
     /**
      * 
-     * @param {Point2D | NgraphGraph.Position} from 
-     * @param {Point2D | NgraphGraph.Position} what 
+     * @param {Point2D | Ngraph.Graph.Position} from 
+     * @param {Point2D | Ngraph.Graph.Position} what 
      */
     static Subtract(from, what) {
         return new Point2D(from.x - what.x, from.y - what.y);

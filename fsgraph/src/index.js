@@ -1,5 +1,6 @@
 //@ts-check
-/// <reference path="./@types/ngraph.d.ts" />
+/// <reference path="./@types/ngraph.generic.d.ts" />
+/// <reference path="./@types/viva.generic.d.ts" />
 
 export * from './GraphController.js'
 export * from './VivaWebGLRenderer.js'

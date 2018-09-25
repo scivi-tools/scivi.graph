@@ -6,7 +6,6 @@ import { VivaWebGLRenderer } from './VivaWebGLRenderer'
 import { getOrCreateTranslatorInstance } from './Misc/Translator'
 import * as $ from 'jquery'
 import 'jquery-ui/ui/widgets/slider'
-/// <reference path="./types/ngraph.types.js" />
 
 /* TODO: Пересматриваем концепцию кастомизации отображения графа
  * Теперь этот класс будет содержать инфу о том, как визуализировать связи
@@ -54,7 +53,7 @@ export class VivaStateView {
         /** @type {function(VivaLinkUI) : void} */
         this.onEdgeRender = stub;
 
-        /** @type {function(VivaImageNodeUI, NgraphGraph.Graph, VivaWebGLRenderer) : void} */
+        /** @type {function(VivaImageNodeUI, Ngraph.Graph.Graph, VivaWebGLRenderer) : void} */
         this.onNodeClick = selectNode2G;
 
         /** @type {VivaWebGLRenderer} */
@@ -167,7 +166,7 @@ let lastNodeClicked = null;
 
 /**
  * 
- * @param {NgraphGraph.Graph} graph 
+ * @param {Ngraph.Graph.Graph} graph 
  * @param {VivaWebGLRenderer} renderer
  * @param {VivaImageNodeUI} nodeUI 
  * @param {boolean} toggled 
@@ -176,7 +175,7 @@ function toggleRelatedWords(graph, renderer, nodeUI, toggled) {
     nodeUI.selected = toggled;
     let realNode = /** @type {Node} */ (nodeUI._realNode);
     // TODO: nodUI.selected, not node.selected!
-    graph.forEachLinkedNode(realNode.id, (/** @type {NgraphGraph.Node} */node, /** @type {NgraphGraph.Link} */link) => {
+    graph.forEachLinkedNode(realNode.id, (/** @type {Ngraph.Graph.Node} */node, /** @type {Ngraph.Graph.Link} */link) => {
         /** @type {VivaImageNodeUI} */
         let nodeUI = renderer.graphics.getNodeUI(node.id);
         /** @type {VivaLinkUI} */
@@ -196,7 +195,7 @@ function toggleRelatedWords(graph, renderer, nodeUI, toggled) {
 
 /**
  * 
- * @param {NgraphGraph.Graph} graph 
+ * @param {Ngraph.Graph.Graph} graph 
  * @param {VivaWebGLRenderer} renderer
  * @param {VivaImageNodeUI} nodeUI 
  * @param {boolean} toggled 
@@ -215,7 +214,7 @@ function selectNodeByGroup(graph, renderer, nodeUI, toggled) {
 /**
  * 
  * @param {VivaImageNodeUI} nodeUI 
- * @param {NgraphGraph.Graph} graph
+ * @param {Ngraph.Graph.Graph} graph
  * @param {VivaWebGLRenderer} renderer
  */
 function selectNode2G(nodeUI, graph, renderer) {

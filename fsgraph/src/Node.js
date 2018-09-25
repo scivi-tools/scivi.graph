@@ -71,7 +71,7 @@ export class Node {
 
     /**
      * 
-     * @param {NgraphGeneric.Layout} layout 
+     * @param {Ngraph.Generic.Layout} layout 
      */
     onBeforeHide(layout) {
         let layoutedPos = layout.getNodePosition(this.id);

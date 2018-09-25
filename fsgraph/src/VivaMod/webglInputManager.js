@@ -3,8 +3,6 @@
  * @author Me
  */
 //@ts-check
-/// <reference path="../@types/ngraph.d.ts" />
-
 import { webglInputEvents } from './webglInputEvents';
 import { Point2D } from '../Point2D';
 import { VivaImageNodeUI } from '../VivaImageNodeUI';
@@ -18,7 +16,7 @@ export class WebGLDnDManager {
         this.internalHandlers = {};
 
         this.inputEvents = webglInputEvents(graphics);
-        /** @type {NgraphGraph.Node} */
+        /** @type {Ngraph.Graph.Node} */
         this.draggedNode = null;
         this.pos = new Point2D(0, 0);
         this.pos2 = new Point2D(0, 0);
@@ -88,7 +86,7 @@ export class WebGLDnDManager {
      * graphics we may listen to DOM events, whereas for WebGL we graphics
      * should provide custom eventing mechanism.
      *
-     * @param {NgraphGraph.Node} node node to be monitored.
+     * @param {Ngraph.Graph.Node} node node to be monitored.
      * @param {DnDHandler} handlers - object with set of three callbacks:
      *   onStart: function(node),
      *   onDrag: function(e, offset, node),
@@ -110,9 +108,9 @@ export class WebGLDnDManager {
 
 export class DnDHandler {
     /**
-     * @param {function(MouseEvent, Point2D, NgraphGraph.Node):void} onStartCallback 
-     * @param {function(MouseEvent, Point2D, NgraphGraph.Node):void} onDragCallback 
-     * @param {function(NgraphGraph.Node):void} onStopCallback 
+     * @param {function(MouseEvent, Point2D, Ngraph.Graph.Node):void} onStartCallback 
+     * @param {function(MouseEvent, Point2D, Ngraph.Graph.Node):void} onDragCallback 
+     * @param {function(Ngraph.Graph.Node):void} onStopCallback 
      */
     constructor(onStartCallback, onDragCallback, onStopCallback) {
         // TODO: add some validation

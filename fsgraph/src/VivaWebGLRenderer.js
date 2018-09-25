@@ -48,9 +48,9 @@ export class VivaWebGLRenderer {
 
         this._renderer = null;
 
-        /** @type {NgraphGraph.Graph} */
+        /** @type {Ngraph.Graph.Graph} */
         this._graphBackend = null;
-        /** @type {NgraphGeneric.Layout} */
+        /** @type {Ngraph.Generic.Layout} */
         this._layoutBackend = null;
         /** @type {GraphController} */
         this._graphController = null;
@@ -109,7 +109,7 @@ export class VivaWebGLRenderer {
     }
 
     /**
-     * @param {NgraphGraph.Graph} value
+     * @param {Ngraph.Graph.Graph} value
      */
     set graphBackend(value) {
         this._graphBackend = value;
@@ -118,7 +118,7 @@ export class VivaWebGLRenderer {
     }
 
     /**
-     * @param {NgraphGeneric.Layout} value
+     * @param {Ngraph.Generic.Layout} value
      */
     set layoutBackend(value) {
         this._layoutBackend = value;
@@ -392,7 +392,7 @@ export class VivaWebGLRenderer {
     }
 
     /**
-     * @param {NgraphGraph.Node} node 
+     * @param {Ngraph.Graph.Node} node 
      */
     _listenNodeEvents(node) {
         // TODO: выбросить проверку, создавать обработчики один раз!
@@ -406,14 +406,14 @@ export class VivaWebGLRenderer {
     }
 
     /**
-     * @param {NgraphGraph.Node} node 
+     * @param {Ngraph.Graph.Node} node 
      */
     _releaseNodeEvents(node) {
         this._inputManager.unbindDragNDrop(node);
     }
 
     _processNodeChange(change) {
-        /** @type {NgraphGraph.Node} */
+        /** @type {Ngraph.Graph.Node} */
         let node = change.node;
 
         if (change.changeType === 'add') {
@@ -458,7 +458,7 @@ export class VivaWebGLRenderer {
 
     /**
      * 
-     * @param {NgraphGeneric.Rect} graphRect 
+     * @param {Ngraph.Generic.Rect} graphRect 
      * @param {{width:number, height:number}} containerSize 
      */
     _updateCenterReal(graphRect, containerSize) {
@@ -473,7 +473,7 @@ export class VivaWebGLRenderer {
 
     /**
      * 
-     * @param {NgraphGeneric.Rect} graphRect 
+     * @param {Ngraph.Generic.Rect} graphRect 
      * @param {{width:number, height:number}} containerSize 
      */
     _scaleToScreen(graphRect, containerSize) {
@@ -540,7 +540,7 @@ export class VivaWebGLRenderer {
 
     /**
      * 
-     * @param {NgraphGraph.Node} node 
+     * @param {Ngraph.Graph.Node} node 
      */
     _createNodeUi(node) {
         var nodePosition = this._layoutBackend.getNodePosition(node.id);
@@ -549,7 +549,7 @@ export class VivaWebGLRenderer {
 
     /**
      * 
-     * @param {NgraphGraph.Node} node 
+     * @param {Ngraph.Graph.Node} node 
      */
     _removeNodeUi(node) {
         this._graphics.releaseNode(node);
@@ -557,7 +557,7 @@ export class VivaWebGLRenderer {
     
     /**
      * 
-     * @param {NgraphGraph.Link} link 
+     * @param {Ngraph.Graph.Link} link 
      */
     _createLinkUi(link) {
         let linkPosition = this._layoutBackend.getLinkPosition(link.id);
@@ -566,7 +566,7 @@ export class VivaWebGLRenderer {
     
     /**
      * 
-     * @param {NgraphGraph.Link} link 
+     * @param {Ngraph.Graph.Link} link 
      */
     _removeLinkUi(link) {
         this._graphics.releaseLink(link);
@@ -575,7 +575,7 @@ export class VivaWebGLRenderer {
     /**
      * 
      * @param {boolean} out 
-     * @param {NgraphGraph.Position} scrollPoint 
+     * @param {Ngraph.Graph.Position} scrollPoint 
      * @returns {number}
      */
     _scale(out, scrollPoint) {
@@ -837,7 +837,7 @@ export class VivaWebGLRenderer {
 
     /**
      * 
-     * @param {NgraphGraph.Position} pos in graph space
+     * @param {Ngraph.Graph.Position} pos in graph space
      */
     centerAtGraphPoint(pos) {
         const containerSize = Viva.Graph.Utils.getDimension(this._container);

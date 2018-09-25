@@ -26,7 +26,7 @@ export class VivaRombusNodeRenderer extends VivaColoredNodeRenderer {
     /**
      * 
      * @param {VivaImageNodeUI} nodeUI 
-     * @param {NgraphGraph.Position} pos 
+     * @param {Ngraph.Graph.Position} pos 
      */
     position(nodeUI, pos) {
         const idx = nodeUI.id * ATTRIBUTES_PER_PRIMITIVE;

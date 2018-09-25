@@ -5,7 +5,6 @@ import { DummyMetrics } from './DummyMetrics';
 import { LayoutBuilder } from './LayoutBuilder';
 import * as DH from './DataHelpers';
 import * as $ from 'jquery';
-/// <reference path="./@types/ngraph.d.ts" />
 
 export class GraphController {
     /**
@@ -27,7 +26,7 @@ export class GraphController {
         this._edgeMetrics = new DummyMetrics(this.monitoredValues);
         
         this.layoutBuilder = LayoutBuilder.buildLayout(layoutName, this._graph);
-        /** @type {NgraphGeneric.Layout} */
+        /** @type {Ngraph.Generic.Layout} */
         this._layoutInstance = this.layoutBuilder.layout;
     }
 
@@ -61,7 +60,7 @@ export class GraphController {
     }
 
     /**
-     * @returns {NgraphGraph.Graph}
+     * @returns {Ngraph.Graph.Graph}
      */
     get graph() {
         return this._graph;
@@ -77,7 +76,7 @@ export class GraphController {
         return this._currentStateId;
     }
 
-    /** @returns {NgraphGeneric.Layout} */
+    /** @returns {Ngraph.Generic.Layout} */
     get layoutInstance() {
         return this._layoutInstance;
     }
