@@ -8,6 +8,7 @@
 
 // @ts-nocheck
 
+/// <reference path="./@types/ngraph.random.d.ts" />
 import random from 'ngraph.random';
 
 import fa2f from './VivaMod/forceForceAtlas2';
