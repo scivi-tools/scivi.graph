@@ -480,6 +480,8 @@ namespace SciViCGraph
                 if (this.m_ringScales) {
                     this.m_ringScales.forEach((rs) => {
                         const rsf = rs.dropHighlight();
+                        if (rsf)
+                            this.contextMenuEnabled = false;
                         f = f || rsf;
                     });
                 }
@@ -537,6 +539,16 @@ namespace SciViCGraph
             this.m_view.onmousedown = onMouseDown;
             this.m_view.onmouseup = onMouseUp;
             this.m_view.onwheel = onWheel;
+
+            $.contextMenu({
+                selector: "#" + this.m_view.id,
+                items: {
+                    foo: {name: "Foo", callback: function(key, opt){ alert("Foo!"); }},
+                    bar: {name: "Bar", callback: function(key, opt){ alert("Bar!") }}
+                }
+            });
+
+            this.contextMenuEnabled = false;
 
             this.m_settings.innerHTML = 
             "<div>" + this.m_localizer["LOC_PASSIVETEXTALPHA"] + "&nbsp;<span id='scivi_node_alpha'>" +
@@ -1244,12 +1256,15 @@ namespace SciViCGraph
             if (this.m_selectedNode)
                 f1 = this.m_selectedNode.handleCursorMove(lx, ly, s, x, y);
             let f2 = false;
+            let m = false;
             if (this.m_ringScales) {
                 this.m_ringScales.forEach((rs) => {
                     const rsf = rs.handleCursorMove(lx, ly, s, x, y);
+                    m = m || (rs.highlightedSegment !== null);
                     f2 = f2 || rsf;
                 });
             }
+            this.contextMenuEnabled = m;
             this.render(f1 || f2, true);
         }
 
@@ -1419,6 +1434,11 @@ namespace SciViCGraph
             this.m_draggedRingIndex = -1;
             if (this.m_ringBorder)
                 this.m_ringBorder.showForRing(null);
+        }
+
+        set contextMenuEnabled(enabled: boolean)
+        {
+            $("#" + this.m_view.id).contextMenu(enabled);
         }
     }
 }

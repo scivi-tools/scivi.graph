@@ -6,6 +6,7 @@ require("jquery-ui/ui/widget");
 require("jquery-ui/ui/mouse");
 require("jquery-ui/ui/slider");
 require("jquery-ui/ui/tabs");
+require("jquery-contextmenu");
 var PIXI = require("pixi.js");
 var Split = require("split.js");
 require("chart.js");
