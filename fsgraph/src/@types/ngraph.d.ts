@@ -14,7 +14,7 @@ declare namespace NgraphGeneric {
     export interface Layout {
         step() : boolean,
         getNodePosition(id: NgraphGraph.ElementId) : NgraphGraph.Position,
-        setNodePosition(id: NgraphGraph.ElementId, x : numer, y?: number, z?:number) : void,
+        setNodePosition(id: NgraphGraph.ElementId, x : number, y?: number, z?:number) : void,
         getGraphRect() : Rect,
         getLinkPosition(id: any) : NgraphGraph.Position2,
         isNodePinned(node : NgraphGraph.Node) : boolean,

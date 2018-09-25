@@ -33,7 +33,7 @@ declare namespace NgraphGraph {
     export type NodeCallback = (Node) => boolean;
     export type LinkCallback = (Link) => boolean;
 
-    export interface Graph extends NgraphEvents.EventifiedObject<Graph> {
+    export interface Graph extends NgraphEvents.EventifiedObject {
         addNode(id: ElementId, data?: any) : Node,
         addLink(fromId: ElementId, toId: ElementId, data?: any) : Link,
         removeLink(link: Link) : boolean,

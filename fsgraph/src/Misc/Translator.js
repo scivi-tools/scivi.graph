@@ -1,5 +1,5 @@
 // @ts-check
-import Poly from 'node-polyglot'
+import * as Polyglot from 'node-polyglot';
 
 export class Translator {
     /**
@@ -9,7 +9,7 @@ export class Translator {
     constructor(locale = 'ru') {
         this._locale = locale;
 
-        this._instance = new Poly({
+        this._instance = new Polyglot({
             allowMissing: false,
             locale
         });

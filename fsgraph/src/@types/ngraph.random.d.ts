@@ -20,5 +20,5 @@ declare interface NgraphRandom extends Ngraph.Random.Random {
 
 declare module 'ngraph.random' {
     export function random(seed?: number | undefined): NgraphRandom;
-    export function randomIterator<T>(values: T[], random: Ngraph.Random.Random = undefined): Ngraph.Random.RandomIterator<T>;
+    export function randomIterator<T>(values: T[], random?: Ngraph.Random.Random): Ngraph.Random.RandomIterator<T>;
 }
