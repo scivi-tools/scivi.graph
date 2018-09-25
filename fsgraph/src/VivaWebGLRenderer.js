@@ -12,10 +12,11 @@ import 'jquery-ui/ui/widgets/button';
 import 'jquery-ui/ui/widgets/tabs';
 import 'jquery-ui/ui/widgets/accordion';
 import 'jquery-ui/ui/widgets/dialog';
-import Split from 'split.js';
+import * as Split from 'split.js';
 import { Point2D } from './Point2D';
 import { NodeUIBuilder } from './NodeUIBuilder';
 import { getOrCreateTranslatorInstance } from './Misc/Translator';
+import { VivaImageNodeUI } from './VivaImageNodeUI';
 
 class RendererTransform {
     constructor(scale = 1, offsetX = 0, offsetY = 0, rot = 0) {
@@ -45,8 +46,6 @@ export class VivaWebGLRenderer {
             this._backend = new VivaWebGLSimpleBackend(new NodeUIBuilder(this));
         }
         this._graphics = this._backend.graphics;
-
-        this._renderer = null;
 
         /** @type {Ngraph.Graph.Graph} */
         this._graphBackend = null;
@@ -114,7 +113,7 @@ export class VivaWebGLRenderer {
     set graphBackend(value) {
         this._graphBackend = value;
         // TODO: обработка событий и всё такое
-        this._inputManager = new WebGLDnDManager(value, this._graphics);
+        this._inputManager = new WebGLDnDManager(this._graphics);
     }
 
     /**
@@ -141,11 +140,11 @@ export class VivaWebGLRenderer {
         this._backend.nodeTypes = value.nodeTypes;
 
         // TODO: inverse dependency!
-        this.graphicsInputListner.click((nodeUI) => {
+        this.graphicsInputListner.click((/** @type {VivaImageNodeUI} */nodeUI) => {
             value.onNodeClick(nodeUI, this._graphBackend, this);
         });
 
-        this.graphicsInputListner.dblClick((nodeUI) => {
+        this.graphicsInputListner.dblClick((/** @type {VivaImageNodeUI} */nodeUI) => {
             if (nodeUI) {
                 this._layoutBackend.pinNode(nodeUI.node, !this._layoutBackend.isNodePinned(nodeUI.node));
             }
@@ -182,6 +181,11 @@ export class VivaWebGLRenderer {
         this.rerender();
     }
 
+    /**
+     * 
+     * @param {number[]} colors 
+     * @param {string[] | undefined} nodeTypes 
+     */
     buildDefaultView(colors, nodeTypes) {
         // TODO: check for graph group count
         let result = new VivaStateView(colors, nodeTypes || [], this);
@@ -412,10 +416,13 @@ export class VivaWebGLRenderer {
         this._inputManager.unbindDragNDrop(node);
     }
 
+    /**
+     * 
+     * @param {Ngraph.Generic.GraphChange} change 
+     * @returns {void}
+     */
     _processNodeChange(change) {
-        /** @type {Ngraph.Graph.Node} */
-        let node = change.node;
-
+        let node = (/** @type {Ngraph.Graph.Node} */(change.node));
         if (change.changeType === 'add') {
             this._createNodeUi(node);
             this._listenNodeEvents(node);
@@ -431,8 +438,13 @@ export class VivaWebGLRenderer {
         }
     }
 
+    /**
+     * 
+     * @param {Ngraph.Generic.GraphChange} change 
+     * @returns {void}
+     */
     _processLinkChange(change) {
-        let link = change.link;
+        let link = (/** @type {Ngraph.Graph.Link} */(change.link));
         if (change.changeType === 'add') {
             this._createLinkUi(link);
         } else if (change.changeType === 'remove') {
@@ -442,6 +454,11 @@ export class VivaWebGLRenderer {
         }
     }
 
+    /**
+     * 
+     * @param {Ngraph.Generic.GraphChange[]} changes 
+     * @returns {void}
+     */
     _onGraphChanged(changes) {
         let i, change;
         for (i = 0; i < changes.length; i += 1) {
@@ -739,6 +756,7 @@ export class VivaWebGLRenderer {
         $(fitToScreenButton).button({
             label: tr.apply('#fit_to_screen')
         });
+        // $(fitToScreenButton).button('option', 'icon', 'ui-icon-arrow-4-diag')
         $(fitToScreenButton).click((ev) => {
             that._fitToScreen();
             that.rerender();

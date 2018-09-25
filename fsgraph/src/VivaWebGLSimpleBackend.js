@@ -59,10 +59,10 @@ export class VivaWebGLSimpleBackend {
 
         this._graphics.init(this._container);
 
-        this._graphics.node((node) => {
+        this._graphics.node((/** @type {Ngraph.Graph.Node} */node) => {
             return this._nodeBuilder.buildUI(this._graphics, node);
         });
-        this._graphics.link((link) => {
+        this._graphics.link((/** @type {Ngraph.Graph.Link} */link) => {
             return new VivaLinkUI(this._graphics, link);
         });
 

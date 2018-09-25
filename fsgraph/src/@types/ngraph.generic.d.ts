@@ -20,5 +20,11 @@ declare namespace Ngraph {
             pinNode(node: Graph.Node, pin : boolean) : void,
             lastMove: number
         }
+
+        export interface GraphChange {
+            changeType: 'add' | 'remove' | 'update';
+            node?: Ngraph.Graph.Node;
+            link?: Ngraph.Graph.Link;
+        }
     }
 }

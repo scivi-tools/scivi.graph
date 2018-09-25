@@ -11,19 +11,23 @@ import { VivaImageNodeUI } from '../VivaImageNodeUI';
  * D'n'D - drag'n'drop
  */
 export class WebGLDnDManager {
-    constructor(graph, graphics) {
+    /**
+     * 
+     * @param {*} graphics 
+     */
+    constructor(graphics) {
         /** @type {Object.<string, DnDHandler>} */
         this.internalHandlers = {};
 
         this.inputEvents = webglInputEvents(graphics);
-        /** @type {Ngraph.Graph.Node} */
+        /** @type {Ngraph.Graph.Node | null} */
         this.draggedNode = null;
         this.pos = new Point2D(0, 0);
         this.pos2 = new Point2D(0, 0);
 
-        this.inputEvents.mouseDown((node, e) => this.onMouseDown(node, e))
-            .mouseUp((node) => this.onMouseUp(node))
-            .mouseMove((node, e) => this.onMouseMove(node, e));
+        this.inputEvents.mouseDown((/** @type {VivaImageNodeUI} */node, /** @type {MouseEvent} */e) => this.onMouseDown(node, e))
+            .mouseUp((/** @type {VivaImageNodeUI} */node) => this.onMouseUp(node))
+            .mouseMove((/** @type {VivaImageNodeUI} */node, /** @type {MouseEvent} */e) => this.onMouseMove(node, e));
     }
 
     /**
@@ -64,7 +68,8 @@ export class WebGLDnDManager {
     /**
      * 
      * @param {VivaImageNodeUI} node 
-     * @param {MouseEvent} e 
+     * @param {MouseEvent} e
+     * @returns {boolean}
      */
     onMouseMove(node, e) {
         if (this.draggedNode) {
@@ -79,6 +84,7 @@ export class WebGLDnDManager {
             this.pos.y = e.clientY;
             return true;
         }
+        return false;
     }
 
     /**
@@ -91,6 +97,7 @@ export class WebGLDnDManager {
      *   onStart: function(node),
      *   onDrag: function(e, offset, node),
      *   onStop: function(node)
+     * @returns {void}
      */
     bindDragNDrop(node, handlers) {
         if (this.internalHandlers[node.id] != null) {
@@ -99,6 +106,11 @@ export class WebGLDnDManager {
         this.internalHandlers[node.id] = handlers;
     }
 
+    /**
+     * 
+     * @param {Ngraph.Graph.Node} node 
+     * @returns {void}
+     */
     unbindDragNDrop(node) {
         if (this.internalHandlers[node.id]) {
             delete this.internalHandlers[node.id];

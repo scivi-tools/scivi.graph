@@ -64,6 +64,13 @@ export class VivaStateView {
         this.buildUI();
     }
 
+    /**
+     * 
+     * @param {number[]} diap 
+     * @param {number} from 
+     * @param {number} to 
+     * @returns {void}
+     */
     _setDiap(diap, from, to) {
         let changed = (from != diap[0]) || (to != diap[1]);
         if (changed) {
@@ -72,6 +79,13 @@ export class VivaStateView {
         }
     }
 
+    /**
+     * 
+     * @param {number[]} diap 
+     * @param {number} value
+     * @param {number} maxValue
+     * @returns {number}
+     */
     _getInterpolated(diap, value, maxValue) {
         return (value >= 0)
         ? (diap[0] + (diap[1] - diap[0]) * value / maxValue)
@@ -123,7 +137,7 @@ export class VivaStateView {
             label.innerText = `${diapNames[i]}: `;
             const numLabel = document.createElement('span');
             // TODO: should be done another way
-            const setDiapLabel = (values) => {
+            const setDiapLabel = (/** @type {number[]} */values) => {
                 numLabel.innerText = `${values[0]}..${values[1]}`;
             };
             setDiapLabel(diapSetters[i]);
@@ -137,9 +151,11 @@ export class VivaStateView {
                 step: diapSteps[i],
                 range: true,
                 slide: (event, ui) => {
-                    that._setDiap(diapSetters[i], ui.values[0], ui.values[1]);
-                    setDiapLabel(ui.values);
-                    that._renderer.rerender();
+                    if (!!ui.values) {
+                        that._setDiap(diapSetters[i], ui.values[0], ui.values[1]);
+                        setDiapLabel(ui.values);
+                        that._renderer.rerender();
+                    }
                 }
             });
 
