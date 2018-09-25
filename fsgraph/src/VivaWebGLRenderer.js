@@ -339,7 +339,7 @@ export class VivaWebGLRenderer {
             dialog.dialog('close');
             this.run(0);
             if (!enableLayout) {
-                this.pause();
+                this.pause()._updateUI();
             }
         };
         dialog.prepend(progressLabel);
@@ -726,13 +726,7 @@ export class VivaWebGLRenderer {
         const controlElement = $('#scivi_fsgraph_control');
 
         const startStopButton = document.createElement('button');
-        /**
-         * 
-         * @param {string} name 
-         */
-        const changeIcon = (name) => {
-            $(startStopButton).button('option', 'icon', name);
-        };
+        startStopButton.id = 'scivi_fsgraph_startstop_button';
         // HACK: Ни дня без веселья! Оказывается, описание типов не соответствует реализации:
         // первое говорит, что в настройках конпки есть "click" callback, а в реализации такого нет!
         // Ну и сущий пустяк: реализация позволяет указать "create" callback, а в типах про него пусто!
@@ -743,13 +737,11 @@ export class VivaWebGLRenderer {
         $(startStopButton).click((ev) => {
             if (that.isManuallyPaused) {
                 that.resume();
-                changeIcon('ui-icon-pause');
             } else {
                 that.pause();
-                changeIcon('ui-icon-play');
             }
+            that._updateUI();
         });
-        changeIcon('ui-icon-pause');
         controlElement.append(startStopButton);
 
         const fitToScreenButton = document.createElement('button');
@@ -762,6 +754,8 @@ export class VivaWebGLRenderer {
             that.rerender();
         });
         controlElement.append(fitToScreenButton);
+
+        this._updateUI();
 
         return $('#scivi_fsgraph_view')[0];
     }
@@ -851,6 +845,15 @@ export class VivaWebGLRenderer {
         });
 
         this._listContainer.appendChild(listItself);
+    }
+
+    _updateUI() {
+        // TODO: completle rewrite this
+        if (this.isManuallyPaused) {
+            $('#scivi_fsgraph_startstop_button').button('option', 'icon', 'ui-icon-play');
+        } else {
+            $('#scivi_fsgraph_startstop_button').button('option', 'icon', 'ui-icon-pause');
+        }
     }
 
     /**
