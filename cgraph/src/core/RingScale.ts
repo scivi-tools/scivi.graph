@@ -200,5 +200,10 @@ namespace SciViCGraph
         {
             return this.m_highlightedSegment === -1 ? null : this.m_highlights[this.m_highlightedSegment];
         }
+
+        get contextSegment(): RingScaleSegment
+        {
+            return this.m_contextSegment === -1 ? null : this.m_highlights[this.m_contextSegment];
+        }
     }
 }

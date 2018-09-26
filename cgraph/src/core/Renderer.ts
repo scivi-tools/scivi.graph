@@ -548,7 +548,9 @@ namespace SciViCGraph
                 items: {
                     add: {
                         name: this.m_localizer["LOC_RING_FILTER_ADD"],
-                        callback: (key, opt) => {}
+                        callback: (key, opt) => {
+                            this.addEqualizerItem();
+                        }
                     },
                     arsc: {
                         name: this.m_localizer["LOC_RING_FILTER_ARCS_GROUP"],
@@ -1177,7 +1179,7 @@ namespace SciViCGraph
         {
             if (this.m_ringScales) {
                 for (let i = 0, n = this.m_ringScales.length; i < n; ++i) {
-                    const segm = this.m_ringScales[i].highlightedSegment;
+                    const segm = this.m_ringScales[i].contextSegment;
                     if (segm) {
                         let needsCraete = true;
                         for (let j = 0, m = this.m_equalizer.length; j < m; ++j) {
