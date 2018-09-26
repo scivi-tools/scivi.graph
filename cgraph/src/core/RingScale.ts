@@ -7,6 +7,7 @@ namespace SciViCGraph
         private m_selections: RingScaleSegment[];
         private m_selectedSegment: number;
         private m_names: string[];
+        private m_contextSegment;
 
         constructor(private m_inRadius: number, private m_outRadius: number, private m_width: number, 
                     private m_fontSize, private m_container: HTMLElement)
@@ -18,6 +19,7 @@ namespace SciViCGraph
             this.m_selections = [];
             this.m_selectedSegment = -1;
             this.m_names = [];
+            this.m_contextSegment = -1;
         }
 
         public addSegment(from: number, to: number, color: number, textColor: number, name: string)
@@ -91,6 +93,7 @@ namespace SciViCGraph
                             if (this.m_highlightedSegment !== -1 && this.m_selectedSegment !== this.m_highlightedSegment)
                                 this.m_highlights[this.m_highlightedSegment].visible = false;
                             this.m_highlightedSegment = i;
+                            this.m_contextSegment = i;
                             this.m_highlights[i].visible = true;
                             if (this.m_names[i].length > 0) {
                                 $(".scivi_graph_tooltip").html(this.m_names[i]);
@@ -109,6 +112,7 @@ namespace SciViCGraph
                     }
                 }
             } else {
+                this.m_contextSegment = -1;
                 return this.dropHighlight();
             }
             return false;
@@ -133,15 +137,15 @@ namespace SciViCGraph
         {
             let result = false;
             if (this.m_selectedSegment !== -1) {
-                if (this.m_selectedSegment !== this.m_highlightedSegment)
+                if (this.m_selectedSegment !== this.m_contextSegment)
                     this.m_highlights[this.m_selectedSegment].visible = false;
                 this.m_selections[this.m_selectedSegment].visible = false;
                 result = true;
             }
-            if (this.m_highlightedSegment === this.m_selectedSegment)
+            if (this.m_highlightedSegment === this.m_selectedSegment && this.m_highlightedSegment !== -1)
                 this.m_selectedSegment = -1;
             else {
-                this.m_selectedSegment = this.m_highlightedSegment;
+                this.m_selectedSegment = this.m_contextSegment;
                 if (this.m_selectedSegment !== -1) {
                     this.m_selections[this.m_selectedSegment].visible = true;
                     result = true;

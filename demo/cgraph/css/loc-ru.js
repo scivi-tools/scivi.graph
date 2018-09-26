@@ -46,5 +46,5 @@ var g_loc_ru = {
     "LOC_RING_FILTER_ADD": "Добавить фильтр",
     "LOC_RING_FILTER_ARCS_GROUP": "Фильтровать дуги",
     "LOC_RING_FILTER_ARCS_GROUP_SINGLE": "Один конец (Shift+LMB)",
-    "LOC_RING_FILTER_ARCS_GROUP_BOTH": "Оба конца (Shift+A+LMB)",
+    "LOC_RING_FILTER_ARCS_GROUP_BOTH": "Оба конца (Alt+LMB)",
 };

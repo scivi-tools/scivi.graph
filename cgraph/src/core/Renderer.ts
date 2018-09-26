@@ -523,10 +523,13 @@ namespace SciViCGraph
                             if (!isInRing[0])
                                 this.selectNode(node);
                             if (!node) {
-                                if (e.shiftKey)
+                                if (e.shiftKey) {
+                                    this.m_ringSegmentFilterBothEnds = false;
                                     this.selectRingSegment();
-                                else if (e.ctrlKey)
-                                    this.addEqualizerItem(); // FIXME: make a menu, don't fuck the mind
+                                } else if (e.altKey) {
+                                    this.m_ringSegmentFilterBothEnds = true;
+                                    this.selectRingSegment();
+                                }
                             }
                         }
                     }
