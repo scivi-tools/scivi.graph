@@ -43,6 +43,8 @@ var g_loc_ru = {
     "LOC_NODE_DATA": "Данные вершины",
     "LOC_FIT_TO_SCREEN": "Вписать в экран",
     "LOC_SORT_BY_RING": "Отсортировать",
-    "LOC_RING_FILTER_1": "Фильтрация по сектору кольца: оба конца дуги",
-    "LOC_RING_FILTER_2": "Фильтрация по сектору кольца: один конец дуги",
+    "LOC_RING_FILTER_ADD": "Добавить фильтр",
+    "LOC_RING_FILTER_ARCS_GROUP": "Фильтровать дуги",
+    "LOC_RING_FILTER_ARCS_GROUP_SINGLE": "Один конец (Shift+LMB)",
+    "LOC_RING_FILTER_ARCS_GROUP_BOTH": "Оба конца (Shift+A+LMB)",
 };

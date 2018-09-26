@@ -43,6 +43,8 @@ var g_loc_en = {
     "LOC_NODE_DATA": "Node data",
     "LOC_FIT_TO_SCREEN": "Fit to screen",
     "LOC_SORT_BY_RING": "Sort",
-    "LOC_RING_FILTER_1": "Ring sector filtering: both ends of arc",
-    "LOC_RING_FILTER_2": "Ring sector filtering: single end of arc",
+    "LOC_RING_FILTER_ADD": "Add filter",
+    "LOC_RING_FILTER_ARCS_GROUP": "Filter arcs",
+    "LOC_RING_FILTER_ARCS_GROUP_SINGLE": "Single end (Shift+LMB)",
+    "LOC_RING_FILTER_ARCS_GROUP_BOTH": "Both ends (Shift+A+LMB)",
 };

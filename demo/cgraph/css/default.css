@@ -141,3 +141,8 @@ ul
     width: 15px;
     cursor: pointer;
 }
+
+.context-menu-item
+{
+    font: 12px Helvetica Neue, Helvetica, Arial, sans-serif;
+}

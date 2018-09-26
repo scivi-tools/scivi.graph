@@ -543,8 +543,29 @@ namespace SciViCGraph
             $.contextMenu({
                 selector: "#" + this.m_view.id,
                 items: {
-                    foo: {name: "Foo", callback: function(key, opt){ alert("Foo!"); }},
-                    bar: {name: "Bar", callback: function(key, opt){ alert("Bar!") }}
+                    add: {
+                        name: this.m_localizer["LOC_RING_FILTER_ADD"],
+                        callback: (key, opt) => {}
+                    },
+                    arsc: {
+                        name: this.m_localizer["LOC_RING_FILTER_ARCS_GROUP"],
+                        items: {
+                            single: {
+                                name: this.m_localizer["LOC_RING_FILTER_ARCS_GROUP_SINGLE"],
+                                callback: (key, opt) => {
+                                    this.m_ringSegmentFilterBothEnds = false;
+                                    this.selectRingSegment();
+                                }
+                            },
+                            both: {
+                                name: this.m_localizer["LOC_RING_FILTER_ARCS_GROUP_BOTH"],
+                                callback: (key, opt) => {
+                                    this.m_ringSegmentFilterBothEnds = true;
+                                    this.selectRingSegment();
+                                }
+                            }
+                        }
+                    }
                 }
             });
 
@@ -569,10 +590,6 @@ namespace SciViCGraph
                     "</td><td>" +
                         "<input id='scivi_apply_fonts' type='button' value='" + this.m_localizer["LOC_APPLY"] + "'/>" +
                 "</td></tr></table><br/><hr/><br/>" +
-            "<input id='scivi_ring_filter_1' name='scivi_ring_filter' type='radio' checked/>" +
-            "<label for='scivi_ring_filter_1'>" + this.m_localizer["LOC_RING_FILTER_1"] + "</label><br/>" +
-            "<input id='scivi_ring_filter_2' name='scivi_ring_filter' type='radio'/>" +
-            "<label for='scivi_ring_filter_2'>" + this.m_localizer["LOC_RING_FILTER_2"] + "</label><br/><br/><hr/><br/>" +
             "<input id='scivi_fit_to_screen' type='button' value='" + this.m_localizer["LOC_FIT_TO_SCREEN"] + "'/>" +
             "<input id='scivi_sort_by_ring' type='button' value='" + this.m_localizer["LOC_SORT_BY_RING"] + "'/>";
 
@@ -662,20 +679,6 @@ namespace SciViCGraph
                 });
                 this.updateStateLineLabels();
             }
-
-            const ringFilter1 = $("#scivi_ring_filter_1")[0] as HTMLInputElement;
-            ringFilter1.onchange = () => {
-                this.m_ringSegmentFilterBothEnds = ringFilter1.checked;
-                if (this.filterEdges())
-                    this.render(true, true);
-            };
-
-            const ringFilter2 = $("#scivi_ring_filter_2")[0] as HTMLInputElement;
-            ringFilter2.onchange = () => {
-                this.m_ringSegmentFilterBothEnds = !ringFilter2.checked;
-                if (this.filterEdges())
-                    this.render(true, true);
-            };
 
             const fitToScreen = $("#scivi_fit_to_screen")[0] as HTMLInputElement;
             fitToScreen.onclick = () => {

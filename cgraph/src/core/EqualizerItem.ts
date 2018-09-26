@@ -75,7 +75,7 @@ namespace SciViCGraph
             const idx = this.m_highlight.fromAngle.toString().replace(".", "-") + "_" +
                         this.m_highlight.toAngle.toString().replace(".", "-") + "_" +
                         this.m_highlight.radius.toString().replace(".", "-");
-            let div = $("<div>");
+            let div = $("<div>", { id: "scivi_equalizer_item" + idx });
             div.html("<div><div align='center'><div style='background-color: " +
                      color2string(this.m_highlight.color) +
                      "; color: " +
