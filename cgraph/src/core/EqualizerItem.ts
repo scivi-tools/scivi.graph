@@ -75,7 +75,7 @@ namespace SciViCGraph
             const idx = this.m_highlight.fromAngle.toString().replace(".", "-") + "_" +
                         this.m_highlight.toAngle.toString().replace(".", "-") + "_" +
                         this.m_highlight.radius.toString().replace(".", "-");
-            let div = $("<div>", { id: "scivi_equalizer_item" + idx });
+            let div = $("<div>", { id: "scivi_equalizer_item_" + idx });
             div.html("<div><div align='center'><div style='background-color: " +
                      color2string(this.m_highlight.color) +
                      "; color: " +
@@ -116,6 +116,9 @@ namespace SciViCGraph
                 step: this.m_edgeWeight.step,
                 slide: (event, ui) => {  } // FIXME
             });
+            if ($("#scivi_cgraph_tabs").length)
+                $("#scivi_cgraph_tabs").tabs("option", "active", 3);
+            $("#scivi_equalizer_item_" + idx)[0].scrollIntoView();
         }
 
         public matches(segment: RingScaleSegment): boolean
