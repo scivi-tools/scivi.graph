@@ -1196,6 +1196,13 @@ namespace SciViCGraph
             }
         }
 
+        public removeEqualizerItem(item: EqualizerItem)
+        {
+            const idx = this.m_equalizer.indexOf(item);
+            if (idx > -1)
+                this.m_equalizer.splice(idx, 1);
+        }
+
         public updateNodesVisibility()
         {
             let r1 = this.filterNodes();

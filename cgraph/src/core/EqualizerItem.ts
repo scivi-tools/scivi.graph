@@ -90,7 +90,7 @@ namespace SciViCGraph
                      this.m_renderer.roundValS(this.m_nodeWeight.max, this.m_nodeWeight.step) +
                      "</span></div>" +
                      "<div id='scivi_node_treshold_slider_" + idx +
-                                "' style='margin: 10px 10px 10px 5px'></div>" +
+                     "' style='margin: 10px 10px 10px 5px'></div>" +
 
                      "<div>" + this.m_renderer.localizer["LOC_EDGES"] +
                      ":&nbsp;<span id='scivi_edge_treshold_" + idx + "'>" +
@@ -116,6 +116,11 @@ namespace SciViCGraph
                 step: this.m_edgeWeight.step,
                 slide: (event, ui) => {  } // FIXME
             });
+            $("#scivi_equalizer_remove_" + idx)[0].onclick = () => {
+                console.log("olol");
+                div.remove();
+                this.m_renderer.removeEqualizerItem(this);
+            };
             if ($("#scivi_cgraph_tabs").length)
                 $("#scivi_cgraph_tabs").tabs("option", "active", 3);
             $("#scivi_equalizer_item_" + idx)[0].scrollIntoView();
