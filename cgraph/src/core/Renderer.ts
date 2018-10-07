@@ -257,6 +257,11 @@ namespace SciViCGraph
 
             this.m_ringSegmentSelected = false;
 
+            this.m_equalizer.forEach((item) => {
+                item.harakiri();
+            });
+            this.m_equalizer = [];
+
             this.createStage();
             
             if (this.m_selectedNode !== null)
