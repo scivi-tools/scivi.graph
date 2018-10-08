@@ -156,5 +156,17 @@ namespace SciViCGraph
         {
             this.m_div.remove();
         }
+
+        public hidesNode(node: Node): boolean
+        {
+            return this.containsNode(node) &&
+                   (node.weight < this.m_nodeWeight.min || node.weight > this.m_nodeWeight.max);
+        }
+
+        public hidesEdge(edge: Edge): boolean
+        {
+            return (this.containsNode(edge.source) || this.containsNode(edge.target)) &&
+                   (edge.weight < this.m_edgeWeight.min || edge.weight > this.m_edgeWeight.max);
+        }
     }
 }

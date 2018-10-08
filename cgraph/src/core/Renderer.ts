@@ -1006,6 +1006,24 @@ namespace SciViCGraph
             return true;
         }
 
+        private isEdgeVisibleByEqualizer(edge: Edge): boolean
+        {
+            for (let i = 0, n = this.m_equalizer.length; i < n; ++i) {
+                if (this.m_equalizer[i].hidesEdge(edge))
+                    return false;
+            }
+            return true;
+        }
+
+        private isNodeVisibleByEqualizer(node: Node): boolean
+        {
+            for (let i = 0, n = this.m_equalizer.length; i < n; ++i) {
+                if (this.m_equalizer[i].hidesNode(node))
+                    return false;
+            }
+            return true;
+        }
+
         private filterEdges(): boolean
         {
             let result = false;
@@ -1014,7 +1032,7 @@ namespace SciViCGraph
             this.currentData().edges.forEach((edge) => {
                 const rv = this.roundVal(edge.weight, this.m_edgeWeight.step);
                 const vis = edge.source.visible && edge.target.visible && rv >= rmin && rv <= rmax &&
-                            this.isEdgeVisibleByRingSegment(edge);
+                            this.isEdgeVisibleByRingSegment(edge) && this.isEdgeVisibleByEqualizer(edge);
                 if (vis !== edge.visible) {
                     edge.visible = vis;
                     result = true;
@@ -1032,7 +1050,8 @@ namespace SciViCGraph
             const rmax = this.roundVal(this.m_nodeWeight.max, this.m_nodeWeight.step);
             this.currentData().nodes.forEach((node) => {
                 const rv = this.roundVal(node.weight, this.m_nodeWeight.step);
-                const vis = node.isShown && rv >= rmin && rv <= rmax;
+                const vis = node.isShown && rv >= rmin && rv <= rmax &&
+                            this.isNodeVisibleByEqualizer(node);
                 if (vis !== node.visible) {
                     node.visible = vis;
                     result = true;
@@ -1204,8 +1223,22 @@ namespace SciViCGraph
         public removeEqualizerItem(item: EqualizerItem)
         {
             const idx = this.m_equalizer.indexOf(item);
-            if (idx > -1)
+            if (idx > -1) {
                 this.m_equalizer.splice(idx, 1);
+                this.equalizeNodes();
+                this.equalizeEdges();
+            }
+        }
+
+        public equalizeNodes()
+        {
+            this.updateNodesVisibility();
+        }
+
+        public equalizeEdges()
+        {
+            if (this.filterEdges())
+                this.render(true, true);
         }
 
         public updateNodesVisibility()
