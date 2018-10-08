@@ -5,7 +5,7 @@ namespace SciViCGraph
         private m_nodeWeight: Range;
         private m_edgeWeight: Range;
         private m_highlight: RingScaleSegment;
-        private m_div: any;
+        private m_div: JQuery;
         private m_hash: string;
 
         constructor(private m_renderer: Renderer, segment: RingScaleSegment)
