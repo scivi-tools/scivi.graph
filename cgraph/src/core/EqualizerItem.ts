@@ -159,14 +159,16 @@ namespace SciViCGraph
 
         public hidesNode(node: Node): boolean
         {
+            const th = this.m_nodeWeight.step / 2.0;
             return this.containsNode(node) &&
-                   (node.weight < this.m_nodeWeight.min || node.weight > this.m_nodeWeight.max);
+                   (node.weight < this.m_nodeWeight.min - th || node.weight > this.m_nodeWeight.max + th);
         }
 
         public hidesEdge(edge: Edge): boolean
         {
+            const th = this.m_edgeWeight.step / 2.0;
             return (this.containsNode(edge.source) || this.containsNode(edge.target)) &&
-                   (edge.weight < this.m_edgeWeight.min || edge.weight > this.m_edgeWeight.max);
+                   (edge.weight < this.m_edgeWeight.min - th || edge.weight > this.m_edgeWeight.max + th);
         }
     }
 }
