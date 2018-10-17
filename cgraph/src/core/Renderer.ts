@@ -650,10 +650,9 @@ namespace SciViCGraph
                 slide: (event, ui) => { this.changeEdgeAlpha(ui.value); }
             });
 
-            const applyFonts = $("#scivi_apply_fonts")[0];
             const nodesFSInput = $("#scivi_nodes_font")[0] as HTMLInputElement;
             const ringFSInput = $("#scivi_ring_font")[0] as HTMLInputElement;
-            applyFonts.onclick = () => {
+            $("#scivi_apply_fonts").click(() => {
                 const nodesFS = parseFloat(nodesFSInput.value);
                 const ringFS = parseFloat(ringFSInput.value);
                 if (!isNaN(nodesFS) && !isNaN(ringFS) &&
@@ -663,7 +662,7 @@ namespace SciViCGraph
                     this.m_ringScaleFontSize = ringFS;
                     this.reinit(false);
                 }
-            };
+            });
 
             if (this.m_stateline)
             {
@@ -685,18 +684,16 @@ namespace SciViCGraph
                 this.updateStateLineLabels();
             }
 
-            const fitToScreen = $("#scivi_fit_to_screen")[0] as HTMLInputElement;
-            fitToScreen.onclick = () => {
+            $("#scivi_fit_to_screen").click(() => {
                 this.fitScale();
                 this.createCache();
                 this.render(true, true);
-            };
+            });
 
-            const sortByRing = $("#scivi_sort_by_ring")[0] as HTMLInputElement;
-            sortByRing.onclick = () => {
+            $("#scivi_sort_by_ring").click(() => {
                 this.sortNodesByRingScale(false);
                 this.reinit(false);
-            };
+            });
 
             $(document).keyup((e) => {
                 if (e.keyCode == 27) {

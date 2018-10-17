@@ -118,10 +118,10 @@ namespace SciViCGraph
                 step: this.m_edgeWeight.step,
                 slide: (event, ui) => { this.changeEdgesTreshold(ui.values); }
             });
-            $("#scivi_equalizer_remove_" + this.m_hash)[0].onclick = () => {
+            $("#scivi_equalizer_remove_" + this.m_hash).click(() => {
                 this.m_div.remove();
                 this.m_renderer.removeEqualizerItem(this);
-            };
+            });
             if ($("#scivi_cgraph_tabs").length)
                 $("#scivi_cgraph_tabs").tabs("option", "active", 3);
             $("#scivi_equalizer_item_" + this.m_hash)[0].scrollIntoView();
