@@ -49,4 +49,5 @@ var g_loc_en = {
     "LOC_RING_FILTER_ARCS_GROUP_BOTH": "Both ends (Alt+LMB)",
     "LOC_FINDSTRING": "Find by string",
     "LOC_FINDREGEXP": "Find by regexp",
+    "LOC_NOT": "Not",
 };

@@ -13,12 +13,14 @@ namespace SciViCGraph
         private m_listDiv: JQuery;
         private m_nodes: Node[];
         private m_listedNodes: Node[];
+        private m_not: boolean;
 
         constructor(private m_list: HTMLElement)
         {
             this.m_listDiv = null;
             this.m_nodes = null;
             this.m_listedNodes = null;
+            this.m_not = false;
         }
 
         private matchStr(str: string, pattern: string, type: ListFilterType): boolean
@@ -31,13 +33,22 @@ namespace SciViCGraph
                         return true;
 
                     case ListFilterType.SubstringFilter:
-                        return str.indexOf(pattern) !== -1;
+                        if (this.m_not)
+                            return str.indexOf(pattern) === -1;
+                        else
+                            return str.indexOf(pattern) !== -1;
 
                     case ListFilterType.StringFilter:
-                        return str === pattern;
+                        if (this.m_not)
+                            return str !== pattern;
+                        else
+                            return str === pattern;
 
                     case ListFilterType.RegExpFilter:
-                        return str.match(pattern) !== null;
+                        if (this.m_not)
+                            return str.match(pattern) === null;
+                        else
+                            return str.match(pattern) !== null;
                 }
             }
 
@@ -65,7 +76,7 @@ namespace SciViCGraph
 
             let div1 = $("<div>");
 
-            let showAll = $("<button/>");
+            let showAll = $("<div>").attr({ class: "scivi_button" });
             showAll.html(renderer.localizer["LOC_SHOWALL"]);
             showAll.click(() => {
                 this.m_listedNodes.forEach((node) => {
@@ -75,7 +86,7 @@ namespace SciViCGraph
             });
             div1.append(showAll);
 
-            let hideAll = $("<button/>");
+            let hideAll = $("<div>").attr({ class: "scivi_button" });
             hideAll.html(renderer.localizer["LOC_HIDEALL"]);
             hideAll.click(() => {
                 this.m_listedNodes.forEach((node) => {
@@ -85,23 +96,32 @@ namespace SciViCGraph
             });
             div1.append(hideAll);
 
-            let div2 = $("<div>");
+            let div2 = $("<div>").css("margin-top", "5px");
 
-            let filter = $("<input/>").attr({ type: "text" });
+            let notBtn = $("<div>").attr({ class: "scivi_button" });
+            notBtn.html(renderer.localizer["LOC_NOT"]);
+            notBtn.click(() => {
+                notBtn.toggleClass("pushed");
+                this.m_not = !this.m_not;
+                this.populate(filter.val(), ListFilterType.SubstringFilter);
+            });
+            div2.append(notBtn);
+
+            let filter = $("<input/>").attr({ type: "text" }).css("margin-right", "5px");
             filter.width("200px");
             filter.on("input", () => {
                 this.populate(filter.val(), ListFilterType.SubstringFilter);
             });
             div2.append(filter);
 
-            let str = $("<button/>");
+            let str = $("<div>").attr({ class: "scivi_button" });
             str.html(renderer.localizer["LOC_FINDSTRING"]);
             str.click(() => {
                 this.populate(filter.val(), ListFilterType.StringFilter);
             });
             div2.append(str);
 
-            let regexp = $("<button/>");
+            let regexp = $("<div>").attr({ class: "scivi_button" });
             regexp.html(renderer.localizer["LOC_FINDREGEXP"]);
             regexp.click(() => {
                 this.populate(filter.val(), ListFilterType.RegExpFilter);

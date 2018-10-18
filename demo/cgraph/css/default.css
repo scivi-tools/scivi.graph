@@ -146,3 +146,34 @@ ul
 {
     font: 12px Helvetica Neue, Helvetica, Arial, sans-serif;
 }
+
+.scivi_button
+{
+    background: #F6F6F6;
+    color: #000;
+    cursor: pointer;
+    border: solid 1px #c5c5c5;
+    border-radius: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 2px;
+    padding-top: 2px;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.scivi_button:hover
+{
+    background: #ededed;
+}
+
+.scivi_button:active
+{
+    background: #007bff;
+}
+
+.scivi_button.pushed
+{
+    background: #007bff;
+    color: #fff;
+}

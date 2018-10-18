@@ -49,4 +49,5 @@ var g_loc_ru = {
     "LOC_RING_FILTER_ARCS_GROUP_BOTH": "Оба конца (Alt+LMB)",
     "LOC_FINDSTRING": "Найти по строке",
     "LOC_FINDREGEXP": "Найти по regexp",
+    "LOC_NOT": "Не",
 };
