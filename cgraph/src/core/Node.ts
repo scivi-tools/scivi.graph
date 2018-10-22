@@ -101,7 +101,8 @@ namespace SciViCGraph
             name.style.fontWeight = "bold";
             name.style.width = "300px";
             name.style.marginRight = "5px";
-            let changeName = document.createElement("button");
+            let changeName = document.createElement("div");
+            changeName.className = "scivi_button";
             changeName.innerHTML = this.m_svRenderer.localizer["LOC_CHANGE"];
             changeName.onclick = () => {
                 this.label = name.value;
@@ -129,26 +130,31 @@ namespace SciViCGraph
 
             let colorInput = document.createElement("input");
             colorInput.type = "color";
+            colorInput.style.marginRight = "5px";
             colorInput.value = color2string(this.groupColor);
             colorInput.onchange = () => { this.m_svRenderer.changeActiveGroupColor(colorInput.value); };
 
-            let qZoomIn = document.createElement("button");
-            qZoomIn.innerHTML = this.m_svRenderer.localizer["LOC_ENTERGROUP"];
-            qZoomIn.onclick = () => {
-                this.m_svRenderer.quasiZoomIn(this.groupID);
-                this.m_svRenderer.clearChartSelection();
-            };
-            if (!this.m_svRenderer.canQuasiZoomIn())
-                qZoomIn.disabled = true;
+            let qZoomIn = null;
+            if (this.m_svRenderer.canQuasiZoomIn()) {
+                qZoomIn = document.createElement("div");
+                qZoomIn.className = "scivi_button";
+                qZoomIn.innerHTML = this.m_svRenderer.localizer["LOC_ENTERGROUP"];
+                qZoomIn.onclick = () => {
+                    this.m_svRenderer.quasiZoomIn(this.groupID);
+                    this.m_svRenderer.clearChartSelection();
+                };
+            }
 
-            let qZoomOut = document.createElement("button");
-            qZoomOut.innerHTML = this.m_svRenderer.localizer["LOC_LEAVEGROUP"];
-            qZoomOut.onclick = () => {
-                this.m_svRenderer.quasiZoomOut();
-                this.m_svRenderer.clearChartSelection();
-            };
-            if (!this.m_svRenderer.canQuasiZoomOut())
-                qZoomOut.disabled = true;
+            let qZoomOut = null;
+            if (this.m_svRenderer.canQuasiZoomOut()) {
+                qZoomOut = document.createElement("div");
+                qZoomOut.className = "scivi_button";
+                qZoomOut.innerHTML = this.m_svRenderer.localizer["LOC_LEAVEGROUP"];
+                qZoomOut.onclick = () => {
+                    this.m_svRenderer.quasiZoomOut();
+                    this.m_svRenderer.clearChartSelection();
+                };
+            }
 
             let nodesList = null;
             if (this.m_edges.length > 0) {
@@ -178,8 +184,10 @@ namespace SciViCGraph
             this.m_info.appendChild(header);
             this.m_info.appendChild(colorLabel);
             this.m_info.appendChild(colorInput);
-            this.m_info.appendChild(qZoomIn);
-            this.m_info.appendChild(qZoomOut);
+            if (qZoomIn)
+                this.m_info.appendChild(qZoomIn);
+            if (qZoomOut)
+                this.m_info.appendChild(qZoomOut);
             if (md) {
                 let dvd1 = document.createElement("div");
                 dvd1.innerHTML = "<hr/>";

@@ -121,23 +121,27 @@ namespace SciViCGraph
                     points[0]._view.backgroundColor = this.color2RGBString(this.m_clInput.value);
                 };
 
-                let qZoomIn = document.createElement("button");
-                qZoomIn.innerHTML = this.m_svRenderer.localizer["LOC_ENTERGROUP"];
-                qZoomIn.onclick = () => {
-                    this.m_svRenderer.quasiZoomIn(this.m_selectedGroupIndex);
-                    this.chartClicked(points);
-                };
-                if (!this.m_svRenderer.canQuasiZoomIn())
-                    qZoomIn.disabled = true;
+                let qZoomIn = null;
+                if (this.m_svRenderer.canQuasiZoomIn()) {
+                    qZoomIn = document.createElement("div");
+                    qZoomIn.className = "scivi_button";
+                    qZoomIn.innerHTML = this.m_svRenderer.localizer["LOC_ENTERGROUP"];
+                    qZoomIn.onclick = () => {
+                        this.m_svRenderer.quasiZoomIn(this.m_selectedGroupIndex);
+                        this.chartClicked(points);
+                    };
+                }
 
-                let qZoomOut = document.createElement("button");
-                qZoomOut.innerHTML = this.m_svRenderer.localizer["LOC_LEAVEGROUP"];
-                qZoomOut.onclick = () => {
-                    this.m_svRenderer.quasiZoomOut();
-                    this.clearSelection();
-                };
-                if (!this.m_svRenderer.canQuasiZoomOut())
-                    qZoomOut.disabled = true;
+                let qZoomOut = null;
+                if (this.m_svRenderer.canQuasiZoomOut()) {
+                    qZoomOut = document.createElement("div");
+                    qZoomOut.className = "scivi_button";
+                    qZoomOut.innerHTML = this.m_svRenderer.localizer["LOC_LEAVEGROUP"];
+                    qZoomOut.onclick = () => {
+                        this.m_svRenderer.quasiZoomOut();
+                        this.clearSelection();
+                    };
+                }
 
                 let listHolder = document.createElement("div");
 
@@ -154,8 +158,10 @@ namespace SciViCGraph
 
                 this.m_list.appendChild(clLabel);
                 this.m_list.appendChild(this.m_clInput);
-                this.m_list.appendChild(qZoomIn);
-                this.m_list.appendChild(qZoomOut);
+                if (qZoomIn)
+                    this.m_list.appendChild(qZoomIn);
+                if (qZoomOut)
+                    this.m_list.appendChild(qZoomOut);
                 this.m_list.appendChild(listHolder);
             } else {
                 this.clearSelection();

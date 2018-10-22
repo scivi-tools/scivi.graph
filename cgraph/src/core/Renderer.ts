@@ -593,10 +593,10 @@ namespace SciViCGraph
                         "' value='" + this.m_ringScaleFontSize.toString() + "' required/></td></tr>" +
                 "</table>" +
                     "</td><td>" +
-                        "<input id='scivi_apply_fonts' type='button' value='" + this.m_localizer["LOC_APPLY"] + "'/>" +
+                        "<div id='scivi_apply_fonts' class='scivi_button'>" + this.m_localizer["LOC_APPLY"] + "</div>" +
                 "</td></tr></table><br/><hr/><br/>" +
-            "<input id='scivi_fit_to_screen' type='button' value='" + this.m_localizer["LOC_FIT_TO_SCREEN"] + "'/>" +
-            "<input id='scivi_sort_by_ring' type='button' value='" + this.m_localizer["LOC_SORT_BY_RING"] + "'/>";
+            "<div id='scivi_fit_to_screen' class='scivi_button'>" + this.m_localizer["LOC_FIT_TO_SCREEN"] + "</div>" +
+            "<div id='scivi_sort_by_ring' class='scivi_button'>" + this.m_localizer["LOC_SORT_BY_RING"] + "</div>";
 
             this.m_filters.innerHTML =
                 "<div>" + 
