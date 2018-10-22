@@ -112,7 +112,7 @@ namespace SciViCGraph
 
             let customPropList = "";
             for (let prop in this.m_dict) {
-                if (prop !== "id" && prop !== "label" && prop !== "group" && prop !== "date")
+                if (prop !== "id" && prop !== "label" && prop !== "group" && prop !== "date" && prop !== "metadata")
                     customPropList += "<li>" + prop + ": " + this.m_dict[prop] + "</li>";
                 else if (prop === "date")
                     customPropList += "<li>" + prop + ": " + this.date.toLocaleDateString() + "</li>";
@@ -163,6 +163,12 @@ namespace SciViCGraph
             connList += "</ul>";
             nodesList.innerHTML = connList;
 
+            let md = null;
+            if (this.m_dict["metadata"] !== undefined) {
+                md = document.createElement("div");
+                md.innerHTML = this.m_dict["metadata"];
+            }
+
             while (this.m_info.firstChild)
                 this.m_info.removeChild(this.m_info.firstChild);
 
@@ -172,6 +178,12 @@ namespace SciViCGraph
             this.m_info.appendChild(qZoomIn);
             this.m_info.appendChild(qZoomOut);
             this.m_info.appendChild(nodesList);
+            if (md) {
+                let dvd = document.createElement("div");
+                dvd.innerHTML = "<hr/>";
+                this.m_info.appendChild(dvd);
+                this.m_info.appendChild(md);
+            }
         }
 
         public postListItem(list: HTMLElement)
