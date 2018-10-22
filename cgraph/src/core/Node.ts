@@ -150,18 +150,21 @@ namespace SciViCGraph
             if (!this.m_svRenderer.canQuasiZoomOut())
                 qZoomOut.disabled = true;
 
-            let nodesList = document.createElement("div");
-            let connList = "<div>" + this.m_svRenderer.localizer["LOC_LINKEDNODES"] + "</div><ul>";
-            this.m_edges.forEach((edge) => {
-                if (edge.visible) {
-                    if (edge.target !== this)
-                        connList += "<li>" + edge.target.label + "</li>";
-                    else
-                        connList += "<li>" + edge.source.label + "</li>";
-                }
-            });
-            connList += "</ul>";
-            nodesList.innerHTML = connList;
+            let nodesList = null;
+            if (this.m_edges.length > 0) {
+                nodesList = document.createElement("div");
+                let connList = "<div>" + this.m_svRenderer.localizer["LOC_LINKEDNODES"] + "</div><ul>";
+                this.m_edges.forEach((edge) => {
+                    if (edge.visible) {
+                        if (edge.target !== this)
+                            connList += "<li>" + edge.target.label + "</li>";
+                        else
+                            connList += "<li>" + edge.source.label + "</li>";
+                    }
+                });
+                connList += "</ul>";
+                nodesList.innerHTML = connList;
+            }
 
             let md = null;
             if (this.m_dict["metadata"] !== undefined) {
@@ -177,13 +180,17 @@ namespace SciViCGraph
             this.m_info.appendChild(colorInput);
             this.m_info.appendChild(qZoomIn);
             this.m_info.appendChild(qZoomOut);
-            this.m_info.appendChild(nodesList);
             if (md) {
-                let dvd = document.createElement("div");
-                dvd.innerHTML = "<hr/>";
-                this.m_info.appendChild(dvd);
+                let dvd1 = document.createElement("div");
+                dvd1.innerHTML = "<hr/>";
+                let dvd2 = document.createElement("div");
+                dvd2.innerHTML = "<hr/>";
+                this.m_info.appendChild(dvd1);
                 this.m_info.appendChild(md);
+                this.m_info.appendChild(dvd2)
             }
+            if (nodesList)
+                this.m_info.appendChild(nodesList);
         }
 
         public postListItem(list: HTMLElement)
