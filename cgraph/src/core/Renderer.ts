@@ -705,6 +705,11 @@ namespace SciViCGraph
                     this.m_mousePressed = false; // Ensure panning is actually blocked by mouse move.
                     if (this.m_cursorPos.x !== undefined && this.m_cursorPos.y !== undefined)
                         this.hoverGraph(this.m_cursorPos.x, this.m_cursorPos.y);
+                } else if (e.keyCode === 72) {
+                    if (this.m_selectedNode) {
+                        this.m_selectedNode.isShown = false;
+                        this.updateNodesVisibility();
+                    }
                 }
             });
         }
