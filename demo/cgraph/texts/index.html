@@ -31,7 +31,8 @@
 
             function main()
             {
-                var loc = getParameterByName("lang") === "ru" ? g_loc_ru : g_loc_en;
+                var locRus = getParameterByName("lang") === "ru";
+                var loc = locRus ? g_loc_ru : g_loc_en;
 
                 var graph = new CGraph();
 
@@ -42,7 +43,9 @@
 
                 g.nodes.sort(function (x1, x2) { return x1.custom["nmb"] - x2.custom["nmb"]; });
 
-                var renderer = graph.run(loc, [g], []);
+                var renderer = graph.run(loc, [g], [],
+                                         locRus ? "Текст \"Русь\"" : "Text \"Rus\"",
+                                         locRus ? "Текст \"Русь\"" : "Text \"Rus\"");
             }
         </script>
     </head>

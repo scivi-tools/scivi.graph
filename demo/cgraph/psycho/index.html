@@ -50,7 +50,8 @@
 
             function main()
             {
-                var loc = getParameterByName("lang") === "ru" ? g_loc_ru : g_loc_en;
+                var locRus = getParameterByName("lang") === "ru";
+                var loc = locRus ? g_loc_ru : g_loc_en;
 
                 var graph = new CGraph();
 
@@ -85,7 +86,9 @@
                 "None" ];
                 var scale2 = graph.createScale(steps2, colors2, textColors2, names2, function (node) { return node.custom["group2"]; });
 
-                var renderer = graph.run(loc, states, [scale2, scale1], colors1);
+                var renderer = graph.run(loc, states, [scale2, scale1], colors1,
+                                         locRus ? "Психологические параметры" : "Psychological Parameters",
+                                         locRus ? "Психологические параметры" : "Psychological Parameters");
             }
         </script>
     </head>

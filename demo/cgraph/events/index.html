@@ -32,7 +32,8 @@
 
             function main()
             {
-                var loc = getParameterByName("lang") === "ru" ? g_loc_ru : g_loc_en;
+                var locRus = getParameterByName("lang") === "ru";
+                var loc = locRus ? g_loc_ru : g_loc_en;
 
                 var graph = new CGraph();
 
@@ -87,7 +88,9 @@
                 ];
                 var scale = graph.createScale(steps, colors, textColors, names, (node) => { return node.date; });
 
-                var renderer = graph.run(loc, [g], [scale]);
+                var renderer = graph.run(loc, [g], [scale],
+                                         locRus ? "Медиасобытия 2017 года" : "Mediaevents 2017",
+                                         locRus ? "Медиасобытия 2017 года" : "Mediaevents 2017");
             }
         </script>
     </head>

@@ -63,7 +63,9 @@
                              [ "None", "Hall 1", "Hall 2", "Hall 3", "Hall 4", "Hall 5", "None" ];
                 var scale2 = graph.createScale(steps2, colors2, textColors2, names2, function (node) { return node.custom["hall"]; });
 
-                var renderer = graph.run(loc, [g], [scale2, scale1]);
+                var renderer = graph.run(loc, [g], [scale2, scale1],
+                                         locRus ? "Распределённая сеть устройств Интернета вещей" : "Distributed IoT Network",
+                                         locRus ? "Распределённая сеть устройств Интернета вещей" : "Distributed IoT Network");
             }
         </script>
     </head>

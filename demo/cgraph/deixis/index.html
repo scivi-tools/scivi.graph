@@ -49,7 +49,8 @@
 
             function main()
             {
-                var loc = getParameterByName("lang") === "ru" ? g_loc_ru : g_loc_en;
+                var locRus = getParameterByName("lang") === "ru";
+                var loc = locRus ? g_loc_ru : g_loc_en;
 
                 var graph = new CGraph();
 
@@ -96,7 +97,9 @@
 
                 var renderer = graph.run(loc, states, [scale2, scale1], [ 0x459100,
                                 0xF06513, 0xDF8D00, 0xF06513, 0xDF8D00,
-                                0x7337FF, 0x007F9A ]);
+                                0x7337FF, 0x007F9A ], 
+                                locRus ? "Дейксис: информанты" : "Deixis: Informants",
+                                locRus ? "Дейксис: информанты" : "Deixis: Informants");
             }
         </script>
     </head>
