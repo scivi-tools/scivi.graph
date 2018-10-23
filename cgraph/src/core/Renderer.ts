@@ -431,7 +431,10 @@ namespace SciViCGraph
 
             let onWheel = (e) => {
                 e = e || window.event;
-                let delta = e.deltaY || e.detail || e.wheelDelta;
+                const rect = e.target.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const delta = e.deltaY || e.detail || e.wheelDelta;
 
                 if (delta !== undefined) {
                     if (this.m_zoomTimerID !== null)
@@ -439,15 +442,15 @@ namespace SciViCGraph
 
                     const d = 1.05;
                     let s = this.m_renderingCache.scale * (delta > 0 ? 1 / d : d);
-                    let minS = 0.1 / this.m_stage.scale.x;
-                    let maxS = 1.0 / this.m_stage.scale.x;
+                    const minS = 0.1 / this.m_stage.scale.x;
+                    const maxS = 1.0 / this.m_stage.scale.x;
                     if (s < minS)
                         s = minS;
                     else if (s > maxS)
                         s = maxS;
-                    let ds = 1.0 - s / this.m_renderingCache.scale;
-                    let dx = (e.clientX - this.m_renderingCache.x) * ds;
-                    let dy = (e.clientY - this.m_renderingCache.y) * ds;
+                    const ds = 1.0 - s / this.m_renderingCache.scale;
+                    const dx = (x - this.m_renderingCache.x) * ds;
+                    const dy = (y - this.m_renderingCache.y) * ds;
                     this.m_renderingCache.scale = s;
                     this.m_renderingCache.x += dx;
                     this.m_renderingCache.y += dy;
@@ -459,18 +462,21 @@ namespace SciViCGraph
 
             let onMouseMove = (e) => {
                 e = e || window.event;
-                this.m_cursorPos.x = e.clientX;
-                this.m_cursorPos.y = e.clientY;
+                const rect = e.target.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                this.m_cursorPos.x = x;
+                this.m_cursorPos.y = y;
                 if (this.m_mousePressed) {
                     if (this.m_draggedNodeIndex !== -1)
-                        this.dragNode(e.clientX, e.clientY);
+                        this.dragNode(x, y);
                     else if (this.m_draggedRingIndex !== -1)
-                        this.dragRing(e.clientX, e.clientY);
+                        this.dragRing(x, y);
                     else
-                        this.panGraph(e.clientX, e.clientY);
+                        this.panGraph(x, y);
                 } else {
                     if (e.buttons === 0)
-                        this.hoverGraph(e.clientX, e.clientY);
+                        this.hoverGraph(x, y);
                 }
             };
 
@@ -500,11 +506,14 @@ namespace SciViCGraph
 
             let onMouseDown = (e) => {
                 e = e || window.event;
+                const rect = e.target.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
                 this.m_mousePressed = true;
-                if (!this.startDragNode(e.clientX, e.clientY) && !this.startDragRing(e.clientX, e.clientY)) {
+                if (!this.startDragNode(x, y) && !this.startDragRing(x, y)) {
                     // If not drag, then pan.
-                    this.m_panPrevX = e.clientX;
-                    this.m_panPrevY = e.clientY;
+                    this.m_panPrevX = x;
+                    this.m_panPrevY = y;
                 }
             };
 
@@ -513,13 +522,16 @@ namespace SciViCGraph
                     this.m_mousePressed = false;
                     if (!this.m_panning) {
                         e = e || window.event;
-                        if (!this.dropNode(e.clientX, e.clientY) && !this.dropRing(e.clientX, e.clientY)) {
+                        const rect = e.target.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        if (!this.dropNode(x, y) && !this.dropRing(x, y)) {
                             this.m_clickCaught = true;
                             let isInRing = [ false ];
-                            const x = e.clientX - this.m_renderingCache.x;
-                            const y = e.clientY - this.m_renderingCache.y;
+                            const dx = x - this.m_renderingCache.x;
+                            const dy = y - this.m_renderingCache.y;
                             const s = this.m_renderingCache.currentScale();
-                            const node = this.getNodeByPosition(x, y, s, isInRing);
+                            const node = this.getNodeByPosition(dx, dy, s, isInRing);
                             if (!isInRing[0])
                                 this.selectNode(node);
                             if (!node) {
