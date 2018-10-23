@@ -36,13 +36,20 @@ CGraph.prototype.createScale = function (steps, colors, textColors, names, getVa
     return new SciViCGraph.Scale(steps, colors, textColors, names, getValue);
 }
 
-CGraph.prototype.run = function (loc, data, scales, colors)
+CGraph.prototype.run = function (loc, data, scales, colors, title, info)
 {
     var split1 = $("<div>");
-    if (data.length > 1)
-        split1.html("<div id=\"scivi_cgraph_view\" style=\"height: calc(100vh - 70px);\"></div><div id=\"scivi_cgraph_stateline\"></div>");
-    else
-        split1.html("<div id=\"scivi_cgraph_view\"></div>");
+    if (title) {
+        if (data.length > 1)
+            split1.html("<div id=\"scivi_cgraph_title\">" + title + "</div><div id=\"scivi_cgraph_view\" style=\"height: calc(100vh - 100px);\"></div><div id=\"scivi_cgraph_stateline\"></div>");
+        else
+            split1.html("<div id=\"scivi_cgraph_title\">" + title + "</div><div id=\"scivi_cgraph_view\"></div>");
+    } else {
+        if (data.length > 1)
+            split1.html("<div id=\"scivi_cgraph_view\" style=\"height: calc(100vh - 70px);\"></div><div id=\"scivi_cgraph_stateline\"></div>");
+        else
+            split1.html("<div id=\"scivi_cgraph_view\"></div>");
+    }
     split1.attr("id", "scivi_cgraph_a");
     split1.attr("class", "split split-horizontal");
 
@@ -54,12 +61,14 @@ CGraph.prototype.run = function (loc, data, scales, colors)
         "        <li><a href=\"#scivi_cgraph_settings\">" + loc["LOC_SETTINGS"] + "</a></li>" +
         "        <li><a href=\"#scivi_cgraph_filters\">" + loc["LOC_FILTERS"] + "</a></li>" +
         "        <li><a href=\"#scivi_cgraph_stats\">" + loc["LOC_GROUPS"] + "</a></li>" +
+        (info ? "        <li><a href=\"#scivi_cgraph_ginfo\">" + loc["LOC_GINFO"] + "</a></li>" : "") +
         "    </ul>" +
         "    <div id=\"scivi_cgraph_info\"></div>" +
         "    <div id=\"scivi_cgraph_list\"></div>" +
         "    <div id=\"scivi_cgraph_settings\"></div>" +
         "    <div id=\"scivi_cgraph_filters\"></div>" +
         "    <div id=\"scivi_cgraph_stats\"></div>" +
+        (info ? "    <div id=\"scivi_cgraph_ginfo\">" + info + "</div>" : "") +
         "</div>"
     );
     split2.attr("id", "scivi_cgraph_b");

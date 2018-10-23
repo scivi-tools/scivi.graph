@@ -29,7 +29,15 @@ ul
     overflow: hidden;
 }
 
-#scivi_cgraph_info, #scivi_cgraph_list
+#scivi_cgraph_title
+{
+    font: 12px Helvetica Neue, Helvetica, Arial, sans-serif;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#scivi_cgraph_info, #scivi_cgraph_ginfo, #scivi_cgraph_list
 {
     font: 12px Helvetica Neue, Helvetica, Arial, sans-serif;
     padding: 10px 10px 10px 20px;

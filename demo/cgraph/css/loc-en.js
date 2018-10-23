@@ -13,6 +13,7 @@ var g_loc_en = {
     "LOC_JUL": "July",
     "LOC_AUG": "August",
     "LOC_INFO": "Node info",
+    "LOC_GINFO": "Graph info",
     "LOC_NODES": "Nodes",
     "LOC_EDGES": "Edges",
     "LOC_SETTINGS": "Settings",

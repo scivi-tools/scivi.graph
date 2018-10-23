@@ -746,7 +746,8 @@ namespace SciViCGraph
 
         private fitScale()
         {
-            const radius = Math.min(this.m_view.offsetWidth, this.m_view.offsetHeight) / 2.0;
+            const aaPadding = 3;
+            const radius = Math.min(this.m_view.offsetWidth, this.m_view.offsetHeight - aaPadding) / 2.0;
             let s = radius / this.m_totalRadius;
             if (s > 1.0)
                 s = 1.0;
