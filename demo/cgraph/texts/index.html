@@ -43,7 +43,7 @@
 
                 g.nodes.sort(function (x1, x2) { return x1.custom["nmb"] - x2.custom["nmb"]; });
 
-                var renderer = graph.run(loc, [g], [],
+                var renderer = graph.run(loc, [g], [], null,
                                          locRus ? "Текст \"Русь\"" : "Text \"Rus\"",
                                          locRus ? "Текст \"Русь\"" : "Text \"Rus\"");
             }
