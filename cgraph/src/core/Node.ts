@@ -128,16 +128,26 @@ namespace SciViCGraph
             colorLabel.innerHTML = this.m_svRenderer.localizer["LOC_GROUP"] + ": " + (this.groupID + 1) + 
                                    ". " + this.m_svRenderer.localizer["LOC_COLOR"] + ":&nbsp;";
 
+            let colorWrapper = document.createElement("label");
+            colorWrapper.className = "scivi_color_wrapper";
+            colorWrapper.style.backgroundColor = color2string(this.groupColor);
+
             let colorInput = document.createElement("input");
             colorInput.type = "color";
-            colorInput.style.marginRight = "5px";
+            colorInput.className = "scivi_color_input";
             colorInput.value = color2string(this.groupColor);
-            colorInput.onchange = () => { this.m_svRenderer.changeActiveGroupColor(colorInput.value); };
+            colorInput.onchange = () => {
+                colorWrapper.style.backgroundColor = colorInput.value;
+                this.m_svRenderer.changeActiveGroupColor(colorInput.value);
+            };
+
+            colorWrapper.appendChild(colorInput);
 
             let qZoomIn = null;
             if (this.m_svRenderer.canQuasiZoomIn()) {
                 qZoomIn = document.createElement("div");
                 qZoomIn.className = "scivi_button";
+                qZoomIn.style.marginLeft = "47px";
                 qZoomIn.innerHTML = this.m_svRenderer.localizer["LOC_ENTERGROUP"];
                 qZoomIn.onclick = () => {
                     this.m_svRenderer.quasiZoomIn(this.groupID);
@@ -149,6 +159,7 @@ namespace SciViCGraph
             if (this.m_svRenderer.canQuasiZoomOut()) {
                 qZoomOut = document.createElement("div");
                 qZoomOut.className = "scivi_button";
+                qZoomOut.style.marginLeft = "47px";
                 qZoomOut.innerHTML = this.m_svRenderer.localizer["LOC_LEAVEGROUP"];
                 qZoomOut.onclick = () => {
                     this.m_svRenderer.quasiZoomOut();
@@ -183,7 +194,7 @@ namespace SciViCGraph
 
             this.m_info.appendChild(header);
             this.m_info.appendChild(colorLabel);
-            this.m_info.appendChild(colorInput);
+            this.m_info.appendChild(colorWrapper);
             if (qZoomIn)
                 this.m_info.appendChild(qZoomIn);
             if (qZoomOut)
