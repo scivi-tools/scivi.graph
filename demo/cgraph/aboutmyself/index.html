@@ -64,7 +64,7 @@
                 var names3 = [ "", loc["LOC_EDUCATION_MIDDLE"], loc["LOC_EDUCATION_HIGH"], "" ];
                 var scale3 = graph.createScale(steps3, colors3, textColors3, names3, function (node) { return node.custom["education"]; });
 
-                var renderer = graph.run(loc, [g], [scale3, scale2, scale1],
+                var renderer = graph.run(loc, [g], [scale3, scale2, scale1], null,
                                          locRus ? "Рассказ информантов о себе" : "Informants Talking about Themselves",
                                          locRus ? "Рассказ информантов о себе" : "Informants Talking about Themselves");
             }
