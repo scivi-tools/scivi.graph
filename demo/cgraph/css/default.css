@@ -113,6 +113,7 @@ ul
     border: 1px solid #333333;
     padding: 3px;
     pointer-events: none;
+    z-index: 10000;
 }
 
 .scivi_stateline label 
@@ -148,6 +149,11 @@ ul
     display: inline-block;
     width: 15px;
     cursor: pointer;
+}
+
+.context-menu-list
+{
+    z-index: 10000 !important;
 }
 
 .context-menu-item
