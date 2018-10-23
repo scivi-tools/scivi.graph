@@ -10,6 +10,7 @@ require("jquery-contextmenu");
 var PIXI = require("pixi.js");
 var Split = require("split.js");
 require("chart.js");
+var ColorPicker = require("vanilla-picker");
 
 var SciViCGraph = require("../../build/scivi-cgraph.js");
 
@@ -100,6 +101,7 @@ CGraph.prototype.run = function (loc, data, scales, colors, title, info)
                         0xff00ff, 0xffff00, 0x00ffff];
 
     renderer.setInput(data, colors);
+    renderer.setColorPicker(ColorPicker);
     renderer.scaleLevels = scales;
     renderer.sortNodesByRingScale(true);
     renderer.run();

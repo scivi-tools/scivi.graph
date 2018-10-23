@@ -128,26 +128,28 @@ namespace SciViCGraph
             colorLabel.innerHTML = this.m_svRenderer.localizer["LOC_GROUP"] + ": " + (this.groupID + 1) + 
                                    ". " + this.m_svRenderer.localizer["LOC_COLOR"] + ":&nbsp;";
 
-            let colorWrapper = document.createElement("label");
+            const cl = color2string(this.groupColor);
+
+            let colorWrapper = document.createElement("div");
+            colorWrapper.innerHTML = "&nbsp;";
             colorWrapper.className = "scivi_color_wrapper";
-            colorWrapper.style.backgroundColor = color2string(this.groupColor);
+            colorWrapper.style.backgroundColor = cl;
 
-            let colorInput = document.createElement("input");
-            colorInput.type = "color";
-            colorInput.className = "scivi_color_input";
-            colorInput.value = color2string(this.groupColor);
-            colorInput.onchange = () => {
-                colorWrapper.style.backgroundColor = colorInput.value;
-                this.m_svRenderer.changeActiveGroupColor(colorInput.value);
-            };
-
-            colorWrapper.appendChild(colorInput);
+            const colorInput = this.m_svRenderer.createColorPicker({
+                parent: colorWrapper,
+                color: cl,
+                alpha: false,
+                onDone: (color) => {
+                    const c = color.hex.substring(0, 7);
+                    colorWrapper.style.backgroundColor = c;
+                    this.m_svRenderer.changeActiveGroupColor(c);
+                }
+            });
 
             let qZoomIn = null;
             if (this.m_svRenderer.canQuasiZoomIn()) {
                 qZoomIn = document.createElement("div");
                 qZoomIn.className = "scivi_button";
-                qZoomIn.style.marginLeft = "47px";
                 qZoomIn.innerHTML = this.m_svRenderer.localizer["LOC_ENTERGROUP"];
                 qZoomIn.onclick = () => {
                     this.m_svRenderer.quasiZoomIn(this.groupID);
@@ -159,7 +161,6 @@ namespace SciViCGraph
             if (this.m_svRenderer.canQuasiZoomOut()) {
                 qZoomOut = document.createElement("div");
                 qZoomOut.className = "scivi_button";
-                qZoomOut.style.marginLeft = "47px";
                 qZoomOut.innerHTML = this.m_svRenderer.localizer["LOC_LEAVEGROUP"];
                 qZoomOut.onclick = () => {
                     this.m_svRenderer.quasiZoomOut();

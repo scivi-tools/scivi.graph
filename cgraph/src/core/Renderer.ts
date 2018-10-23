@@ -84,6 +84,7 @@ namespace SciViCGraph
         private m_ringSegmentFilterBothEnds: boolean;
         private m_ringSegmentSelected: boolean;
         private m_equalizer: EqualizerItem[];
+        private m_colorPicker: any;
 
         static readonly m_ringScaleWidth = 30;
         static readonly m_minFontSize = 5;
@@ -129,6 +130,16 @@ namespace SciViCGraph
         {
             this.m_data = states;
             this.m_colors = colors;
+        }
+
+        public setColorPicker(cp: any)
+        {
+            this.m_colorPicker = cp;
+        }
+
+        public createColorPicker(options: {}): any
+        {
+            return new this.m_colorPicker(options);
         }
 
         public run()

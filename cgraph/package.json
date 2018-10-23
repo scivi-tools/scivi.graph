@@ -22,7 +22,8 @@
     "ngraph.graph": "0.0.14",
     "ngraph.louvain": "1.0.1",
     "pixi.js": "^4.7.3",
-    "split.js": "^1.3.5"
+    "split.js": "^1.3.5",
+    "vanilla-picker": "^2.6.0"
   },
   "devDependencies": {
     "browserify": "^14.5.0",

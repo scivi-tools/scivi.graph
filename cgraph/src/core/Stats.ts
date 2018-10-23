@@ -17,7 +17,8 @@ namespace SciViCGraph
         private m_nodes: Node[];
         private m_tooltip: HTMLElement;
         private m_list: HTMLElement;
-        private m_clInput: HTMLInputElement;
+        private m_clInput: any;
+        private m_clWrapper: HTMLElement;
         private m_selectedGroupIndex: number;
 
         constructor(private m_stats: HTMLElement, private m_svRenderer)
@@ -44,6 +45,7 @@ namespace SciViCGraph
             this.m_tooltip = null;
             this.m_list = null;
             this.m_clInput = null;
+            this.m_clWrapper = null;
             this.m_selectedGroupIndex = -1;
         }
 
@@ -113,13 +115,24 @@ namespace SciViCGraph
                 clLabel.innerHTML = this.m_svRenderer.localizer["LOC_GROUP"] + ": " + (this.m_selectedGroupIndex + 1) + ". " +
                                     this.m_svRenderer.localizer["LOC_COLOR"] + ":&nbsp;";
 
-                this.m_clInput = document.createElement("input");
-                this.m_clInput.type = "color";
-                this.m_clInput.value = this.rgbString2color(points[0]._view.backgroundColor);
-                this.m_clInput.onchange = () => {
-                    this.m_svRenderer.changeGroupColor(this.m_selectedGroupIndex, this.m_clInput.value);
-                    points[0]._view.backgroundColor = this.color2RGBString(this.m_clInput.value);
-                };
+                const cl = this.rgbString2color(points[0]._view.backgroundColor);
+
+                this.m_clWrapper = document.createElement("div");
+                this.m_clWrapper.innerHTML = "&nbsp;";
+                this.m_clWrapper.className = "scivi_color_wrapper";
+                this.m_clWrapper.style.backgroundColor = cl;
+
+                this.m_clInput = this.m_svRenderer.createColorPicker({
+                    parent: this.m_clWrapper,
+                    color: cl,
+                    alpha: false,
+                    onDone: (color) => {
+                        const c = color.hex.substring(0, 7);
+                        this.m_clWrapper.style.backgroundColor = c;
+                        this.m_svRenderer.changeGroupColor(this.m_selectedGroupIndex, c);
+                        points[0]._view.backgroundColor = this.color2RGBString(c);
+                    }
+                });
 
                 let qZoomIn = null;
                 if (this.m_svRenderer.canQuasiZoomIn()) {
@@ -157,7 +170,7 @@ namespace SciViCGraph
                     this.m_list.removeChild(this.m_list.firstChild);
 
                 this.m_list.appendChild(clLabel);
-                this.m_list.appendChild(this.m_clInput);
+                this.m_list.appendChild(this.m_clWrapper);
                 if (qZoomIn)
                     this.m_list.appendChild(qZoomIn);
                 if (qZoomOut)
@@ -179,6 +192,7 @@ namespace SciViCGraph
             this.m_list.appendChild(hint);
 
             this.m_clInput = null;
+            this.m_clWrapper = null;
             this.m_selectedGroupIndex = -1;
         }
 
@@ -192,8 +206,11 @@ namespace SciViCGraph
             }];
             this.m_data.labels = this.generateGroupNames(data.length)
 
-            if (this.m_selectedGroupIndex >= 0)
-                this.m_clInput.value = color2string(colors[this.m_selectedGroupIndex]);
+            if (this.m_selectedGroupIndex >= 0) {
+                const c = color2string(colors[this.m_selectedGroupIndex]);
+                this.m_clWrapper.style.backgroundColor = c;
+                this.m_clInput.setColor(c, true);
+            }
 
             if (this.m_chart)
                 this.m_chart.update();
