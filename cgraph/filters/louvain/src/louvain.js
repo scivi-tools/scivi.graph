@@ -6,10 +6,12 @@ var Louvain = {
         var graph = create();
 
         data.nodes.forEach(function (node) {
-            graph.addNode(node.id, node);
+            if (node.visible)
+                graph.addNode(node.id, node);
         });
         data.edges.forEach(function (edge) {
-            graph.addLink(edge.source.id, edge.target.id);
+            if (edge.visible)
+                graph.addLink(edge.source.id, edge.target.id);
         });
 
         var clusters = detect(graph);

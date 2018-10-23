@@ -85,6 +85,7 @@ namespace SciViCGraph
         private m_ringSegmentSelected: boolean;
         private m_equalizer: EqualizerItem[];
         private m_colorPicker: any;
+        private m_modularityFilters: any[];
 
         static readonly m_ringScaleWidth = 30;
         static readonly m_minFontSize = 5;
@@ -117,6 +118,8 @@ namespace SciViCGraph
             this.m_ringSegmentFilterBothEnds = true;
             this.m_ringSegmentSelected = false;
             this.m_equalizer = [];
+            this.m_colorPicker = null;
+            this.m_modularityFilters = [];
 
             let tooltip = document.createElement("div");
             tooltip.className = "scivi_graph_tooltip";
@@ -135,6 +138,11 @@ namespace SciViCGraph
         public setColorPicker(cp: any)
         {
             this.m_colorPicker = cp;
+        }
+
+        public addModularityFilter(mf: any)
+        {
+            this.m_modularityFilters.push(mf);
         }
 
         public createColorPicker(options: {}): any
@@ -619,7 +627,8 @@ namespace SciViCGraph
                         "<div id='scivi_apply_fonts' class='scivi_button'>" + this.m_localizer["LOC_APPLY"] + "</div>" +
                 "</td></tr></table><br/><hr/><br/>" +
             "<div id='scivi_fit_to_screen' class='scivi_button'>" + this.m_localizer["LOC_FIT_TO_SCREEN"] + "</div>" +
-            "<div id='scivi_sort_by_ring' class='scivi_button'>" + this.m_localizer["LOC_SORT_BY_RING"] + "</div>";
+            "<div id='scivi_sort_by_ring' class='scivi_button'>" + this.m_localizer["LOC_SORT_BY_RING"] + "</div>" +
+            "<div id='scivi_calc_modularity' class='scivi_button'>" + this.m_localizer["LOC_CALC_MODULARITY"] + "</div>";
 
             this.m_filters.innerHTML =
                 "<div>" + 
@@ -715,6 +724,11 @@ namespace SciViCGraph
 
             $("#scivi_sort_by_ring").click(() => {
                 this.sortNodesByRingScale(false);
+                this.reinit(false);
+            });
+
+            $("#scivi_calc_modularity").click(() => {
+                this.m_modularityFilters[0].detectClusters(this.currentData());
                 this.reinit(false);
             });
 

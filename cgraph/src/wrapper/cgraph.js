@@ -11,6 +11,7 @@ var PIXI = require("pixi.js");
 var Split = require("split.js");
 require("chart.js");
 var ColorPicker = require("vanilla-picker");
+var Louvain = require("../../filters/louvain/src/louvain.js");
 
 var SciViCGraph = require("../../build/scivi-cgraph.js");
 
@@ -102,6 +103,7 @@ CGraph.prototype.run = function (loc, data, scales, colors, title, info)
 
     renderer.setInput(data, colors);
     renderer.setColorPicker(ColorPicker);
+    renderer.addModularityFilter(Louvain);
     renderer.scaleLevels = scales;
     renderer.sortNodesByRingScale(true);
     renderer.run();
