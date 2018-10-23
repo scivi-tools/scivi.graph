@@ -44,7 +44,7 @@ CGraph.prototype.run = function (loc, data, scales, colors, title, info)
         if (data.length > 1)
             split1.html("<div id=\"scivi_cgraph_title\">" + title + "</div><div id=\"scivi_cgraph_view\" style=\"height: calc(100vh - 100px);\"></div><div id=\"scivi_cgraph_stateline\"></div>");
         else
-            split1.html("<div id=\"scivi_cgraph_title\">" + title + "</div><div id=\"scivi_cgraph_view\"></div>");
+            split1.html("<div id=\"scivi_cgraph_title\">" + title + "</div><div id=\"scivi_cgraph_view\" style=\"height: calc(100vh - 30px);\"></div>");
     } else {
         if (data.length > 1)
             split1.html("<div id=\"scivi_cgraph_view\" style=\"height: calc(100vh - 70px);\"></div><div id=\"scivi_cgraph_stateline\"></div>");
