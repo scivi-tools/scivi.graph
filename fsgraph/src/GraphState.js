@@ -167,11 +167,12 @@ export class GraphState {
     }
 
     /**
-     * 
+     * @param {number[][]} prevFilterValues
+     * @param {*} renderer
      */
-    actualize(renderer) {
+    actualize(prevFilterValues, renderer) {
         // TODO: восстанавливаем значения фильтров, если таковые есть
-        this._checkBuildFilters(null, renderer);
+        this._checkBuildFilters(prevFilterValues, renderer);
 
         // восстанавливаем узлы и связи, не забыв про их позиции и видимость
         // graph.beginUpdate();
@@ -200,7 +201,7 @@ export class GraphState {
     }
 
     /**
-     * 
+     * @returns {number[][]}
      */
     onBeforeDisabled() {
         // сохраняем позиции
@@ -213,10 +214,9 @@ export class GraphState {
 
         // и чистим нафиг контейнер графа
         this._controller.graph.clear();
-
-        // TODO: возвращаем знаения фильтров!
-
         $('#scivi_fsgraph_control')[0].removeChild(this._filtersContainer);
+
+        return this.prevKnownValues.map(v => v.weight);
     }
 
     /**
@@ -259,7 +259,20 @@ export class GraphState {
      * @param {*} renderer
      */
     _checkBuildFilters(prevKnownValues, renderer) {
-        if (!this._filtersContainer) {
+        if (prevKnownValues) {
+            // TODO: check how this shit works
+            // this.prevKnownValues = prevKnownValues;
+            this.prevKnownValues = prevKnownValues.map(v => {
+                return {
+                    'weight': v
+                };
+            });
+        } else {
+            this.prevKnownValues = this._metrics.minMaxValuesPerGroup;
+        }
+
+        const filterItemsPresented = !!this._filtersContainer;
+        if (!filterItemsPresented) {
             const tr = getOrCreateTranslatorInstance();
             this._filtersContainer = document.createElement('div');
             this._filtersContainer.innerHTML = `<span>${tr.apply('#state_hint')}: </span>`;
@@ -273,22 +286,28 @@ export class GraphState {
                 listItem.innerHTML = `<span><label>${tr.apply('#for_group')}</label><label> ${i}: </label><label id="scivi_fsgraph_filter_${i}_values"></label></span>`;
                 // TODO: inefficient!
                 let filterLabel = /** @type {HTMLElement} */(listItem.childNodes.item(0).childNodes.item(2));
-                const setLabel = (values) => {
-                    filterLabel.innerText = `${values[0]}..${values[1]}`;
+                /**
+                 * 
+                 * @param {number[]} values 
+                 * @param {number[]} minMaxValues 
+                 */
+                const setLabel = (values, minMaxValues) => {
+                    filterLabel.innerText = `${Math.max(values[0], minMaxValues[0])}..${Math.min(values[1], minMaxValues[1])}`;
                 };
-                setLabel(this._metrics.minMaxValuesPerGroup[i]['weight']);
+                setLabel(this.prevKnownValues[i]['weight'], this._metrics.minMaxValuesPerGroup[i]['weight']);
                 let filterSlider = document.createElement('div');
+                filterSlider.id = `filter-slider-${i}`;
                 $(filterSlider).slider({
                     // TODO: эти четыре будут задаваться после получения prevKnownValues
                     min: this._metrics.minMaxValuesPerGroup[i]['weight'][0],
                     max: this._metrics.minMaxValuesPerGroup[i]['weight'][1],
-                    values: [this._metrics.minMaxValuesPerGroup[i]['weight'][0], this._metrics.minMaxValuesPerGroup[i]['weight'][1]],
+                    values: [this.prevKnownValues[i]['weight'][0], this.prevKnownValues[i]['weight'][1]],
                     step: 1,
                     range: true,
                     slide: (event, ui) => {
                         that.prevKnownValues[i]['weight'][0] = ui.values[0];
                         that.prevKnownValues[i]['weight'][1] = ui.values[1];
-                        setLabel(ui.values);
+                        setLabel(ui.values, ui.values);
                         that._applyFilterRange();
                         renderer.rerender();
                     } 
@@ -300,15 +319,14 @@ export class GraphState {
         }
         this._filtersContainer.id = "scivi_fsgraph_filters_control";
 
-        let parent = $('#scivi_fsgraph_control')[0];
-
-        if (prevKnownValues) {
-            // TODO: ....
-        } else {
-            this.prevKnownValues = this._metrics.minMaxValuesPerGroup;
-        }
-
+        const parent = $('#scivi_fsgraph_control')[0];
         parent.appendChild(this._filtersContainer);
+
+        if (filterItemsPresented) {
+            this.prevKnownValues.forEach((v, index) => {
+                $(`#filter-slider-${index}`).slider('values', v['weight']);
+            });
+        }
     }
 
     /**

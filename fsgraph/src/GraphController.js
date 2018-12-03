@@ -97,16 +97,18 @@ export class GraphController {
 
     setCurrentStateIdEx(value, renderer) {
         if (value != this._currentStateId) {
+            /** @type {number[][]} */
+            let prevFilterValues = undefined;
             // Сохраняем всевозможную инфу в предыдущем состоянии (те же позиции вершин)
             if ((this._currentStateId >= 0) && (this._currentStateId < this.states.length)) {
-                this.states[this._currentStateId].onBeforeDisabled();
+                prevFilterValues = this.states[this._currentStateId].onBeforeDisabled();
                 this.states[value].syncWithPrevious(this.states[this._currentStateId]);
             }
 
             this._currentStateId = value;
 
             // здесь мы должны переключать граф путём перезаполнения ngraph.graph
-            this.states[this._currentStateId].actualize(renderer);
+            this.states[this._currentStateId].actualize(prevFilterValues, renderer);
         }
     }
 
