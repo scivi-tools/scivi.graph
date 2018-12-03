@@ -97,7 +97,7 @@ export class GraphController {
 
     setCurrentStateIdEx(value, renderer) {
         if (value != this._currentStateId) {
-            /** @type {number[][]} */
+            /** @type {Object.<string, number[]>[]} */
             let prevFilterValues = undefined;
             // Сохраняем всевозможную инфу в предыдущем состоянии (те же позиции вершин)
             if ((this._currentStateId >= 0) && (this._currentStateId < this.states.length)) {

@@ -32,6 +32,7 @@ export class GraphState {
 
         /** @type {HTMLElement} */
         this._filtersContainer = null;
+        /** @type {Object.<string, number[]>[]} */
         this.prevKnownValues = null;
 
         this._visited = false;
@@ -167,7 +168,7 @@ export class GraphState {
     }
 
     /**
-     * @param {number[][]} prevFilterValues
+     * @param {Object.<string, number[]>[]} prevFilterValues
      * @param {*} renderer
      */
     actualize(prevFilterValues, renderer) {
@@ -201,7 +202,7 @@ export class GraphState {
     }
 
     /**
-     * @returns {number[][]}
+     * @returns {Object.<string, number[]>[]}
      */
     onBeforeDisabled() {
         // сохраняем позиции
@@ -216,7 +217,7 @@ export class GraphState {
         this._controller.graph.clear();
         $('#scivi_fsgraph_control')[0].removeChild(this._filtersContainer);
 
-        return this.prevKnownValues.map(v => v.weight);
+        return this.prevKnownValues;
     }
 
     /**
@@ -249,24 +250,16 @@ export class GraphState {
                 }
             });
         }
-
-        // TODO: sync filters!
     }
 
     /**
      * 
-     * @param {number[][]} prevKnownValues Format: [groupid][0, 1]
+     * @param {Object.<string, number[]>[]} prevKnownValues Format: [groupid][0, 1]
      * @param {*} renderer
      */
     _checkBuildFilters(prevKnownValues, renderer) {
         if (prevKnownValues) {
-            // TODO: check how this shit works
-            // this.prevKnownValues = prevKnownValues;
-            this.prevKnownValues = prevKnownValues.map(v => {
-                return {
-                    'weight': v
-                };
-            });
+            this.prevKnownValues = prevKnownValues;
         } else {
             this.prevKnownValues = this._metrics.minMaxValuesPerGroup;
         }
