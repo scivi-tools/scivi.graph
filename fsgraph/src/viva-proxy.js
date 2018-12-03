@@ -8,7 +8,7 @@
 
 // @ts-nocheck
 
-import random from 'ngraph.random';
+import * as random from 'ngraph.random';
 
 import fa2f from './VivaMod/forceForceAtlas2';
 

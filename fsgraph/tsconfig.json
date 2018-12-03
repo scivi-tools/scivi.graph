@@ -6,8 +6,9 @@
         "module": "es6",
         "target": "es5",
         "checkJs": false,
+        "allowJs": true,
         "moduleResolution": "node"
-        // ,"typeRoots": ["@types", "./@types"]
+        ,"typeRoots": ["node_modules/@types", "./src/@types"]
         // ,"strict": true
         // ,"alwaysStrict": true
         // ,"noImplicitAny": false

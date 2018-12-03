@@ -1,5 +1,4 @@
 //@ts-check
-/// <reference path="./@types/ngraph.d.ts" />
 import { VivaWebGLRenderer } from './VivaWebGLRenderer';
 import { VivaImageNodeUI } from './VivaImageNodeUI';
 import { getOrCreateTranslatorInstance } from './Misc/Translator';
@@ -31,7 +30,7 @@ export class NodeUIBuilder {
 
     /**
      * @param {*} graphics
-     * @param {NgraphGraph.Node} node
+     * @param {Ngraph.Graph.Node} node
      * @returns {VivaImageNodeUI}
      */
     buildUI(graphics, node) {

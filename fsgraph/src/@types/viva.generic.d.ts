@@ -1,17 +1,17 @@
-/// <reference path="./ngraph.d.ts" />
+/// <reference path="./ngraph.generic.d.ts" />
 
 declare namespace VivaGeneric {
 
     export interface NodeUI {
         id: number,
-        position: NgraphGraph.Position,
-        node: NgraphGraph.Node
+        position: Ngraph.Graph.Position,
+        node: Ngraph.Graph.Node
     }
 
     export interface LinkUI {
         id: number,
-        pos: NgraphGraph.Position2,
-        link: NgraphGraph.Link
+        pos: Ngraph.Graph.Position2,
+        link: Ngraph.Graph.Link
     }
 
     export interface Program {
@@ -22,14 +22,14 @@ declare namespace VivaGeneric {
     }
 
     export interface NodeProgram extends Program {
-        position(nodeUI: NodeUI, pos: NgraphGraph.Position) : void,
+        position(nodeUI: NodeUI, pos: Ngraph.Graph.Position) : void,
         createNode(ui: NodeUI) : void,
         removeNode(ui: NodeUI) : void,
         replaceProperties(replacedNode: NodeUI, newNode: NodeUI) : void
     }
 
     export interface LinkProgram extends Program {
-        position(nodeUI: LinkUI, fromPos: NgraphGraph.Position, toPos: NgraphGraph.Position) : void,
+        position(nodeUI: LinkUI, fromPos: Ngraph.Graph.Position, toPos: Ngraph.Graph.Position) : void,
         createLink(ui: LinkUI) : void,
         removeLink(ui: LinkUI) : void
     }

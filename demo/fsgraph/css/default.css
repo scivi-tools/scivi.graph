@@ -29,9 +29,16 @@
 
 #scivi_fsgraph_rotate_bar_container
 {
+    display: flex;
+    flex-flow: row;
     padding: 10px 1.5em;
     z-index: 2;
     background-color: white;
+}
+
+#scivi_fsgraph_rotate_bar
+{
+    flex-grow: 1;
 }
 
 #rotate_bar_handle
@@ -121,4 +128,9 @@
 #scivi_fsgraph_list > div > span
 {
     display: block;
+}
+
+.ui-slider-horizontal
+{
+    height: 0.6em;
 }

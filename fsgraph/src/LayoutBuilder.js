@@ -1,16 +1,15 @@
 //@ts-check
 import Viva from './viva-proxy'
-import merge from 'ngraph.merge'
+import * as merge from 'ngraph.merge'
 import { VivaWebGLRenderer } from './VivaWebGLRenderer'
 import { getOrCreateTranslatorInstance } from './Misc/Translator'
 import * as $ from 'jquery'
 import 'jquery-ui/ui/widgets/slider'
-/// <reference path="./@types/ngraph.d.ts" />
 
 export class LayoutBuilder {
     /**
      * @param {string} name
-     * @param {NgraphGeneric.Layout} layout
+     * @param {Ngraph.Generic.Layout} layout
      * @param {Object.<string, any>} settings 
      */
     constructor(name, layout, settings) {
@@ -88,7 +87,7 @@ export class LayoutBuilder {
     /**
      * 
      * @param {string} name 
-     * @param {NgraphGraph.Graph} graph 
+     * @param {Ngraph.Graph.Graph} graph 
      */
     static buildLayout(name, graph) {
         /** @type {function(any, Object.<string, any>)} */
