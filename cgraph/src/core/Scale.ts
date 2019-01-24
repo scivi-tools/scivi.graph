@@ -2,8 +2,8 @@ namespace SciViCGraph
 {
     export class Scale
     {
-        constructor(private m_steps: any[], private m_colors: number[], private m_textColors: number[],
-                    private m_names: string[], public getValue: (node: Node) => any)
+        constructor(protected m_steps: any[], protected m_colors: number[], protected m_textColors: number[],
+                    protected m_names: string[], public getValue: (node: Node) => any)
         {
             // nop
         }
@@ -37,6 +37,19 @@ namespace SciViCGraph
         public getTextColor(id: number): number
         {
             return this.m_textColors[id % this.m_textColors.length];
+        }
+    }
+
+    export class DiscreteScale extends Scale
+    {
+        public getStepID(node: Node): number
+        {
+            const v = this.getValue(node);
+            for (let i = 0, n = this.m_steps.length; i < n; ++i) {
+                if (this.m_steps[i].includes(v))
+                    return i;
+            }
+            return undefined;
         }
     }
 }

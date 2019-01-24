@@ -38,6 +38,11 @@ CGraph.prototype.createScale = function (steps, colors, textColors, names, getVa
     return new SciViCGraph.Scale(steps, colors, textColors, names, getValue);
 }
 
+CGraph.prototype.createClassifier = function (tree, getKlass)
+{
+    return new SciViCGraph.Classifier(tree, getKlass);
+}
+
 CGraph.prototype.run = function (loc, data, scales, colors, title, info)
 {
     var split1 = $("<div>");
