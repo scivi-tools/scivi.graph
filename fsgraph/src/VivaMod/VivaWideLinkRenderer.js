@@ -62,8 +62,8 @@ export class VivaWideLinkRenderer {
     /**
      * 
      * @param {VivaLinkUI} linkUI 
-     * @param {NgraphGraph.Position} fromPos 
-     * @param {NgraphGraph.Position} toPos 
+     * @param {Ngraph.Graph.Position} fromPos 
+     * @param {Ngraph.Graph.Position} toPos 
      */
     position(linkUI, fromPos, toPos) {
         const idx = linkUI.id * ATTRIBUTES_PER_PRIMITIVE;

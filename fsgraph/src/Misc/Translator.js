@@ -1,5 +1,5 @@
 // @ts-check
-import Poly from 'node-polyglot'
+import * as Polyglot from 'node-polyglot';
 
 export class Translator {
     /**
@@ -9,7 +9,7 @@ export class Translator {
     constructor(locale = 'ru') {
         this._locale = locale;
 
-        this._instance = new Poly({
+        this._instance = new Polyglot({
             allowMissing: false,
             locale
         });
@@ -41,7 +41,7 @@ export class Translator {
      */
     applyRecursively(item) {
         if (item.nodeType === Node.TEXT_NODE) {
-            item.nodeValue = this.apply(item.nodeValue);
+            item.nodeValue = this.apply(item.nodeValue || '');
         } else {
             const childNodesCount = item.childNodes.length;
             for (let i = 0; i < childNodesCount; i++) {
@@ -52,10 +52,10 @@ export class Translator {
     }
 }
 /** @type {Translator} */
-let TranslatorInstance = null;
+let TranslatorInstance;
 
 export function getOrCreateTranslatorInstance(lang = '') {
-    if (TranslatorInstance === null) {
+    if (!TranslatorInstance) {
         TranslatorInstance = new Translator(lang);
     }
     return TranslatorInstance;

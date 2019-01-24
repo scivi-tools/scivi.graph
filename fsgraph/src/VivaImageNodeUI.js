@@ -1,6 +1,4 @@
 //@ts-check
-/// <reference path="./@types/ngraph.d.ts" />
-/// <reference path="./@types/viva.generic.d.ts" />
 import { VivaBaseUI } from './VivaBaseUI';
 import { Node } from './Node';
 import { Edge } from './Edge';
@@ -14,7 +12,7 @@ import * as $ from 'jquery';
 export class VivaImageNodeUI extends VivaBaseUI {
     /**
      * @param {*} graphics webglGraphics
-     * @param {NgraphGraph.Node} node
+     * @param {Ngraph.Graph.Node} node
      * @param {HTMLSpanElement} titleSpan 
      */
     constructor(graphics, node, titleSpan) {
@@ -43,17 +41,17 @@ export class VivaImageNodeUI extends VivaBaseUI {
     };
 
     /**
-     * @returns {NgraphGraph.Node}
+     * @returns {Ngraph.Graph.Node}
      */
     get node() {
         return this._node;
     }
 
     /**
-     * @param {NgraphGraph.Node} value
+     * @param {Ngraph.Graph.Node} value
      */
     set node(value) {
-        /** @type {NgraphGraph.Node} */
+        /** @type {Ngraph.Graph.Node} */
         this._node = value;
         /** @type {Node} */
         this._realNode = value.data;

@@ -4,8 +4,6 @@
  * @author Andrei Kashcha (aka anvaka) / https://github.com/anvaka
  */
 // @ts-check
-/// <reference path="../@types/ngraph.d.ts" />
-/// <reference path="../@types/viva.generic.d.ts" />
 
 import { newLinkProgram } from './newLinkProgram'
 import { newNodeProgram } from './newNodeProgram'
@@ -73,7 +71,7 @@ export function webglGraphics(options) {
         
         nodeUIBuilder =
         /**
-         * @param {NgraphGraph.Node} node
+         * @param {Ngraph.Graph.Node} node
          * @returns {VivaGeneric.NodeUI}
          */
         function (node) {
@@ -84,7 +82,7 @@ export function webglGraphics(options) {
         
         linkUIBuilder =
         /**
-         * @param {NgraphGraph.Link} link
+         * @param {Ngraph.Graph.Link} link
          * @returns {VivaGeneric.LinkUI}
          */
         function (link) {
@@ -250,8 +248,8 @@ export function webglGraphics(options) {
          * Called by Viva.Graph.View.renderer to let concrete graphic output
          * provider prepare to render given link of the graph
          *
-         * @param {NgraphGraph.Link} link - model of a link
-         * @param {NgraphGraph.Position2} boundPosition
+         * @param {Ngraph.Graph.Link} link - model of a link
+         * @param {Ngraph.Graph.Position2} boundPosition
          */
         addLink: function (link, boundPosition) {
             var uiid = linksCount++,
@@ -271,8 +269,8 @@ export function webglGraphics(options) {
          * Called by Viva.Graph.View.renderer to let concrete graphic output
          * provider prepare to render given node of the graph.
          *
-         * @param {NgraphGraph.Node} node
-         * @param {NgraphGraph.Position} boundPosition
+         * @param {Ngraph.Graph.Node} node
+         * @param {Ngraph.Graph.Position} boundPosition
          */
         addNode : function (node, boundPosition) {
             var uiid = nodesCount++,
@@ -410,7 +408,7 @@ export function webglGraphics(options) {
         * Called by Viva.Graph.View.renderer to let concrete graphic output
         * provider remove link from rendering surface.
         *
-        * @param {NgraphGraph.Link} link
+        * @param {Ngraph.Graph.Link} link
         **/
         releaseLink : function (link) {
             if (linksCount > 0) { linksCount -= 1; }
@@ -435,7 +433,7 @@ export function webglGraphics(options) {
         * Called by Viva.Graph.View.renderer to let concrete graphic output
         * provider remove node from rendering surface.
         *
-        * @param {NgraphGraph.Node} node 
+        * @param {Ngraph.Graph.Node} node 
         **/
         releaseNode : function (node) {
             if (nodesCount > 0) { nodesCount -= 1; }
@@ -552,7 +550,7 @@ export function webglGraphics(options) {
          * are DOM coordinates relative to the rendering container. Layout
          * coordinates are those assigned by by layout algorithm to each node.
          *
-         * @param {NgraphGraph.Position} p - a point object with `x` and `y` attributes.
+         * @param {Ngraph.Graph.Position} p - a point object with `x` and `y` attributes.
          * This method mutates p.
          */
         transformClientToGraphCoordinates: function (p) {
@@ -580,7 +578,7 @@ export function webglGraphics(options) {
          * Transforms WebGL coordinates into client coordinates. Reverse of 
          * `transformClientToGraphCoordinates()`
          *
-         * @param {NgraphGraph.Position} p - a point object with `x` and `y` attributes, which
+         * @param {Ngraph.Graph.Position} p - a point object with `x` and `y` attributes, which
          * represents a layout coordinate. This method mutates p.
          */
         transformGraphToClientCoordinates: function (p) {
@@ -607,7 +605,7 @@ export function webglGraphics(options) {
         },
 
         /**
-         * @param {NgraphGraph.Position} clientPos
+         * @param {Ngraph.Graph.Position} clientPos
          * @param {function(any,any,any):boolean} preciseCheck
          * @returns {VivaGeneric.NodeUI}
          */
