@@ -61,6 +61,32 @@ namespace SciViCGraph
             return root["klasses"];
         }
 
+        private buildTreeStructure(root: any, depth: number): string
+        {
+            let result;
+            const isLeaf = !root["children"] || root["children"].length === 0;
+            if (root["name"]) {
+                if (root["klass"]) {
+                    if (isLeaf)
+                        result = "<li data-id='" + root["klass"] + "'>" + "-".repeat(depth) + root["name"] + "</li>";
+                    else {
+                        result = "<li>" + "-".repeat(depth) + root["name"] + "</li>";
+                        result += "<li data-id='" + root["klass"] + "'>" + "-".repeat(depth + 1) + root["name"] + "</li>";
+                    }
+                } else {
+                    result = "<li>" + "-".repeat(depth) + root["name"] + "</li>";
+                }
+            } else {
+                --depth;
+            }
+            if (!isLeaf) {
+                const children = root["children"];
+                for (let i = 0, n = children.length; i < n; ++i)
+                    result += this.buildTreeStructure(children[i], depth + 1);
+            }
+            return result;
+        }
+
         public sortNodes(nodes: Node[])
         {
             nodes.sort((n1, n2) => {
@@ -93,6 +119,16 @@ namespace SciViCGraph
                 result.push(new DiscreteScale(klasses, colors, textColors, names, this.getKlass));
             }
             return result;
+        }
+
+        public initTreeView(treeView: HTMLElement)
+        {
+            // FIXME: it's better to generate the full html. Yes, it's more complicated, but more efficient.
+            // And then we can remove the crutch from the hummingbird-treeview.js with the checked state of inputs.
+            let div = $("<div>", { "class": "hummingbird-treeview-converter", "data-height": "500px" });
+            div.html(this.buildTreeStructure(this.m_tree, 0));
+            treeView.appendChild(div[0]);
+            $(document).ready(() => { $("#treeview").hummingbird(); });
         }
     }
 }

@@ -52,4 +52,5 @@ var g_loc_ru = {
     "LOC_FINDSTRING": "Найти по строке",
     "LOC_FINDREGEXP": "Найти по regexp",
     "LOC_NOT": "Не",
+    "LOC_TREE": "Дерево"
 };

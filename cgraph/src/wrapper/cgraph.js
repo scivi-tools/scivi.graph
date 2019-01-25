@@ -43,7 +43,7 @@ CGraph.prototype.createClassifier = function (tree, getKlass)
     return new SciViCGraph.Classifier(tree, getKlass);
 }
 
-CGraph.prototype.run = function (loc, data, scales, colors, title, info)
+CGraph.prototype.run = function (loc, data, scales, colors, title, info, classifier)
 {
     var split1 = $("<div>");
     if (title) {
@@ -68,6 +68,7 @@ CGraph.prototype.run = function (loc, data, scales, colors, title, info)
         "        <li><a href=\"#scivi_cgraph_settings\">" + loc["LOC_SETTINGS"] + "</a></li>" +
         "        <li><a href=\"#scivi_cgraph_filters\">" + loc["LOC_FILTERS"] + "</a></li>" +
         "        <li><a href=\"#scivi_cgraph_stats\">" + loc["LOC_GROUPS"] + "</a></li>" +
+        (classifier ? "        <li><a href=\"#scivi_cgraph_tree\">" + loc["LOC_TREE"] + "</a></li>" : "") +
         (info ? "        <li><a href=\"#scivi_cgraph_ginfo\">" + loc["LOC_GINFO"] + "</a></li>" : "") +
         "    </ul>" +
         "    <div id=\"scivi_cgraph_info\"></div>" +
@@ -75,6 +76,7 @@ CGraph.prototype.run = function (loc, data, scales, colors, title, info)
         "    <div id=\"scivi_cgraph_settings\"></div>" +
         "    <div id=\"scivi_cgraph_filters\"></div>" +
         "    <div id=\"scivi_cgraph_stats\"></div>" +
+        "    <div id=\"scivi_cgraph_tree\"></div>" +
         (info ? "    <div id=\"scivi_cgraph_ginfo\">" + info + "</div>" : "") +
         "</div>"
     );
@@ -88,6 +90,7 @@ CGraph.prototype.run = function (loc, data, scales, colors, title, info)
                                             $("#scivi_cgraph_list")[0], $("#scivi_cgraph_settings")[0],
                                             $("#scivi_cgraph_filters")[0], $("#scivi_cgraph_stats")[0],
                                             data.length > 1 ? $("#scivi_cgraph_stateline")[0] : null,
+                                            $("#scivi_cgraph_tree")[0],
                                             loc);
 
     Split(["#scivi_cgraph_a", "#scivi_cgraph_b"], {
@@ -109,7 +112,12 @@ CGraph.prototype.run = function (loc, data, scales, colors, title, info)
     renderer.setInput(data, colors);
     renderer.setColorPicker(ColorPicker);
     renderer.addModularityFilter(Louvain);
-    renderer.scaleLevels = scales;
+    if (classifier) {
+        renderer.scaleLevels = classifier.generateScaleLevels();
+        renderer.classifier = classifier;
+    } else {
+        renderer.scaleLevels = scales;
+    }
     renderer.sortNodesByRingScale(true);
     renderer.run();
 

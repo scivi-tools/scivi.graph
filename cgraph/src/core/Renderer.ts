@@ -68,6 +68,7 @@ namespace SciViCGraph
         private m_panPrevY: number;
         private m_maxTextLength: number;
         private m_scaleLevels: Scale[];
+        private m_classifier: Classifier;
         private m_ringScales: RingScale[];
         private m_statistics: Stats;
         private m_nodesList: List;
@@ -98,9 +99,11 @@ namespace SciViCGraph
                     private m_filters: HTMLElement,
                     private m_stats: HTMLElement,
                     private m_stateline: HTMLElement,
+                    private m_treeView: HTMLElement,
                     private m_localizer: {})
         {
             this.m_scaleLevels = null;
+            this.m_classifier = null;
             this.m_ringScales = null;
             this.m_zoomTimerID = null;
             this.m_dataStack = null;
@@ -749,6 +752,9 @@ namespace SciViCGraph
                     }
                 }
             });
+
+            if (this.m_classifier)
+                this.m_classifier.initTreeView(this.m_treeView, this);
         }
 
         private calcMaxTextLength()
@@ -1146,6 +1152,16 @@ namespace SciViCGraph
         set scaleLevels(s: Scale[])
         {
             this.m_scaleLevels = s;
+        }
+
+        get classifier(): Classifier
+        {
+            return this.m_classifier;
+        }
+
+        set classifier(c: Classifier)
+        {
+            this.m_classifier = c;
         }
 
         private smartCmp(x1: string, x2: string): number

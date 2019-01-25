@@ -97,16 +97,16 @@ namespace SciViCGraph
             return (r << 16) | (g << 8) | b;
         }
 
-        public static correctGamma(c: number): number
+        public static srgb2rgb(c: number): number
         {
             return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
         }
 
         public static maxContrast(rgb: number): number
         {
-            const r = Color.correctGamma((rgb >> 16 & 0xFF) / 255);
-            const g = Color.correctGamma((rgb >> 8 & 0xFF) / 255);
-            const b = Color.correctGamma((rgb & 0xFF) / 255);
+            const r = Color.srgb2rgb((rgb >> 16 & 0xFF) / 255);
+            const g = Color.srgb2rgb((rgb >> 8 & 0xFF) / 255);
+            const b = Color.srgb2rgb((rgb & 0xFF) / 255);
             return 0.2126 * r + 0.7152 * g + 0.0722 * b >= 0.3 ? 0x000000 : 0xffffff;
         }
     }

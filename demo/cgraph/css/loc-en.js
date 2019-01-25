@@ -52,4 +52,5 @@ var g_loc_en = {
     "LOC_FINDSTRING": "Find by string",
     "LOC_FINDREGEXP": "Find by regexp",
     "LOC_NOT": "Not",
+    "LOC_TREE": "Tree"
 };
