@@ -46,7 +46,7 @@ namespace SciViCGraph
         {
             const v = this.getValue(node);
             for (let i = 0, n = this.m_steps.length; i < n; ++i) {
-                if (this.m_steps[i].includes(v))
+                if (this.m_steps[i].includes(v)) // FIXME: optimize this: sort + bin search.
                     return i;
             }
             return undefined;

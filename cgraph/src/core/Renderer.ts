@@ -1313,6 +1313,16 @@ namespace SciViCGraph
             this.reinit(false);
         }
 
+        public updateNodeKlasses()
+        {
+            this.calcWeights();
+            this.reinit(false);
+            // FIXME: do the following in init not to create cache twice in a row
+            this.fitScale();
+            this.createCache();
+            this.render(true, true);
+        }
+
         get radius(): number
         {
             return this.m_radius;

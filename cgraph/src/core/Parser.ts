@@ -2,7 +2,40 @@ namespace SciViCGraph
 {
     export class GraphData
     {
-        constructor(public label: string, public nodes: Node[], public edges: Edge[]){}
+        private m_shadowNodes;
+        private m_shadowEdges;
+
+        constructor(public label: string, public nodes: Node[], public edges: Edge[])
+        {
+            this.m_shadowNodes = this.nodes;
+            this.m_shadowEdges = this.edges;
+        }
+
+        private klassIncludes(klasses: number[], klass: number): boolean
+        {
+            // FIXME: optimize this: sort + bin search. And make the klasses to be numbers. now they are strings
+            for (let i = 0, n = klasses.length; i < n; ++i) {
+                if (klasses[i] == klass)
+                    return true;
+            }
+            return false;
+        }
+
+        public excludeUnselected(selectedKlasses: number[], getKlass: (node: Node) => number)
+        {
+            this.nodes = [];
+            this.m_shadowNodes.forEach((node) => {
+                if (this.klassIncludes(selectedKlasses, getKlass(node)))
+                    this.nodes.push(node);
+            });
+
+            this.edges = [];
+            this.m_shadowEdges.forEach((edge) => {
+                if (this.klassIncludes(selectedKlasses, getKlass(edge.source)) &&
+                    this.klassIncludes(selectedKlasses, getKlass(edge.target)))
+                    this.edges.push(edge);
+            });
+        }
     };
 
     export class IJsonFormat
