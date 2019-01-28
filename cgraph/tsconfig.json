@@ -5,6 +5,6 @@
         "outFile": "build/scivi-cgraph.js",
         "watch": false,
         "module":"amd",
-        "target": "es6"
+        "target": "es5"
     }
 }

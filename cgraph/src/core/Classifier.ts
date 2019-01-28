@@ -7,6 +7,14 @@ namespace SciViCGraph
             // nop
         }
 
+        private repeatStr(str: string, n: number)
+        {
+            let result = "";
+            for (let i = 0; i < n; ++i)
+                result += str;
+            return result;
+        }
+
         private findNodeByKlass(root: any, klass: number, steps: number[]): any
         {
             if (root["klass"] === klass)
@@ -68,13 +76,13 @@ namespace SciViCGraph
             if (root["name"]) {
                 if (root["klass"]) {
                     if (isLeaf)
-                        result = "<li data-id='" + root["klass"] + "'>" + "-".repeat(depth) + root["name"] + "</li>";
+                        result = "<li data-id='" + root["klass"] + "'>" + this.repeatStr("-", depth) + root["name"] + "</li>";
                     else {
-                        result = "<li data-id='-1'>" + "-".repeat(depth) + root["name"] + "</li>";
-                        result += "<li data-id='" + root["klass"] + "'>" + "-".repeat(depth + 1) + root["name"] + "</li>";
+                        result = "<li data-id='-1'>" + this.repeatStr("-", depth) + root["name"] + "</li>";
+                        result += "<li data-id='" + root["klass"] + "'>" + this.repeatStr("-", depth + 1) + root["name"] + "</li>";
                     }
                 } else {
-                    result = "<li data-id='-1'>" + "-".repeat(depth) + root["name"] + "</li>";
+                    result = "<li data-id='-1'>" + this.repeatStr("-", depth) + root["name"] + "</li>";
                 }
             } else {
                 --depth;
