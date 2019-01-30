@@ -5,15 +5,12 @@
         <title>SciVi-CGraph</title>
         
         <script src="../lib/scivi-cgraph.min.js"></script>
-        <script src="../lib/hummingbird-treeview.min.js"></script>
 
         <link rel="stylesheet" href="../css/jquery-ui.css"/>
         <link rel="stylesheet" href="../css/jquery.contextMenu.css"/>
-        <link rel="stylesheet" href="../css/hummingbird-treeview.css"/>
         <link rel="stylesheet" href="../css/default.css"/>
 
         <script src="data.js"></script>
-        <script src="classifier.js"></script>
         <script src="../css/loc-ru.js"></script>
         <script src="../css/loc-en.js"></script>
 
@@ -65,14 +62,33 @@
                 for (var i = 0; i < states.length; ++i)
                     console.log("Number of edges in state " + i + ": " + states[i].edges.length);
 
+                var textColors1 = [ 0xffffff, 0xffffff ];
                 var colors1 = [ 0xdd1111, 0x489CA0 ];
+                var steps1 = [ 0, 1 ];
+                var names1 = [ "None", "Языковые параметры", "Психологические параметры", "None" ];
+                var scale1 = graph.createScale(steps1, colors1, textColors1, names1, function (node) { return node.custom["group"]; });
 
-                var classifier = graph.createClassifier(g_classifier, function (node) { return node.custom["class"]; });
+                var textColors2 = [ 0x000000 ];
+                var colors2 = [ 0xF0AB13, 0xECDE38, 0xF0AB13, 0xECDE38, 0xF0AB13, 
+                                0xCAB3FF, 0x73DAF0, 0xCAB3FF, 0x73DAF0, 0xCAB3FF ];
+                var steps2 = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ];
+                var names2 = [ "None", 
+                    "Дейксис",
+                    "Эмотиконы",
+                    "Субъективно-оценочное значение",
+                    "Модальность",
+                    "Ненормативная лексика",
+                    "bfie",
+                    "bfia",
+                    "bfic",
+                    "bfin",
+                    "bfio",
+                "None" ];
+                var scale2 = graph.createScale(steps2, colors2, textColors2, names2, function (node) { return node.custom["group2"]; });
 
-                var renderer = graph.run(loc, states, null, colors1,
+                var renderer = graph.run(loc, states, [scale2, scale1], colors1,
                                          locRus ? "Психологические параметры" : "Psychological Parameters",
-                                         locRus ? "Психологические параметры" : "Psychological Parameters",
-                                         classifier);
+                                         locRus ? "Психологические параметры" : "Psychological Parameters");
             }
         </script>
     </head>
