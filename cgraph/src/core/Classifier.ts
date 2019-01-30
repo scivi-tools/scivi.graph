@@ -136,16 +136,15 @@ namespace SciViCGraph
             let div = $("<div>", { "class": "hummingbird-treeview-converter", "data-height": "500px" });
             div.html(this.buildTreeStructure(this.m_tree, 0));
             treeView.appendChild(div[0]);
-            $(document).ready(() => {
-                $("#treeview").hummingbird();
-                $("#treeview").on("CheckUncheckDone", () => {
-                    let list = {"id" : [], "dataid" : [], "text" : []};
-                    $("#treeview").hummingbird("getChecked", { list: list, onlyEndNodes: false });
-                    svRenderer.data.forEach((state) => {
-                        state.excludeUnselected(list["dataid"], this.getKlass);
-                    });
-                    svRenderer.updateNodeKlasses();
+            $.fn.hummingbird.convert();
+            $("#treeview").hummingbird();
+            $("#treeview").on("CheckUncheckDone", () => {
+                let list = {"id" : [], "dataid" : [], "text" : []};
+                $("#treeview").hummingbird("getChecked", { list: list, onlyEndNodes: false });
+                svRenderer.data.forEach((state) => {
+                    state.excludeUnselected(list["dataid"], this.getKlass);
                 });
+                svRenderer.updateNodeKlasses();
             });
         }
     }

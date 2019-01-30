@@ -12,150 +12,6 @@
     var checkboxesGroups_grayed = false;
     var checkboxesGroups = false;
 
-
-    //converter
-    $(document).ready(function() {
-	var all_converter = $(".hummingbird-treeview-converter");
-	//console.log(all_converter);
-	var converter_num = 1;
-	var converter_str = "";
-	$.each(all_converter,function(e){
-	    if (converter_num > 1) {
-		converter_str = converter_num.toString();
-	    } 
-	    converter_num++;
-
-
-	    var converter = $(this);
-	    //console.log(converter)
-	    
-	    //hide simple treeview structure
-	    converter.hide();
-
-	    var converter_height = converter.attr("data-height");
-	    var converter_scroll = converter.attr("data-scroll");
-	    if (converter_scroll == "true") {
-		converter_scroll = "scroll";
-	    }
-
-	    
-	    //create new treeview container
-	    var tree_html = '<div id="treeview_container' + converter_str + '" class="hummingbird-treeview" style="height: ' + converter_height  +'; overflow-y: ' + converter_scroll + ';">' +
-		'<ul id="treeview' + converter_str + '" class="hummingbird-base">';
-
-
-	    //get treeview elements
-	    var tree = converter.children("li");
-
-	    
-	    //loop through the elements and create tree
-	    var id_num = 0;
-	    var id_str = "";
-	    var data_id = "";
-	    var item = "";
-	    var allowed = true;
-	    var msg = "";
-	    $.each(tree, function(i,e) {
-		var treeText = $(this).text();
-
-		//Regular Expression for all leading hyphens
-		var regExp = /^-+/;
-
-		//Get leading hyphens
-		var numHyphenMatch = treeText.match(regExp);
-		var numHyphen_nextMatch = $(this).next().text().match(regExp);
-
-		//Get count of leading hyphens
-		//Now supports using hyphens anywhere except for the first character of the label
-		var numHyphen = (numHyphenMatch != null ? numHyphenMatch[0].length : 0);
-		var numHyphen_next = (numHyphen_nextMatch != null ? numHyphen_nextMatch[0].length : 0);
-
-		//remove leading hyphens
-		treeText = treeText.replace(regExp, "");
-		//extract optional id and data-id		
-		if ($(this).attr("id")) {
-		    id_str = $(this).attr("id");
-		} else {
-		    id_num++;
-		    id_str = "hum" + converter_str + "_" + id_num;
-		}
-		if ($(this).attr("data-id")) {
-		    data_id = $(this).attr("data-id");
-		} else {
-		    data_id = treeText;
-		}
-
-		
-		//what is this, parent, children or sibling
-		//this is a parent
-		//open an ul
-		if (numHyphen < numHyphen_next) {
-		    //check format
-		    //down the tree it is not allowed to jump over a generation / instance
-		    //
-		    var check_diff = numHyphen_next - numHyphen;
-		    if (check_diff>1) {
-		    	msg = '<h4 style="color:red;">Error!</h4>The item after <span style="color:red;">' + treeText + ' </span>has too much hyphens, i.e. it is too far intended. Note that down the tree, the items are only allowed to be intended by one instance, i.e. one hyphen more than the item before. In contrast, up the tree arbitrarily large jumps are allowed.';
-		    	//alert(msg);
-		    	allowed = false;
-		    }
-		    //
-		    item = item + '<li>' +"\n";
-		    item = item + '<i class="fa fa-plus"></i>' + "\n";
-		    item = item + '<label>' + "\n";
-		    item = item + '<input id="' + id_str  + '" data-id="' + data_id + '" type="checkbox" /> ' + treeText;
-		    item = item + '</label>' + "\n";
-		    item = item + '<ul>' + "\n";
-		    //console.log(item);
-		}
-		//hummingbird-end-node
-		if (numHyphen == numHyphen_next) {
-		    item = item + '<li>' +"\n";
-		    item = item + '<label>' + "\n";
-		    item = item + '<input class="hummingbird-end-node" id="' + id_str + '" data-id="' + data_id + '" type="checkbox" /> ' + treeText;
-		    item = item + '</label>' + "\n";
-		    item = item + '</li>' + "\n";
-		    //console.log(item);
-		}		
-		//this is still a hummingbird-end-node
-		//after this it goes up
-		//thus close this ul
-		if (numHyphen > numHyphen_next) {
-		    item = item + '<li>' +"\n";
-		    item = item + '<label>' + "\n";
-		    item = item + '<input class="hummingbird-end-node" id="' + id_str + '" data-id="' + data_id + '" type="checkbox" /> ' + treeText;
-		    item = item + '</label>' + "\n";
-		    item = item + '</li>' + "\n";
-		    item = item + '</ul>' + "\n";
-		    //console.log(item);
-
-		    //if numHyphen - numHyphen_next > 1
-		    //it means that we have to close the group
-		    var hyphen_diff = numHyphen - numHyphen_next;
-		    for (var m=2;m<=hyphen_diff;m++) {
-		    	item = item + '</ul>' + "\n";
-		    	item = item + '</li>' + "\n";
-		    }
-		    //
-		}
-
-		
-	    });
-	    item = item + '</ul></div>';
-	    //console.log(item)
-	    tree_html = tree_html + item;
-	    if (allowed == true) {
-		//$(".hummingbird-treeview-converter").after(tree_html);
-		converter.after(tree_html);
-	    } else {
-		//$(".hummingbird-treeview-converter").after(msg);
-		converter.after(msg);
-	    }
-
-	});
-	//end converter
-    });
-
     
     $.fn.hummingbird = function(options){
 
@@ -481,6 +337,149 @@
     
 
     //-------------------methods--------------------------------------------------------------------------//
+
+    //converter
+    $.fn.hummingbird.convert = function(tree){
+	var all_converter = $(".hummingbird-treeview-converter");
+	//console.log(all_converter);
+	var converter_num = 1;
+	var converter_str = "";
+	$.each(all_converter,function(e){
+	    if (converter_num > 1) {
+		converter_str = converter_num.toString();
+	    } 
+	    converter_num++;
+
+
+	    var converter = $(this);
+	    //console.log(converter)
+	    
+	    //hide simple treeview structure
+	    converter.hide();
+
+	    var converter_height = converter.attr("data-height");
+	    var converter_scroll = converter.attr("data-scroll");
+	    if (converter_scroll == "true") {
+		converter_scroll = "scroll";
+	    }
+
+	    
+	    //create new treeview container
+	    var tree_html = '<div id="treeview_container' + converter_str + '" class="hummingbird-treeview" style="height: ' + converter_height  +'; overflow-y: ' + converter_scroll + ';">' +
+		'<ul id="treeview' + converter_str + '" class="hummingbird-base">';
+
+
+	    //get treeview elements
+	    var tree = converter.children("li");
+
+	    
+	    //loop through the elements and create tree
+	    var id_num = 0;
+	    var id_str = "";
+	    var data_id = "";
+	    var item = "";
+	    var allowed = true;
+	    var msg = "";
+	    $.each(tree, function(i,e) {
+		var treeText = $(this).text();
+
+		//Regular Expression for all leading hyphens
+		var regExp = /^-+/;
+
+		//Get leading hyphens
+		var numHyphenMatch = treeText.match(regExp);
+		var numHyphen_nextMatch = $(this).next().text().match(regExp);
+
+		//Get count of leading hyphens
+		//Now supports using hyphens anywhere except for the first character of the label
+		var numHyphen = (numHyphenMatch != null ? numHyphenMatch[0].length : 0);
+		var numHyphen_next = (numHyphen_nextMatch != null ? numHyphen_nextMatch[0].length : 0);
+
+		//remove leading hyphens
+		treeText = treeText.replace(regExp, "");
+		//extract optional id and data-id		
+		if ($(this).attr("id")) {
+		    id_str = $(this).attr("id");
+		} else {
+		    id_num++;
+		    id_str = "hum" + converter_str + "_" + id_num;
+		}
+		if ($(this).attr("data-id")) {
+		    data_id = $(this).attr("data-id");
+		} else {
+		    data_id = treeText;
+		}
+
+		
+		//what is this, parent, children or sibling
+		//this is a parent
+		//open an ul
+		if (numHyphen < numHyphen_next) {
+		    //check format
+		    //down the tree it is not allowed to jump over a generation / instance
+		    //
+		    var check_diff = numHyphen_next - numHyphen;
+		    if (check_diff>1) {
+		    	msg = '<h4 style="color:red;">Error!</h4>The item after <span style="color:red;">' + treeText + ' </span>has too much hyphens, i.e. it is too far intended. Note that down the tree, the items are only allowed to be intended by one instance, i.e. one hyphen more than the item before. In contrast, up the tree arbitrarily large jumps are allowed.';
+		    	//alert(msg);
+		    	allowed = false;
+		    }
+		    //
+		    item = item + '<li>' +"\n";
+		    item = item + '<i class="fa fa-plus"></i>' + "\n";
+		    item = item + '<label>' + "\n";
+		    item = item + '<input id="' + id_str  + '" data-id="' + data_id + '" type="checkbox" checked /> ' + treeText;
+		    item = item + '</label>' + "\n";
+		    item = item + '<ul>' + "\n";
+		    //console.log(item);
+		}
+		//hummingbird-end-node
+		if (numHyphen == numHyphen_next) {
+		    item = item + '<li>' +"\n";
+		    item = item + '<label>' + "\n";
+		    item = item + '<input class="hummingbird-end-node" id="' + id_str + '" data-id="' + data_id + '" type="checkbox" checked /> ' + treeText;
+		    item = item + '</label>' + "\n";
+		    item = item + '</li>' + "\n";
+		    //console.log(item);
+		}		
+		//this is still a hummingbird-end-node
+		//after this it goes up
+		//thus close this ul
+		if (numHyphen > numHyphen_next) {
+		    item = item + '<li>' +"\n";
+		    item = item + '<label>' + "\n";
+		    item = item + '<input class="hummingbird-end-node" id="' + id_str + '" data-id="' + data_id + '" type="checkbox" checked /> ' + treeText;
+		    item = item + '</label>' + "\n";
+		    item = item + '</li>' + "\n";
+		    item = item + '</ul>' + "\n";
+		    //console.log(item);
+
+		    //if numHyphen - numHyphen_next > 1
+		    //it means that we have to close the group
+		    var hyphen_diff = numHyphen - numHyphen_next;
+		    for (var m=2;m<=hyphen_diff;m++) {
+		    	item = item + '</ul>' + "\n";
+		    	item = item + '</li>' + "\n";
+		    }
+		    //
+		}
+
+		
+	    });
+	    item = item + '</ul></div>';
+	    //console.log(item)
+	    tree_html = tree_html + item;
+	    if (allowed == true) {
+		//$(".hummingbird-treeview-converter").after(tree_html);
+		converter.after(tree_html);
+	    } else {
+		//$(".hummingbird-treeview-converter").after(msg);
+		converter.after(msg);
+	    }
+
+	});
+	//end converter
+    };
     
     //-------------------checkAll---------------//
     $.fn.hummingbird.checkAll = function(tree){

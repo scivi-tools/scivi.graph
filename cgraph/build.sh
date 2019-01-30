@@ -20,3 +20,6 @@ fi
 # build filters
 $BROWSERIFY ./filters/louvain/src/louvain.js --standalone Louvain -o ./build/louvain-tmp.js
 $UGLIFY ./build/louvain-tmp.js -o ../demo/cgraph/lib/louvain.min.js
+
+# build controls
+$UGLIFY ./controls/treeview/hummingbird-treeview.js -o ../demo/cgraph/lib/hummingbird-treeview.min.js
