@@ -1,4 +1,4 @@
-// @ts-check
+
 declare namespace Ngraph {
 
     namespace Graph {

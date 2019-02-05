@@ -1,4 +1,4 @@
-//@ts-check
+
 import Viva from '../viva-proxy';
 import * as merge from 'ngraph.merge';
 import * as random from 'ngraph.random';

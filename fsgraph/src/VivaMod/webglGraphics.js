@@ -3,7 +3,7 @@
  *
  * @author Andrei Kashcha (aka anvaka) / https://github.com/anvaka
  */
-// @ts-check
+
 
 import { newLinkProgram } from './newLinkProgram'
 import { newNodeProgram } from './newNodeProgram'

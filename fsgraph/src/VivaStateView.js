@@ -1,4 +1,4 @@
-//@ts-check
+
 import { Node } from './Node'
 import { VivaImageNodeUI } from './VivaImageNodeUI'
 import { VivaLinkUI } from './VivaLinkUI'

@@ -1,4 +1,3 @@
-//@ts-check
 import { GraphState } from './GraphState';
 import { Point2D } from './Point2D';
 import { Edge } from './Edge';

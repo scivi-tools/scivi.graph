@@ -1,6 +1,3 @@
-// @ts-check
-import Viva from './viva-proxy';
-
 export class ColorConverter {
     /**
      * Expected format: rgba 

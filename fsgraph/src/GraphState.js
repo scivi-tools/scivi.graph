@@ -1,4 +1,3 @@
-//@ts-check
 import Viva from './viva-proxy';
 import { Node } from './Node';
 import { Edge } from './Edge';
@@ -63,7 +62,7 @@ export class GraphState {
         this.nodes[fromId].addEdge(newEdge);
         this.nodes[toId].addEdge(newEdge);
         // TODO: count some metrics here
-        //@ts-ignore
+        // @ts-ignore
         this._edgeMetrics.accumulate(newEdge);
     };
 

@@ -1,4 +1,4 @@
-// @ts-check
+
 import Viva from './viva-proxy';
 import { GraphState } from './GraphState';
 import { DummyMetrics } from './DummyMetrics';

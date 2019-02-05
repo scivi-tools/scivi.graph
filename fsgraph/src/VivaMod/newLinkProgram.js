@@ -2,7 +2,7 @@
  * @fileOverview Defines a naive form of links for webglGraphics class.
  * This form allows to change color of links.
  **/
-// @ts-check
+
 import * as WGLU from './WebGLUtils';
 
 /**

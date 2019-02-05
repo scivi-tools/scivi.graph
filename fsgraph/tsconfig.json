@@ -5,7 +5,7 @@
         "outDir": "tmp",
         "module": "es6",
         "target": "es5",
-        "checkJs": false,
+        "checkJs": true,
         "allowJs": true,
         "moduleResolution": "node"
         ,"typeRoots": ["node_modules/@types", "./src/@types"]

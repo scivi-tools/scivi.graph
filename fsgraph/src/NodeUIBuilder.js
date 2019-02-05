@@ -1,4 +1,4 @@
-//@ts-check
+
 import { VivaWebGLRenderer } from './VivaWebGLRenderer';
 import { VivaImageNodeUI } from './VivaImageNodeUI';
 import { getOrCreateTranslatorInstance } from './Misc/Translator';

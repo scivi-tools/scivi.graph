@@ -1,4 +1,4 @@
-//@ts-check
+
 
 /**
  * Monitors graph-related mouse input in webgl graphics and notifies subscribers.

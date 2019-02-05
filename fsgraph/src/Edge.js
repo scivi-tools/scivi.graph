@@ -1,4 +1,4 @@
-// @ts-check
+
 import * as DH from './DataHelpers'
 
 export class Edge {

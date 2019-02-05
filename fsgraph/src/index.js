@@ -1,4 +1,4 @@
-//@ts-check
+
 /// <reference path="./@types/ngraph.generic.d.ts" />
 /// <reference path="./@types/viva.generic.d.ts" />
 

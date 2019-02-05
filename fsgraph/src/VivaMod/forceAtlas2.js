@@ -9,15 +9,19 @@
 
 // TODO: physicsSimulator must have done half of this right way, haven't it?
 
+// @ts-ignore
 module.exports = createLayout;
 
+// @ts-ignore
 var eventify = require('ngraph.events');
+// @ts-ignore
 var merge = require('ngraph.merge');
 
+// @ts-ignore
 /**
  * Creates forceAtlas2 layout for a given graph.
  *
- * @param {ngraph.graph} graph which needs to be laid out
+ * @param graph which needs to be laid out
  * @param {object} settings if you need custom settings
  * for physics simulator you can pass your own settings here. If it's not passed
  * a default one will be created.
@@ -158,9 +162,13 @@ function createLayout(graph, settings) {
     },
 
     /**
-     * @returns {Object} Link position by link id
-     * @returns {Object.from} {x, y} coordinates of link start
-     * @returns {Object.to} {x, y} coordinates of link end
+     * @typedef {Object} LinkPosition
+     * @property {Object} from {x, y} coordinates of link start
+     * @property {Object} to {x, y} coordinates of link end
+     */
+
+    /**
+     * @returns {LinkPosition} Link position by link id
      */
     getLinkPosition: function (linkId) {
       var spring = springs[linkId];
@@ -338,7 +346,7 @@ function createLayout(graph, settings) {
         }
       }
 
-      var body = new Body(node, pos);
+      body = new Body(node, pos);
       body.dx = body.dy = 0;
       body.old_dx = body.old_dy = 0;
       console.log(body.size);

@@ -1,4 +1,4 @@
-//@ts-check
+
 import Viva from './viva-proxy';
 import { VivaBaseUI } from './VivaBaseUI';
 import { VivaColoredNodeRenderer } from './VivaMod/VivaColoredNodeRenderer';

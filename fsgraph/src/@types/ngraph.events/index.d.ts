@@ -1,4 +1,4 @@
-// @ts-check
+
 declare namespace NgraphEvents {
 
     export type EventCallback =

@@ -1,4 +1,4 @@
-// @ts-check
+
 
 declare namespace NgraphMerge {}
 declare function NgraphMerge(target?: object, options?: object) : object;

@@ -2,7 +2,7 @@
  * @author Andrei Kashcha (aka anvaka) / https://github.com/anvaka
  * @author Me
  */
-//@ts-check
+
 import { webglInputEvents } from './webglInputEvents';
 import { Point2D } from '../Point2D';
 import { VivaImageNodeUI } from '../VivaImageNodeUI';

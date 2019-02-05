@@ -1,4 +1,3 @@
-//@ts-check
 declare namespace Ngraph {
     namespace Random {
         export interface Random {
