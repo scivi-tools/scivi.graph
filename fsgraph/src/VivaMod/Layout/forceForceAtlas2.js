@@ -1,14 +1,17 @@
-
 import Viva from '../../viva-proxy';
 import * as merge from 'ngraph.merge';
 import * as random from 'ngraph.random';
 
+/**
+ * @param {Ngraph.Graph.Graph} graph
+ * @param {object} options
+ */
 export default function createLayout(graph, options) {
     
     options.createSpringForce = _createSpringForce;
     options.integrator = _integrate;
 
-    return Viva.Graph.Layout.forceDirected(graph, options);
+    return Viva.Layout.forceDirected(graph, options);
 
     function _integrate(bodies, timeStep) {
         var dx = 0, tx = 0,

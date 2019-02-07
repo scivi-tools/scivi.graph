@@ -241,7 +241,7 @@ export class VivaWebGLRenderer {
         if (!this._animationTimer) {
             // TODO: WTF откуда пилять тут берётся второй аргумент, если никто его потом не обрабатывает?
             // (См. исходники timer)
-            this._animationTimer = Viva.Graph.Utils.timer(() => this._onRenderFrame());//, this._frameTicks);
+            this._animationTimer = Viva.Utils.timer(() => this._onRenderFrame());//, this._frameTicks);
         }
         return this;
     }
@@ -509,14 +509,14 @@ export class VivaWebGLRenderer {
 
     _updateCenter() {
         const graphRect = this._layoutBackend.getGraphRect();
-        const containerSize = Viva.Graph.Utils.getDimension(this._container);
+        const containerSize = Viva.Utils.getDimension(this._container);
 
         this._updateCenterReal(graphRect, containerSize);
     }
 
     _fitToScreen() {
         const graphRect = this._layoutBackend.getGraphRect();
-        const containerSize = Viva.Graph.Utils.getDimension(this._container);
+        const containerSize = Viva.Utils.getDimension(this._container);
 
         this._updateCenterReal(graphRect, containerSize);
         this._scaleToScreen(graphRect, containerSize);
@@ -538,7 +538,7 @@ export class VivaWebGLRenderer {
         // listen to events
         window.addEventListener('resize', () => this.onContainerResize());
 
-        this._containerDrag = Viva.Graph.Utils.dragndrop(this._container);
+        this._containerDrag = Viva.Utils.dragndrop(this._container);
         this._containerDrag.onDrag((e, offset) => {
             this._graphics.translateRel(offset.x, offset.y);
             this._renderGraph();
@@ -599,7 +599,7 @@ export class VivaWebGLRenderer {
      */
     _scale(out, scrollPoint) {
         if (!scrollPoint) {
-            const containerSize = Viva.Graph.Utils.getDimension(this._container);
+            const containerSize = Viva.Utils.getDimension(this._container);
             scrollPoint = {
                 x: containerSize.width / 2,
                 y: containerSize.height / 2
@@ -863,7 +863,7 @@ export class VivaWebGLRenderer {
      * @param {Ngraph.Graph.Position} pos in graph space
      */
     centerAtGraphPoint(pos) {
-        const containerSize = Viva.Graph.Utils.getDimension(this._container);
+        const containerSize = Viva.Utils.getDimension(this._container);
         this._graphics.graphCenterChanged(0, 0);
         let pos2 = new Point2D(pos.x, pos.y);
         this._graphics.transformGraphToClientCoordinates(pos2);

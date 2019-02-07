@@ -8,25 +8,18 @@
  */
 
 // TODO: physicsSimulator must have done half of this right way, haven't it?
+import * as eventify from 'ngraph.events';
+import * as merge from 'ngraph.merge';
 
-// @ts-ignore
-module.exports = createLayout;
-
-// @ts-ignore
-var eventify = require('ngraph.events');
-// @ts-ignore
-var merge = require('ngraph.merge');
-
-// @ts-ignore
 /**
  * Creates forceAtlas2 layout for a given graph.
  *
- * @param graph which needs to be laid out
+ * @param {Ngraph.Graph.Graph} graph which needs to be laid out
  * @param {object} settings if you need custom settings
  * for physics simulator you can pass your own settings here. If it's not passed
  * a default one will be created.
  */
-function createLayout(graph, settings) {
+export default function createLayout(graph, settings) {
   if (!graph) {
     throw new Error('Graph structure cannot be undefined');
   }
@@ -326,6 +319,7 @@ function createLayout(graph, settings) {
     graph.forEachNode(function (node) {
       initBody(node);
       bodiesCount += 1;
+      return false;
     });
 
     graph.forEachLink(initLink);
@@ -392,6 +386,7 @@ function createLayout(graph, settings) {
 
 
     springs[link.id] = spring;
+    return false;
   }
 
   function releaseLink(link) {

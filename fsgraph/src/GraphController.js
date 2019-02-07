@@ -1,10 +1,8 @@
-
-import Viva from './viva-proxy';
 import { GraphState } from './GraphState';
 import { DummyMetrics } from './DummyMetrics';
 import { LayoutBuilder } from './LayoutBuilder';
 import * as DH from './DataHelpers';
-import * as $ from 'jquery';
+import NgraphGraph from 'ngraph.graph';
 
 export class GraphController {
     /**
@@ -19,7 +17,7 @@ export class GraphController {
         this._currentStateId = 0;
 
         // TODO: добавить возможность отказаться от уникальных индексов связей
-        this._graph = Viva.Graph.graph();
+        this._graph = NgraphGraph();
 
         this.monitoredValues = ['weight'];
         this._metrics = new DummyMetrics(this.monitoredValues);

@@ -91,7 +91,7 @@ export class LayoutBuilder {
      */
     static buildLayout(name, graph) {
         /** @type {function(any, Object.<string, any>)} */
-        let result = Viva.Graph.Layout[name];
+        let result = Viva.Layout[name];
         if (typeof result !== "function") {
             throw Error(`No layout called ${name} found!`);
         }
