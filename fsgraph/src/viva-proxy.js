@@ -8,38 +8,11 @@
 
 // @ts-nocheck
 
-import * as random from 'ngraph.random';
-
 import fa2f from './VivaMod/forceForceAtlas2';
 
 export default {
-  randomIterator: function() {
-    return random.randomIterator.apply(random, arguments);
-  },
-  random: function() {
-    return random.random.apply(random, arguments);
-  },
-  events: require('ngraph.events'),
   Graph: {
-    version: require('vivagraphjs/src/version.js'),
     graph: require('ngraph.graph'),
-  
-    serializer: function() {
-      return {
-        loadFromJSON: require('ngraph.fromjson'),
-        storeToJSON: require('ngraph.tojson')
-      };
-    },
-  
-    centrality: require('vivagraphjs/src/Algorithms/centrality.js'),
-    operations: require('vivagraphjs/src/Algorithms/operations.js'),
-  
-    geom: function() {
-      return {
-        intersect: require('gintersect'),
-        intersectRect: require('vivagraphjs/src/Utils/intersectRect.js')
-      };
-    },
     
     Utils: {
       // TODO: move to Input
@@ -53,11 +26,6 @@ export default {
       constant: require('vivagraphjs/src/Layout/constant.js'),
       forceAtlas2: require('./VivaMod/forceAtlas2.js'),
       forceAtlas2f: fa2f
-    },
-  
-    Rect: require('vivagraphjs/src/Utils/rect.js'),
-  
-    // TODO: should be camelCase
-    BrowserInfo: require('vivagraphjs/src/Utils/browserInfo.js')
+    }
   }
 };
