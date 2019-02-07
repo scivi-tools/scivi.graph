@@ -5,6 +5,7 @@ import { DummyMetrics } from './DummyMetrics';
 import { LayoutBuilder } from './LayoutBuilder';
 import * as DH from './DataHelpers';
 import * as $ from 'jquery';
+import { AllMetrics } from './GraphMetrics';
 
 export class GraphController {
     /**
@@ -28,6 +29,10 @@ export class GraphController {
         this.layoutBuilder = LayoutBuilder.buildLayout(layoutName, this._graph);
         /** @type {Ngraph.Generic.Layout} */
         this._layoutInstance = this.layoutBuilder.layout;
+
+        this._graphMetrics = AllMetrics.map(metricConstructor => new metricConstructor(this._graph)).forEach((v, i) => {
+            window[`GraphMetric${i}`] = v.execute.bind(v);
+        });
     }
 
     parseJsonState(state) {
