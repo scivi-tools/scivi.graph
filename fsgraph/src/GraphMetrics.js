@@ -1,4 +1,4 @@
-import { eccentricity } from 'ngraph.centrality';
+import { degree, eccentricity } from 'ngraph.centrality';
 
 // TODO: declare interface for metric
 
@@ -34,4 +34,19 @@ export class DiameterMetric extends BaseMetric {
     }
 }
 
-export const AllMetrics = [DiameterMetric];
+export class DegreeMetric extends BaseMetric {
+    constructor(graph) {
+        super(graph);
+    }
+
+    execute() {
+        const degreees = degree(this.graph);
+
+        const degreeValues = Object.keys(degreees).map(key => degreees[key]);
+        const agvDegree = degreeValues.reduce((prev, cur) => prev + cur) / degreeValues.length;
+        
+        console.log(agvDegree);
+    }
+}
+
+export const AllMetrics = [DiameterMetric, DegreeMetric];
