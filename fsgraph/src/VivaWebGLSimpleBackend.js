@@ -22,7 +22,7 @@ export class VivaWebGLSimpleBackend {
      * @param {NodeUIBuilder} nodeUIBuilder 
      */
     constructor(nodeUIBuilder) {
-        /** @type {VivaGeneric.WebGlGraphics} */
+        /** @type {VivaGeneric.WebGlGraphics<VivaImageNodeUI, VivaLinkUI>} */
         this._graphics = webglGraphics({
             // явно указываем webgl'ю не чистить backbuffer после свапа
             preserveDrawingBuffer: true,
@@ -60,17 +60,17 @@ export class VivaWebGLSimpleBackend {
 
         this._graphics.init(this._container);
 
-        this._graphics.node((/** @type {Ngraph.Graph.Node} */node) => {
+        this._graphics.node(node => {
             return this._nodeBuilder.buildUI(this._graphics, node);
         });
-        this._graphics.link((/** @type {Ngraph.Graph.Link} */link) => {
+        this._graphics.link(link => {
             return new VivaLinkUI(this._graphics, link);
         });
 
         // Устанавливаем действия при отображении примитивов
         // TODO: задать само действие д.б. можно снаружи этого класса!
-        this._graphics.placeLink((/** @type {VivaLinkUI} */linkUI) => this.onRenderEdgeCallback(linkUI));
-        this._graphics.placeNode((/** @type {VivaImageNodeUI} */nodeUI) => {
+        this._graphics.placeLink(linkUI => this.onRenderEdgeCallback(linkUI));
+        this._graphics.placeNode(nodeUI => {
             this.onRenderNodeCallback(nodeUI);
             nodeUI.onRender();
         });

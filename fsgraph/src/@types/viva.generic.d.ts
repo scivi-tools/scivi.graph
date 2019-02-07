@@ -46,9 +46,9 @@ declare namespace VivaGeneric {
         }
     }
 
-    export interface WebGlGraphics {
-        getLinkUI(linkId: number): LinkUI;
-        getNodeUI(nodeId: number): NodeUI;
+    export interface WebGlGraphics<NodeT extends NodeUI, LinkT extends LinkUI> {
+        getLinkUI(linkId: number): LinkT;
+        getNodeUI(nodeId: number): NodeT;
 
         /**
          * Sets the callback that creates node representation.
@@ -59,7 +59,7 @@ declare namespace VivaGeneric {
          * @returns If builderCallbackOrNode is a valid callback function, instance of this is returned;
          * Otherwise undefined value is returned
          */
-        node(builderCallback: (node: Ngraph.Graph.Node) => NodeUI): WebGlGraphics;
+        node(builderCallback: (node: Ngraph.Graph.Node) => NodeT): WebGlGraphics<NodeT, LinkT>;
 
         /**
          * Sets the callback that creates link representation
@@ -70,7 +70,7 @@ declare namespace VivaGeneric {
          * @returns If builderCallback is a valid callback function, instance of this is returned;
          * Otherwise undefined value is returned.
          */
-        link(builderCallback: (link: Ngraph.Graph.Link) => LinkUI): WebGlGraphics;
+        link(builderCallback: (link: Ngraph.Graph.Link) => LinkT): WebGlGraphics<NodeT, LinkT>;
 
 
         /**
@@ -78,9 +78,9 @@ declare namespace VivaGeneric {
          * function. newPlaceCallback(nodeUI, position) is function which
          * is used by updateNodePosition().
          */
-        placeNode(newPlaceCallback: (node: NodeUI, pos: Ngraph.Graph.Position) => void): WebGlGraphics;
+        placeNode(newPlaceCallback: (node: NodeT, pos: Ngraph.Graph.Position) => void): WebGlGraphics<NodeT, LinkT>;
 
-        placeLink(newPlaceLinkCallback: (link: LinkUI, pos: Ngraph.Graph.Position2) => void): WebGlGraphics;
+        placeLink(newPlaceLinkCallback: (link: LinkT, pos: Ngraph.Graph.Position2) => void): WebGlGraphics<NodeT, LinkT>;
 
         /**
          * Custom input manager listens to mouse events to process nodes drag-n-drop inside WebGL canvas
@@ -98,7 +98,7 @@ declare namespace VivaGeneric {
          */
         endRender(): void;
 
-        bringLinkToFront(linkUI: LinkUI): void;
+        bringLinkToFront(linkUI: LinkT): void;
 
         /**
          * Sets translate operation that should be applied to all nodes and links.
@@ -109,19 +109,19 @@ declare namespace VivaGeneric {
          * Called by Viva.Graph.View.renderer to let concrete graphic output
          * provider prepare to render given link of the graph
          */
-        addLink(link: Ngraph.Graph.Link, boundPosition: Ngraph.Graph.Position2): LinkUI;
+        addLink(link: Ngraph.Graph.Link, boundPosition: Ngraph.Graph.Position2): NodeT;
 
         /**
          * Called by Viva.Graph.View.renderer to let concrete graphic output
          * provider prepare to render given node of the graph.
          */
-        addNode(node: Ngraph.Graph.Node, boundPosition: Ngraph.Graph.Position): NodeUI;
+        addNode(node: Ngraph.Graph.Node, boundPosition: Ngraph.Graph.Position): NodeT;
 
         translateRel(dx: number, dy: number): void;
 
         scale(scaleFactor: number, scrollPoint: Ngraph.Graph.Position): number;
 
-        resetScale(): WebGlGraphics;
+        resetScale(): WebGlGraphics<NodeT, LinkT>;
 
        /**
         * Resizes the graphic without resetting the scale. 
@@ -197,7 +197,7 @@ declare namespace VivaGeneric {
         transformGraphToClientCoordinates(p: Ngraph.Graph.Position): Ngraph.Graph.Position;
 
         // TODO: declare precieseCheck callback properly
-        getNodeAtClientPos(clientPos: Ngraph.Graph.Position, preciseCheck: (arg0: any, arg1: any, arg2: any) => boolean): VivaGeneric.NodeUI | null;
+        getNodeAtClientPos(clientPos: Ngraph.Graph.Position, preciseCheck: (arg0: any, arg1: any, arg2: any) => boolean): NodeT | null;
 
         rotate(angle: number): void;
 
