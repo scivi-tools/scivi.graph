@@ -29,9 +29,9 @@ export class GraphState {
         this.edges = [];
         this._label = label;
 
-        /** @type {HTMLElement} */
+        /** @type {HTMLElement?} */
         this._filtersContainer = null;
-        /** @type {Object.<string, number[]>[]} */
+        /** @type {Object.<string, number[]>[]?} */
         this.prevKnownValues = null;
 
         this._visited = false;
@@ -167,7 +167,7 @@ export class GraphState {
     }
 
     /**
-     * @param {Object.<string, number[]>[]} prevFilterValues
+     * @param {Object.<string, number[]>[]?} prevFilterValues
      * @param {*} renderer
      */
     actualize(prevFilterValues, renderer) {
@@ -201,7 +201,7 @@ export class GraphState {
     }
 
     /**
-     * @returns {Object.<string, number[]>[]}
+     * @returns {Object.<string, number[]>[]?}
      */
     onBeforeDisabled() {
         // сохраняем позиции
@@ -214,8 +214,9 @@ export class GraphState {
 
         // и чистим нафиг контейнер графа
         this._controller.graph.clear();
-        $('#scivi_fsgraph_control')[0].removeChild(this._filtersContainer);
-
+        if (!!this._filtersContainer) {
+            $('#scivi_fsgraph_control')[0].removeChild(this._filtersContainer);
+        }
         return this.prevKnownValues;
     }
 
@@ -253,7 +254,7 @@ export class GraphState {
 
     /**
      * 
-     * @param {Object.<string, number[]>[]} prevKnownValues Format: [groupid][0, 1]
+     * @param {Object.<string, number[]>[]?} prevKnownValues Format: [groupid][0, 1]
      * @param {*} renderer
      */
     _checkBuildFilters(prevKnownValues, renderer) {
@@ -297,6 +298,13 @@ export class GraphState {
                     step: 1,
                     range: true,
                     slide: (event, ui) => {
+                        if (!ui.values) {
+                            return;
+                        }
+                        if (!that.prevKnownValues) {
+                            console.warn(`Can not apply filter: no stats were computed!`);
+                            return;
+                        }
                         that.prevKnownValues[i]['weight'][0] = ui.values[0];
                         that.prevKnownValues[i]['weight'][1] = ui.values[1];
                         setLabel(ui.values, ui.values);
@@ -309,9 +317,12 @@ export class GraphState {
             }
             this._filtersContainer.appendChild(filtersList);
         }
+        // HACK: _filtersContainer here will exists anyway
+        // @ts-ignore
         this._filtersContainer.id = "scivi_fsgraph_filters_control";
 
         const parent = $('#scivi_fsgraph_control')[0];
+        // @ts-ignore
         parent.appendChild(this._filtersContainer);
 
         if (filterItemsPresented) {

@@ -2,6 +2,7 @@ import { GraphState } from './GraphState';
 import { Point2D } from './Point2D';
 import { Edge } from './Edge';
 import * as DH from './DataHelpers';
+import { VivaWebGLRenderer } from './VivaWebGLRenderer';
 
 export class Node {
     /**
@@ -83,6 +84,10 @@ export class Node {
         }
     }
 
+    /**
+     * 
+     * @param {VivaWebGLRenderer} renderer 
+     */
     postListItem(renderer) {
         let itemDiv = document.createElement('li');
 

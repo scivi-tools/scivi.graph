@@ -91,14 +91,22 @@ export class GraphController {
         return this._edgeMetrics;
     }
 
+    /**
+     * @param {number} value
+     */
     set currentStateId(value) {
         this.setCurrentStateIdEx(value, null);
     }
 
+    /**
+     * 
+     * @param {number} value 
+     * @param {*} renderer 
+     */
     setCurrentStateIdEx(value, renderer) {
         if (value != this._currentStateId) {
-            /** @type {Object.<string, number[]>[]} */
-            let prevFilterValues = undefined;
+            /** @type {Object.<string, number[]>[]?} */
+            let prevFilterValues = null;
             // Сохраняем всевозможную инфу в предыдущем состоянии (те же позиции вершин)
             if ((this._currentStateId >= 0) && (this._currentStateId < this.states.length)) {
                 prevFilterValues = this.states[this._currentStateId].onBeforeDisabled();
@@ -112,6 +120,11 @@ export class GraphController {
         }
     }
 
+    /**
+     * 
+     * @param {Object} json 
+     * @param {string} layoutName 
+     */
     static fromJson(json, layoutName) {
         let controller = new GraphController(1, layoutName);
 
@@ -120,6 +133,11 @@ export class GraphController {
         return controller;
     }
 
+    /**
+     * 
+     * @param {Object} json 
+     * @param {string} layoutName 
+     */
     static fromStatedJson(json, layoutName) {
         /** @type {Object[]} */
         let states = json["states"];
