@@ -48,9 +48,9 @@ namespace SciViCGraph
         private m_renderer: PIXI.SystemRenderer;
         private m_stage: Scene;
         private m_renderingCache: RenderingCache;
-        private m_currentState: number;
-        private m_data: GraphData[];
-        private m_dataStack: GraphData[][];
+        private m_currentStateKey: string;
+        private m_states: GraphStates;
+        private m_statesStack: GraphStates[];
         private m_colors: number[];
         private m_edgeBatches: EdgeBatch[];
         private m_nodeWeight: Range;
@@ -132,9 +132,9 @@ namespace SciViCGraph
             this.clearSelected();
         }
 
-        public setInput(states: GraphData[], colors: number[])
+        public setInput(states: GraphStates, colors: number[])
         {
-            this.m_data = states;
+            this.m_states = states;
             this.m_colors = colors;
         }
 
@@ -177,12 +177,12 @@ namespace SciViCGraph
 
         private currentData(): GraphData
         {
-            return this.m_data[this.m_currentState];
+            return this.m_stats.data[this.m_currentStateKey];
         }
 
-        get data(): GraphData[]
+        get states(): GraphStates
         {
-            return this.m_data;
+            return this.m_states;
         }
 
         private calcWeights()
@@ -190,7 +190,8 @@ namespace SciViCGraph
             this.m_nodeWeight = { min: undefined, max: undefined, step: undefined };
             this.m_edgeWeight = { min: undefined, max: undefined, step: undefined };
 
-            this.m_data.forEach((data) => {
+            Object.keys(this.m_states.data).forEach((dataKey) => {
+                const data = this.m_states.data[dataKey];
                 for (let i = 0, n = data.nodes.length; i < n; ++i) {
                     if (this.m_nodeWeight.min === undefined || this.m_nodeWeight.min > data.nodes[i].weight)
                         this.m_nodeWeight.min = data.nodes[i].weight;

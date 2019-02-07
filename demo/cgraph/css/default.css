@@ -60,6 +60,7 @@ ul
     padding: 20px;
     font: 12px Helvetica Neue, Helvetica, Arial, sans-serif;
     color: #333333;
+    border: 1px solid #C0C0C0;
 }
 
 .split 
@@ -92,7 +93,7 @@ ul
     background-image: url('images/vertical.png');
 }
 
-.gutter.gutter-vertical 
+.gutter.gutter-vertical
 {
     cursor: row-resize;
     background-image: url('images/horizontal.png');
@@ -101,6 +102,12 @@ ul
 .split.split-horizontal, .gutter.gutter-horizontal 
 {
     height: 100%;
+    float: left;
+}
+
+.split.split-vertical, .gutter.gutter-vertical 
+{
+    width: 100%;
     float: left;
 }
 
