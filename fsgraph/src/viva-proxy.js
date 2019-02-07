@@ -8,7 +8,7 @@
 
 // @ts-nocheck
 
-import fa2f from './VivaMod/forceForceAtlas2';
+import fa2f from './VivaMod/Layout/forceForceAtlas2';
 
 export default {
   Graph: {
@@ -24,7 +24,7 @@ export default {
     Layout: {
       forceDirected: require('ngraph.forcelayout'),
       constant: require('vivagraphjs/src/Layout/constant.js'),
-      forceAtlas2: require('./VivaMod/forceAtlas2.js'),
+      forceAtlas2: require('./VivaMod/Layout/forceAtlas2'),
       forceAtlas2f: fa2f
     }
   }
