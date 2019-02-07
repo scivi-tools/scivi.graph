@@ -193,6 +193,8 @@ export function webglGraphics(options) {
          */
         inputManager : null,
 
+        webglInputEvents: null,
+
         /**
          * Called every time before renderer starts rendering.
          */

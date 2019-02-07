@@ -80,6 +80,7 @@ export class VivaWebGLSimpleBackend {
         return this._graphics;
     }
 
+    /** @returns {VivaGeneric.WebGlInputEvents<VivaImageNodeUI>} */
     get inputListner() {
         // Пока можно так, ибо всё кешируется в нутрянке
         return webglInputEvents(this._graphics);

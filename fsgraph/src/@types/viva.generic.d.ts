@@ -88,6 +88,8 @@ declare namespace VivaGeneric {
         // TODO: implement such a interface
         inputManager : any;
 
+        webglInputEvents?: WebGlInputEvents<NodeT>;
+
         /**
          * Called every time before renderer starts rendering.
          */
@@ -165,7 +167,7 @@ declare namespace VivaGeneric {
         /**
          * Returns root element which hosts graphics.
          */
-        getGraphicsRoot(callbackWhenReady: (containre: HTMLCanvasElement) => void): HTMLCanvasElement;
+        getGraphicsRoot(callbackWhenReady?: (container: HTMLCanvasElement) => void): HTMLCanvasElement;
 
         /**
          * Updates default shader which renders nodes
@@ -196,13 +198,24 @@ declare namespace VivaGeneric {
          */
         transformGraphToClientCoordinates(p: Ngraph.Graph.Position): Ngraph.Graph.Position;
 
-        // TODO: declare precieseCheck callback properly
-        getNodeAtClientPos(clientPos: Ngraph.Graph.Position, preciseCheck: (arg0: any, arg1: any, arg2: any) => boolean): NodeT | null;
+        getNodeAtClientPos(clientPos: Ngraph.Graph.Position, preciseCheck: (node: NodeT, x: number, y: number) => boolean): NodeT | null;
 
         rotate(angle: number): void;
 
         getTransform(): number[];
 
         pixelRatio(): number;
+    }
+
+    export interface WebGlInputEvents<NodeT extends NodeUI> {
+        mouseEnter(callback: (node: NodeT) => boolean): void;
+        mouseLeave(callback: (node: NodeT) => boolean): WebGlInputEvents<NodeT>;
+        mouseDown(callback: (node: NodeT, e: MouseEvent) => boolean): WebGlInputEvents<NodeT>;
+        mouseUp(callback: (node: NodeT, e: MouseEvent) => boolean): WebGlInputEvents<NodeT>;
+        mouseMove(callback: (node: NodeT, e: MouseEvent) => boolean): WebGlInputEvents<NodeT>;
+        click(callback: (node: NodeT, e: MouseEvent) => boolean): WebGlInputEvents<NodeT>;
+        dblClick(callback: (node: NodeT, e: MouseEvent) => boolean): WebGlInputEvents<NodeT>;
+        mouseCapture(node: NodeT): void;
+        releaseMouseCapture(node: NodeT): void;
     }
 }

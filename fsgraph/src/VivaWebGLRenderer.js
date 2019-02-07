@@ -140,14 +140,16 @@ export class VivaWebGLRenderer {
         this._backend.nodeTypes = value.nodeTypes;
 
         // TODO: inverse dependency!
-        this.graphicsInputListner.click((/** @type {VivaImageNodeUI} */nodeUI) => {
+        this.graphicsInputListner.click(nodeUI => {
             value.onNodeClick(nodeUI, this._graphBackend, this);
+            return false;
         });
 
-        this.graphicsInputListner.dblClick((/** @type {VivaImageNodeUI} */nodeUI) => {
+        this.graphicsInputListner.dblClick(nodeUI => {
             if (nodeUI) {
                 this._layoutBackend.pinNode(nodeUI.node, !this._layoutBackend.isNodePinned(nodeUI.node));
             }
+            return false;
         });
     }
 
