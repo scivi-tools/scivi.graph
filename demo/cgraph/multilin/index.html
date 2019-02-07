@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>SciVi-CGraph</title>
+        
+        <script src="../lib/scivi-cgraph.min.js"></script>
+        <script src="../lib/hummingbird-treeview.min.js"></script>
+
+        <link rel="stylesheet" href="../css/jquery-ui.css"/>
+        <link rel="stylesheet" href="../css/jquery.contextMenu.css"/>
+        <link rel="stylesheet" href="../css/hummingbird-treeview.css"/>
+        <link rel="stylesheet" href="../css/default.css"/>
+
+        <script src="data.js"></script>
+        <script src="classifier.js"></script>
+        <script src="../css/loc-ru.js"></script>
+        <script src="../css/loc-en.js"></script>
+
+        <style>
+            #scivi_cgraph_stateline
+            {
+                margin-top: -5px;
+                padding: 20px 40px 20px 40px;
+                font: 12px Helvetica Neue, Helvetica, Arial, sans-serif;
+                color: #333333;
+            }
+
+            .scivi_stateline label 
+            {
+                position: absolute;
+                width: 70px;
+                margin-left: -35px;
+                text-align: center;
+                margin-top: 8px;
+            }
+        </style>
+
+        <script>
+            function getParameterByName(name, url)
+            {
+                if (!url)
+                    url = window.location.href;
+                name = name.replace(/[\[\]]/g, "\\$&");
+                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
+                var results = regex.exec(url);
+                if (!results)
+                    return null;
+                if (!results[2])
+                    return '';
+                return decodeURIComponent(results[2].replace(/\+/g, " "));
+            }
+
+            function main()
+            {
+                var locRus = getParameterByName("lang") === "ru";
+                var loc = locRus ? g_loc_ru : g_loc_en;
+
+                var graph = new CGraph();
+
+                var states = graph.parseStates(g_data);
+
+                console.log("Number of states: " + states.length);
+                console.log("Number of nodes: " + states[0].nodes.length);
+                for (var i = 0; i < states.length; ++i)
+                    console.log("Number of edges in state " + i + ": " + states[i].edges.length);
+
+                var colors1 = [ 0xdd1111, 0x489CA0 ];
+
+                var classifier = graph.createClassifier(g_classifier, function (node) { return node.custom["class"]; });
+
+                var renderer = graph.run(loc, states, null, colors1,
+                                         locRus ? "Рецептивный мультилигвизм" : "Receptive Multilinguism",
+                                         locRus ? "Рецептивный мультилигвизм" : "Receptive Multilinguism",
+                                         classifier);
+            }
+        </script>
+    </head>
+
+    <body onload="main();">
+    </body>
+</html>
