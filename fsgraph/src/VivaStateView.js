@@ -189,9 +189,9 @@ let lastNodeClicked = null;
  */
 function toggleRelatedWords(graph, renderer, nodeUI, toggled) {
     nodeUI.selected = toggled;
-    let realNode = /** @type {Node} */ (nodeUI._realNode);
+    let realNode = nodeUI._realNode;
     // TODO: nodUI.selected, not node.selected!
-    graph.forEachLinkedNode(realNode.id, (/** @type {Ngraph.Graph.Node} */node, /** @type {Ngraph.Graph.Link} */link) => {
+    graph.forEachLinkedNode(realNode.id, (node, link) => {
         let nodeUI = renderer.graphics.getNodeUI(node.id);
         let linkUI = renderer.graphics.getLinkUI(link.id);
         if (node.data.groupId !== 0) {
