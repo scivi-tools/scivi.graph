@@ -22,6 +22,7 @@ export class VivaImageNodeUI extends VivaBaseUI {
         this._span = titleSpan;
         this._spanWidth = 0;
         this._spanHeight = 0;
+        this._spanOpacity = this._span.style.opacity;
         this._labelChanged = true;
         this._showLabel = false;
 
@@ -104,6 +105,7 @@ export class VivaImageNodeUI extends VivaBaseUI {
             this._graphics.transformGraphToClientCoordinates(domPos);
             this._span.style.left = `${domPos.x - this._spanWidth / 2}px`;
             this._span.style.top = `${domPos.y - this._spanHeight}px`;
+            this._span.style.opacity = this.selected ? '1' : this._spanOpacity;
         }
     }
 
