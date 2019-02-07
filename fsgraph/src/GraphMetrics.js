@@ -44,9 +44,28 @@ export class DegreeMetric extends BaseMetric {
 
         const degreeValues = Object.keys(degreees).map(key => degreees[key]);
         const agvDegree = degreeValues.reduce((prev, cur) => prev + cur) / degreeValues.length;
-        
+
         console.log(agvDegree);
     }
 }
 
-export const AllMetrics = [DiameterMetric, DegreeMetric];
+/**
+ * Assumes graph is directed
+ * TODO: should be configurable via UI
+ */
+export class DensityMetric extends BaseMetric {
+    constructor(graph) {
+        super(graph);
+    }
+
+    execute() {
+        const nodeCount = this.graph.getNodesCount();
+        const linkCount = this.graph.getLinksCount();
+
+        const density = (nodeCount > 1) ? linkCount / (nodeCount * (nodeCount - 1)) : 0;
+
+        console.log(density);
+    }
+}
+
+export const AllMetrics = [DiameterMetric, DegreeMetric, DensityMetric];
