@@ -22,6 +22,7 @@ export class VivaWebGLSimpleBackend {
      * @param {NodeUIBuilder} nodeUIBuilder 
      */
     constructor(nodeUIBuilder) {
+        /** @type {VivaGeneric.WebGlGraphics} */
         this._graphics = webglGraphics({
             // явно указываем webgl'ю не чистить backbuffer после свапа
             preserveDrawingBuffer: true,

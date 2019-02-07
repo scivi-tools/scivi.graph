@@ -4,27 +4,23 @@
  * @author Andrei Kashcha (aka anvaka) / https://github.com/anvaka
  */
 
-
 import { newLinkProgram } from './newLinkProgram'
 import { newNodeProgram } from './newNodeProgram'
 import * as eventify from 'ngraph.events';
 import * as merge from 'ngraph.merge';
 
 /**
- * @typedef {{enableBlending?:boolean, preserveDrawingBuffer?:boolean, clearColor?:boolean, clearColorValue?:{r,g,b,a}}} webglopts
- */
-
-/**
  * Performs webgl-based graph rendering. This module does not perform
  * layout, but only visualizes nodes and edges of the graph.
  *
- * @param {webglopts} options - to customize graphics  behavior. Currently supported parameter
+ * @param {VivaGeneric.WebGlOpts} options - to customize graphics  behavior. Currently supported parameter
  *  enableBlending - true by default, allows to use transparency in node/links colors.
  *  preserveDrawingBuffer - false by default, tells webgl to preserve drawing buffer.
  *                    See https://www.khronos.org/registry/webgl/specs/1.0/#5.2
+ * @returns {VivaGeneric.WebGlGraphics}
  */
 export function webglGraphics(options) {
-    options = /** @type {webglopts} */ (merge(options, {
+    options = /** @type {VivaGeneric.WebGlOpts} */ (merge(options, /** @type {VivaGeneric.WebGlOpts} */{
         enableBlending : true,
         preserveDrawingBuffer : false,
         clearColor: false,
