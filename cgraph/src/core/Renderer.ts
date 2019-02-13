@@ -973,9 +973,10 @@ namespace SciViCGraph
 
         public quasiZoomIn(groupID: number)
         {
-            let newData = [];
+            let newStates = new GraphStates();
 
-            this.m_data.forEach((state) => {
+            Object.keys(this.m_states.data).forEach((dataKey) => {
+                const data = this.m_states.data[dataKey];
                 let newNodes = [];
                 state.nodes.forEach((node) => {
                     if (node.groupID === groupID)
@@ -988,32 +989,32 @@ namespace SciViCGraph
                         newEdges.push(edge);
                 });
 
-                newData.push(new GraphData(state.label, newNodes, newEdges));
+                newStates.data[dataKey] = new GraphData(newNodes, newEdges);
             });
 
-            if (this.m_dataStack === null)
-                this.m_dataStack = [];
-            this.m_dataStack.push(this.m_data);
-            this.m_data = newData;
+            if (this.m_statesStack === null)
+                this.m_statesStack = [];
+            this.m_statesStack.push(this.m_states);
+            this.m_states = newStates;
 
             this.reinit(true);
         }
 
         public quasiZoomOut()
         {
-            this.m_data = this.m_dataStack.pop();
+            this.m_states = this.m_statesStack.pop();
 
             this.reinit(true);
         }
 
         public canQuasiZoomIn(): boolean
         {
-            return this.m_dataStack === null || this.m_dataStack.length === 0;
+            return this.m_statesStack === null || this.m_statesStack.length === 0;
         }
 
         public canQuasiZoomOut(): boolean
         {
-            return this.m_dataStack !== null && this.m_dataStack.length > 0;
+            return this.m_statesStack !== null && this.m_statesStack.length > 0;
         }
 
         public highlightGroup(groupID: number)
