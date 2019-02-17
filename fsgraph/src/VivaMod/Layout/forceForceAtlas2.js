@@ -59,14 +59,21 @@ function _createSpringForce(options) {
     return new CustomSpringForceUpdater(options);
 }
 
+/** @typedef {{springCoeff: number,springLength: number, edgeWeightInfluence: number, outboundAttCompensation: number, outboundAttractionDistribution: boolean}} ForceAtlas2Options */
+
 class CustomSpringForceUpdater {
+    /**
+     * 
+     * @param {Partial<ForceAtlas2Options>} options 
+     */
     constructor(options) {
-        this._options = /** @type {any} */(merge(options, {
+        this._options = merge(options, {
             springCoeff: 0.0002,
             springLength: 80,
             edgeWeightInfluence: 1,
+            outboundAttCompensation: 1,
             outboundAttractionDistribution: false,
-        }));
+        });
 
         this._random = random.random(42);
     }
@@ -82,7 +89,7 @@ class CustomSpringForceUpdater {
         let dx = body2.pos.x - body1.pos.x;
         let dy = body2.pos.y - body1.pos.y;
         let r = Math.sqrt(dx * dx + dy * dy);
-        let outAttrComp = this._options.outboundAttractionDistribution ? (this._options.outboundAttCompensation || 1) : 1;
+        let outAttrComp = this._options.outboundAttractionDistribution ? this._options.outboundAttCompensation : 1;
 
         let springCt = ((!spring.coeff || spring.coeff < 0) ? this._options.springCoeff : spring.coeff);
 

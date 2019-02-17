@@ -35,10 +35,10 @@ declare namespace VivaGeneric {
     }
 
     export interface WebGlOpts {
-        enableBlending?: boolean,
-        preserveDrawingBuffer?: boolean,
-        clearColor?: boolean,
-        clearColorValue?: {
+        enableBlending: boolean,
+        preserveDrawingBuffer: boolean,
+        clearColor: boolean,
+        clearColorValue: {
             r: number,
             g: number,
             b: number,
