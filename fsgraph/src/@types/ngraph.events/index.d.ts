@@ -20,7 +20,7 @@ declare namespace NgraphEvents {
  * @param {} params Object to extend 
  * @returns {} Same object that implements EventifiedObject interface
  */
-declare function NgraphEvents<T extends object>(params: T): NgraphEvents.EventifiedObject;
+declare function NgraphEvents<T extends object>(params: T): NgraphEvents.EventifiedObject & T;
 
 declare module 'ngraph.events' {
     export = NgraphEvents;
