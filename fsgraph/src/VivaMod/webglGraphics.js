@@ -7,7 +7,7 @@
 import { newLinkProgram } from './newLinkProgram'
 import { newNodeProgram } from './newNodeProgram'
 import * as eventify from 'ngraph.events';
-import * as merge from 'ngraph.merge';
+import merge from 'ngraph.merge';
 
 /**
  * Performs webgl-based graph rendering. This module does not perform

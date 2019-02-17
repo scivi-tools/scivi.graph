@@ -1,8 +1,5 @@
-
-declare namespace NgraphMerge {}
-declare function NgraphMerge<T extends object>(target: Partial<T>, options: T) : T;
-declare function NgraphMerge<T extends object>(target?: Partial<T>) : object;
-
 declare module 'ngraph.merge' {
+    function NgraphMerge<T extends object>(target: Partial<T>, options: T) : T;
+    function NgraphMerge<T extends object>(target?: Partial<T>) : object;
     export = NgraphMerge;
 }

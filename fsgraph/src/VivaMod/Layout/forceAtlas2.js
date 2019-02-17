@@ -9,7 +9,7 @@
 
 // TODO: physicsSimulator must have done half of this right way, haven't it?
 import * as eventify from 'ngraph.events';
-import * as merge from 'ngraph.merge';
+import merge from 'ngraph.merge';
 
 /**
  * Creates forceAtlas2 layout for a given graph.

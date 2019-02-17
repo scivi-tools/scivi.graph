@@ -1,6 +1,6 @@
 
 import Viva from './viva-proxy'
-import * as merge from 'ngraph.merge'
+import merge from 'ngraph.merge'
 import { VivaWebGLRenderer } from './VivaWebGLRenderer'
 import { getOrCreateTranslatorInstance } from './Misc/Translator'
 import * as $ from 'jquery'
