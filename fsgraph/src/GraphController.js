@@ -30,7 +30,8 @@ export class GraphController {
         /** @type {Ngraph.Generic.Layout} */
         this._layoutInstance = this.layoutBuilder.layout;
 
-        this._graphMetrics = AllMetrics.map(metricConstructor => new metricConstructor(this._graph)).forEach((v, i) => {
+        this.graphMetrics = AllMetrics.map(metricConstructor => new metricConstructor(this._graph));
+        this.graphMetrics.forEach((v, i) => {
             window[`GraphMetric${i}`] = v.execute.bind(v);
         });
     }

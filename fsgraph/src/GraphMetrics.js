@@ -12,9 +12,9 @@ export class BaseMetric {
     }
 
     /**
-     * @returns {void}
+     * @returns {Promise<number>}
      */
-    execute() {
+    async execute() {
         throw new Error('Abstract method execute() not implemented!');
     }
 }
@@ -24,13 +24,19 @@ export class DiameterMetric extends BaseMetric {
         super(graph);
     }
 
+    /**
+     * @returns {Promise<number>}
+     */
     execute() {
-        const eccent = eccentricity(this.graph);
+        return new Promise((resolve, reject) => {
+            const eccent = eccentricity(this.graph);
 
-        const eccentricityValues = Object.keys(eccent).map(key => eccent[key]);
-        const diameter = Math.max(...eccentricityValues);
+            const eccentricityValues = Object.keys(eccent).map(key => eccent[key]);
+            const diameter = Math.max(...eccentricityValues);
 
-        console.log(diameter);
+            console.log(diameter);
+            resolve(diameter);
+        });
     }
 }
 
@@ -39,13 +45,19 @@ export class DegreeMetric extends BaseMetric {
         super(graph);
     }
 
+    /**
+     * @returns {Promise<number>}
+     */
     execute() {
-        const degreees = degree(this.graph);
+        return new Promise((resolve, reject) => {
+            const degreees = degree(this.graph);
 
-        const degreeValues = Object.keys(degreees).map(key => degreees[key]);
-        const agvDegree = degreeValues.reduce((prev, cur) => prev + cur) / degreeValues.length;
+            const degreeValues = Object.keys(degreees).map(key => degreees[key]);
+            const agvDegree = degreeValues.reduce((prev, cur) => prev + cur) / degreeValues.length;
 
-        console.log(agvDegree);
+            console.log(agvDegree);
+            resolve(agvDegree);
+        });
     }
 }
 
@@ -58,14 +70,21 @@ export class DensityMetric extends BaseMetric {
         super(graph);
     }
 
+    /**
+     * @returns {Promise<number>}
+     */
     execute() {
-        const nodeCount = this.graph.getNodesCount();
-        const linkCount = this.graph.getLinksCount();
+        return new Promise((resolve, reject) => {
+            const nodeCount = this.graph.getNodesCount();
+            const linkCount = this.graph.getLinksCount();
 
-        const density = (nodeCount > 1) ? linkCount / (nodeCount * (nodeCount - 1)) : 0;
+            const density = (nodeCount > 1) ? linkCount / (nodeCount * (nodeCount - 1)) : 0;
 
-        console.log(density);
+            console.log(density);
+            resolve(density);
+        });
     }
 }
 
+/** @type {(typeof BaseMetric)[]} */
 export const AllMetrics = [DiameterMetric, DegreeMetric, DensityMetric];
