@@ -223,8 +223,9 @@ export function webglInputEvents(webglGraphics) {
             document.addEventListener('mouseup', handleMouseUp);
           }
 
+          // @ts-ignore
           prevSelectStart = window.document.onselectstart;
-
+          // @ts-ignore
           window.document.onselectstart = handleDisabledEvent;
 
           lastFound = args[0];
@@ -248,6 +249,7 @@ export function webglInputEvents(webglGraphics) {
         var sameNode = nodeAtClientPos === lastFound;
         args = [nodeAtClientPos || lastFound, e];
         if (args[0]) {
+          // @ts-ignore
           window.document.onselectstart = prevSelectStart;
 
           lastClickTime = clickTime;

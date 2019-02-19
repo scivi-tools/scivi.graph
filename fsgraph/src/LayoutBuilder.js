@@ -90,7 +90,7 @@ export class LayoutBuilder {
      * @param {Ngraph.Graph.Graph} graph 
      */
     static buildLayout(name, graph) {
-        /** @type {function(any, Object.<string, any>)} */
+        /** @type {function(any, Object.<string, any>): Ngraph.Generic.Layout} */
         let result = Viva.Layout[name];
         if (typeof result !== "function") {
             throw Error(`No layout called ${name} found!`);
