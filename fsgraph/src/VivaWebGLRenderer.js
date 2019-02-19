@@ -163,6 +163,7 @@ export class VivaWebGLRenderer {
 
         value.layoutBuilder.buildUI(this);
         this._buildTimeline();
+        this._buildMetricsUI();
     }
 
     /**
@@ -802,6 +803,39 @@ export class VivaWebGLRenderer {
             labelContainer.appendChild(label);
         }
         tlContainer.appendChild(labelContainer);
+    }
+
+    _buildMetricsUI() {
+        const metrics = this._graphController.graphMetrics;
+        if (!metrics.length) {
+            return;
+        }
+        const tr = getOrCreateTranslatorInstance();
+        
+        const root = $('#scivi_fsgraph_stats');
+        root.empty();
+
+        for (const metric of metrics) {
+            const metricDiv = document.createElement('div');
+            metricDiv.className = 'scivi_fsgraph_metric_control';
+            metricDiv.innerHTML = `<span>${tr.apply(metric.id())}</span><br>`;
+            const label = document.createElement('div');
+            label.className = 'centered';
+            const btn = $(document.createElement('button')).button();
+            btn.button('option', 'icon', 'ui-icon-play');
+            btn.click((evt) => {
+                btn.button("option", "disabled", true).promise().then(_ => {
+                    metric.execute().then(result => {
+                        btn.button("option", "disabled", false);
+                        btn.button("option", "label", result.toFixed(3));
+                    });
+                });
+            });
+
+            $(label).append(btn);
+            $(metricDiv).append(label);
+            root.append(metricDiv);
+        }
     }
 
     buildNodeListInfo() {

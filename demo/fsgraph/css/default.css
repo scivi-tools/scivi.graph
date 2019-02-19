@@ -135,6 +135,19 @@
     display: block;
 }
 
+.scivi_fsgraph_metric_control
+{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.scivi_fsgraph_metric_control .centered
+{
+    width: 100%;
+    text-align: center;
+    padding-top: 5px;
+}
+
 .ui-slider-horizontal
 {
     height: 0.6em;

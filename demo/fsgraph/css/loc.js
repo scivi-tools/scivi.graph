@@ -29,6 +29,9 @@ var g_fsgraph_loc = {
         "#for_group": "For group",
         "#state_hint": "Show nodes with weight within specified range",
         "#fit_to_screen": "Fit to screen",
+        "#metric_diameter": "Diameter:",
+        "#metric_degree": "Degree (average):",
+        "#metric_density": "Density:",
     },
     "ru": {
         "#control": "Управление",
@@ -60,5 +63,8 @@ var g_fsgraph_loc = {
         "#for_group": "Для группы",
         "#state_hint": "Показывать вершины, чей вес лежит в указанных диапазонах",
         "#fit_to_screen": "Подогнать под экран",
+        "#metric_diameter": "Диаметр графа:",
+        "#metric_degree": "Средняя стпень вершин:",
+        "#metric_density": "Плотность графа:",
     },
 };
