@@ -1,7 +1,6 @@
 import { degree, eccentricity } from 'ngraph.centrality';
 
-// TODO: declare interface for metric
-
+// TODO: declare interface for metric instead of this crap
 export class BaseMetric {
     /**
      * 
@@ -16,6 +15,10 @@ export class BaseMetric {
      */
     async execute() {
         throw new Error('Abstract method execute() not implemented!');
+    }
+
+    id() {
+        return 'null';
     }
 }
 
@@ -34,9 +37,12 @@ export class DiameterMetric extends BaseMetric {
             const eccentricityValues = Object.keys(eccent).map(key => eccent[key]);
             const diameter = Math.max(...eccentricityValues);
 
-            console.log(diameter);
             resolve(diameter);
         });
+    }
+
+    id() {
+        return '#metric_diameter';
     }
 }
 
@@ -55,9 +61,12 @@ export class DegreeMetric extends BaseMetric {
             const degreeValues = Object.keys(degreees).map(key => degreees[key]);
             const agvDegree = degreeValues.reduce((prev, cur) => prev + cur) / degreeValues.length;
 
-            console.log(agvDegree);
             resolve(agvDegree);
         });
+    }
+
+    id() {
+        return '#metric_degree';
     }
 }
 
@@ -80,9 +89,12 @@ export class DensityMetric extends BaseMetric {
 
             const density = (nodeCount > 1) ? linkCount / (nodeCount * (nodeCount - 1)) : 0;
 
-            console.log(density);
             resolve(density);
         });
+    }
+
+    id() {
+        return '#metric_density';
     }
 }
 

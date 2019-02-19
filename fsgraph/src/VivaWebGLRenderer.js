@@ -810,28 +810,30 @@ export class VivaWebGLRenderer {
         if (!metrics.length) {
             return;
         }
+        const tr = getOrCreateTranslatorInstance();
         
         const root = $('#scivi_fsgraph_stats');
         root.empty();
 
         for (const metric of metrics) {
             const metricDiv = document.createElement('div');
-            metricDiv.innerHTML = `<span>Metric #X</span><br>`;
-            const label = document.createElement('span');
+            metricDiv.className = 'scivi_fsgraph_metric_control';
+            metricDiv.innerHTML = `<span>${tr.apply(metric.id())}</span><br>`;
+            const label = document.createElement('div');
+            label.className = 'centered';
             const btn = $(document.createElement('button')).button();
             btn.button('option', 'icon', 'ui-icon-play');
             btn.click((evt) => {
-                label.innerText = '';
                 btn.button("option", "disabled", true).promise().then(_ => {
                     metric.execute().then(result => {
-                        label.innerText = result.toFixed(3);
                         btn.button("option", "disabled", false);
+                        btn.button("option", "label", result.toFixed(3));
                     });
                 });
             });
 
+            $(label).append(btn);
             $(metricDiv).append(label);
-            $(metricDiv).append(btn);
             root.append(metricDiv);
         }
     }
