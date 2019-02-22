@@ -167,7 +167,8 @@ export class VivaWebGLRenderer {
 
         this.currentStateId = 0;
 
-        value.layoutBuilder.buildUI(this);
+        value.layoutBuilder.buildUI();
+        value.layoutBuilder.onSetiingChangedCallback = this.kick.bind(this);
         this._buildTimeline();
     }
 
