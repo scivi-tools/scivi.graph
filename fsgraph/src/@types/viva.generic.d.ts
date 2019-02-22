@@ -218,4 +218,10 @@ declare namespace VivaGeneric {
         mouseCapture(node: NodeT): void;
         releaseMouseCapture(node: NodeT): void;
     }
+
+    export function TimerBuilder(callback: () => boolean) : Timer;
+    export interface Timer {
+        stop(): void;
+        restart(): void;
+    }
 }

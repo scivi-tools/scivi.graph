@@ -243,9 +243,7 @@ export class VivaWebGLRenderer {
             this._isInitialized = true;
         }
         if (!this._animationTimer) {
-            // TODO: WTF откуда пилять тут берётся второй аргумент, если никто его потом не обрабатывает?
-            // (См. исходники timer)
-            this._animationTimer = Viva.Utils.timer(() => this._onRenderFrame());//, this._frameTicks);
+            this._animationTimer = Viva.Utils.timer(() => this._onRenderFrame());
         }
         return this;
     }

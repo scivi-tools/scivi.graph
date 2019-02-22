@@ -15,6 +15,7 @@ export default {
     // @ts-ignore
     dragndrop: require('vivagraphjs/src/Input/dragndrop.js'),
     // @ts-ignore
+    /** @type {VivaGeneric.TimerBuilder} */
     timer: require('vivagraphjs/src/Utils/timer.js'),
     // @ts-ignore
     getDimension: require('vivagraphjs/src/Utils/getDimensions.js')
