@@ -26,6 +26,9 @@ export class GraphController {
         this.layoutBuilder = LayoutBuilder.buildLayout(layoutName, this._graph);
         /** @type {Ngraph.Generic.Layout} */
         this._layoutInstance = this.layoutBuilder.layout;
+
+        /** @type {Function} */
+        this._onStateUpdated = null;
     }
 
     parseJsonState(state) {
@@ -93,15 +96,21 @@ export class GraphController {
      * @param {number} value
      */
     set currentStateId(value) {
-        this.setCurrentStateIdEx(value, null);
+        this.setCurrentStateIdEx(value);
+    }
+
+    /**
+     * @param {Function} value
+     */
+    set onStateUpdatedCallback(value) {
+        this._onStateUpdated = value;
     }
 
     /**
      * 
-     * @param {number} value 
-     * @param {*} renderer 
+     * @param {number} value
      */
-    setCurrentStateIdEx(value, renderer) {
+    setCurrentStateIdEx(value) {
         if (value != this._currentStateId) {
             /** @type {Object.<string, number[]>[]?} */
             let prevFilterValues = null;
@@ -114,7 +123,7 @@ export class GraphController {
             this._currentStateId = value;
 
             // здесь мы должны переключать граф путём перезаполнения ngraph.graph
-            this.states[this._currentStateId].actualize(prevFilterValues, renderer);
+            this.states[this._currentStateId].actualize(prevFilterValues);
         }
     }
 

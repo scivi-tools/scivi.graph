@@ -157,7 +157,11 @@ export class VivaWebGLRenderer {
      * @param {GraphController} value
      */
     set graphController(value) {
+        if (!!this._graphController) {
+            throw new Error('Changin controller on the fly not supported!');
+        }
         this._graphController = value;
+        this._graphController.onStateUpdatedCallback = this.rerender.bind(this);
         this.layoutBackend = value.layoutInstance;
         this.graphBackend = value.graph;
 
@@ -209,7 +213,7 @@ export class VivaWebGLRenderer {
      * @param {number} value
      */
     set currentStateId(value) {
-        this._graphController.setCurrentStateIdEx(value, this);
+        this._graphController.setCurrentStateIdEx(value);
         this.buildNodeListInfo();
     }
 

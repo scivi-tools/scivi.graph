@@ -18,7 +18,7 @@ export class GraphState {
      */
     constructor(controller, nCount, eCount, label) {
         /** @type {GraphController} */
-        this._controller = controller
+        this._controller = controller;
         this._metrics = new DummyMetrics(this._controller.monitoredValues);
         this._edgeMetrics = new DummyMetrics(this._controller.monitoredValues);
         /** @type {number[][]} */
@@ -168,11 +168,10 @@ export class GraphState {
 
     /**
      * @param {Object.<string, number[]>[]?} prevFilterValues
-     * @param {*} renderer
      */
-    actualize(prevFilterValues, renderer) {
+    actualize(prevFilterValues) {
         // TODO: восстанавливаем значения фильтров, если таковые есть
-        this._checkBuildFilters(prevFilterValues, renderer);
+        this._checkBuildFilters(prevFilterValues);
 
         // восстанавливаем узлы и связи, не забыв про их позиции и видимость
         // graph.beginUpdate();
@@ -255,9 +254,8 @@ export class GraphState {
     /**
      * 
      * @param {Object.<string, number[]>[]?} prevKnownValues Format: [groupid][0, 1]
-     * @param {*} renderer
      */
-    _checkBuildFilters(prevKnownValues, renderer) {
+    _checkBuildFilters(prevKnownValues) {
         if (prevKnownValues) {
             this.prevKnownValues = prevKnownValues;
         } else {
@@ -309,7 +307,9 @@ export class GraphState {
                         that.prevKnownValues[i]['weight'][1] = ui.values[1];
                         setLabel(ui.values, ui.values);
                         that._applyFilterRange();
-                        renderer.rerender();
+                        if (!!that._controller._onStateUpdated) {
+                            that._controller._onStateUpdated();
+                        }
                     } 
                 });
                 listItem.appendChild(filterSlider);
