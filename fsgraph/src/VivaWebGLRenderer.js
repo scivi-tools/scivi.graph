@@ -329,10 +329,11 @@ export class VivaWebGLRenderer {
     _initPrelayoutEnv(iterations) {
         const itersPerStep = 250;
         const progressLabel = document.createElement('span');
+        const tr = getOrCreateTranslatorInstance();
         let forceStop = false;
         progressLabel.innerText = '0';
-        const dialog = $(`<div title="Precalculating layout">
-        <span>out of ${iterations}</span></div>`);
+        const dialog = $(`<div title="${tr.apply("#precalc_layout")}">
+        <span>/ ${iterations}</span></div>`);
         dialog.css('vertical-align', 'center').css('text-align', 'center');
         /**
          * 
@@ -347,11 +348,14 @@ export class VivaWebGLRenderer {
             }
         };
         dialog.prepend(progressLabel);
+        /** @type {JQueryUI.DialogButtonOptions[]} */
+        const buttonsDescr = [{
+            text: tr.apply('#cancel'),
+            click: () => onDialogClose(true)
+        }];
         dialog.dialog({
             modal: true,
-            buttons: {
-                'Cancel': () => onDialogClose(true)
-            }
+            buttons: buttonsDescr
         })
         /**
          * 
