@@ -131,7 +131,7 @@ namespace SciViCGraph
 
         public initTreeView(treeView: HTMLElement, svRenderer: Renderer)
         {
-            // FIXME: it's better to generate the full html. Yes, it's more complicated, but more efficient.
+            // HINT: it's better to generate the full html. Yes, it's more complicated, but more efficient.
             // And then we can remove the crutch from the hummingbird-treeview.js with the checked state of inputs.
             let div = $("<div>", { "class": "hummingbird-treeview-converter", "data-height": "500px" });
             div.html(this.buildTreeStructure(this.m_tree, 0));
@@ -141,8 +141,11 @@ namespace SciViCGraph
             $("#treeview").on("CheckUncheckDone", () => {
                 let list = {"id" : [], "dataid" : [], "text" : []};
                 $("#treeview").hummingbird("getChecked", { list: list, onlyEndNodes: false });
-                svRenderer.data.forEach((state) => {
-                    state.excludeUnselected(list["dataid"], this.getKlass);
+                Object.keys(svRenderer.states.data).forEach((dataKey) => {
+                    const data = svRenderer.states.data[dataKey];
+                    data.forEach((state) => {
+                        state.excludeUnselected(list["dataid"], this.getKlass);
+                    });
                 });
                 svRenderer.updateNodeKlasses();
             });

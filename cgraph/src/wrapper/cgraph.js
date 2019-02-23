@@ -78,7 +78,7 @@ CGraph.prototype.run = function (loc, data, scales, colors, title, info, classif
     }
 
     if (title)
-        splitG.html("<div id=\"scivi_cgraph_title\">" + title + "</div><div id=\"scivi_cgraph_view\" style=\"height: calc(100vh - 30px);\"></div>");
+        splitG.html("<div id=\"scivi_cgraph_title\">" + title + "</div><div id=\"scivi_cgraph_view\" style=\"height: calc(100% - 30px)\"></div>");
     else
         splitG.html("<div id=\"scivi_cgraph_view\"></div>");
 
@@ -120,7 +120,8 @@ CGraph.prototype.run = function (loc, data, scales, colors, title, info, classif
             gutterSize: 8,
             cursor: "row-resize",
             direction: "vertical",
-            sizes: ["90%", "10%"],
+            sizes: [90, 10],
+            minSize: [10, 10],
             onDrag: function () { renderer.reshape(); }
         });
     }

@@ -134,7 +134,7 @@ namespace SciViCGraph
             });
         }
 
-        get graphStates(): GraphData[]
+        get graphStates(): GraphStates
         {
             return this.m_states;
         }
@@ -154,6 +154,11 @@ namespace SciViCGraph
                     this.m_states.data[key] = parser.graphData;
                 }
             }
+        }
+
+        get graphStates(): GraphStates
+        {
+            return this.m_states;
         }
     }
 }

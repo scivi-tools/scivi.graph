@@ -60,6 +60,7 @@ ul
     padding: 20px;
     font: 12px Helvetica Neue, Helvetica, Arial, sans-serif;
     color: #333333;
+    height: calc(100% - 42px);
     border: 1px solid #C0C0C0;
 }
 

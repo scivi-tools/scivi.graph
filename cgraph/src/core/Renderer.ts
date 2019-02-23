@@ -87,6 +87,7 @@ namespace SciViCGraph
         private m_equalizer: EqualizerItem[];
         private m_colorPicker: any;
         private m_modularityFilters: any[];
+        private m_stateLineNav: StateLineNavigator;
 
         static readonly m_ringScaleWidth = 30;
         static readonly m_minFontSize = 5;
@@ -106,10 +107,10 @@ namespace SciViCGraph
             this.m_classifier = null;
             this.m_ringScales = null;
             this.m_zoomTimerID = null;
-            this.m_dataStack = null;
+            this.m_statesStack = null;
             this.m_nodesFontSize = 24;
             this.m_ringScaleFontSize = 36;
-            this.m_currentState = 0;
+            this.m_currentStateKey = null;
             this.m_draggedNodeIndex = -1;
             this.m_nodePlaceHolder = null;
             this.m_nodeBorder = null;
@@ -123,6 +124,7 @@ namespace SciViCGraph
             this.m_equalizer = [];
             this.m_colorPicker = null;
             this.m_modularityFilters = [];
+            this.m_stateLineNav = new StateLineNavigator(this, this.m_stateline);
 
             let tooltip = document.createElement("div");
             tooltip.className = "scivi_graph_tooltip";
@@ -136,6 +138,12 @@ namespace SciViCGraph
         {
             this.m_states = states;
             this.m_colors = colors;
+            this.m_currentStateKey = "";
+            for (let i = 0, n = this.m_states.stateLines.length; i < n; ++i) {
+                this.m_currentStateKey += "0"
+                if (i < n - 1)
+                    this.m_currentStateKey += "|";
+            }
         }
 
         public setColorPicker(cp: any)
@@ -177,12 +185,17 @@ namespace SciViCGraph
 
         private currentData(): GraphData
         {
-            return this.m_stats.data[this.m_currentStateKey];
+            return this.m_states.data[this.m_currentStateKey];
         }
 
         get states(): GraphStates
         {
             return this.m_states;
+        }
+
+        get currentStateKey(): string
+        {
+            return this.m_currentStateKey;
         }
 
         private calcWeights()
@@ -216,8 +229,17 @@ namespace SciViCGraph
                 }
             });
 
+            if (this.m_nodeWeight.min === undefined)
+                this.m_nodeWeight.min = 0.0;
+            if (this.m_nodeWeight.max === undefined)
+                this.m_nodeWeight.max = 0.0;
             if (this.m_nodeWeight.step === undefined)
                 this.m_nodeWeight.step = 0.0;
+
+            if (this.m_edgeWeight.min === undefined)
+                this.m_edgeWeight.min = 0.0;
+            if (this.m_edgeWeight.max === undefined)
+                this.m_edgeWeight.max = 0.0;
             if (this.m_edgeWeight.step === undefined)
                 this.m_edgeWeight.step = 0.0;
         }
@@ -419,22 +441,6 @@ namespace SciViCGraph
         public roundValS(x: number, s: number): string
         {
             return this.roundVal(x, s).toString();
-        }
-
-        private updateStateLineLabels()
-        {
-            if (this.m_stateline) {
-                const lp = parseFloat($("#scivi_cgraph_stateline").css('padding-left'));
-                const rp = parseFloat($("#scivi_cgraph_stateline").css('padding-right'));
-                const m = Math.min(lp, rp) * 2;
-                let w = (this.m_stateline.clientWidth - lp - rp) / this.m_data.length;
-                if (w < 30)
-                    w = 30;
-                else if (w > m)
-                    w = m;
-                $(".scivi_stateline_label").css("width", w + "px");
-                $(".scivi_stateline_label").css("margin-left", (-w * 0.5) + "px");
-            }
         }
 
         private initInterface()
@@ -700,25 +706,7 @@ namespace SciViCGraph
                 }
             });
 
-            if (this.m_stateline)
-            {
-                this.m_stateline.innerHTML = "<div id='scivi_stateline_slider' class='scivi_stateline' style='width=100%'></div>";
-                $("#scivi_stateline_slider").slider({
-                    value: this.m_currentState,
-                    min: 0,
-                    max: this.m_data.length - 1,
-                    step: 1,
-                    slide: (event, ui) => { this.changeCurrentState(ui.value); }
-                }).each(() => {
-                    const n = this.m_data.length - 1;
-                    for (let i = 0; i <= n; ++i) {
-                        const el = $("<label class='scivi_stateline_label'><span style='color: #c5c5c5;'>|</span><br/>" + this.m_data[i].label + "</label>");
-                        el.css("left", (i / n * 100) + "%");
-                        $("#scivi_stateline_slider").append(el);
-                    }
-                });
-                this.updateStateLineLabels();
-            }
+            this.m_stateLineNav.build();
 
             $("#scivi_fit_to_screen").click(() => {
                 this.fitScale();
@@ -763,13 +751,15 @@ namespace SciViCGraph
             this.m_maxTextLength = 0;
             let maxTextHeight = 0;
             let n = 0;
-            this.m_data.forEach((state) => {
-                if (state.nodes.length > n)
-                    n = state.nodes.length;
+            Object.keys(this.m_states.data).forEach((dataKey) => {
+                const data = this.m_states.data[dataKey];
+                if (data.nodes.length > n)
+                    n = data.nodes.length;
             });
             let ww = n < 40;
-            this.m_data.forEach((state) => {
-                state.nodes.forEach((node) => {
+            Object.keys(this.m_states.data).forEach((dataKey) => {
+                const data = this.m_states.data[dataKey];
+                data.nodes.forEach((node) => {
                     node.wordWrap = ww;
                     let s = node.labelSize(true);
                     if (s.width > this.m_maxTextLength)
@@ -859,7 +849,6 @@ namespace SciViCGraph
             let radius = this.m_radius + this.m_maxTextLength + (this.m_scaleLevels.length - 0.5) * Renderer.m_ringScaleWidth;
 
             const oldRingScales = this.m_ringScales;
-            console.log(oldRingScales);
             this.m_ringScales = [];
 
             for (let i = this.m_scaleLevels.length - 1; i >= 0; --i) {
@@ -900,7 +889,6 @@ namespace SciViCGraph
 
                 radius -= Renderer.m_ringScaleWidth;
             }
-            console.log(this.m_ringSegmentSelected);
         }
 
         private createCache()
@@ -960,7 +948,7 @@ namespace SciViCGraph
         public reshape()
         {
             this.m_renderer.resize(this.m_view.offsetWidth, this.m_view.offsetHeight);
-            this.updateStateLineLabels();
+            this.m_stateLineNav.updateStateLineLabels();
             this.render(true, true);
         }
 
@@ -986,13 +974,13 @@ namespace SciViCGraph
             Object.keys(this.m_states.data).forEach((dataKey) => {
                 const data = this.m_states.data[dataKey];
                 let newNodes = [];
-                state.nodes.forEach((node) => {
+                data.nodes.forEach((node) => {
                     if (node.groupID === groupID)
                         newNodes.push(node);
                 });
 
                 let newEdges = [];
-                state.edges.forEach((edge) => {
+                data.edges.forEach((edge) => {
                     if (edge.source.groupID === groupID  && edge.target.groupID === groupID)
                         newEdges.push(edge);
                 });
@@ -1219,8 +1207,9 @@ namespace SciViCGraph
                         return this.smartCmp(x1.label, x2.label);
                 }
                 if (sortAllStates) {
-                    this.m_data.forEach((state) => {
-                        state.nodes.sort(sorter);
+                    Object.keys(this.m_states.data).forEach((dataKey) => {
+                        const data = this.m_states.data[dataKey];
+                        data.nodes.sort(sorter);
                     });
                 } else {
                     this.currentData().nodes.sort(sorter);
@@ -1343,9 +1332,9 @@ namespace SciViCGraph
             return this.m_localizer;
         }
 
-        private changeCurrentState(cs: number)
+        public changeCurrentState(cs: string)
         {
-            this.m_currentState = cs;
+            this.m_currentStateKey = cs;
             this.reinit(false);
         }
 
