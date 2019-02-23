@@ -254,12 +254,14 @@ namespace SciViCGraph
             this.m_renderingCache = new RenderingCache(this.m_stage, this.m_renderer);
         }
 
-        private createGraph()
+        private createGraph(shouldFit: boolean)
         {
             this.calcMaxTextLength();
             this.createRingScale();
             this.createNodes();
             this.createEdges();
+            if (shouldFit)
+                this.fitScale();
             this.createCache();
 
             this.m_nodesList.buildList(this.currentData().nodes, this);
@@ -283,8 +285,7 @@ namespace SciViCGraph
             this.m_panPrevX = 0;
             this.m_panPrevY = 0;
 
-            this.createGraph();
-            this.fitScale();
+            this.createGraph(true);
 
             this.initInterface();
 
@@ -292,7 +293,7 @@ namespace SciViCGraph
             this.m_renderingCache.transit();
         }
 
-        private reinit(animated: boolean)
+        private reinit(animated: boolean, shouldFit: boolean)
         {
             const restorePos = this.m_renderingCache !== null && this.m_renderingCache.isValid;
             let x = 0.0;
@@ -324,7 +325,7 @@ namespace SciViCGraph
             if (restorePos)
                 this.m_stage.scale.set(s, s);
 
-            this.createGraph();
+            this.createGraph(shouldFit);
 
             if (restorePos) {
                 this.m_renderingCache.x = x;
@@ -706,7 +707,7 @@ namespace SciViCGraph
                     ringFS >= Renderer.m_minFontSize && ringFS <= Renderer.m_maxFontSize && ringFS === Math.round(ringFS)) {
                     this.m_nodesFontSize = nodesFS;
                     this.m_ringScaleFontSize = ringFS;
-                    this.reinit(false);
+                    this.reinit(false, false);
                 }
             });
 
@@ -720,12 +721,12 @@ namespace SciViCGraph
 
             $("#scivi_sort_by_ring").click(() => {
                 this.sortNodesByRingScale(false);
-                this.reinit(false);
+                this.reinit(false, false);
             });
 
             $("#scivi_calc_modularity").click(() => {
                 this.m_modularityFilters[0].detectClusters(this.currentData());
-                this.reinit(false);
+                this.reinit(false, false);
             });
 
             $(document).keyup((e) => {
@@ -961,14 +962,14 @@ namespace SciViCGraph
             if (this.m_selectedNode) {
                 let focusGroup = this.m_selectedNode.groupID;
                 this.m_stage.colors[focusGroup] = string2color(newColor);
-                this.reinit(false);
+                this.reinit(false, false);
             }
         }
 
         public changeGroupColor(focusGroup: number, newColor: string)
         {
             this.m_stage.colors[focusGroup] = string2color(newColor);
-            this.reinit(false);
+            this.reinit(false, false);
         }
 
         public quasiZoomIn(groupID: number)
@@ -997,14 +998,14 @@ namespace SciViCGraph
             this.m_statesStack.push(this.m_states);
             this.m_states = newStates;
 
-            this.reinit(true);
+            this.reinit(true, false);
         }
 
         public quasiZoomOut()
         {
             this.m_states = this.m_statesStack.pop();
 
-            this.reinit(true);
+            this.reinit(true, false);
         }
 
         public canQuasiZoomIn(): boolean
@@ -1313,17 +1314,13 @@ namespace SciViCGraph
 
         public updateNodeNames()
         {
-            this.reinit(false);
+            this.reinit(false, false);
         }
 
         public updateNodeKlasses()
         {
             this.calcWeights();
-            this.reinit(false);
-            // FIXME: do the following in init not to create cache twice in a row
-            this.fitScale();
-            this.createCache();
-            this.render(true, true);
+            this.reinit(false, true);
         }
 
         get radius(): number
@@ -1339,7 +1336,7 @@ namespace SciViCGraph
         public changeCurrentState(cs: string)
         {
             this.m_currentStateKey = cs;
-            this.reinit(false);
+            this.reinit(false, false);
         }
 
         private panGraph(x: number, y: number)
@@ -1454,7 +1451,7 @@ namespace SciViCGraph
             }
             this.stopDragNode();
             if (needsReinit)
-                this.reinit(false);
+                this.reinit(false, false);
             else
                 this.render(true, true);
             return result;
@@ -1537,7 +1534,7 @@ namespace SciViCGraph
             }
             this.stopDragRing();
             if (needsReinit)
-                this.reinit(false);
+                this.reinit(false, false);
             else
                 this.render(true, true);
             this.hoverGraph(x, y);
