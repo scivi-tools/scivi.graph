@@ -12,6 +12,11 @@
     font-size: 16px;
     white-space: nowrap;
     text-align: center;
+    border: 2px #000000aa solid;
+    border-radius: 4px;
+    background-color: #fefefefe;
+    padding: 0px 1px;
+    font-family: Arial,Helvetica,sans-serif;
 }
 
 #scivi_fsgraph_a
@@ -128,6 +133,19 @@
 #scivi_fsgraph_list > div > span
 {
     display: block;
+}
+
+.scivi_fsgraph_metric_control
+{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.scivi_fsgraph_metric_control .centered
+{
+    width: 100%;
+    text-align: center;
+    padding-top: 5px;
 }
 
 .ui-slider-horizontal

@@ -858,6 +858,8 @@ namespace SciViCGraph
             const angleStep = 2.0 * Math.PI / this.currentData().nodes.length;
             let radius = this.m_radius + this.m_maxTextLength + (this.m_scaleLevels.length - 0.5) * Renderer.m_ringScaleWidth;
 
+            const oldRingScales = this.m_ringScales;
+            console.log(oldRingScales);
             this.m_ringScales = [];
 
             for (let i = this.m_scaleLevels.length - 1; i >= 0; --i) {
@@ -891,8 +893,14 @@ namespace SciViCGraph
                                   scale.getName(segment.id));
                 }
 
+                if (oldRingScales) {
+                    rs.copySelection(oldRingScales[oldRingScales.length - i - 1]);
+                    this.m_ringSegmentSelected = this.m_ringSegmentSelected || rs.segmentSelected;
+                }
+
                 radius -= Renderer.m_ringScaleWidth;
-            };
+            }
+            console.log(this.m_ringSegmentSelected);
         }
 
         private createCache()
