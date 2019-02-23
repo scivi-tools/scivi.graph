@@ -116,11 +116,12 @@ CGraph.prototype.run = function (loc, data, scales, colors, title, info, classif
                                             loc);
 
     if (data.hasStates) {
+        var h = (data.stateLines.length * 50.0 + 16.0) / $(window).height() * 100.0;
         Split(["#scivi_cgraph_a1", "#scivi_cgraph_a2"], {
             gutterSize: 8,
             cursor: "row-resize",
             direction: "vertical",
-            sizes: [90, 10],
+            sizes: [100.0 - h, h],
             minSize: [30, 30],
             onDrag: function () { renderer.reshape(); }
         });
