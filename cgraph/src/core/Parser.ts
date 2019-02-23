@@ -28,28 +28,18 @@ namespace SciViCGraph
             this.m_shadowEdges = this.edges;
         }
 
-        private klassIncludes(klasses: number[], klass: number): boolean
-        {
-            // FIXME: optimize this: sort + bin search. And make the klasses to be numbers. now they are strings
-            for (let i = 0, n = klasses.length; i < n; ++i) {
-                if (klasses[i] == klass)
-                    return true;
-            }
-            return false;
-        }
-
         public excludeUnselected(selectedKlasses: number[], getKlass: (node: Node) => number)
         {
             this.nodes = [];
             this.m_shadowNodes.forEach((node) => {
-                if (this.klassIncludes(selectedKlasses, getKlass(node)))
+                if (Geometry.sortedArrayIncludesValue(selectedKlasses, getKlass(node)))
                     this.nodes.push(node);
             });
 
             this.edges = [];
             this.m_shadowEdges.forEach((edge) => {
-                if (this.klassIncludes(selectedKlasses, getKlass(edge.source)) &&
-                    this.klassIncludes(selectedKlasses, getKlass(edge.target)))
+                if (Geometry.sortedArrayIncludesValue(selectedKlasses, getKlass(edge.source)) &&
+                    Geometry.sortedArrayIncludesValue(selectedKlasses, getKlass(edge.target)))
                     this.edges.push(edge);
             });
         }

@@ -119,7 +119,7 @@ namespace SciViCGraph
                 let colors = [];
                 let textColors = [];
                 treeLevels[i].forEach((treeNode) => {
-                    klasses.push(treeNode["klasses"]);
+                    klasses.push(treeNode["klasses"].sort((x1, x2) => { return x1 - x2; }));
                     names.push(treeNode["name"]);
                     colors.push(treeNode["color"]);
                     textColors.push(treeNode["textColor"]);
@@ -141,9 +141,14 @@ namespace SciViCGraph
             $("#treeview").on("CheckUncheckDone", () => {
                 let list = {"id" : [], "dataid" : [], "text" : []};
                 $("#treeview").hummingbird("getChecked", { list: list, onlyEndNodes: false });
+                let klasses = [];
+                list["dataid"].forEach((klass) => {
+                    klasses.push(parseInt(klass));
+                });
+                klasses.sort((x1, x2) => { return x1 - x2; });
                 Object.keys(svRenderer.states.data).forEach((dataKey) => {
                     const data = svRenderer.states.data[dataKey];
-                    data.excludeUnselected(list["dataid"], this.getKlass);
+                    data.excludeUnselected(klasses, this.getKlass);
                 });
                 svRenderer.updateNodeKlasses();
             });
