@@ -38,12 +38,9 @@
 
                 var g = graph.parse(g_data);
 
-                console.log("Number of nodes: " + g.nodes.length);
-                console.log("Number of edges: " + g.edges.length);
-
                 if (!locRus) {
                     for (var i = 0, n = g.nodes.length; i < n; ++i)
-                        g.nodes[i].label = g.nodes[i].label.replace("Ии", "Inf");
+                        g.data["0"].nodes[i].label = g.data["0"].nodes[i].label.replace("Ии", "Inf");
                 }
 
                 var textColors1 = [ 0xffffff, 0x000000 ];
@@ -64,7 +61,7 @@
                 var names3 = [ "", loc["LOC_EDUCATION_MIDDLE"], loc["LOC_EDUCATION_HIGH"], "" ];
                 var scale3 = graph.createScale(steps3, colors3, textColors3, names3, function (node) { return node.custom["education"]; });
 
-                var renderer = graph.run(loc, [g], [scale3, scale2, scale1], null,
+                var renderer = graph.run(loc, g, [scale3, scale2, scale1], null,
                                          locRus ? "Рассказ информантов о себе" : "Informants Talking about Themselves",
                                          locRus ? "Рассказ информантов о себе" : "Informants Talking about Themselves");
             }

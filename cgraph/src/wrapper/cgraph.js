@@ -121,7 +121,7 @@ CGraph.prototype.run = function (loc, data, scales, colors, title, info, classif
             cursor: "row-resize",
             direction: "vertical",
             sizes: [90, 10],
-            minSize: [10, 10],
+            minSize: [30, 30],
             onDrag: function () { renderer.reshape(); }
         });
     }

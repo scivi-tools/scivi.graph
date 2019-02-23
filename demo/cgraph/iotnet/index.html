@@ -38,12 +38,9 @@
 
                 var g = graph.parse(g_data);
 
-                console.log("Number of nodes: " + g.nodes.length);
-                console.log("Number of edges: " + g.edges.length);
-
                 if (locRus) {
-                    for (var i = 0, n = g.edges.length; i < n; ++i)
-                        g.edges[i].tooltip = g.edges[i].tooltip.replace("traffic", "трафик");
+                    for (var i = 0, n = g.data["0"].edges.length; i < n; ++i)
+                        g.data["0"].edges[i].tooltip = g.data["0"].edges[i].tooltip.replace("traffic", "трафик");
                 }
 
                 var textColors1 = [ 0xffffff, 0xffffff ];
@@ -63,7 +60,7 @@
                              [ "None", "Hall 1", "Hall 2", "Hall 3", "Hall 4", "Hall 5", "None" ];
                 var scale2 = graph.createScale(steps2, colors2, textColors2, names2, function (node) { return node.custom["hall"]; });
 
-                var renderer = graph.run(loc, [g], [scale2, scale1], null,
+                var renderer = graph.run(loc, g, [scale2, scale1], null,
                                          locRus ? "Распределённая сеть устройств Интернета вещей" : "Distributed IoT Network",
                                          locRus ? "Распределённая сеть устройств Интернета вещей" : "Distributed IoT Network");
             }

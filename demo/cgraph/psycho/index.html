@@ -20,7 +20,7 @@
         <style>
             #scivi_cgraph_stateline
             {
-                margin-top: -5px;
+                /*margin-top: -5px;*/
                 padding: 20px 40px 20px 40px;
                 font: 12px Helvetica Neue, Helvetica, Arial, sans-serif;
                 color: #333333;
@@ -59,11 +59,6 @@
                 var graph = new CGraph();
 
                 var states = graph.parseStates(g_data);
-
-                console.log("Number of states: " + states.length);
-                console.log("Number of nodes: " + states[0].nodes.length);
-                for (var i = 0; i < states.length; ++i)
-                    console.log("Number of edges in state " + i + ": " + states[i].edges.length);
 
                 var colors1 = [ 0xdd1111, 0x489CA0 ];
 

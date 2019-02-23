@@ -138,11 +138,15 @@ namespace SciViCGraph
         {
             this.m_states = states;
             this.m_colors = colors;
-            this.m_currentStateKey = "";
-            for (let i = 0, n = this.m_states.stateLines.length; i < n; ++i) {
-                this.m_currentStateKey += "0"
-                if (i < n - 1)
-                    this.m_currentStateKey += "|";
+            if (this.m_states.hasStates) {
+                this.m_currentStateKey = "";
+                for (let i = 0, n = this.m_states.stateLines.length; i < n; ++i) {
+                    this.m_currentStateKey += "0"
+                    if (i < n - 1)
+                        this.m_currentStateKey += "|";
+                }
+            } else {
+                this.m_currentStateKey = "0";
             }
         }
 
