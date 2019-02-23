@@ -143,9 +143,7 @@ namespace SciViCGraph
                 $("#treeview").hummingbird("getChecked", { list: list, onlyEndNodes: false });
                 Object.keys(svRenderer.states.data).forEach((dataKey) => {
                     const data = svRenderer.states.data[dataKey];
-                    data.forEach((state) => {
-                        state.excludeUnselected(list["dataid"], this.getKlass);
-                    });
+                    data.excludeUnselected(list["dataid"], this.getKlass);
                 });
                 svRenderer.updateNodeKlasses();
             });
