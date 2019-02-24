@@ -2,7 +2,7 @@
  * @author Andrei Kashcha (aka anvaka)
  * @author Me
  */
-//@ts-check
+
 import * as WGLU from './WebGLUtils';
 import { VivaBaseUI } from '../VivaBaseUI';
 import { VivaImageNodeUI } from '../VivaImageNodeUI';

@@ -1,4 +1,3 @@
-//@ts-check
 import { VivaBaseUI } from './VivaBaseUI';
 import { Point2D } from './Point2D';
 

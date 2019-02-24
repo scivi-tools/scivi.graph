@@ -1,4 +1,4 @@
-// @ts-check
+
 declare namespace Ngraph {
 
     namespace Graph {
@@ -31,6 +31,7 @@ declare namespace Ngraph {
 
         export type NodeCallback = (_: Node) => boolean;
         export type LinkCallback = (_: Link) => boolean;
+        export type NodeLinkCallback = (node: Node, link: Link) => boolean;
 
         export interface Graph extends NgraphEvents.EventifiedObject {
             addNode(id: ElementId, data?: any) : Node,
@@ -42,7 +43,7 @@ declare namespace Ngraph {
             getLinksCount() : number,
             getLinks(nodeId: ElementId) : Link[],
             forEachNode(nodeCallback : NodeCallback) : void,
-            forEachLinkedNode(id: ElementId, nodeCallback : NodeCallback) : void,
+            forEachLinkedNode(id: ElementId, nodeCallback : NodeLinkCallback) : void,
             forEachLink(linkCallback : LinkCallback) : void,
             clear() : void,
             hasLink(fromId : ElementId, toId : ElementId) : Link,

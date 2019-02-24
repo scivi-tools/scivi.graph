@@ -1,7 +1,7 @@
 /**
  * Такая себе заглушечка для более продвинутого инструментария подсчёта метрик графа
  */
-//@ts-check
+
 import { Node } from './Node'
 
 /** @typedef {Object.<string, number[]>} MetricsContainer */

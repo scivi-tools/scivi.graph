@@ -5,7 +5,7 @@ namespace SciViCGraph
         constructor(private m_from: number, private m_to: number,
                     private m_width: number, private m_radius: number,
                     private m_color: number, private m_alpha: number,
-                    private m_name, private m_textColor)
+                    private m_name, private m_textColor, private m_hash: string)
         {
             super();
 
@@ -58,6 +58,11 @@ namespace SciViCGraph
             return this.m_textColor;
         }
 
+        get segmentHash(): string
+        {
+            return this.m_hash;
+        }
+
         public matches(segment: RingScaleSegment): boolean
         {
             return this.m_from === segment.fromAngle && this.m_to === segment.toAngle && this.m_radius === segment.radius;
@@ -66,7 +71,8 @@ namespace SciViCGraph
         public doCopy(): RingScaleSegment
         {
             return new RingScaleSegment(this.m_from, this.m_to, this.m_width, this.m_radius,
-                                        this.m_color, this.m_alpha, this.m_name, this.m_textColor);
+                                        this.m_color, this.m_alpha, this.m_name, this.m_textColor,
+                                        this.m_hash);
         }
     }
 }

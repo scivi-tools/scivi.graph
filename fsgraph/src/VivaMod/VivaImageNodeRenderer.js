@@ -5,7 +5,7 @@
  * @author Andrei Kashcha (aka anvaka)
  * @author Me
  */
-//@ts-check
+
 import Viva from '../viva-proxy'
 import { VivaBaseUI } from '../VivaBaseUI'
 import { VivaImageNodeUI } from '../VivaImageNodeUI'

@@ -38,33 +38,30 @@
 
                 var g = graph.parse(g_data);
 
-                console.log("Number of nodes: " + g.nodes.length);
-                console.log("Number of edges: " + g.edges.length);
-
                 if (!locRus) {
-                    for (var i = 0, n = g.nodes.length; i < n; ++i)
-                        g.nodes[i].label = g.nodes[i].label.replace("Ии", "Inf");
+                    for (var i = 0, n = g.data["0"].nodes.length; i < n; ++i)
+                        g.data["0"].nodes[i].label = g.data["0"].nodes[i].label.replace("Ии", "Inf");
                 }
 
-                var textColors1 = [ 0xffffff, 0x000000 ];
-                var colors1 = [ 0x00B100, 0xF2B700, 0xDD1111 ];
+                var textColors1 = [ 0x000000, 0xffffff ];
+                var colors1 = [ 0xffffff, 0x00B100, 0xF2B700, 0xDD1111, 0xffffff ];
                 var steps1 = [ 25, 35, 45, 55 ];
                 var names1 = [ "< 25", "25 - 34", "35 - 44", "45 - 55", "> 55" ];
                 var scale1 = graph.createScale(steps1, colors1, textColors1, names1, function (node) { return node.custom["age"]; });
 
                 var textColors2 = [ 0x000000 ];
-                var colors2 = [ 0x00BBE8, 0xFFB7CD ];
+                var colors2 = [ 0xFFB7CD, 0x00BBE8 ];
                 var steps2 = [ 0, 1 ];
                 var names2 = [ "", loc["LOC_MALE"], loc["LOC_FEMALE"], "" ];
                 var scale2 = graph.createScale(steps2, colors2, textColors2, names2, function (node) { return node.custom["sex"]; });
 
                 var textColors3 = [ 0xffffff, 0xffffff ];
-                var colors3 = [ 0x101010, 0xaa0000 ];
+                var colors3 = [ 0xaa0000, 0x101010 ];
                 var steps3 = [ 0, 1 ];
                 var names3 = [ "", loc["LOC_EDUCATION_MIDDLE"], loc["LOC_EDUCATION_HIGH"], "" ];
                 var scale3 = graph.createScale(steps3, colors3, textColors3, names3, function (node) { return node.custom["education"]; });
 
-                var renderer = graph.run(loc, [g], [scale3, scale2, scale1], null,
+                var renderer = graph.run(loc, g, [scale3, scale2, scale1], null,
                                          locRus ? "Рассказ информантов о себе" : "Informants Talking about Themselves",
                                          locRus ? "Рассказ информантов о себе" : "Informants Talking about Themselves");
             }

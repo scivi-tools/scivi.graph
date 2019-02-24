@@ -26,7 +26,8 @@ namespace SciViCGraph
             this.m_nodeWeight = { min: undefined, max: undefined, step: undefined };
             this.m_edgeWeight = { min: undefined, max: undefined, step: undefined };
 
-            this.m_renderer.data.forEach((data) => {
+            Object.keys(this.m_renderer.states.data).forEach((dataKey) => {
+                const data = this.m_renderer.states.data[dataKey];
                 for (let i = 0, n = data.nodes.length; i < n; ++i) {
                     if (this.containsNode(data.nodes[i])) {
                         if (this.m_nodeWeight.min === undefined || this.m_nodeWeight.min > data.nodes[i].weight)

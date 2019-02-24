@@ -1,4 +1,4 @@
-//@ts-check
+
 import { Node } from './Node'
 import { VivaImageNodeUI } from './VivaImageNodeUI'
 import { VivaLinkUI } from './VivaLinkUI'
@@ -234,12 +234,10 @@ let lastNodeClicked = null;
  */
 function toggleRelatedWords(graph, renderer, nodeUI, toggled) {
     nodeUI.selected = toggled;
-    let realNode = /** @type {Node} */ (nodeUI._realNode);
+    let realNode = nodeUI._realNode;
     // TODO: nodUI.selected, not node.selected!
-    graph.forEachLinkedNode(realNode.id, (/** @type {Ngraph.Graph.Node} */node, /** @type {Ngraph.Graph.Link} */link) => {
-        /** @type {VivaImageNodeUI} */
+    graph.forEachLinkedNode(realNode.id, (node, link) => {
         let nodeUI = renderer.graphics.getNodeUI(node.id);
-        /** @type {VivaLinkUI} */
         let linkUI = renderer.graphics.getLinkUI(link.id);
         if (node.data.groupId !== 0) {
             nodeUI.showLabel = toggled;

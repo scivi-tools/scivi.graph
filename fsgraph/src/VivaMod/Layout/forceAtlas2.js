@@ -8,21 +8,18 @@
  */
 
 // TODO: physicsSimulator must have done half of this right way, haven't it?
-
-module.exports = createLayout;
-
-var eventify = require('ngraph.events');
-var merge = require('ngraph.merge');
+import * as eventify from 'ngraph.events';
+import merge from 'ngraph.merge';
 
 /**
  * Creates forceAtlas2 layout for a given graph.
  *
- * @param {ngraph.graph} graph which needs to be laid out
+ * @param {Ngraph.Graph.Graph} graph which needs to be laid out
  * @param {object} settings if you need custom settings
  * for physics simulator you can pass your own settings here. If it's not passed
  * a default one will be created.
  */
-function createLayout(graph, settings) {
+export default function createLayout(graph, settings) {
   if (!graph) {
     throw new Error('Graph structure cannot be undefined');
   }
@@ -158,9 +155,13 @@ function createLayout(graph, settings) {
     },
 
     /**
-     * @returns {Object} Link position by link id
-     * @returns {Object.from} {x, y} coordinates of link start
-     * @returns {Object.to} {x, y} coordinates of link end
+     * @typedef {Object} LinkPosition
+     * @property {Object} from {x, y} coordinates of link start
+     * @property {Object} to {x, y} coordinates of link end
+     */
+
+    /**
+     * @returns {LinkPosition} Link position by link id
      */
     getLinkPosition: function (linkId) {
       var spring = springs[linkId];
@@ -318,6 +319,7 @@ function createLayout(graph, settings) {
     graph.forEachNode(function (node) {
       initBody(node);
       bodiesCount += 1;
+      return false;
     });
 
     graph.forEachLink(initLink);
@@ -338,7 +340,7 @@ function createLayout(graph, settings) {
         }
       }
 
-      var body = new Body(node, pos);
+      body = new Body(node, pos);
       body.dx = body.dy = 0;
       body.old_dx = body.old_dy = 0;
       console.log(body.size);
@@ -384,6 +386,7 @@ function createLayout(graph, settings) {
 
 
     springs[link.id] = spring;
+    return false;
   }
 
   function releaseLink(link) {

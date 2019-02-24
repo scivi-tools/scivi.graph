@@ -38,12 +38,9 @@
 
                 var g = graph.parse(g_data);
 
-                console.log("Number of nodes: " + g.nodes.length);
-                console.log("Number of edges: " + g.edges.length);
+                g.data["0"].nodes.sort(function (x1, x2) { return x1.custom["nmb"] - x2.custom["nmb"]; });
 
-                g.nodes.sort(function (x1, x2) { return x1.custom["nmb"] - x2.custom["nmb"]; });
-
-                var renderer = graph.run(loc, [g], [], null,
+                var renderer = graph.run(loc, g, [], null,
                                          locRus ? "Текст \"Русь\"" : "Text \"Rus\"",
                                          locRus ? "Текст \"Русь\"" : "Text \"Rus\"");
             }

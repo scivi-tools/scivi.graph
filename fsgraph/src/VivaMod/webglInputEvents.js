@@ -1,9 +1,10 @@
-//@ts-check
+
 
 /**
  * Monitors graph-related mouse input in webgl graphics and notifies subscribers.
  *
- * @param {*} webglGraphics
+ * @param {VivaGeneric.WebGlGraphics} webglGraphics
+ * @returns {VivaGeneric.WebGlInputEvents}
  */
 export function webglInputEvents(webglGraphics) {
   if (webglGraphics.webglInputEvents) {
@@ -23,7 +24,6 @@ export function webglInputEvents(webglGraphics) {
     boundRect,
     documentExists = (typeof document !== undefined);
 
-  /** @type {HTMLDivElement} */
   var root = webglGraphics.getGraphicsRoot();
   startListen(root);
 
@@ -140,7 +140,7 @@ export function webglInputEvents(webglGraphics) {
     }
   }
 
-  function startListen(/** @type {HTMLDivElement} */root) {
+  function startListen(root) {
     var pos = {
         x: 0,
         y: 0
@@ -223,8 +223,9 @@ export function webglInputEvents(webglGraphics) {
             document.addEventListener('mouseup', handleMouseUp);
           }
 
+          // @ts-ignore
           prevSelectStart = window.document.onselectstart;
-
+          // @ts-ignore
           window.document.onselectstart = handleDisabledEvent;
 
           lastFound = args[0];
@@ -248,6 +249,7 @@ export function webglInputEvents(webglGraphics) {
         var sameNode = nodeAtClientPos === lastFound;
         args = [nodeAtClientPos || lastFound, e];
         if (args[0]) {
+          // @ts-ignore
           window.document.onselectstart = prevSelectStart;
 
           lastClickTime = clickTime;

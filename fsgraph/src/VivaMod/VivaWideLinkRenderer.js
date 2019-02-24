@@ -1,7 +1,7 @@
 /**
  * @author Me
  */
-//@ts-check
+
 import { Point2D } from '../Point2D';
 import * as WGLU from './WebGLUtils';
 import { VivaBaseUI } from '../VivaBaseUI';

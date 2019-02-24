@@ -1,4 +1,4 @@
-//@ts-check
+
 import { VivaBaseUI } from './VivaBaseUI';
 import { Node } from './Node';
 import { Edge } from './Edge';

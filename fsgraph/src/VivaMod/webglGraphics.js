@@ -3,28 +3,24 @@
  *
  * @author Andrei Kashcha (aka anvaka) / https://github.com/anvaka
  */
-// @ts-check
 
 import { newLinkProgram } from './newLinkProgram'
 import { newNodeProgram } from './newNodeProgram'
 import * as eventify from 'ngraph.events';
-import * as merge from 'ngraph.merge';
-
-/**
- * @typedef {{enableBlending?:boolean, preserveDrawingBuffer?:boolean, clearColor?:boolean, clearColorValue?:{r,g,b,a}}} webglopts
- */
+import merge from 'ngraph.merge';
 
 /**
  * Performs webgl-based graph rendering. This module does not perform
  * layout, but only visualizes nodes and edges of the graph.
  *
- * @param {webglopts} options - to customize graphics  behavior. Currently supported parameter
+ * @param {Partial<VivaGeneric.WebGlOpts>} opts - to customize graphics  behavior. Currently supported parameter
  *  enableBlending - true by default, allows to use transparency in node/links colors.
  *  preserveDrawingBuffer - false by default, tells webgl to preserve drawing buffer.
  *                    See https://www.khronos.org/registry/webgl/specs/1.0/#5.2
+ * @returns {VivaGeneric.WebGlGraphics}
  */
-export function webglGraphics(options) {
-    options = /** @type {webglopts} */ (merge(options, {
+export function webglGraphics(opts) {
+    const options = merge(opts, {
         enableBlending : true,
         preserveDrawingBuffer : false,
         clearColor: false,
@@ -34,7 +30,7 @@ export function webglGraphics(options) {
             b : 1,
             a : 1
         }
-    }));
+    });
 
     const realPixelRatio = window.devicePixelRatio || 1;
     /** @type {HTMLElement} */
@@ -196,6 +192,8 @@ export function webglGraphics(options) {
          * Custom input manager listens to mouse events to process nodes drag-n-drop inside WebGL canvas
          */
         inputManager : null,
+
+        webglInputEvents: null,
 
         /**
          * Called every time before renderer starts rendering.

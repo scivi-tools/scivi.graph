@@ -1,4 +1,3 @@
-//@ts-check
 import Viva from './viva-proxy';
 import { Node } from './Node';
 import { Edge } from './Edge';
@@ -19,7 +18,7 @@ export class GraphState {
      */
     constructor(controller, nCount, eCount, label) {
         /** @type {GraphController} */
-        this._controller = controller
+        this._controller = controller;
         this._metrics = new DummyMetrics(this._controller.monitoredValues);
         this._edgeMetrics = new DummyMetrics(this._controller.monitoredValues);
         /** @type {number[][]} */
@@ -30,9 +29,9 @@ export class GraphState {
         this.edges = [];
         this._label = label;
 
-        /** @type {HTMLElement} */
+        /** @type {HTMLElement?} */
         this._filtersContainer = null;
-        /** @type {Object.<string, number[]>[]} */
+        /** @type {Object.<string, number[]>[]?} */
         this.prevKnownValues = null;
 
         this._visited = false;
@@ -63,7 +62,7 @@ export class GraphState {
         this.nodes[fromId].addEdge(newEdge);
         this.nodes[toId].addEdge(newEdge);
         // TODO: count some metrics here
-        //@ts-ignore
+        // @ts-ignore
         this._edgeMetrics.accumulate(newEdge);
     };
 
@@ -168,12 +167,11 @@ export class GraphState {
     }
 
     /**
-     * @param {Object.<string, number[]>[]} prevFilterValues
-     * @param {*} renderer
+     * @param {Object.<string, number[]>[]?} prevFilterValues
      */
-    actualize(prevFilterValues, renderer) {
+    actualize(prevFilterValues) {
         // TODO: восстанавливаем значения фильтров, если таковые есть
-        this._checkBuildFilters(prevFilterValues, renderer);
+        this._checkBuildFilters(prevFilterValues);
 
         // восстанавливаем узлы и связи, не забыв про их позиции и видимость
         // graph.beginUpdate();
@@ -202,7 +200,7 @@ export class GraphState {
     }
 
     /**
-     * @returns {Object.<string, number[]>[]}
+     * @returns {Object.<string, number[]>[]?}
      */
     onBeforeDisabled() {
         // сохраняем позиции
@@ -215,8 +213,9 @@ export class GraphState {
 
         // и чистим нафиг контейнер графа
         this._controller.graph.clear();
-        $('#scivi_fsgraph_control')[0].removeChild(this._filtersContainer);
-
+        if (!!this._filtersContainer) {
+            $('#scivi_fsgraph_control')[0].removeChild(this._filtersContainer);
+        }
         return this.prevKnownValues;
     }
 
@@ -254,10 +253,9 @@ export class GraphState {
 
     /**
      * 
-     * @param {Object.<string, number[]>[]} prevKnownValues Format: [groupid][0, 1]
-     * @param {*} renderer
+     * @param {Object.<string, number[]>[]?} prevKnownValues Format: [groupid][0, 1]
      */
-    _checkBuildFilters(prevKnownValues, renderer) {
+    _checkBuildFilters(prevKnownValues) {
         if (prevKnownValues) {
             this.prevKnownValues = prevKnownValues;
         } else {
@@ -298,11 +296,20 @@ export class GraphState {
                     step: 1,
                     range: true,
                     slide: (event, ui) => {
+                        if (!ui.values) {
+                            return;
+                        }
+                        if (!that.prevKnownValues) {
+                            console.warn(`Can not apply filter: no stats were computed!`);
+                            return;
+                        }
                         that.prevKnownValues[i]['weight'][0] = ui.values[0];
                         that.prevKnownValues[i]['weight'][1] = ui.values[1];
                         setLabel(ui.values, ui.values);
                         that._applyFilterRange();
-                        renderer.rerender();
+                        if (!!that._controller._onStateUpdated) {
+                            that._controller._onStateUpdated();
+                        }
                     } 
                 });
                 listItem.appendChild(filterSlider);
@@ -316,9 +323,12 @@ export class GraphState {
             }
             this._filtersContainer.appendChild(filtersList);
         }
+        // HACK: _filtersContainer here will exists anyway
+        // @ts-ignore
         this._filtersContainer.id = "scivi_fsgraph_filters_control";
 
         const parent = $('#scivi_fsgraph_control')[0];
+        // @ts-ignore
         parent.appendChild(this._filtersContainer);
 
         if (filterItemsPresented) {

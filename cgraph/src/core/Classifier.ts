@@ -119,7 +119,7 @@ namespace SciViCGraph
                 let colors = [];
                 let textColors = [];
                 treeLevels[i].forEach((treeNode) => {
-                    klasses.push(treeNode["klasses"]);
+                    klasses.push(treeNode["klasses"].sort((x1, x2) => { return x1 - x2; }));
                     names.push(treeNode["name"]);
                     colors.push(treeNode["color"]);
                     textColors.push(treeNode["textColor"]);
@@ -131,7 +131,7 @@ namespace SciViCGraph
 
         public initTreeView(treeView: HTMLElement, svRenderer: Renderer)
         {
-            // FIXME: it's better to generate the full html. Yes, it's more complicated, but more efficient.
+            // HINT: it's better to generate the full html. Yes, it's more complicated, but more efficient.
             // And then we can remove the crutch from the hummingbird-treeview.js with the checked state of inputs.
             let div = $("<div>", { "class": "hummingbird-treeview-converter", "data-height": "500px" });
             div.html(this.buildTreeStructure(this.m_tree, 0));
@@ -141,8 +141,14 @@ namespace SciViCGraph
             $("#treeview").on("CheckUncheckDone", () => {
                 let list = {"id" : [], "dataid" : [], "text" : []};
                 $("#treeview").hummingbird("getChecked", { list: list, onlyEndNodes: false });
-                svRenderer.data.forEach((state) => {
-                    state.excludeUnselected(list["dataid"], this.getKlass);
+                let klasses = [];
+                list["dataid"].forEach((klass) => {
+                    klasses.push(parseInt(klass));
+                });
+                klasses.sort((x1, x2) => { return x1 - x2; });
+                Object.keys(svRenderer.states.data).forEach((dataKey) => {
+                    const data = svRenderer.states.data[dataKey];
+                    data.excludeUnselected(klasses, this.getKlass);
                 });
                 svRenderer.updateNodeKlasses();
             });

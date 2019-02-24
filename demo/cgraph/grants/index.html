@@ -38,11 +38,6 @@
 
                 var states = graph.parseStates(g_data);
 
-                console.log("Number of states: " + states.length);
-                console.log("Number of nodes: " + states[0].nodes.length);
-                for (var i = 0; i < states.length; ++i)
-                    console.log("Number of edges in state " + i + ": " + states[i].edges.length);
-
                 var renderer = graph.run(loc, states, [], null,
                                          locRus ? "Гранты РГНФ" : "RGSF Grants",
                                          locRus ? "Гранты РГНФ" : "RGSF Grants");

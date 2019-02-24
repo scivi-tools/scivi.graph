@@ -48,9 +48,9 @@ namespace SciViCGraph
         private m_renderer: PIXI.SystemRenderer;
         private m_stage: Scene;
         private m_renderingCache: RenderingCache;
-        private m_currentState: number;
-        private m_data: GraphData[];
-        private m_dataStack: GraphData[][];
+        private m_currentStateKey: string;
+        private m_states: GraphStates;
+        private m_statesStack: GraphStates[];
         private m_colors: number[];
         private m_edgeBatches: EdgeBatch[];
         private m_nodeWeight: Range;
@@ -68,6 +68,7 @@ namespace SciViCGraph
         private m_panPrevY: number;
         private m_maxTextLength: number;
         private m_scaleLevels: Scale[];
+        private m_applicableScaleLevelsCount: number;
         private m_classifier: Classifier;
         private m_ringScales: RingScale[];
         private m_statistics: Stats;
@@ -83,10 +84,11 @@ namespace SciViCGraph
         private m_ringPlaceHolder: RingPlaceHolder;
         private m_ringBorder: RingBorder;
         private m_ringSegmentFilterBothEnds: boolean;
-        private m_ringSegmentSelected: boolean;
+        private m_ringScaleWithSegmentSelected: RingScale;
         private m_equalizer: EqualizerItem[];
         private m_colorPicker: any;
         private m_modularityFilters: any[];
+        private m_stateLineNav: StateLineNavigator;
 
         static readonly m_ringScaleWidth = 30;
         static readonly m_minFontSize = 5;
@@ -103,13 +105,14 @@ namespace SciViCGraph
                     private m_localizer: {})
         {
             this.m_scaleLevels = null;
+            this.m_applicableScaleLevelsCount = 0;
             this.m_classifier = null;
             this.m_ringScales = null;
             this.m_zoomTimerID = null;
-            this.m_dataStack = null;
+            this.m_statesStack = null;
             this.m_nodesFontSize = 24;
             this.m_ringScaleFontSize = 36;
-            this.m_currentState = 0;
+            this.m_currentStateKey = null;
             this.m_draggedNodeIndex = -1;
             this.m_nodePlaceHolder = null;
             this.m_nodeBorder = null;
@@ -119,10 +122,11 @@ namespace SciViCGraph
             this.m_ringPlaceHolder = null;
             this.m_ringBorder = null;
             this.m_ringSegmentFilterBothEnds = true;
-            this.m_ringSegmentSelected = false;
+            this.m_ringScaleWithSegmentSelected = null;
             this.m_equalizer = [];
             this.m_colorPicker = null;
             this.m_modularityFilters = [];
+            this.m_stateLineNav = new StateLineNavigator(this, this.m_stateline);
 
             let tooltip = document.createElement("div");
             tooltip.className = "scivi_graph_tooltip";
@@ -132,10 +136,20 @@ namespace SciViCGraph
             this.clearSelected();
         }
 
-        public setInput(states: GraphData[], colors: number[])
+        public setInput(states: GraphStates, colors: number[])
         {
-            this.m_data = states;
+            this.m_states = states;
             this.m_colors = colors;
+            if (this.m_states.hasStates) {
+                this.m_currentStateKey = "";
+                for (let i = 0, n = this.m_states.stateLines.length; i < n; ++i) {
+                    this.m_currentStateKey += "0"
+                    if (i < n - 1)
+                        this.m_currentStateKey += "|";
+                }
+            } else {
+                this.m_currentStateKey = "0";
+            }
         }
 
         public setColorPicker(cp: any)
@@ -177,12 +191,17 @@ namespace SciViCGraph
 
         private currentData(): GraphData
         {
-            return this.m_data[this.m_currentState];
+            return this.m_states.data[this.m_currentStateKey];
         }
 
-        get data(): GraphData[]
+        get states(): GraphStates
         {
-            return this.m_data;
+            return this.m_states;
+        }
+
+        get currentStateKey(): string
+        {
+            return this.m_currentStateKey;
         }
 
         private calcWeights()
@@ -190,7 +209,8 @@ namespace SciViCGraph
             this.m_nodeWeight = { min: undefined, max: undefined, step: undefined };
             this.m_edgeWeight = { min: undefined, max: undefined, step: undefined };
 
-            this.m_data.forEach((data) => {
+            Object.keys(this.m_states.data).forEach((dataKey) => {
+                const data = this.m_states.data[dataKey];
                 for (let i = 0, n = data.nodes.length; i < n; ++i) {
                     if (this.m_nodeWeight.min === undefined || this.m_nodeWeight.min > data.nodes[i].weight)
                         this.m_nodeWeight.min = data.nodes[i].weight;
@@ -215,8 +235,17 @@ namespace SciViCGraph
                 }
             });
 
+            if (this.m_nodeWeight.min === undefined)
+                this.m_nodeWeight.min = 0.0;
+            if (this.m_nodeWeight.max === undefined)
+                this.m_nodeWeight.max = 0.0;
             if (this.m_nodeWeight.step === undefined)
                 this.m_nodeWeight.step = 0.0;
+
+            if (this.m_edgeWeight.min === undefined)
+                this.m_edgeWeight.min = 0.0;
+            if (this.m_edgeWeight.max === undefined)
+                this.m_edgeWeight.max = 0.0;
             if (this.m_edgeWeight.step === undefined)
                 this.m_edgeWeight.step = 0.0;
         }
@@ -227,12 +256,15 @@ namespace SciViCGraph
             this.m_renderingCache = new RenderingCache(this.m_stage, this.m_renderer);
         }
 
-        private createGraph()
+        private createGraph(shouldFit: boolean)
         {
+            this.checkRingScaleApplicability();
             this.calcMaxTextLength();
             this.createRingScale();
             this.createNodes();
             this.createEdges();
+            if (shouldFit)
+                this.fitScale();
             this.createCache();
 
             this.m_nodesList.buildList(this.currentData().nodes, this);
@@ -256,8 +288,7 @@ namespace SciViCGraph
             this.m_panPrevX = 0;
             this.m_panPrevY = 0;
 
-            this.createGraph();
-            this.fitScale();
+            this.createGraph(true);
 
             this.initInterface();
 
@@ -265,9 +296,9 @@ namespace SciViCGraph
             this.m_renderingCache.transit();
         }
 
-        private reinit(animated: boolean)
+        private reinit(animated: boolean, shouldFit: boolean)
         {
-            const restorePos = this.m_renderingCache !== null && this.m_renderingCache.isValid;
+            const restorePos = !shouldFit && this.m_renderingCache !== null && this.m_renderingCache.isValid;
             let x = 0.0;
             let y = 0.0;
             let s = 1.0;
@@ -276,8 +307,6 @@ namespace SciViCGraph
                 y = this.m_renderingCache.y;
                 s = this.m_stage.scale.x;
             }
-
-            this.m_ringSegmentSelected = false;
 
             this.createStage();
             
@@ -297,7 +326,7 @@ namespace SciViCGraph
             if (restorePos)
                 this.m_stage.scale.set(s, s);
 
-            this.createGraph();
+            this.createGraph(shouldFit);
 
             if (restorePos) {
                 this.m_renderingCache.x = x;
@@ -418,22 +447,6 @@ namespace SciViCGraph
         public roundValS(x: number, s: number): string
         {
             return this.roundVal(x, s).toString();
-        }
-
-        private updateStateLineLabels()
-        {
-            if (this.m_stateline) {
-                const lp = parseFloat($("#scivi_cgraph_stateline").css('padding-left'));
-                const rp = parseFloat($("#scivi_cgraph_stateline").css('padding-right'));
-                const m = Math.min(lp, rp) * 2;
-                let w = (this.m_stateline.clientWidth - lp - rp) / this.m_data.length;
-                if (w < 30)
-                    w = 30;
-                else if (w > m)
-                    w = m;
-                $(".scivi_stateline_label").css("width", w + "px");
-                $(".scivi_stateline_label").css("margin-left", (-w * 0.5) + "px");
-            }
         }
 
         private initInterface()
@@ -695,29 +708,11 @@ namespace SciViCGraph
                     ringFS >= Renderer.m_minFontSize && ringFS <= Renderer.m_maxFontSize && ringFS === Math.round(ringFS)) {
                     this.m_nodesFontSize = nodesFS;
                     this.m_ringScaleFontSize = ringFS;
-                    this.reinit(false);
+                    this.reinit(false, false);
                 }
             });
 
-            if (this.m_stateline)
-            {
-                this.m_stateline.innerHTML = "<div id='scivi_stateline_slider' class='scivi_stateline' style='width=100%'></div>";
-                $("#scivi_stateline_slider").slider({
-                    value: this.m_currentState,
-                    min: 0,
-                    max: this.m_data.length - 1,
-                    step: 1,
-                    slide: (event, ui) => { this.changeCurrentState(ui.value); }
-                }).each(() => {
-                    const n = this.m_data.length - 1;
-                    for (let i = 0; i <= n; ++i) {
-                        const el = $("<label class='scivi_stateline_label'><span style='color: #c5c5c5;'>|</span><br/>" + this.m_data[i].label + "</label>");
-                        el.css("left", (i / n * 100) + "%");
-                        $("#scivi_stateline_slider").append(el);
-                    }
-                });
-                this.updateStateLineLabels();
-            }
+            this.m_stateLineNav.build();
 
             $("#scivi_fit_to_screen").click(() => {
                 this.fitScale();
@@ -727,12 +722,12 @@ namespace SciViCGraph
 
             $("#scivi_sort_by_ring").click(() => {
                 this.sortNodesByRingScale(false);
-                this.reinit(false);
+                this.reinit(false, false);
             });
 
             $("#scivi_calc_modularity").click(() => {
                 this.m_modularityFilters[0].detectClusters(this.currentData());
-                this.reinit(false);
+                this.reinit(false, false);
             });
 
             $(document).keyup((e) => {
@@ -762,13 +757,15 @@ namespace SciViCGraph
             this.m_maxTextLength = 0;
             let maxTextHeight = 0;
             let n = 0;
-            this.m_data.forEach((state) => {
-                if (state.nodes.length > n)
-                    n = state.nodes.length;
+            Object.keys(this.m_states.data).forEach((dataKey) => {
+                const data = this.m_states.data[dataKey];
+                if (data.nodes.length > n)
+                    n = data.nodes.length;
             });
             let ww = n < 40;
-            this.m_data.forEach((state) => {
-                state.nodes.forEach((node) => {
+            Object.keys(this.m_states.data).forEach((dataKey) => {
+                const data = this.m_states.data[dataKey];
+                data.nodes.forEach((node) => {
                     node.wordWrap = ww;
                     let s = node.labelSize(true);
                     if (s.width > this.m_maxTextLength)
@@ -783,7 +780,7 @@ namespace SciViCGraph
             this.m_maxTextLength += 20;
 
             this.m_radius = (Math.max(n * maxTextHeight, 1500)) / (2.0 * Math.PI);
-            let rsWidth = this.m_scaleLevels ? Renderer.m_ringScaleWidth * this.m_scaleLevels.length : 0.0;
+            let rsWidth = this.m_scaleLevels ? Renderer.m_ringScaleWidth * this.m_applicableScaleLevelsCount : 0.0;
             this.m_totalRadius = this.m_radius + this.m_maxTextLength + rsWidth;
         }
 
@@ -849,22 +846,39 @@ namespace SciViCGraph
             });
         }
 
+        private checkRingScaleApplicability()
+        {
+            this.m_applicableScaleLevelsCount = 0;
+            if (this.m_scaleLevels !== null && this.m_scaleLevels.length > 0) {
+                this.m_scaleLevels.forEach((scale) => {
+                    if (scale.checkApplicability(this.currentData().nodes))
+                        ++this.m_applicableScaleLevelsCount;
+                });
+            }
+        }
+
         private createRingScale()
         {
-            if (this.m_scaleLevels === null || this.m_scaleLevels.length === 0)
+            if (this.m_applicableScaleLevelsCount === 0) {
+                this.m_ringScaleWithSegmentSelected = null;
                 return;
+            }
 
             const angleStep = 2.0 * Math.PI / this.currentData().nodes.length;
-            let radius = this.m_radius + this.m_maxTextLength + (this.m_scaleLevels.length - 0.5) * Renderer.m_ringScaleWidth;
+            let radius = this.m_radius + this.m_maxTextLength + (this.m_applicableScaleLevelsCount - 0.5) * Renderer.m_ringScaleWidth;
 
-            const oldRingScales = this.m_ringScales;
-            console.log(oldRingScales);
+            const selectedRS = this.m_ringScaleWithSegmentSelected;
+            this.m_ringScaleWithSegmentSelected = null;
+
             this.m_ringScales = [];
 
             for (let i = this.m_scaleLevels.length - 1; i >= 0; --i) {
                 let scale = this.m_scaleLevels[i];
 
-                let segment = { from: undefined, id: undefined, index: 0 };
+                if (!scale.applicable)
+                   continue;
+
+                let segment = { from: undefined, id: undefined, nodeID: undefined };
 
                 let rs = new RingScale(this.m_radius, radius, Renderer.m_ringScaleWidth, this.m_ringScaleFontSize, this.m_view);
                 this.m_stage.addChild(rs);
@@ -876,30 +890,32 @@ namespace SciViCGraph
                         let a = (i - 0.5) * angleStep;
                         if (segment.id !== undefined) {
                             rs.addSegment(segment.from, a, 
-                                          scale.getColor(segment.index),
-                                          scale.getTextColor(segment.index),
-                                          scale.getName(segment.id));
-                            segment.index++;
+                                          scale.getColor(segment.id),
+                                          scale.getTextColor(segment.id),
+                                          scale.getName(segment.id),
+                                          segment.nodeID.toString() + "|" + node.id.toString());
                         }
                         segment.from = a;
                         segment.id = stepID;
+                        segment.nodeID = node.id;
                     }
                 });
                 if (segment.id !== undefined) {
                     rs.addSegment(segment.from, 2.0 * Math.PI - 0.5 * angleStep,
-                                  scale.getColor(segment.index),
-                                  scale.getTextColor(segment.index),
-                                  scale.getName(segment.id));
+                                  scale.getColor(segment.id),
+                                  scale.getTextColor(segment.id),
+                                  scale.getName(segment.id),
+                                  segment.nodeID.toString() + "|" + this.currentData().nodes[this.currentData().nodes.length - 1].id.toString());
                 }
 
-                if (oldRingScales) {
-                    rs.copySelection(oldRingScales[oldRingScales.length - i - 1]);
-                    this.m_ringSegmentSelected = this.m_ringSegmentSelected || rs.segmentSelected;
+                if (selectedRS && !this.m_ringScaleWithSegmentSelected) {
+                    rs.copySelection(selectedRS);
+                    if (rs.segmentSelected)
+                        this.m_ringScaleWithSegmentSelected = rs;
                 }
 
                 radius -= Renderer.m_ringScaleWidth;
             }
-            console.log(this.m_ringSegmentSelected);
         }
 
         private createCache()
@@ -959,7 +975,7 @@ namespace SciViCGraph
         public reshape()
         {
             this.m_renderer.resize(this.m_view.offsetWidth, this.m_view.offsetHeight);
-            this.updateStateLineLabels();
+            this.m_stateLineNav.updateStateLineLabels();
             this.render(true, true);
         }
 
@@ -968,59 +984,60 @@ namespace SciViCGraph
             if (this.m_selectedNode) {
                 let focusGroup = this.m_selectedNode.groupID;
                 this.m_stage.colors[focusGroup] = string2color(newColor);
-                this.reinit(false);
+                this.reinit(false, false);
             }
         }
 
         public changeGroupColor(focusGroup: number, newColor: string)
         {
             this.m_stage.colors[focusGroup] = string2color(newColor);
-            this.reinit(false);
+            this.reinit(false, false);
         }
 
         public quasiZoomIn(groupID: number)
         {
-            let newData = [];
+            let newStates = new GraphStates();
 
-            this.m_data.forEach((state) => {
+            Object.keys(this.m_states.data).forEach((dataKey) => {
+                const data = this.m_states.data[dataKey];
                 let newNodes = [];
-                state.nodes.forEach((node) => {
+                data.nodes.forEach((node) => {
                     if (node.groupID === groupID)
                         newNodes.push(node);
                 });
 
                 let newEdges = [];
-                state.edges.forEach((edge) => {
+                data.edges.forEach((edge) => {
                     if (edge.source.groupID === groupID  && edge.target.groupID === groupID)
                         newEdges.push(edge);
                 });
 
-                newData.push(new GraphData(state.label, newNodes, newEdges));
+                newStates.data[dataKey] = new GraphData(newNodes, newEdges);
             });
 
-            if (this.m_dataStack === null)
-                this.m_dataStack = [];
-            this.m_dataStack.push(this.m_data);
-            this.m_data = newData;
+            if (this.m_statesStack === null)
+                this.m_statesStack = [];
+            this.m_statesStack.push(this.m_states);
+            this.m_states = newStates;
 
-            this.reinit(true);
+            this.reinit(true, false);
         }
 
         public quasiZoomOut()
         {
-            this.m_data = this.m_dataStack.pop();
+            this.m_states = this.m_statesStack.pop();
 
-            this.reinit(true);
+            this.reinit(true, false);
         }
 
         public canQuasiZoomIn(): boolean
         {
-            return this.m_dataStack === null || this.m_dataStack.length === 0;
+            return this.m_statesStack === null || this.m_statesStack.length === 0;
         }
 
         public canQuasiZoomOut(): boolean
         {
-            return this.m_dataStack !== null && this.m_dataStack.length > 0;
+            return this.m_statesStack !== null && this.m_statesStack.length > 0;
         }
 
         public highlightGroup(groupID: number)
@@ -1036,7 +1053,7 @@ namespace SciViCGraph
 
         private isEdgeVisibleByRingSegment(edge: Edge): boolean
         {
-            if (this.m_ringSegmentSelected) {
+            if (this.m_ringScaleWithSegmentSelected) {
                 if (this.m_ringSegmentFilterBothEnds) {
                     for (let i = 0, n = this.m_ringScales.length; i < n; ++i) {
                         if (this.m_ringScales[i].nodeInSelectedSegment(edge.source) &&
@@ -1217,8 +1234,9 @@ namespace SciViCGraph
                         return this.smartCmp(x1.label, x2.label);
                 }
                 if (sortAllStates) {
-                    this.m_data.forEach((state) => {
-                        state.nodes.sort(sorter);
+                    Object.keys(this.m_states.data).forEach((dataKey) => {
+                        const data = this.m_states.data[dataKey];
+                        data.nodes.sort(sorter);
                     });
                 } else {
                     this.currentData().nodes.sort(sorter);
@@ -1246,12 +1264,13 @@ namespace SciViCGraph
         private selectRingSegment()
         {
             let f1 = false;
-            this.m_ringSegmentSelected = false;
+            this.m_ringScaleWithSegmentSelected = null;
             if (this.m_ringScales) {
                 this.m_ringScales.forEach((rs) => {
                     const rsf = rs.handleSelection();
                     f1 = f1 || rsf;
-                    this.m_ringSegmentSelected = this.m_ringSegmentSelected || rs.segmentSelected;
+                    if (rs.segmentSelected)
+                        this.m_ringScaleWithSegmentSelected = rs;
                 });
             }
             const f2 = this.filterEdges();
@@ -1318,17 +1337,13 @@ namespace SciViCGraph
 
         public updateNodeNames()
         {
-            this.reinit(false);
+            this.reinit(false, false);
         }
 
         public updateNodeKlasses()
         {
             this.calcWeights();
-            this.reinit(false);
-            // FIXME: do the following in init not to create cache twice in a row
-            this.fitScale();
-            this.createCache();
-            this.render(true, true);
+            this.reinit(false, true);
         }
 
         get radius(): number
@@ -1341,10 +1356,10 @@ namespace SciViCGraph
             return this.m_localizer;
         }
 
-        private changeCurrentState(cs: number)
+        public changeCurrentState(cs: string)
         {
-            this.m_currentState = cs;
-            this.reinit(false);
+            this.m_currentStateKey = cs;
+            this.reinit(false, false);
         }
 
         private panGraph(x: number, y: number)
@@ -1459,7 +1474,7 @@ namespace SciViCGraph
             }
             this.stopDragNode();
             if (needsReinit)
-                this.reinit(false);
+                this.reinit(false, false);
             else
                 this.render(true, true);
             return result;
@@ -1542,7 +1557,7 @@ namespace SciViCGraph
             }
             this.stopDragRing();
             if (needsReinit)
-                this.reinit(false);
+                this.reinit(false, false);
             else
                 this.render(true, true);
             this.hoverGraph(x, y);

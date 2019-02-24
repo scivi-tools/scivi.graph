@@ -1,4 +1,4 @@
-// @ts-check
+
 import * as Polyglot from 'node-polyglot';
 
 export class Translator {

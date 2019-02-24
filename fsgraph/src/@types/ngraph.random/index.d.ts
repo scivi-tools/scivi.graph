@@ -1,24 +1,18 @@
-//@ts-check
-declare namespace Ngraph {
-    namespace Random {
-        export interface Random {
-            next(maxValue: number): number
-        }
-
-        export type RandomIteratorCallback<T> = (item: T) => void;
-
-        export interface RandomIterator<T> {
-            forEach(callback: RandomIteratorCallback<T>): void;
-            shuffle(): T[];
-        }
-    }
-}
-
-declare interface NgraphRandom extends Ngraph.Random.Random {
-    nextDouble(): number;
-}
-
 declare module 'ngraph.random' {
-    export function random(seed?: number): NgraphRandom;
-    export function randomIterator<T>(values: T[], random?: Ngraph.Random.Random): Ngraph.Random.RandomIterator<T>;
+
+    export interface RandomGenerator {
+        next(maxValue: number): number
+    }
+
+    export interface RandomIterator<T> {
+        forEach(callback: (item: T) => void): void;
+        shuffle(): T[];
+    }
+
+    export interface RandomGeneratorEx extends RandomGenerator {
+        nextDouble(): number;
+    }
+
+    export function random(seed?: number): RandomGeneratorEx;
+    export function randomIterator<T>(values: T[], random?: RandomGenerator): RandomIterator<T>;
 }

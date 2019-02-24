@@ -2,7 +2,7 @@
  * @author Andrei Kashcha (aka anvaka) / https://github.com/anvaka
  * @author Me
  */
-//@ts-check
+
 import { webglInputEvents } from './webglInputEvents';
 import { Point2D } from '../Point2D';
 import { VivaImageNodeUI } from '../VivaImageNodeUI';
@@ -19,15 +19,16 @@ export class WebGLDnDManager {
         /** @type {Object.<string, DnDHandler>} */
         this.internalHandlers = {};
 
+        /** @type {VivaGeneric.WebGlInputEvents<VivaImageNodeUI>} */
         this.inputEvents = webglInputEvents(graphics);
         /** @type {Ngraph.Graph.Node | null} */
         this.draggedNode = null;
         this.pos = new Point2D(0, 0);
         this.pos2 = new Point2D(0, 0);
 
-        this.inputEvents.mouseDown((/** @type {VivaImageNodeUI} */node, /** @type {MouseEvent} */e) => this.onMouseDown(node, e))
-            .mouseUp((/** @type {VivaImageNodeUI} */node) => this.onMouseUp(node))
-            .mouseMove((/** @type {VivaImageNodeUI} */node, /** @type {MouseEvent} */e) => this.onMouseMove(node, e));
+        this.inputEvents.mouseDown((node, e) => this.onMouseDown(node, e))
+            .mouseUp(node => this.onMouseUp(node))
+            .mouseMove((node, e) => this.onMouseMove(node, e));
     }
 
     /**
@@ -40,6 +41,7 @@ export class WebGLDnDManager {
         this.pos.x = e.clientX;
         this.pos.y = e.clientY;
 
+        // @ts-ignore
         this.inputEvents.mouseCapture(this.draggedNode);
 
         var handlers = this.internalHandlers[node.id];
@@ -55,6 +57,7 @@ export class WebGLDnDManager {
      * @param {VivaImageNodeUI} node 
      */
     onMouseUp(node) {
+        // @ts-ignore
         this.inputEvents.releaseMouseCapture(this.draggedNode);
 
         this.draggedNode = null;

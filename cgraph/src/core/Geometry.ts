@@ -194,5 +194,22 @@ namespace SciViCGraph
 
             return result;
         }
+
+        public static sortedArrayIncludesValue(arr: number[], val: number): boolean
+        {
+            let s = 0;
+            let e = arr.length - 1;
+            while (true) {
+                let c = Math.floor((s + e) / 2);
+                if (c === s)
+                    return val === arr[s] || val === arr[e];
+                else if (val < arr[c])
+                    e = c;
+                else if (val > arr[c])
+                    s = c;
+                else
+                    return true;
+            }
+        }
     }
 }

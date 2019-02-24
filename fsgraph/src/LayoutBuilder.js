@@ -1,7 +1,5 @@
-//@ts-check
 import Viva from './viva-proxy'
-import * as merge from 'ngraph.merge'
-import { VivaWebGLRenderer } from './VivaWebGLRenderer'
+import merge from 'ngraph.merge'
 import { getOrCreateTranslatorInstance } from './Misc/Translator'
 import * as $ from 'jquery'
 import 'jquery-ui/ui/widgets/slider'
@@ -16,9 +14,12 @@ export class LayoutBuilder {
         this.settings = settings;
         this.layout = layout;
         this.name = name;
+
+        /** @type {Function} */
+        this._onSettingUpdatedCallback = null;
     }
 
-    buildUI(/** @type {VivaWebGLRenderer} */renderer) {
+    buildUI() {
         const tr = getOrCreateTranslatorInstance();
         const baseContainer = $('#scivi_fsgraph_settings_layout');
         
@@ -39,7 +40,9 @@ export class LayoutBuilder {
                         cb.checked = value;
                         cb.onchange = (ev) => {
                             this.settings[key] = cb.checked;
-                            renderer.kick();
+                            if (!!this._onSettingUpdatedCallback) {
+                                this._onSettingUpdatedCallback();
+                            }
                         };
                         innerC.appendChild(cb);
                         break;
@@ -59,7 +62,9 @@ export class LayoutBuilder {
                                 slide: (event, ui) => {
                                     this.settings[key] = ui.value;
                                     valueLabel.innerText = ui.value.toString();
-                                    renderer.kick();
+                                    if (!!this._onSettingUpdatedCallback) {
+                                        this._onSettingUpdatedCallback();
+                                    }
                                 }
                             });
                             innerC.appendChild(valueLabel);
@@ -85,13 +90,20 @@ export class LayoutBuilder {
     }
 
     /**
+     * @param {Function} value
+     */
+    set onSetiingChangedCallback(value) {
+        this._onSettingUpdatedCallback = value;
+    }
+
+    /**
      * 
      * @param {string} name 
      * @param {Ngraph.Graph.Graph} graph 
      */
     static buildLayout(name, graph) {
-        /** @type {function(any, Object.<string, any>)} */
-        let result = Viva.Graph.Layout[name];
+        /** @type {function(any, Object.<string, any>): Ngraph.Generic.Layout} */
+        let result = Viva.Layout[name];
         if (typeof result !== "function") {
             throw Error(`No layout called ${name} found!`);
         }

@@ -8,6 +8,7 @@ namespace SciViCGraph
         private m_selectedSegment: number;
         private m_names: string[];
         private m_contextSegment;
+        private m_hashedSegmentIndices: {};
 
         constructor(private m_inRadius: number, private m_outRadius: number, private m_width: number, 
                     private m_fontSize, private m_container: HTMLElement)
@@ -20,9 +21,10 @@ namespace SciViCGraph
             this.m_selectedSegment = -1;
             this.m_names = [];
             this.m_contextSegment = -1;
+            this.m_hashedSegmentIndices = {};
         }
 
-        public addSegment(from: number, to: number, color: number, textColor: number, name: string)
+        public addSegment(from: number, to: number, color: number, textColor: number, name: string, sHash: string)
         {
             let c = { from: color, to: color, alpha: 1.0 };
             let as = Math.sin(from);
@@ -58,13 +60,14 @@ namespace SciViCGraph
 
             r = this.m_outRadius - this.m_width / 2.0;
             const hl = new RingScaleSegment(from, to, r - this.m_inRadius, (r + this.m_inRadius) / 2.0, color, 0.1,
-                                            name, textColor);
+                                            name, textColor, null);
             this.addChild(hl);
             this.m_highlights.push(hl);
 
             const sl = new RingScaleSegment(from, to, this.m_width, this.m_outRadius, 0xFD3C00, 0.5,
-                                            name, textColor);
+                                            name, textColor, sHash);
             this.addChild(sl);
+            this.m_hashedSegmentIndices[sHash] = this.m_selections.length;
             this.m_selections.push(sl);
 
             this.m_names.push(name);
@@ -148,6 +151,7 @@ namespace SciViCGraph
                 this.m_selectedSegment = this.m_contextSegment;
                 if (this.m_selectedSegment !== -1) {
                     this.m_selections[this.m_selectedSegment].visible = true;
+                    this.m_highlights[this.m_selectedSegment].visible = true;
                     result = true;
                 }
             }
@@ -183,11 +187,17 @@ namespace SciViCGraph
 
         public copySelection(rs: RingScale)
         {
-            this.m_selectedSegment = rs.m_selectedSegment;
-            this.m_highlightedSegment = rs.m_highlightedSegment;
-            this.m_contextSegment = rs.m_contextSegment;
-            if (this.m_selectedSegment !== -1)
-                this.m_selections[this.m_selectedSegment].visible = true;
+            const slSegment = rs.selectedSegment;
+            if (slSegment) {
+                console.log(slSegment.segmentHash);
+                const idx = this.m_hashedSegmentIndices[slSegment.segmentHash];
+                if (idx !== undefined) {
+                    this.m_selectedSegment = idx;
+                    this.m_highlightedSegment = idx;
+                    this.m_selections[this.m_selectedSegment].visible = true;
+                    this.m_highlights[this.m_highlightedSegment].visible = true;
+                }
+            }
         }
 
         get radius(): number
@@ -208,6 +218,11 @@ namespace SciViCGraph
         get highlightedSegment(): RingScaleSegment
         {
             return this.m_highlightedSegment === -1 ? null : this.m_highlights[this.m_highlightedSegment];
+        }
+
+        get selectedSegment(): RingScaleSegment
+        {
+            return this.m_selectedSegment === -1 ? null : this.m_selections[this.m_selectedSegment];
         }
 
         get contextSegment(): RingScaleSegment
