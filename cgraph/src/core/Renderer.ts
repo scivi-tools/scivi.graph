@@ -878,7 +878,7 @@ namespace SciViCGraph
                 if (!scale.applicable)
                    continue;
 
-                let segment = { from: undefined, id: undefined, index: 0, nodeID: undefined };
+                let segment = { from: undefined, id: undefined, nodeID: undefined };
 
                 let rs = new RingScale(this.m_radius, radius, Renderer.m_ringScaleWidth, this.m_ringScaleFontSize, this.m_view);
                 this.m_stage.addChild(rs);
@@ -890,11 +890,10 @@ namespace SciViCGraph
                         let a = (i - 0.5) * angleStep;
                         if (segment.id !== undefined) {
                             rs.addSegment(segment.from, a, 
-                                          scale.getColor(segment.index),
-                                          scale.getTextColor(segment.index),
+                                          scale.getColor(segment.id),
+                                          scale.getTextColor(segment.id),
                                           scale.getName(segment.id),
                                           segment.nodeID.toString() + "|" + node.id.toString());
-                            segment.index++;
                         }
                         segment.from = a;
                         segment.id = stepID;
@@ -903,8 +902,8 @@ namespace SciViCGraph
                 });
                 if (segment.id !== undefined) {
                     rs.addSegment(segment.from, 2.0 * Math.PI - 0.5 * angleStep,
-                                  scale.getColor(segment.index),
-                                  scale.getTextColor(segment.index),
+                                  scale.getColor(segment.id),
+                                  scale.getTextColor(segment.id),
                                   scale.getName(segment.id),
                                   segment.nodeID.toString() + "|" + this.currentData().nodes[this.currentData().nodes.length - 1].id.toString());
                 }
