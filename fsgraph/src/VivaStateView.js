@@ -7,6 +7,7 @@ import { getOrCreateTranslatorInstance } from './Misc/Translator'
 import * as $ from 'jquery'
 import 'jquery-ui/ui/widgets/slider'
 import { ColorConverter } from './ColorConverter';
+import { RENDERER_MAP } from './VivaMod/ProxyGroupNodeRenderer';
 
 /* TODO: Пересматриваем концепцию кастомизации отображения графа
  * Теперь этот класс будет содержать инфу о том, как визуализировать связи
@@ -172,7 +173,13 @@ export class VivaStateView {
         innerContainer.appendChild(namedDiaps);
 
         // TODO: colors & rest...
-        // per group colors
+        // let x = null;
+        // if (!!this.nodeTypes.length) {
+        //     x = $('<select></select>')
+        // }
+        const nodeTypesUsed = !!this.nodeTypes.length;
+
+        // per group colors & node type selector
         const stubGroupCount = this._colorPairs.length / 2 - 1;
         if (stubGroupCount > 0) {
             for (let i = 0; i < stubGroupCount; i++) {
@@ -190,8 +197,23 @@ export class VivaStateView {
                     this._colorPairs[2 + i * 2] = ColorConverter.hexToRgba(target.value, 255);
                     this.onSettingsUpdate();
                 });
-
                 settingContainer.append(colorPicker);
+
+                if (nodeTypesUsed) {
+                    const result = document.createElement('select');
+                    Object.getOwnPropertyNames(RENDERER_MAP).forEach(nodeType => {
+                        const option = document.createElement('option');
+                        option.value = nodeType;
+                        option.text = tr.apply(`#node_types.${nodeType}`);
+                        result.appendChild(option);
+                    });
+                    result.value = this.nodeTypes[i];
+                    result.addEventListener('change', (ev) => {
+                        const target = /** @type {typeof result} */(ev.target);
+                        console.log('Changed to ', target.value);
+                    });
+                    settingContainer.append(result);
+                }
             }
         }
 

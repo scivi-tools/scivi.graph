@@ -26,6 +26,11 @@ var g_fsgraph_loc = {
             "#linLogMode": "Lin-Log mode",
             "#barnesHutOptimize": "Barnes-Hut optimize"
         },
+        "#node_types": {
+            "circle": "Circle",
+            "romb": "Rombus",
+            "triang": "Triangle"
+        },
         "#for_group": "For group",
         "#state_hint": "Show nodes with weight within specified range",
         "#fit_to_screen": "Fit to screen",
@@ -59,6 +64,11 @@ var g_fsgraph_loc = {
             "#outboundAttractionDistribution": "Outbound attraction distribution",
             "#linLogMode": "Режим Lin-Log",
             "#barnesHutOptimize": "Оптимизация Барнса-Хата"
+        },
+        "#node_types": {
+            "circle": "Круг",
+            "romb": "Ромб",
+            "triang": "Треугольник"
         },
         "#for_group": "Для группы",
         "#state_hint": "Показывать вершины, чей вес лежит в указанных диапазонах",
