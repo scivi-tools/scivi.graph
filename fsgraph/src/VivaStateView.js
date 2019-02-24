@@ -172,15 +172,10 @@ export class VivaStateView {
 
         innerContainer.appendChild(namedDiaps);
 
-        // TODO: colors & rest...
-        // let x = null;
-        // if (!!this.nodeTypes.length) {
-        //     x = $('<select></select>')
-        // }
-        const nodeTypesUsed = !!this.nodeTypes.length;
-
         // per group colors & node type selector
+        const nodeTypesUsed = !!this.nodeTypes.length;
         const stubGroupCount = this._colorPairs.length / 2 - 1;
+
         if (stubGroupCount > 0) {
             for (let i = 0; i < stubGroupCount; i++) {
                 const settingContainer = $(`#scivi_fsgraph_group_${i}_settings`);
@@ -197,22 +192,24 @@ export class VivaStateView {
                     this._colorPairs[2 + i * 2] = ColorConverter.hexToRgba(target.value, 255);
                     this.onSettingsUpdate();
                 });
-                settingContainer.append(colorPicker);
+                const colorPickerWrapper = $(`<div><span>${tr.apply('#node_color')}</span></div>`).append(colorPicker);
+                settingContainer.append(colorPickerWrapper);
 
                 if (nodeTypesUsed) {
-                    const result = document.createElement('select');
+                    const nodeTypeSelector = document.createElement('select');
                     Object.getOwnPropertyNames(RENDERER_MAP).forEach(nodeType => {
                         const option = document.createElement('option');
                         option.value = nodeType;
                         option.text = tr.apply(`#node_types.${nodeType}`);
-                        result.appendChild(option);
+                        nodeTypeSelector.appendChild(option);
                     });
-                    result.value = this.nodeTypes[i];
-                    result.addEventListener('change', (ev) => {
-                        const target = /** @type {typeof result} */(ev.target);
+                    nodeTypeSelector.value = this.nodeTypes[i];
+                    nodeTypeSelector.addEventListener('change', (ev) => {
+                        const target = /** @type {typeof nodeTypeSelector} */(ev.target);
                         console.log('Changed to ', target.value);
                     });
-                    settingContainer.append(result);
+                    const nodeTypeWrapper = $(`<div><span>${tr.apply('#node_type')}</span></div>`).append(nodeTypeSelector);
+                    settingContainer.append(nodeTypeWrapper);
                 }
             }
         }

@@ -309,6 +309,7 @@ export class GraphState {
                 listItem.appendChild((() => {
                     const res = document.createElement('div');
                     res.id = `scivi_fsgraph_group_${i}_settings`;
+                    res.classList.add('scivi_fsgraph_group_setting');
                     return res;
                 })());
                 filtersList.appendChild(listItem);

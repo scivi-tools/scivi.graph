@@ -37,6 +37,8 @@ var g_fsgraph_loc = {
         "#metric_diameter": "Diameter:",
         "#metric_degree": "Degree (average):",
         "#metric_density": "Density:",
+        "#node_color": "Node color: ",
+        "#node_type": "Node type: ",
     },
     "ru": {
         "#control": "Управление",
@@ -76,5 +78,7 @@ var g_fsgraph_loc = {
         "#metric_diameter": "Диаметр графа:",
         "#metric_degree": "Средняя стпень вершин:",
         "#metric_density": "Плотность графа:",
+        "#node_color": "Цвет вершин: ",
+        "#node_type": "Тип вершин: ",
     },
 };
