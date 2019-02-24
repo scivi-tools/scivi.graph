@@ -58,6 +58,9 @@ export class VivaStateView {
         /** @type {Function} */
         this.onSettingsUpdate = stub;
 
+        /** @type {function(string, number): void} */
+        this.onNodeTypeChange = stub;
+
         /** @type {function(VivaImageNodeUI, Ngraph.Graph.Graph, VivaWebGLRenderer) : void} */
         this.onNodeClick = selectNode2G;
 
@@ -173,7 +176,7 @@ export class VivaStateView {
         innerContainer.appendChild(namedDiaps);
 
         // per group colors & node type selector
-        const nodeTypesUsed = !!this.nodeTypes.length;
+        const nodeTypesUsed = (this.nodeTypes.length > 0);
         const stubGroupCount = this._colorPairs.length / 2 - 1;
 
         if (stubGroupCount > 0) {
@@ -206,7 +209,7 @@ export class VivaStateView {
                     nodeTypeSelector.value = this.nodeTypes[i];
                     nodeTypeSelector.addEventListener('change', (ev) => {
                         const target = /** @type {typeof nodeTypeSelector} */(ev.target);
-                        console.log('Changed to ', target.value);
+                        this.onNodeTypeChange(target.value, i);
                     });
                     const nodeTypeWrapper = $(`<div><span>${tr.apply('#node_type')}</span></div>`).append(nodeTypeSelector);
                     settingContainer.append(nodeTypeWrapper);

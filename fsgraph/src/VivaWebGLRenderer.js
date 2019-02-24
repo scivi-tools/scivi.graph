@@ -209,6 +209,10 @@ export class VivaWebGLRenderer {
             edgeUI.color = result._colorPairs[(edgeUI.selected ? 1 : 0)];
         };
         result.onSettingsUpdate = this.rerender.bind(this);
+        result.onNodeTypeChange = (type, idx) => {
+            this._backend.changeNodeType(type, idx);
+            this.rerender();
+        };
         return result;
     }
 
