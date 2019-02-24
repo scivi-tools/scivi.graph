@@ -148,6 +148,7 @@ namespace SciViCGraph
                 this.m_selectedSegment = this.m_contextSegment;
                 if (this.m_selectedSegment !== -1) {
                     this.m_selections[this.m_selectedSegment].visible = true;
+                    this.m_highlights[this.m_selectedSegment].visible = true;
                     result = true;
                 }
             }
@@ -186,8 +187,10 @@ namespace SciViCGraph
             this.m_selectedSegment = rs.m_selectedSegment;
             this.m_highlightedSegment = rs.m_highlightedSegment;
             this.m_contextSegment = rs.m_contextSegment;
-            if (this.m_selectedSegment !== -1)
+            if (this.m_selectedSegment !== -1) {
                 this.m_selections[this.m_selectedSegment].visible = true;
+                this.m_highlights[this.m_selectedSegment].visible = true;
+            }
         }
 
         get radius(): number

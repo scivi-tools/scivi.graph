@@ -68,6 +68,7 @@ namespace SciViCGraph
         private m_panPrevY: number;
         private m_maxTextLength: number;
         private m_scaleLevels: Scale[];
+        private m_applicableScaleLevelsCount: number;
         private m_classifier: Classifier;
         private m_ringScales: RingScale[];
         private m_statistics: Stats;
@@ -104,6 +105,7 @@ namespace SciViCGraph
                     private m_localizer: {})
         {
             this.m_scaleLevels = null;
+            this.m_applicableScaleLevelsCount = 0;
             this.m_classifier = null;
             this.m_ringScales = null;
             this.m_zoomTimerID = null;
@@ -256,6 +258,7 @@ namespace SciViCGraph
 
         private createGraph(shouldFit: boolean)
         {
+            this.checkRingScaleApplicability();
             this.calcMaxTextLength();
             this.createRingScale();
             this.createNodes();
@@ -295,7 +298,7 @@ namespace SciViCGraph
 
         private reinit(animated: boolean, shouldFit: boolean)
         {
-            const restorePos = this.m_renderingCache !== null && this.m_renderingCache.isValid;
+            const restorePos = !shouldFit && this.m_renderingCache !== null && this.m_renderingCache.isValid;
             let x = 0.0;
             let y = 0.0;
             let s = 1.0;
@@ -779,7 +782,7 @@ namespace SciViCGraph
             this.m_maxTextLength += 20;
 
             this.m_radius = (Math.max(n * maxTextHeight, 1500)) / (2.0 * Math.PI);
-            let rsWidth = this.m_scaleLevels ? Renderer.m_ringScaleWidth * this.m_scaleLevels.length : 0.0;
+            let rsWidth = this.m_scaleLevels ? Renderer.m_ringScaleWidth * this.m_applicableScaleLevelsCount : 0.0;
             this.m_totalRadius = this.m_radius + this.m_maxTextLength + rsWidth;
         }
 
@@ -845,19 +848,33 @@ namespace SciViCGraph
             });
         }
 
+        private checkRingScaleApplicability()
+        {
+            this.m_applicableScaleLevelsCount = 0;
+            if (this.m_scaleLevels !== null && this.m_scaleLevels.length > 0) {
+                this.m_scaleLevels.forEach((scale) => {
+                    if (scale.checkApplicability(this.currentData().nodes))
+                        ++this.m_applicableScaleLevelsCount;
+                });
+            }
+        }
+
         private createRingScale()
         {
-            if (this.m_scaleLevels === null || this.m_scaleLevels.length === 0)
+            if (this.m_applicableScaleLevelsCount === 0)
                 return;
 
             const angleStep = 2.0 * Math.PI / this.currentData().nodes.length;
-            let radius = this.m_radius + this.m_maxTextLength + (this.m_scaleLevels.length - 0.5) * Renderer.m_ringScaleWidth;
+            let radius = this.m_radius + this.m_maxTextLength + (this.m_applicableScaleLevelsCount - 0.5) * Renderer.m_ringScaleWidth;
 
             const oldRingScales = this.m_ringScales;
             this.m_ringScales = [];
 
             for (let i = this.m_scaleLevels.length - 1; i >= 0; --i) {
                 let scale = this.m_scaleLevels[i];
+
+                if (!scale.applicable)
+                   continue;
 
                 let segment = { from: undefined, id: undefined, index: 0 };
 
