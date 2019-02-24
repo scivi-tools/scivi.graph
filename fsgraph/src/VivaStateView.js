@@ -6,6 +6,7 @@ import { VivaWebGLRenderer } from './VivaWebGLRenderer'
 import { getOrCreateTranslatorInstance } from './Misc/Translator'
 import * as $ from 'jquery'
 import 'jquery-ui/ui/widgets/slider'
+import { ColorConverter } from './ColorConverter';
 
 /* TODO: Пересматриваем концепцию кастомизации отображения графа
  * Теперь этот класс будет содержать инфу о том, как визуализировать связи
@@ -52,6 +53,9 @@ export class VivaStateView {
         this.onNodeRender = stub;
         /** @type {function(VivaLinkUI) : void} */
         this.onEdgeRender = stub;
+
+        /** @type {Function} */
+        this.onSettingsUpdate = stub;
 
         /** @type {function(VivaImageNodeUI, Ngraph.Graph.Graph, VivaWebGLRenderer) : void} */
         this.onNodeClick = selectNode2G;
@@ -168,6 +172,28 @@ export class VivaStateView {
         innerContainer.appendChild(namedDiaps);
 
         // TODO: colors & rest...
+        // per group colors
+        const stubGroupCount = this._colorPairs.length / 2 - 1;
+        if (stubGroupCount > 0) {
+            for (let i = 0; i < stubGroupCount; i++) {
+                const settingContainer = $(`#scivi_fsgraph_group_${i}_settings`);
+                if (!settingContainer.length) {
+                    console.warn(`No container found for group ${i} settings!`);
+                    continue;
+                }
+
+                const colorPicker = document.createElement('input');
+                colorPicker.type = 'color';
+                colorPicker.value = ColorConverter.rgbaToHex(this._colorPairs[2 + i * 2]);
+                colorPicker.addEventListener('change', (ev) => {
+                    const target = /** @type {typeof colorPicker} */(event.target);
+                    this._colorPairs[2 + i * 2] = ColorConverter.hexToRgba(target.value, 255);
+                    this.onSettingsUpdate();
+                });
+
+                settingContainer.append(colorPicker);
+            }
+        }
 
         baseContainer.appendChild(innerContainer);
     }

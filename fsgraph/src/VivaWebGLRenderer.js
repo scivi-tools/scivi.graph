@@ -201,6 +201,7 @@ export class VivaWebGLRenderer {
             edgeUI.link['size'] = edgeUI.size = result.getEdgeUISize(edgeUI.link.data.weight, edgeMetrics.maxWeight);
             edgeUI.color = result._colorPairs[(edgeUI.selected ? 1 : 0)];
         };
+        result.onSettingsUpdate = this.rerender.bind(this);
         return result;
     }
 

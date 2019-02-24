@@ -306,6 +306,11 @@ export class GraphState {
                     } 
                 });
                 listItem.appendChild(filterSlider);
+                listItem.appendChild((() => {
+                    const res = document.createElement('div');
+                    res.id = `scivi_fsgraph_group_${i}_settings`;
+                    return res;
+                })());
                 filtersList.appendChild(listItem);
             }
             this._filtersContainer.appendChild(filtersList);
