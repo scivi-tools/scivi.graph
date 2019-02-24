@@ -6,7 +6,7 @@ module.exports = (env, args) => {
     return {
         context: __dirname,
         devtool: is_rel_env ? undefined : "inline-source-map",
-        entry: "./src/index.js",
+        entry: "./src/index.ts",
         optimization: {
             splitChunks: {
                 cacheGroups: {
@@ -26,14 +26,14 @@ module.exports = (env, args) => {
         module: {
             rules: [
                 {
-                    test: /\.js$/,
+                    test: /\.(ts|js)$/,
                     exclude: /node_modules/,
                     loader: 'ts-loader'
                 }
             ]
         },
         resolve: {
-            extensions: [ '.js' ]
+            extensions: [ '.js', '.ts' ]
         },
         stats: {
             excludeModules: false,

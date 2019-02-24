@@ -2,17 +2,12 @@
 /// <reference path="./@types/ngraph.generic.d.ts" />
 /// <reference path="./@types/viva.generic.d.ts" />
 
-export * from './GraphController.js'
-export * from './VivaWebGLRenderer.js'
+export * from './GraphController'
+export * from './VivaWebGLRenderer'
 export * from './VivaStateView'
 export { getOrCreateTranslatorInstance } from './Misc/Translator'
 
-/**
- * 
- * @param {string} name 
- * @param {string} url 
- */
-export function getParameterByName(name, url)
+export function getParameterByName(name: string, url: string): string
 {
     if (!url)
         url = window.location.href;
