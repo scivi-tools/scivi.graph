@@ -84,7 +84,7 @@ namespace SciViCGraph
         private m_ringPlaceHolder: RingPlaceHolder;
         private m_ringBorder: RingBorder;
         private m_ringSegmentFilterBothEnds: boolean;
-        private m_ringSegmentSelected: boolean;
+        private m_ringScaleWithSegmentSelected: RingScale;
         private m_equalizer: EqualizerItem[];
         private m_colorPicker: any;
         private m_modularityFilters: any[];
@@ -122,7 +122,7 @@ namespace SciViCGraph
             this.m_ringPlaceHolder = null;
             this.m_ringBorder = null;
             this.m_ringSegmentFilterBothEnds = true;
-            this.m_ringSegmentSelected = false;
+            this.m_ringScaleWithSegmentSelected = null;
             this.m_equalizer = [];
             this.m_colorPicker = null;
             this.m_modularityFilters = [];
@@ -307,8 +307,6 @@ namespace SciViCGraph
                 y = this.m_renderingCache.y;
                 s = this.m_stage.scale.x;
             }
-
-            this.m_ringSegmentSelected = false;
 
             this.createStage();
             
@@ -861,13 +859,17 @@ namespace SciViCGraph
 
         private createRingScale()
         {
-            if (this.m_applicableScaleLevelsCount === 0)
+            if (this.m_applicableScaleLevelsCount === 0) {
+                this.m_ringScaleWithSegmentSelected = null;
                 return;
+            }
 
             const angleStep = 2.0 * Math.PI / this.currentData().nodes.length;
             let radius = this.m_radius + this.m_maxTextLength + (this.m_applicableScaleLevelsCount - 0.5) * Renderer.m_ringScaleWidth;
 
-            const oldRingScales = this.m_ringScales;
+            const selectedRS = this.m_ringScaleWithSegmentSelected;
+            this.m_ringScaleWithSegmentSelected = null;
+
             this.m_ringScales = [];
 
             for (let i = this.m_scaleLevels.length - 1; i >= 0; --i) {
@@ -876,7 +878,7 @@ namespace SciViCGraph
                 if (!scale.applicable)
                    continue;
 
-                let segment = { from: undefined, id: undefined, index: 0 };
+                let segment = { from: undefined, id: undefined, index: 0, nodeID: undefined };
 
                 let rs = new RingScale(this.m_radius, radius, Renderer.m_ringScaleWidth, this.m_ringScaleFontSize, this.m_view);
                 this.m_stage.addChild(rs);
@@ -890,23 +892,27 @@ namespace SciViCGraph
                             rs.addSegment(segment.from, a, 
                                           scale.getColor(segment.index),
                                           scale.getTextColor(segment.index),
-                                          scale.getName(segment.id));
+                                          scale.getName(segment.id),
+                                          segment.nodeID.toString() + "|" + node.id.toString());
                             segment.index++;
                         }
                         segment.from = a;
                         segment.id = stepID;
+                        segment.nodeID = node.id;
                     }
                 });
                 if (segment.id !== undefined) {
                     rs.addSegment(segment.from, 2.0 * Math.PI - 0.5 * angleStep,
                                   scale.getColor(segment.index),
                                   scale.getTextColor(segment.index),
-                                  scale.getName(segment.id));
+                                  scale.getName(segment.id),
+                                  segment.nodeID.toString() + "|" + this.currentData().nodes[this.currentData().nodes.length - 1].id.toString());
                 }
 
-                if (oldRingScales) {
-                    rs.copySelection(oldRingScales[oldRingScales.length - i - 1]);
-                    this.m_ringSegmentSelected = this.m_ringSegmentSelected || rs.segmentSelected;
+                if (selectedRS && !this.m_ringScaleWithSegmentSelected) {
+                    rs.copySelection(selectedRS);
+                    if (rs.segmentSelected)
+                        this.m_ringScaleWithSegmentSelected = rs;
                 }
 
                 radius -= Renderer.m_ringScaleWidth;
@@ -1048,7 +1054,7 @@ namespace SciViCGraph
 
         private isEdgeVisibleByRingSegment(edge: Edge): boolean
         {
-            if (this.m_ringSegmentSelected) {
+            if (this.m_ringScaleWithSegmentSelected) {
                 if (this.m_ringSegmentFilterBothEnds) {
                     for (let i = 0, n = this.m_ringScales.length; i < n; ++i) {
                         if (this.m_ringScales[i].nodeInSelectedSegment(edge.source) &&
@@ -1259,12 +1265,13 @@ namespace SciViCGraph
         private selectRingSegment()
         {
             let f1 = false;
-            this.m_ringSegmentSelected = false;
+            this.m_ringScaleWithSegmentSelected = null;
             if (this.m_ringScales) {
                 this.m_ringScales.forEach((rs) => {
                     const rsf = rs.handleSelection();
                     f1 = f1 || rsf;
-                    this.m_ringSegmentSelected = this.m_ringSegmentSelected || rs.segmentSelected;
+                    if (rs.segmentSelected)
+                        this.m_ringScaleWithSegmentSelected = rs;
                 });
             }
             const f2 = this.filterEdges();
