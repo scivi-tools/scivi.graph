@@ -28,34 +28,32 @@ namespace SciViCGraph
 
             Object.keys(this.m_renderer.states.data).forEach((dataKey) => {
                 const data = this.m_renderer.states.data[dataKey];
-                data.forEach((data) => {
-                    for (let i = 0, n = data.nodes.length; i < n; ++i) {
-                        if (this.containsNode(data.nodes[i])) {
-                            if (this.m_nodeWeight.min === undefined || this.m_nodeWeight.min > data.nodes[i].weight)
-                                this.m_nodeWeight.min = data.nodes[i].weight;
-                            if (this.m_nodeWeight.max === undefined || this.m_nodeWeight.max < data.nodes[i].weight)
-                                this.m_nodeWeight.max = data.nodes[i].weight;
-                            for (let j = i + 1; j < n; ++j) {
-                                const d = Math.abs(data.nodes[i].weight - data.nodes[j].weight);
-                                if (d > 0.0 && (this.m_nodeWeight.step === undefined || this.m_nodeWeight.step > d))
-                                    this.m_nodeWeight.step = d;
-                            }
+                for (let i = 0, n = data.nodes.length; i < n; ++i) {
+                    if (this.containsNode(data.nodes[i])) {
+                        if (this.m_nodeWeight.min === undefined || this.m_nodeWeight.min > data.nodes[i].weight)
+                            this.m_nodeWeight.min = data.nodes[i].weight;
+                        if (this.m_nodeWeight.max === undefined || this.m_nodeWeight.max < data.nodes[i].weight)
+                            this.m_nodeWeight.max = data.nodes[i].weight;
+                        for (let j = i + 1; j < n; ++j) {
+                            const d = Math.abs(data.nodes[i].weight - data.nodes[j].weight);
+                            if (d > 0.0 && (this.m_nodeWeight.step === undefined || this.m_nodeWeight.step > d))
+                                this.m_nodeWeight.step = d;
                         }
                     }
-                    for (let i = 0, n = data.edges.length; i < n; ++i) {
-                        if (this.containsNode(data.edges[i].target) || this.containsNode(data.edges[i].source)) {
-                            if (this.m_edgeWeight.min === undefined || this.m_edgeWeight.min > data.edges[i].weight)
-                                this.m_edgeWeight.min = data.edges[i].weight;
-                            if (this.m_edgeWeight.max === undefined || this.m_edgeWeight.max < data.edges[i].weight)
-                                this.m_edgeWeight.max = data.edges[i].weight;
-                            for (let j = i + 1; j < n; ++j) {
-                                const d = Math.abs(data.edges[i].weight - data.edges[j].weight);
-                                if (d > 0.0 && (this.m_edgeWeight.step === undefined || this.m_edgeWeight.step > d))
-                                    this.m_edgeWeight.step = d;
-                            }
+                }
+                for (let i = 0, n = data.edges.length; i < n; ++i) {
+                    if (this.containsNode(data.edges[i].target) || this.containsNode(data.edges[i].source)) {
+                        if (this.m_edgeWeight.min === undefined || this.m_edgeWeight.min > data.edges[i].weight)
+                            this.m_edgeWeight.min = data.edges[i].weight;
+                        if (this.m_edgeWeight.max === undefined || this.m_edgeWeight.max < data.edges[i].weight)
+                            this.m_edgeWeight.max = data.edges[i].weight;
+                        for (let j = i + 1; j < n; ++j) {
+                            const d = Math.abs(data.edges[i].weight - data.edges[j].weight);
+                            if (d > 0.0 && (this.m_edgeWeight.step === undefined || this.m_edgeWeight.step > d))
+                                this.m_edgeWeight.step = d;
                         }
                     }
-                });
+                }
             });
 
             if (this.m_nodeWeight.min === undefined) {
