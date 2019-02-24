@@ -1,4 +1,4 @@
-//@ts-check
+
 import Viva from './viva-proxy';
 import { GraphController } from './GraphController';
 import { VivaWebGLSimpleBackend } from './VivaWebGLSimpleBackend';
@@ -140,14 +140,16 @@ export class VivaWebGLRenderer {
         this._backend.nodeTypes = value.nodeTypes;
 
         // TODO: inverse dependency!
-        this.graphicsInputListner.click((/** @type {VivaImageNodeUI} */nodeUI) => {
+        this.graphicsInputListner.click(nodeUI => {
             value.onNodeClick(nodeUI, this._graphBackend, this);
+            return false;
         });
 
-        this.graphicsInputListner.dblClick((/** @type {VivaImageNodeUI} */nodeUI) => {
+        this.graphicsInputListner.dblClick(nodeUI => {
             if (nodeUI) {
                 this._layoutBackend.pinNode(nodeUI.node, !this._layoutBackend.isNodePinned(nodeUI.node));
             }
+            return false;
         });
     }
 
@@ -155,13 +157,18 @@ export class VivaWebGLRenderer {
      * @param {GraphController} value
      */
     set graphController(value) {
+        if (!!this._graphController) {
+            throw new Error('Changin controller on the fly not supported!');
+        }
         this._graphController = value;
+        this._graphController.onStateUpdatedCallback = this.rerender.bind(this);
         this.layoutBackend = value.layoutInstance;
         this.graphBackend = value.graph;
 
         this.currentStateId = 0;
 
-        value.layoutBuilder.buildUI(this);
+        value.layoutBuilder.buildUI();
+        value.layoutBuilder.onSetiingChangedCallback = this.kick.bind(this);
         this._buildTimeline();
         this._buildMetricsUI();
     }
@@ -208,7 +215,7 @@ export class VivaWebGLRenderer {
      * @param {number} value
      */
     set currentStateId(value) {
-        this._graphController.setCurrentStateIdEx(value, this);
+        this._graphController.setCurrentStateIdEx(value);
         this.buildNodeListInfo();
     }
 
@@ -238,9 +245,7 @@ export class VivaWebGLRenderer {
             this._isInitialized = true;
         }
         if (!this._animationTimer) {
-            // TODO: WTF откуда пилять тут берётся второй аргумент, если никто его потом не обрабатывает?
-            // (См. исходники timer)
-            this._animationTimer = Viva.Graph.Utils.timer(() => this._onRenderFrame());//, this._frameTicks);
+            this._animationTimer = Viva.Utils.timer(() => this._onRenderFrame());
         }
         return this;
     }
@@ -326,10 +331,11 @@ export class VivaWebGLRenderer {
     _initPrelayoutEnv(iterations) {
         const itersPerStep = 250;
         const progressLabel = document.createElement('span');
+        const tr = getOrCreateTranslatorInstance();
         let forceStop = false;
         progressLabel.innerText = '0';
-        const dialog = $(`<div title="Precalculating layout">
-        <span>out of ${iterations}</span></div>`);
+        const dialog = $(`<div title="${tr.apply("#precalc_layout")}">
+        <span>/ ${iterations}</span></div>`);
         dialog.css('vertical-align', 'center').css('text-align', 'center');
         /**
          * 
@@ -344,11 +350,14 @@ export class VivaWebGLRenderer {
             }
         };
         dialog.prepend(progressLabel);
+        /** @type {JQueryUI.DialogButtonOptions[]} */
+        const buttonsDescr = [{
+            text: tr.apply('#cancel'),
+            click: () => onDialogClose(true)
+        }];
         dialog.dialog({
             modal: true,
-            buttons: {
-                'Cancel': () => onDialogClose(true)
-            }
+            buttons: buttonsDescr
         })
         /**
          * 
@@ -508,14 +517,14 @@ export class VivaWebGLRenderer {
 
     _updateCenter() {
         const graphRect = this._layoutBackend.getGraphRect();
-        const containerSize = Viva.Graph.Utils.getDimension(this._container);
+        const containerSize = Viva.Utils.getDimension(this._container);
 
         this._updateCenterReal(graphRect, containerSize);
     }
 
     _fitToScreen() {
         const graphRect = this._layoutBackend.getGraphRect();
-        const containerSize = Viva.Graph.Utils.getDimension(this._container);
+        const containerSize = Viva.Utils.getDimension(this._container);
 
         this._updateCenterReal(graphRect, containerSize);
         this._scaleToScreen(graphRect, containerSize);
@@ -537,7 +546,7 @@ export class VivaWebGLRenderer {
         // listen to events
         window.addEventListener('resize', () => this.onContainerResize());
 
-        this._containerDrag = Viva.Graph.Utils.dragndrop(this._container);
+        this._containerDrag = Viva.Utils.dragndrop(this._container);
         this._containerDrag.onDrag((e, offset) => {
             this._graphics.translateRel(offset.x, offset.y);
             this._renderGraph();
@@ -598,7 +607,7 @@ export class VivaWebGLRenderer {
      */
     _scale(out, scrollPoint) {
         if (!scrollPoint) {
-            const containerSize = Viva.Graph.Utils.getDimension(this._container);
+            const containerSize = Viva.Utils.getDimension(this._container);
             scrollPoint = {
                 x: containerSize.width / 2,
                 y: containerSize.height / 2
@@ -895,7 +904,7 @@ export class VivaWebGLRenderer {
      * @param {Ngraph.Graph.Position} pos in graph space
      */
     centerAtGraphPoint(pos) {
-        const containerSize = Viva.Graph.Utils.getDimension(this._container);
+        const containerSize = Viva.Utils.getDimension(this._container);
         this._graphics.graphCenterChanged(0, 0);
         let pos2 = new Point2D(pos.x, pos.y);
         this._graphics.transformGraphToClientCoordinates(pos2);

@@ -5,8 +5,8 @@ module.exports = (env, args) => {
 
     return {
         context: __dirname,
-        devtool: is_rel_env ? "source-map" : "inline-source-map",
-        entry: "./tmp/index.js",
+        devtool: is_rel_env ? undefined : "inline-source-map",
+        entry: "./src/index.ts",
         optimization: {
             splitChunks: {
                 cacheGroups: {
@@ -19,14 +19,22 @@ module.exports = (env, args) => {
             }
         },
         output: {
-            path: __dirname + "/dist",
+            path: __dirname + "/../demo/fsgraph/lib",
             filename: "SciViFSGraph.[name].js",
-            library: ["SciViFSGraph", "[name]"],
-            // libraryTarget: "umd"
+            library: ["SciViFSGraph", "[name]"]
         },
-        // resolve: {
-        //     extensions: [ '.js' ]
-        // },
+        module: {
+            rules: [
+                {
+                    test: /\.(ts|js)$/,
+                    exclude: /node_modules/,
+                    loader: 'ts-loader'
+                }
+            ]
+        },
+        resolve: {
+            extensions: [ '.js', '.ts' ]
+        },
         stats: {
             excludeModules: false,
             maxModules: 100

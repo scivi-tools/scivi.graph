@@ -1,4 +1,4 @@
-//@ts-check
+
 
 /**
  * @implements {Ngraph.Graph.Position}

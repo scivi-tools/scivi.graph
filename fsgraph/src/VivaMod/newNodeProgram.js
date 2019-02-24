@@ -4,7 +4,7 @@
  *
  * @author Andrei Kashcha (aka anvaka) / https://github.com/anvaka
  */
-// @ts-check
+
 import glUtils from 'vivagraphjs/src/WebGL/webgl'
 
 /**

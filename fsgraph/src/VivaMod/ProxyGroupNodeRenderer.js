@@ -1,4 +1,4 @@
-//@ts-check
+
 import { VivaColoredNodeRenderer } from './VivaColoredNodeRenderer';
 import { VivaRombusNodeRenderer } from './VivaRombusNodeRenderer';
 import { VivaTriangleNodeRenderer } from './VivaTriangleNodeRenderer';

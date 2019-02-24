@@ -31,9 +31,9 @@ build_fsgraph:
   image: node:6
   stage: build_fsgraph
   cache:
-    key: "npm"
+    key: "npm-fsgraph"
     paths:
-      - node_modules
+      - fsgraph/node_modules
   before_script:
     - pushd fsgraph
     - npm install

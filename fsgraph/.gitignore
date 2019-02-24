@@ -1,4 +1,0 @@
-# fuck tsc temp dir
-tmp/*
-node_modules/*
-dist/*

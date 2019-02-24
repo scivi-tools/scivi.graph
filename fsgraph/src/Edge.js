@@ -1,7 +1,15 @@
-// @ts-check
+
 import * as DH from './DataHelpers'
+import { GraphState } from './GraphState';
 
 export class Edge {
+    /**
+     * 
+     * @param {GraphState} state 
+     * @param {*} fromId 
+     * @param {*} toId 
+     * @param {Object.<string, *>} data 
+     */
     constructor(state, fromId, toId, data) {
         this._state = state;
         this.fromId = fromId;
@@ -21,7 +29,7 @@ export class Edge {
     get visible() {
         let nodeFrom = this._state.nodes[this.fromId];
         let nodeTo = this._state.nodes[this.toId];
-        this._visibleStored = nodeFrom.visible && nodeTo.visible;
+        this._visibleStored = !!(nodeFrom.visible && nodeTo.visible);
         return this._visibleStored;
     }
 

@@ -3,7 +3,7 @@
  *
  * @author Andrei Kashcha (aka anvaka) / http://anvaka.blogspot.com
  */
- //@ts-check
+ 
 
 /**
  * @param {WebGLRenderingContext} gl

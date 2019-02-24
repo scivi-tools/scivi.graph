@@ -1,9 +1,8 @@
-// @ts-check
-import Viva from './viva-proxy';
 import { GraphState } from './GraphState';
 import { DummyMetrics } from './DummyMetrics';
 import { LayoutBuilder } from './LayoutBuilder';
 import * as DH from './DataHelpers';
+import NgraphGraph from 'ngraph.graph';
 import * as $ from 'jquery';
 import { AllMetrics } from './GraphMetrics';
 
@@ -20,7 +19,7 @@ export class GraphController {
         this._currentStateId = 0;
 
         // TODO: добавить возможность отказаться от уникальных индексов связей
-        this._graph = Viva.Graph.graph();
+        this._graph = NgraphGraph();
 
         this.monitoredValues = ['weight'];
         this._metrics = new DummyMetrics(this.monitoredValues);
@@ -30,6 +29,8 @@ export class GraphController {
         /** @type {Ngraph.Generic.Layout} */
         this._layoutInstance = this.layoutBuilder.layout;
 
+        /** @type {Function} */
+        this._onStateUpdated = null;
         this.graphMetrics = AllMetrics.map(metricConstructor => new metricConstructor(this._graph));
         this.graphMetrics.forEach((v, i) => {
             window[`GraphMetric${i}`] = v.execute.bind(v);
@@ -97,14 +98,28 @@ export class GraphController {
         return this._edgeMetrics;
     }
 
+    /**
+     * @param {number} value
+     */
     set currentStateId(value) {
-        this.setCurrentStateIdEx(value, null);
+        this.setCurrentStateIdEx(value);
     }
 
-    setCurrentStateIdEx(value, renderer) {
+    /**
+     * @param {Function} value
+     */
+    set onStateUpdatedCallback(value) {
+        this._onStateUpdated = value;
+    }
+
+    /**
+     * 
+     * @param {number} value
+     */
+    setCurrentStateIdEx(value) {
         if (value != this._currentStateId) {
-            /** @type {Object.<string, number[]>[]} */
-            let prevFilterValues = undefined;
+            /** @type {Object.<string, number[]>[]?} */
+            let prevFilterValues = null;
             // Сохраняем всевозможную инфу в предыдущем состоянии (те же позиции вершин)
             if ((this._currentStateId >= 0) && (this._currentStateId < this.states.length)) {
                 prevFilterValues = this.states[this._currentStateId].onBeforeDisabled();
@@ -114,10 +129,15 @@ export class GraphController {
             this._currentStateId = value;
 
             // здесь мы должны переключать граф путём перезаполнения ngraph.graph
-            this.states[this._currentStateId].actualize(prevFilterValues, renderer);
+            this.states[this._currentStateId].actualize(prevFilterValues);
         }
     }
 
+    /**
+     * 
+     * @param {Object} json 
+     * @param {string} layoutName 
+     */
     static fromJson(json, layoutName) {
         let controller = new GraphController(1, layoutName);
 
@@ -126,6 +146,11 @@ export class GraphController {
         return controller;
     }
 
+    /**
+     * 
+     * @param {Object} json 
+     * @param {string} layoutName 
+     */
     static fromStatedJson(json, layoutName) {
         /** @type {Object[]} */
         let states = json["states"];
