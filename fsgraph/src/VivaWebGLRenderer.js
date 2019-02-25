@@ -202,11 +202,16 @@ export class VivaWebGLRenderer {
         // TODO: move this shit out of here (in enherited from VStateView class)
         result.onNodeRender = (nodeUI) => {
             nodeUI.node['size'] = nodeUI.size = result.getNodeUISize(nodeUI.node.data.weight, metrics.maxWeight);
-            nodeUI.color = result._colorPairs[(1 + nodeUI.node.data.groupId) * 2 + (nodeUI.selected ? 1 : 0)];
+            nodeUI.color = result._colorPairs[(1 + nodeUI.node.data.groupId) * 2 + (nodeUI.selected ? 1: 0)];
         };
         result.onEdgeRender = (edgeUI) => {
             edgeUI.link['size'] = edgeUI.size = result.getEdgeUISize(edgeUI.link.data.weight, edgeMetrics.maxWeight);
-            edgeUI.color = result._colorPairs[(edgeUI.selected ? 1 : 0)];
+            edgeUI.color = result._colorPairs[edgeUI.selected ? 1 : 0];
+        };
+        result.onSettingsUpdate = this.rerender.bind(this);
+        result.onNodeTypeChange = (type, idx) => {
+            this._backend.changeNodeType(type, idx);
+            this.rerender();
         };
         return result;
     }

@@ -26,6 +26,11 @@ var g_fsgraph_loc = {
             "#linLogMode": "Lin-Log mode",
             "#barnesHutOptimize": "Barnes-Hut optimize"
         },
+        "#node_types": {
+            "circle": "Circle",
+            "romb": "Rombus",
+            "triang": "Triangle"
+        },
         "#for_group": "For group",
         "#state_hint": "Show nodes with weight within specified range",
         "#fit_to_screen": "Fit to screen",
@@ -34,6 +39,10 @@ var g_fsgraph_loc = {
         "#metric_diameter": "Diameter:",
         "#metric_degree": "Degree (average):",
         "#metric_density": "Density:",
+        "#node_color": "Node color: ",
+        "#node_type": "Node type: ",
+        "#node_alpha": "Node alpha",
+        "#edge_alpha": "Edge alpha",
     },
     "ru": {
         "#control": "Управление",
@@ -62,6 +71,11 @@ var g_fsgraph_loc = {
             "#linLogMode": "Режим Lin-Log",
             "#barnesHutOptimize": "Оптимизация Барнса-Хата"
         },
+        "#node_types": {
+            "circle": "Круг",
+            "romb": "Ромб",
+            "triang": "Треугольник"
+        },
         "#for_group": "Для группы",
         "#state_hint": "Показывать вершины, чей вес лежит в указанных диапазонах",
         "#fit_to_screen": "Подогнать под экран",
@@ -70,5 +84,9 @@ var g_fsgraph_loc = {
         "#metric_diameter": "Диаметр графа:",
         "#metric_degree": "Средняя стпень вершин:",
         "#metric_density": "Плотность графа:",
+        "#node_color": "Цвет вершин: ",
+        "#node_type": "Тип вершин: ",
+        "#node_alpha": "Непрозрачность вершин",
+        "#edge_alpha": "Непрозрачность связей",
     },
 };

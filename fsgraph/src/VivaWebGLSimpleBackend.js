@@ -40,6 +40,9 @@ export class VivaWebGLSimpleBackend {
 
         /** @type {string[]} */
         this._nodeTypes = [];
+
+        /** @type {VivaGeneric.NodeProgram} */
+        this._nodeProgram = null;
     }
 
     /**
@@ -50,12 +53,10 @@ export class VivaWebGLSimpleBackend {
     postInit(container) {
         /** @type {HTMLElement} */
         this._container = container;
+        
+        this._nodeProgram = (this._nodeTypes.length > 0) ? new ProxyGroupNodeRenderer(this._nodeTypes) : new VivaColoredNodeRenderer();
+        this._graphics.setNodeProgram(this._nodeProgram);
 
-        if (this._nodeTypes.length > 0) {
-            this._graphics.setNodeProgram(new ProxyGroupNodeRenderer(this._nodeTypes));
-        } else {
-            this._graphics.setNodeProgram(new VivaColoredNodeRenderer());
-        }
         this._graphics.setLinkProgram(new VivaWideLinkRenderer());//(newLinkProgram());
 
         this._graphics.init(this._container);
@@ -91,6 +92,21 @@ export class VivaWebGLSimpleBackend {
      */
     set nodeTypes(value) {
         this._nodeTypes = value;
+    }
+
+    /**
+     * 
+     * @param {string} nodeType 
+     * @param {number} idx 
+     */
+    changeNodeType(nodeType, idx) {
+        if (!(this._nodeProgram instanceof ProxyGroupNodeRenderer)) {
+            console.error('Can not change node type: unsupported node program type');
+            return;
+        }
+        
+        const proxyNodeProgram = /** @type {ProxyGroupNodeRenderer} */(this._nodeProgram);
+        proxyNodeProgram.changeNodeType(nodeType, idx);
     }
 }
 
