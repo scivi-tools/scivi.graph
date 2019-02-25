@@ -41,6 +41,8 @@ var g_fsgraph_loc = {
         "#metric_density": "Density:",
         "#node_color": "Node color: ",
         "#node_type": "Node type: ",
+        "#node_alpha": "Node alpha",
+        "#edge_alpha": "Edge alpha",
     },
     "ru": {
         "#control": "Управление",
@@ -84,5 +86,7 @@ var g_fsgraph_loc = {
         "#metric_density": "Плотность графа:",
         "#node_color": "Цвет вершин: ",
         "#node_type": "Тип вершин: ",
+        "#node_alpha": "Непрозрачность вершин",
+        "#edge_alpha": "Непрозрачность связей",
     },
 };

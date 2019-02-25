@@ -49,6 +49,8 @@ export class VivaStateView {
         this._edgeSizeDiap[1] = _DefEdgeSizeDiap[1];
 
         this._colorPairs = colorPairs;
+        /** Node, then edge */
+        this._elementAlpha = [this._colorPairs[2] & 0xFF, this._colorPairs[0] & 0xFF];
 
         /** @type {function(VivaImageNodeUI) : void} */
         this.onNodeRender = stub;
@@ -125,20 +127,15 @@ export class VivaStateView {
         let baseContainer = $('#scivi_fsgraph_settings_appearance')[0];
         let innerContainer = document.createElement('div');
         innerContainer.id = 'scivi_fsgraph_settings_stateview';
-
-        // let nameSpan = document.createElement('span');
-        // nameSpan.innerText = 'Внешний вид:';
-        // innerContainer.appendChild(nameSpan);
-
         const tr = getOrCreateTranslatorInstance();
 
         const namedDiaps = document.createElement('ul');
-
         // TODO: done this right way
         const diapNames = [tr.apply('#node_size_diap'), tr.apply('#edge_size_diap')];
         const diapRanges = [_MaxNodeSizeDiap, _MaxEdgeSizeDiap];
         const diapSteps = [_NodeSizeStep, _EdgeSizeStep];
         const diapSetters = [this._nodeSizeDiap, this._edgeSizeDiap];
+        const alphaDiapNames = [tr.apply('#node_alpha'), tr.apply('#edge_alpha')];
         for (let i = 0; i < 2; i++) {
             const diapLi = document.createElement('li');
             const label = document.createElement('span');
@@ -167,12 +164,34 @@ export class VivaStateView {
                 }
             });
 
+            const alphaPickerContainer = document.createElement('div');
+            alphaPickerContainer.innerHTML = `<span>${alphaDiapNames[i]}: </span>`;
+            const alphaPicker = document.createElement('div');
+            const alphaLabel = document.createElement('span');
+            alphaPickerContainer.appendChild(alphaLabel);
+            const setAlphaLabel = (/** @type {number} */value) => {
+                alphaLabel.innerText = (value / 255).toFixed(2);
+            };
+            setAlphaLabel(this._elementAlpha[i]);
+            $(alphaPicker).slider({
+                min: 0,
+                max: 255,
+                value: this._elementAlpha[i],
+                step: 5,
+                slide: (ev, ui) => {
+                    that._elementAlpha[i] = ui.value;
+                    setAlphaLabel(ui.value);
+                    that._renderer.rerender();
+                }
+            }).appendTo(alphaPickerContainer);
+            
+
             diapLi.appendChild(label);
             diapLi.appendChild(numLabel);
             diapLi.appendChild(slider);
+            diapLi.appendChild(alphaPickerContainer);
             namedDiaps.appendChild(diapLi);
         }
-
         innerContainer.appendChild(namedDiaps);
 
         // per group colors & node type selector
@@ -191,8 +210,9 @@ export class VivaStateView {
                 colorPicker.type = 'color';
                 colorPicker.value = ColorConverter.rgbaToHex(this._colorPairs[2 + i * 2]);
                 colorPicker.addEventListener('change', (ev) => {
-                    const target = /** @type {typeof colorPicker} */(event.target);
-                    this._colorPairs[2 + i * 2] = ColorConverter.hexToRgba(target.value, 255);
+                    const target = /** @type {typeof colorPicker} */(ev.target);
+                    this._colorPairs[2 + i * 2] = ColorConverter.hexToRgba(target.value, this._elementAlpha[1]);
+                    this._colorPairs[2 + i * 2 + 1] = ColorConverter.hexToRgba(target.value, 255);
                     this.onSettingsUpdate();
                 });
                 const colorPickerWrapper = $(`<div><span>${tr.apply('#node_color')}</span></div>`).append(colorPicker);
