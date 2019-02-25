@@ -16,6 +16,16 @@ export class ColorConverter {
         return ((hexnum << 8) | (alpha & 0xFF)) & 0xFFFFFFFF;
     }
 
+    /**
+     * @param hexrgb like '#rrggbb'
+     */
+    static hexToRgb(hexrgb: string): number {
+        let sliced = hexrgb.slice(1);
+        let hexnum = parseInt(sliced, 16);
+
+        return hexnum & 0xFFFFFF;
+    }
+
     /** 
      * @param color RGBA format
      * @returns Alpha value 0-255

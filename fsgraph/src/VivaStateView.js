@@ -51,6 +51,7 @@ export class VivaStateView {
         this._colorPairs = colorPairs;
         /** Node, then edge */
         this._elementAlpha = [this._colorPairs[2] & 0xFF, this._colorPairs[0] & 0xFF];
+        this._srcAlpha = [this._colorPairs[3] & 0xFF, this._colorPairs[1] & 0xFF];
 
         /** @type {function(VivaImageNodeUI) : void} */
         this.onNodeRender = stub;
@@ -179,7 +180,7 @@ export class VivaStateView {
                 value: this._elementAlpha[i],
                 step: 5,
                 slide: (ev, ui) => {
-                    that._elementAlpha[i] = ui.value;
+                    that.setAlpha(i, ui.value);
                     setAlphaLabel(ui.value);
                     that._renderer.rerender();
                 }
@@ -211,8 +212,7 @@ export class VivaStateView {
                 colorPicker.value = ColorConverter.rgbaToHex(this._colorPairs[2 + i * 2]);
                 colorPicker.addEventListener('change', (ev) => {
                     const target = /** @type {typeof colorPicker} */(ev.target);
-                    this._colorPairs[2 + i * 2] = ColorConverter.hexToRgba(target.value, this._elementAlpha[1]);
-                    this._colorPairs[2 + i * 2 + 1] = ColorConverter.hexToRgba(target.value, 255);
+                    this.setRgb(i, target.value);
                     this.onSettingsUpdate();
                 });
                 const colorPickerWrapper = $(`<div><span>${tr.apply('#node_color')}</span></div>`).append(colorPicker);
@@ -238,6 +238,47 @@ export class VivaStateView {
         }
 
         baseContainer.appendChild(innerContainer);
+    }
+
+    /**
+     * 
+     * @param {number} rgb
+     * @param {number} alpha
+     * @returns {number} rgba
+     */
+    static getInactiveColor(rgb, alpha) {
+        const hsv = ColorConverter.rgb2hsv(rgb);
+        hsv[1] = 20;
+        hsv[2] = 90;
+        return (ColorConverter.hsv2rgb(hsv) << 8) | (alpha & 0xFF);
+    }
+
+    /**
+     * 
+     * @param {number} idx 
+     * @param {number} value 
+     */
+    setAlpha(idx, value) {
+        this._elementAlpha[idx] = value;
+        if (!idx) {
+            for (let i = 2; i < this._colorPairs.length; i++) {
+                this._colorPairs[i] = (this._colorPairs[i] & 0xFFFFFF00) | this._elementAlpha[idx];
+            }
+        } else {
+            for (let i = 0; i < 2; i++) {
+                this._colorPairs[i] = (this._colorPairs[i] & 0xFFFFFF00) | this._elementAlpha[idx];
+            }
+        }
+    }
+
+    /**
+     * 
+     * @param {number} idx 
+     * @param {string} hexValue 
+     */
+    setRgb(idx, hexValue) {
+        this._colorPairs[idx * 2 + 2] = VivaStateView.getInactiveColor(ColorConverter.hexToRgb(hexValue), this._elementAlpha[0]);
+        this._colorPairs[idx * 2 + 3] = ColorConverter.hexToRgba(hexValue, this._elementAlpha[0]);
     }
 }
 
