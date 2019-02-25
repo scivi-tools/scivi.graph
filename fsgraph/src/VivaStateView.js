@@ -51,6 +51,9 @@ export class VivaStateView {
         this._colorPairs = colorPairs;
         /** Node, then edge */
         this._elementAlpha = [this._colorPairs[2] & 0xFF, this._colorPairs[0] & 0xFF];
+        for (let i = 2; i < this._colorPairs.length; i += 2) {
+            this._colorPairs[i] = VivaStateView.getInactiveColor(this._colorPairs[i] >> 8, this._colorPairs[i] & 0xFF);
+        }
         this._srcAlpha = [this._colorPairs[3] & 0xFF, this._colorPairs[1] & 0xFF];
 
         /** @type {function(VivaImageNodeUI) : void} */
@@ -209,7 +212,7 @@ export class VivaStateView {
 
                 const colorPicker = document.createElement('input');
                 colorPicker.type = 'color';
-                colorPicker.value = ColorConverter.rgbaToHex(this._colorPairs[2 + i * 2]);
+                colorPicker.value = ColorConverter.rgbaToHex(this._colorPairs[3 + i * 2]);
                 colorPicker.addEventListener('change', (ev) => {
                     const target = /** @type {typeof colorPicker} */(ev.target);
                     this.setRgb(i, target.value);
@@ -248,7 +251,7 @@ export class VivaStateView {
      */
     static getInactiveColor(rgb, alpha) {
         const hsv = ColorConverter.rgb2hsv(rgb);
-        hsv[1] = 20;
+        hsv[1] = Math.floor(hsv[1] * 0.4);
         hsv[2] = 90;
         return (ColorConverter.hsv2rgb(hsv) << 8) | (alpha & 0xFF);
     }
@@ -261,13 +264,11 @@ export class VivaStateView {
     setAlpha(idx, value) {
         this._elementAlpha[idx] = value;
         if (!idx) {
-            for (let i = 2; i < this._colorPairs.length; i++) {
+            for (let i = 2; i < this._colorPairs.length; i += 2) {
                 this._colorPairs[i] = (this._colorPairs[i] & 0xFFFFFF00) | this._elementAlpha[idx];
             }
         } else {
-            for (let i = 0; i < 2; i++) {
-                this._colorPairs[i] = (this._colorPairs[i] & 0xFFFFFF00) | this._elementAlpha[idx];
-            }
+            this._colorPairs[0] = (this._colorPairs[0] & 0xFFFFFF00) | this._elementAlpha[idx];
         }
     }
 
@@ -278,7 +279,7 @@ export class VivaStateView {
      */
     setRgb(idx, hexValue) {
         this._colorPairs[idx * 2 + 2] = VivaStateView.getInactiveColor(ColorConverter.hexToRgb(hexValue), this._elementAlpha[0]);
-        this._colorPairs[idx * 2 + 3] = ColorConverter.hexToRgba(hexValue, this._elementAlpha[0]);
+        this._colorPairs[idx * 2 + 3] = ColorConverter.hexToRgba(hexValue, this._srcAlpha[0]);
     }
 }
 
