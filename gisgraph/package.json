@@ -1,0 +1,25 @@
+{
+  "name": "scivi-gisgraph",
+  "version": "0.0.1",
+  "description": "GIS-based graph renderer for SciVi",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "debug": "webpack --mode development",
+    "release": "webpack --mode production"
+  },
+  "author": "rew_mad",
+  "private": true,
+  "devDependencies": {
+    "@types/d3": "^5.7.1",
+    "@types/leaflet": "^1.4.3",
+    "ts-loader": "^5.3.3",
+    "typescript": "^3.3.3333",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3"
+  },
+  "dependencies": {
+    "d3": "^5.7.1",
+    "leaflet": "^1.4.0",
+    "leaflet-geosearch": "^2.7.0"
+  }
+}
