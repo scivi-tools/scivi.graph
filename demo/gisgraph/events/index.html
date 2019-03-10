@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>SciVi GIS-based Graph Renderer</title>
+        <meta charset="utf-8"/>
+
+        <link rel="stylesheet" href="../../cgraph/css/jquery-ui.css"/>
+        <link rel="stylesheet" href="../../cgraph/css/default.css"/>
+
+        <script src="data.json.js"></script>
+        <script src="../lib/SciViGISGraph.vendor.js"></script>
+        <script src="../lib/SciViGISGraph.main.js"></script>
+        <script>
+            function main(data) {
+                var graphPromise = SciViGISGraph.main.FromDummyNodeListAsync(data);
+                graphPromise.then(graph => console.log(graph));
+            }
+        </script>
+    </head>
+    <body onload="main(data);"></body>
+</html>
