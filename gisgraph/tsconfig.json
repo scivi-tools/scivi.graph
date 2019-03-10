@@ -7,7 +7,11 @@
         "target": "es5",
         "moduleResolution": "node",
         "strict": true,
-        "alwaysStrict": true
+        "alwaysStrict": true,
+        "lib": [
+            "es2015",
+            "dom"
+        ]
     },
     "include": [
         "./src/*"

@@ -1,3 +1,1 @@
-export function main() {
-    ;
-}
+export * from './DummyParser';
