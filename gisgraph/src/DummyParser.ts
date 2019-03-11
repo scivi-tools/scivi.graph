@@ -33,5 +33,6 @@ export async function FromDummyNodeListAsync(list: DummyNodeEntry[]): Promise<Gr
 }
 
 export function FromDummyNodeList(list: DummyNodeEntry[]): GraphController {
-    return new GraphController([new GraphState(list.filter(node => !!node).map(node => new Node(node.name, node.value, node.words, new Point(node.latLng.x, node.latLng.y))))]);
+    // TODO: replace x->y (lon->lat) in data
+    return new GraphController([new GraphState(list.filter(node => !!node).map(node => new Node(node.name, node.value, node.words, new Point(node.latLng.y, node.latLng.x))))]);
 }

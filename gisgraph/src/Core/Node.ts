@@ -5,6 +5,6 @@ export class Node {
         public name: string,
         public readonly weight: number,
         private readonly metadata: any[],
-        private readonly location: Point
+        public readonly location: Point
     ) { }
 }

@@ -6,4 +6,8 @@ export class GraphState {
     ) {
         ;
     }
+
+    get nodes(): Node[] {
+        return this._nodes;
+    }
 }
