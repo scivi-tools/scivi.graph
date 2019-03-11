@@ -27,6 +27,12 @@ export class ProxyGroupNodeRenderer {
         /** @type {VivaGeneric.NodeUI[]} */
         this._lastInsertedNode = new Array(this._renderers.length);
 
+        /** @type {WebGLRenderingContext} */
+        this._context = null;
+        this._w = 0;
+        this._h = 0;
+        this._transform = null;
+
         // TODO: workaround assert if interface is implemented
         // https://github.com/Microsoft/TypeScript/issues/17498#issuecomment-399439654   
         /** @type {VivaGeneric.NodeProgram} */
@@ -56,12 +62,47 @@ export class ProxyGroupNodeRenderer {
         return oldID;
     }
 
+    /**
+     * 
+     * @param {string} nodeType 
+     * @param {number} idx 
+     */
+    changeNodeType(nodeType, idx) {
+        /** @type {VivaGeneric.NodeProgram} */
+        const newProgram = new RENDERER_MAP[nodeType](64);
+        const oldProgram = this._renderers[idx];
+
+        // copy properties (nuts way)
+        newProgram.load(this._context);
+        newProgram.updateTransform(this._transform);
+        newProgram.updateSize(this._w, this._h);
+        
+        // like-a-copy nodes from prev renderer into new one
+        oldProgram.position = (ui, pos) => {
+            newProgram.createNode(ui);
+            newProgram.position(ui, pos);
+        }
+
+        // then replace old renderer by new;
+        // without modifying webglGraphics
+        const that = this;
+        oldProgram.render = () => {
+            that._renderers[idx] = newProgram;
+            newProgram.render();
+        };
+    }
+
     // #region VivaAPI
 
+    /**
+     * 
+     * @param {WebGLRenderingContext} glContext 
+     */
     load(glContext) {
         for (let renderer of this._renderers) {
             renderer.load(glContext);
         }
+        this._context = glContext;
     }
 
     position(nodeUI, pos) {
@@ -100,12 +141,15 @@ export class ProxyGroupNodeRenderer {
         for (let renderer of this._renderers) {
             renderer.updateTransform(newTransform);
         }
+        this._transform = newTransform;
     }
   
     updateSize(w, h) {
         for (let renderer of this._renderers) {
             renderer.updateSize(w, h);
         }
+        this._w = w;
+        this._h = h;
     }
   
     render() {

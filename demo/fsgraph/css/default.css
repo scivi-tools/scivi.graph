@@ -148,6 +148,12 @@
     padding-top: 5px;
 }
 
+.scivi_fsgraph_group_setting > div
+{
+    padding: 5px;
+    font-size: 0.8em;
+}
+
 .ui-slider-horizontal
 {
     height: 0.6em;
