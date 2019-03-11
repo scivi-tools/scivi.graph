@@ -12,8 +12,11 @@
         <script src="../lib/SciViGISGraph.main.js"></script>
         <script>
             function main(data) {
-                var graphPromise = SciViGISGraph.main.FromDummyNodeListAsync(data);
-                graphPromise.then(graph => console.log(graph));
+                var graphController = SciViGISGraph.main.FromDummyNodeList(data);
+                var renderer = new SciViGISGraph.main.Renderer(document.body);
+                renderer.init();
+                renderer.graphController = graphController;
+                renderer.run();
             }
         </script>
     </head>

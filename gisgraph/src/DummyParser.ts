@@ -9,6 +9,10 @@ export interface DummyNodeEntry {
     name: string;
     value: number;
     location: string;
+    latLng: {
+        x: number,
+        y: number
+    }
     words: string[];
 }
 
@@ -26,4 +30,8 @@ export async function FromDummyNodeListAsync(list: DummyNodeEntry[]): Promise<Gr
     const nodes = (await Promise.all(requests) as Node[]);
 
     return Promise.resolve(new GraphController([new GraphState(nodes)]));
+}
+
+export function FromDummyNodeList(list: DummyNodeEntry[]): GraphController {
+    return new GraphController([new GraphState(list.filter(node => !!node).map(node => new Node(node.name, node.value, node.words, new Point(node.latLng.x, node.latLng.y))))]);
 }
