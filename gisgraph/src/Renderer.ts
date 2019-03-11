@@ -3,7 +3,7 @@ import * as L from "leaflet";
 
 import 'leaflet/dist/leaflet.css'
 import * as d3 from "d3";
-import { svg } from "d3";
+import { svg, text } from "d3";
 
 export class Renderer {
     private _controller: GraphController | null = null;
@@ -44,31 +44,68 @@ export class Renderer {
     run(): Renderer {
         // TODO: center graph on bounding box
         if (!!this._controller && !!this._g) {
-            const nodeSizeRange = [5, 40];
+            const nodeSizeRange = [7, 40];
             const desiredMaxWeight = 30000;
-            const features = this._g.selectAll('circle')
+            const weightThreshold = (weight: number) => {
+                const m = Math.min(weight / desiredMaxWeight, 1);
+                return m * (nodeSizeRange[1] - nodeSizeRange[0]) + nodeSizeRange[0];
+            };
+
+            const nodeContainers = this._g
+                .selectAll('g .nodes')
                 .data(this._controller.currentState.nodes)
-                .enter().append("circle")
+                .enter()
+                .append('g')
+                .classed('nodes', true);
+            // circles
+            nodeContainers
+                .append('circle')
                 .style("stroke", "black")  
                 .style("opacity", .6) 
                 .style("fill", "red")
-                .attr("r", d => {
-                    const m = Math.min(d.weight / desiredMaxWeight, 1);
-                    return m * (nodeSizeRange[1] - nodeSizeRange[0]) + nodeSizeRange[0];
-                })
+                .attr("r", d => weightThreshold(d.weight))
                 .on('click', (e, x, z) => {
                     console.log('Node clicked:', e, x, z);
                     (d3.event as Event).stopPropagation();
                 });
+            // text labels
+            const labelContainers = nodeContainers.append('g');
+            const textBBoxes = labelContainers.append('rect');
+            const labels = labelContainers
+                .append('text')
+                .text(d => d.name);
+            textBBoxes
+                .call(sel => {
+                    const labelNodes = labels.nodes();
+                    sel.each(function (d, e, r) {
+                        const rect = labelNodes[e].getBoundingClientRect();
+                        
+                        // TODO: WUT a constant?
+                        this.setAttribute('width', `${rect.width + 2.5}`);
+                        this.setAttribute('height', rect.height.toString());
+                        // TODO: WUT a constant?
+                        this.setAttribute('y', `${-rect.height + 2.5}`);
+                        this.setAttribute('rx', '2.5');
+                        this.setAttribute('ry', '2.5');
+                    });
+                })
+                .attr('fill', '#EEEEEE')
+                .style('stroke', 'black')
+                ;
             
-            // L.DomEvent.disableClickPropagation(this._svg!.node() as HTMLElement);
+            labelContainers
+                .attr('transform', function (d) {
+                    return `translate(${-this.getBoundingClientRect().width / 2}, ${10 + weightThreshold(d.weight)})`;
+                });
+            
+            
             this._svg!.on('click', (e, x, z) => {
                 console.log('Bcgr clicked: ', e, x, z)
             });
 
             const map = (this._map as L.Map);
             const updateCallback = () => {
-                features.attr('transform', d => {
+                nodeContainers.attr('transform', d => {
                     const translatedCoords = map.latLngToLayerPoint([d.location.x, d.location.y]);
                     return `translate(${translatedCoords.x}, ${translatedCoords.y})`;
                 });
