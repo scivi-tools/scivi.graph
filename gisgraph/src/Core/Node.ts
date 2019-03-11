@@ -4,7 +4,7 @@ export class Node {
     constructor(
         public name: string,
         public readonly weight: number,
-        private readonly metadata: any[],
+        public readonly metadata: any[],
         public readonly location: Point
     ) { }
 }
