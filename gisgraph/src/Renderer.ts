@@ -2,9 +2,13 @@ import { GraphController } from "./Core/GraphController";
 import * as L from "leaflet";
 
 import 'leaflet/dist/leaflet.css'
+import '../styles/renderer.css'
 import * as d3 from "d3";
-import { svg, text } from "d3";
 
+// TODO: completely rewrite this shit
+// split into separate modules, at least:
+// - map backend
+// - view rules
 export class Renderer {
     private _controller: GraphController | null = null;
     private _map: L.Map | null = null;
@@ -42,7 +46,13 @@ export class Renderer {
     }
 
     run(): Renderer {
-        // TODO: center graph on bounding box
+        // TODO: center graph on bounding box?
+
+        const tooltip = document.createElement('div');
+        tooltip.className = 'tooltip';
+        tooltip.style.visibility = 'hidden';
+        this._rootElement.append(tooltip);
+
         if (!!this._controller && !!this._g) {
             const nodeSizeRange = [7, 40];
             const desiredMaxWeight = 30000;
@@ -63,50 +73,60 @@ export class Renderer {
                 .style("stroke", "black")  
                 .style("opacity", .6) 
                 .style("fill", "red")
-                .attr("r", d => weightThreshold(d.weight))
-                .on('click', (e, x, z) => {
-                    console.log('Node clicked:', e, x, z);
-                    (d3.event as Event).stopPropagation();
+                .attr("r", node => weightThreshold(node.weight))
+                .on('click', function (node) {
+                    const event = (d3.event as MouseEvent);
+                    tooltip.innerHTML = `
+                        <span>${node.name}</span>
+                        <ul>
+                            ${node.metadata.map(v => `<li>${v}</li>`).join('')}
+                        </ul>
+                    `;
+                    tooltip.style.left = `${event.pageX}px`;
+                    tooltip.style.top = `${event.pageY}px`;
+                    tooltip.style.visibility = 'visible';
+                    event.stopPropagation();
                 });
             // text labels
             const labelContainers = nodeContainers.append('g');
             const textBBoxes = labelContainers.append('rect');
             const labels = labelContainers
                 .append('text')
-                .text(d => d.name);
+                .text(node => node.name);
             textBBoxes
-                .call(sel => {
+                .call(selector => {
                     const labelNodes = labels.nodes();
-                    sel.each(function (d, e, r) {
-                        const rect = labelNodes[e].getBoundingClientRect();
+                    selector.each(function (node, i) {
+                        const rect = labelNodes[i].getBoundingClientRect();
                         
-                        // TODO: WUT a constant?
-                        this.setAttribute('width', `${rect.width + 2.5}`);
                         this.setAttribute('height', rect.height.toString());
                         // TODO: WUT a constant?
+                        this.setAttribute('width', `${rect.width + 2.5}`);
                         this.setAttribute('y', `${-rect.height + 2.5}`);
+                        this.setAttribute('x', '-2.5');
                         this.setAttribute('rx', '2.5');
                         this.setAttribute('ry', '2.5');
                     });
                 })
                 .attr('fill', '#EEEEEE')
                 .style('stroke', 'black')
+                .style('opacity', 0.9)
                 ;
             
             labelContainers
-                .attr('transform', function (d) {
-                    return `translate(${-this.getBoundingClientRect().width / 2}, ${10 + weightThreshold(d.weight)})`;
+                .attr('transform', function (node) {
+                    return `translate(${-this.getBoundingClientRect().width / 2}, ${10 + weightThreshold(node.weight)})`;
                 });
             
             
-            this._svg!.on('click', (e, x, z) => {
-                console.log('Bcgr clicked: ', e, x, z)
+            this._svg!.on('click', () => {
+                tooltip.style.visibility = 'hidden';
             });
 
             const map = (this._map as L.Map);
             const updateCallback = () => {
-                nodeContainers.attr('transform', d => {
-                    const translatedCoords = map.latLngToLayerPoint([d.location.x, d.location.y]);
+                nodeContainers.attr('transform', node => {
+                    const translatedCoords = map.latLngToLayerPoint([node.location.x, node.location.y]);
                     return `translate(${translatedCoords.x}, ${translatedCoords.y})`;
                 });
             }
