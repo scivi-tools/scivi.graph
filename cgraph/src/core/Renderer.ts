@@ -186,6 +186,9 @@ namespace SciViCGraph
             this.m_nodesList = new List(this.m_list);
             this.m_statistics = new Stats(this.m_stats, this);
 
+            if (this.m_states.isDynamic)
+                this.currentData() // Force state to load
+
             this.init();
         }
 
@@ -457,6 +460,43 @@ namespace SciViCGraph
             return this.roundVal(x, s).toString();
         }
 
+        private initFilters()
+        {
+            this.m_filters.innerHTML =
+                "<div>" + 
+                this.m_localizer["LOC_NODETHRESHOLD"] + 
+                "&nbsp;<span id='scivi_node_treshold'>" +
+                this.roundValS(this.m_nodeWeight.min, this.m_nodeWeight.step) + " .. " +
+                this.roundValS(this.m_nodeWeight.max, this.m_nodeWeight.step) + 
+                "</span>" +
+                "<div id='scivi_node_treshold_slider' style='margin: 10px 10px 10px 5px'></div></div>" +
+                "<div>" + 
+                this.m_localizer["LOC_EDGETHRESHOLD"] + 
+                "&nbsp;<span id='scivi_edge_treshold'>" +
+                this.roundValS(this.m_edgeWeight.min, this.m_edgeWeight.step) + " .. " + 
+                this.roundValS(this.m_edgeWeight.max, this.m_edgeWeight.step) + "</span>" +
+                "<div id='scivi_edge_treshold_slider' style='margin: 10px 10px 10px 5px'></div></div><hr/><br/>" +
+                "<div id='scivi_equalizer'></div>";
+
+            $("#scivi_edge_treshold_slider").slider({
+                min: this.m_edgeWeight.min,
+                max: this.m_edgeWeight.max,
+                range: true,
+                values: [this.m_edgeWeight.min, this.m_edgeWeight.max],
+                step: this.m_edgeWeight.step,
+                slide: (event, ui) => { this.changeEdgeTreshold(ui.values); }
+            });
+
+            $("#scivi_node_treshold_slider").slider({
+                min: this.m_nodeWeight.min,
+                max: this.m_nodeWeight.max,
+                range: true,
+                values: [this.m_nodeWeight.min, this.m_nodeWeight.max],
+                step: this.m_nodeWeight.step,
+                slide: (event, ui) => { this.changeNodeTreshold(ui.values); }
+            });
+        }
+
         private initInterface()
         {
             window.addEventListener("resize", () => { this.reshape(); });
@@ -654,39 +694,7 @@ namespace SciViCGraph
             "<div id='scivi_sort_by_ring' class='scivi_button'>" + this.m_localizer["LOC_SORT_BY_RING"] + "</div>" +
             "<div id='scivi_calc_modularity' class='scivi_button'>" + this.m_localizer["LOC_CALC_MODULARITY"] + "</div>";
 
-            this.m_filters.innerHTML =
-                "<div>" + 
-                this.m_localizer["LOC_NODETHRESHOLD"] + 
-                "&nbsp;<span id='scivi_node_treshold'>" +
-                this.roundValS(this.m_nodeWeight.min, this.m_nodeWeight.step) + " .. " +
-                this.roundValS(this.m_nodeWeight.max, this.m_nodeWeight.step) + 
-                "</span>" +
-                "<div id='scivi_node_treshold_slider' style='margin: 10px 10px 10px 5px'></div></div>" +
-                "<div>" + 
-                this.m_localizer["LOC_EDGETHRESHOLD"] + 
-                "&nbsp;<span id='scivi_edge_treshold'>" +
-                this.roundValS(this.m_edgeWeight.min, this.m_edgeWeight.step) + " .. " + 
-                this.roundValS(this.m_edgeWeight.max, this.m_edgeWeight.step) + "</span>" +
-                "<div id='scivi_edge_treshold_slider' style='margin: 10px 10px 10px 5px'></div></div><hr/><br/>" +
-                "<div id='scivi_equalizer'></div>";
-
-            $("#scivi_edge_treshold_slider").slider({
-                min: this.m_edgeWeight.min,
-                max: this.m_edgeWeight.max,
-                range: true,
-                values: [this.m_edgeWeight.min, this.m_edgeWeight.max],
-                step: this.m_edgeWeight.step,
-                slide: (event, ui) => { this.changeEdgeTreshold(ui.values); }
-            });
-
-            $("#scivi_node_treshold_slider").slider({
-                min: this.m_nodeWeight.min,
-                max: this.m_nodeWeight.max,
-                range: true,
-                values: [this.m_nodeWeight.min, this.m_nodeWeight.max],
-                step: this.m_nodeWeight.step,
-                slide: (event, ui) => { this.changeNodeTreshold(ui.values); }
-            });
+            this.initFilters();
 
             $("#scivi_node_alpha_slider").slider({
                 min: 0,
@@ -1371,6 +1379,9 @@ namespace SciViCGraph
                 this.m_currentStateKey = cs;
                 this.currentData(); // Force state to load
                 this.calcWeights();
+                this.m_stage.nodeWeight = this.m_nodeWeight;
+                this.m_stage.edgeWeight = this.m_edgeWeight;
+                this.initFilters();
             } else {
                 this.m_currentStateKey = cs;
             }
