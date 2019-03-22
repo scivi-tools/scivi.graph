@@ -4,6 +4,7 @@ variables:
 stages:
   - build_cgraph
   - build_fsgraph
+  - build_gisgraph
   - build
   - deploy
 
@@ -40,6 +41,26 @@ build_fsgraph:
     - popd
   script:
     - pushd fsgraph
+    - NODE_ENV=production npm run release
+    - popd
+  artifacts:
+    paths:
+      - demo
+    expire_in: 1 day
+
+build_gisgraph:
+  image: node:6
+  stage: build_gisgraph
+  cache:
+    key: "npm-gisgraph"
+    paths:
+      - gisgraph/node_modules
+  before_script:
+    - pushd gisgraph
+    - npm install
+    - popd
+  script:
+    - pushd gisgraph
     - NODE_ENV=production npm run release
     - popd
   artifacts:
