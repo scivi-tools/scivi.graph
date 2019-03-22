@@ -1382,6 +1382,7 @@ namespace SciViCGraph
                 this.m_stage.nodeWeight = this.m_nodeWeight;
                 this.m_stage.edgeWeight = this.m_edgeWeight;
                 this.initFilters();
+                this.m_equalizer = [];
             } else {
                 this.m_currentStateKey = cs;
             }
