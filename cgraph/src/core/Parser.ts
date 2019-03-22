@@ -4,16 +4,23 @@ namespace SciViCGraph
     {
         public stateLines: string[][];
         public data: {};
+        public dynaminSource: IJsonDynamicSourceFormat;
 
         constructor()
         {
             this.stateLines = [];
             this.data = {};
+            this.dynaminSource = undefined;
         }
 
         get hasStates(): boolean
         {
             return this.stateLines.length > 0;
+        }
+
+        get isDynamic(): boolean
+        {
+            return this.dynaminSource !== undefined;
         }
     }
 
@@ -43,7 +50,7 @@ namespace SciViCGraph
                     this.edges.push(edge);
             });
         }
-    };
+    }
 
     export class IJsonFormat
     {
@@ -61,6 +68,12 @@ namespace SciViCGraph
     {
         stateLines: string[][];
         states: {};
+    }
+
+    export class IJsonDynamicSourceFormat
+    {
+        stateLines: string[][];
+        stateGetter: (stateLine: string) => IJsonFormat;
     }
 
     export class Parser
@@ -144,6 +157,23 @@ namespace SciViCGraph
                     this.m_states.data[key] = parser.graphData;
                 }
             }
+        }
+
+        get graphStates(): GraphStates
+        {
+            return this.m_states;
+        }
+    }
+
+    export class DynamicStatesParser
+    {
+        private m_states: GraphStates;
+
+        constructor(jsonData: IJsonDynamicSourceFormat)
+        {
+            this.m_states = new GraphStates();
+            this.m_states.stateLines = jsonData.stateLines;
+            this.m_states.dynaminSource = jsonData;
         }
 
         get graphStates(): GraphStates

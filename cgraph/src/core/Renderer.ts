@@ -191,7 +191,15 @@ namespace SciViCGraph
 
         private currentData(): GraphData
         {
-            return this.m_states.data[this.m_currentStateKey];
+            if (this.m_states.isDynamic) {
+                if (!this.m_states.data["current"]) {
+                    const parser = new Parser(this.m_states.dynaminSource.stateGetter(this.m_currentStateKey));
+                    this.m_states.data["current"] = parser.graphData;
+                }
+                return this.m_states.data["current"];
+            } else {
+                return this.m_states.data[this.m_currentStateKey];
+            }
         }
 
         get states(): GraphStates
@@ -1358,7 +1366,14 @@ namespace SciViCGraph
 
         public changeCurrentState(cs: string)
         {
-            this.m_currentStateKey = cs;
+            if (this.m_states.isDynamic) {
+                this.m_states.data["current"] = null;
+                this.m_currentStateKey = cs;
+                this.currentData(); // Force state to load
+                this.calcWeights();
+            } else {
+                this.m_currentStateKey = cs;
+            }
             this.reinit(false, false);
         }
 

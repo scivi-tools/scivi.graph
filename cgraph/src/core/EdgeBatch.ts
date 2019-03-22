@@ -36,9 +36,13 @@ namespace SciViCGraph
 
             this.m_edges.forEach((edge) => {
                 if (edge.visible) {
-                    edge.thickness = Edge.minThickness +
-                                     (Edge.maxThickness - Edge.minThickness) / (p.edgeWeight.max - p.edgeWeight.min) *
-                                     (edge.weight - p.edgeWeight.min);
+                    if (p.edgeWeight.max > p.edgeWeight.min) {
+                        edge.thickness = Edge.minThickness +
+                                         (Edge.maxThickness - Edge.minThickness) / (p.edgeWeight.max - p.edgeWeight.min) *
+                                         (edge.weight - p.edgeWeight.min);
+                    } else {
+                        edge.thickness = (Edge.minThickness + Edge.maxThickness) / 2.0;
+                    }
                     this.drawCurve(this, edge.controlPoints(), edge.thickness, edge.fromColor, edge.toColor, edge.alpha);
                 }
             });

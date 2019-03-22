@@ -39,6 +39,12 @@ CGraph.prototype.parseStatesHierarchy = function (data)
     return parser.graphStates;
 }
 
+CGraph.prototype.parseDynamicStates = function (data)
+{
+    var parser = new SciViCGraph.DynamicStatesParser(data);
+    return parser.graphStates;
+}
+
 CGraph.prototype.createScale = function (steps, colors, textColors, names, getValue)
 {
     return new SciViCGraph.Scale(steps, colors, textColors, names, getValue);

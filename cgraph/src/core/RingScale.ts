@@ -189,7 +189,6 @@ namespace SciViCGraph
         {
             const slSegment = rs.selectedSegment;
             if (slSegment) {
-                console.log(slSegment.segmentHash);
                 const idx = this.m_hashedSegmentIndices[slSegment.segmentHash];
                 if (idx !== undefined) {
                     this.m_selectedSegment = idx;
