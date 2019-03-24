@@ -222,6 +222,9 @@ export class VivaWebGLRenderer {
     set currentStateId(value) {
         this._graphController.setCurrentStateIdEx(value);
         this.buildNodeListInfo();
+        if (!!this._viewRules) {
+            this._viewRules.buildPerGroupUI();
+        }
     }
 
     kick() {

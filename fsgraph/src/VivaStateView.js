@@ -75,7 +75,7 @@ export class VivaStateView {
 
         this.nodeTypes = nodeTypes;
 
-        this.buildUI();
+        this._buildUI();
     }
 
     /**
@@ -127,7 +127,7 @@ export class VivaStateView {
         return this._getInterpolated(this._edgeSizeDiap, value, maxValue);
     }
 
-    buildUI() {
+    _buildUI() {
         let baseContainer = $('#scivi_fsgraph_settings_appearance')[0];
         let innerContainer = document.createElement('div');
         innerContainer.id = 'scivi_fsgraph_settings_stateview';
@@ -198,6 +198,14 @@ export class VivaStateView {
         }
         innerContainer.appendChild(namedDiaps);
 
+        this.buildPerGroupUI();
+
+        baseContainer.appendChild(innerContainer);
+    }
+
+    buildPerGroupUI() {
+        const tr = getOrCreateTranslatorInstance();
+
         // per group colors & node type selector
         const nodeTypesUsed = (this.nodeTypes.length > 0);
         const stubGroupCount = this._colorPairs.length / 2 - 1;
@@ -209,6 +217,7 @@ export class VivaStateView {
                     console.warn(`No container found for group ${i} settings!`);
                     continue;
                 }
+                settingContainer.empty();
 
                 const colorPicker = document.createElement('input');
                 colorPicker.type = 'color';
@@ -239,8 +248,6 @@ export class VivaStateView {
                 }
             }
         }
-
-        baseContainer.appendChild(innerContainer);
     }
 
     /**
