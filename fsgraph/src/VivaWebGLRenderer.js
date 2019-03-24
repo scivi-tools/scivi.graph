@@ -706,7 +706,7 @@ export class VivaWebGLRenderer {
         Split(['#scivi_fsgraph_a', '#scivi_fsgraph_b'], {
             gutterSize: 8,
             cursor: 'col-resize',
-            sizes: [75, 25],
+            sizes: [55, 45],
             onDrag: () =>  that.onContainerResize()
         });
 

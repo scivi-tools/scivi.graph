@@ -80,14 +80,8 @@
 
 #scivi_fsgraph_tabs
 {
-    /* TODO: WHY?! */
-    height: 99%;
-}
-
-#scivi_fsgraph_settings_accordion
-{
-    /* TODO: WHY?! */
-    height: calc(100% - 5px);
+    height: 100%;
+    box-sizing: border-box;
 }
 
 #scivi_fsgraph_filters_control
