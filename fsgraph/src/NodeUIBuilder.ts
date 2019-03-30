@@ -1,49 +1,30 @@
-
 import { VivaWebGLRenderer } from './VivaWebGLRenderer';
 import { VivaImageNodeUI } from './VivaImageNodeUI';
 import { getOrCreateTranslatorInstance } from './Misc/Translator';
 import * as $ from 'jquery';
 import 'jquery-ui/ui/widgets/spinner';
 
-const _FontSizeDiap = [4, 72];
+const _FontSizeDiap: [number, number] = [4, 72];
 
 export class NodeUIBuilder {
-    /**
-     * 
-     * @param {VivaWebGLRenderer} renderer 
-     */
-    constructor(renderer) {
-        this._renderer = renderer;
+    private _fontSize: number = 16;
+    private _labels: HTMLSpanElement[] = [];
+    private _container: HTMLElement;
 
-        /** @type {HTMLElement} */
-        this._container = renderer._container
-        
-        // HACK: пока закостылим текстовые метки вершин здесь, дабы в случае чего
-        // можно было махнуть бекенд обранто на вивовский
-        /** @type {HTMLSpanElement[]} */
-        this._labels = [];
-
-        this._fontSize = 16;
+    constructor(private _renderer: VivaWebGLRenderer) {
+        this._container = _renderer._container
 
         this._buildUi();
     }
 
-    /**
-     * @param {*} graphics
-     * @param {Ngraph.Graph.Node} node
-     * @returns {VivaImageNodeUI}
-     */
-    buildUI(graphics, node) {
+    buildUI(graphics: any, node: Ngraph.Graph.Node): VivaImageNodeUI {
         let title = this._ensureLabelExists(node.id);
         const result = new VivaImageNodeUI(graphics, node, title);
         result.showLabel = result.node.data.groupId === 0;
         return result;
     }
 
-    /**
-     * @param {number} value
-     */
-    set fontSize(value) {
+    set fontSize(value: number) {
         this._fontSize = value;
         let fontString = this.fontSizeString;
         for (let label of this._labels) {
@@ -61,10 +42,7 @@ export class NodeUIBuilder {
         return `${this._fontSize}px`;
     }
 
-    /**
-     * @param {any} id
-     */
-    _ensureLabelExists(id) {
+    _ensureLabelExists(id: string | number) {
         if (!this._labels[id]) {
             let label = document.createElement('span');
             label.classList.add('scivi_fsgraph_node_label');
@@ -79,7 +57,7 @@ export class NodeUIBuilder {
         return this._labels[id];
     }
 
-    _buildUi() {
+    private _buildUi() {
         const tr = getOrCreateTranslatorInstance();
         let baseContainer = $('#scivi_fsgraph_settings_appearance')[0];
 
