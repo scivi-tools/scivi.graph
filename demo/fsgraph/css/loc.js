@@ -16,6 +16,7 @@ var g_fsgraph_loc = {
         "#change_name": "Change",
         "#incoming_nodes": "Incoming links from",
         "#outcoming_nodes": "Outgoing links to",
+        "#font": "Font",
         "#font_size": "Font size",
         "#apply": "Apply",
         "#layout_settigns": {
@@ -61,6 +62,7 @@ var g_fsgraph_loc = {
         "#change_name": "Изменить",
         "#incoming_nodes": "Входящие связи из",
         "#outcoming_nodes": "Исходящие связи в",
+        "#font": "Ширфт",
         "#font_size": "Размер ширфта",
         "#apply": "Применить",
         "#layout_settigns": {

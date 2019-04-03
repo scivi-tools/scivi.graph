@@ -7,6 +7,11 @@ import 'jquery-ui/ui/widgets/spinner';
 import styles from './styles/node-label.css';
 
 const _FontSizeDiap: [number, number] = [4, 72];
+// HACK: it's to hard to determine supported fonts in runtime
+// (see https://stackoverflow.com/questions/3368837/list-every-font-a-users-browser-can-display,
+// https://www.bramstein.com/writing/detecting-system-fonts-without-flash.html
+// and so on)
+const PredefinedFontList = ['Calibri', 'Consolas', 'Tahoma', 'Times New Roman', 'Verdana'];
 const className = 'scivi_fsgraph_node_label';
 const expectedStyleTitle = 'webpack-compiled';
 
@@ -25,10 +30,9 @@ export class NodeUIBuilder {
 
     constructor(private _renderer: VivaWebGLRenderer) {
         this._container = _renderer._container
+        this._labelStyle = this._prepareStyleClass();
 
         this._buildUi();
-        this._labelStyle = this._prepareStyleClass();
-        console.log(this._labelStyle);
     }
 
     buildUI(graphics: any, node: Ngraph.Graph.Node): VivaImageNodeUI {
@@ -49,6 +53,18 @@ export class NodeUIBuilder {
             }
         }
 
+        this._renderer.rerender();
+    }
+
+    set fontLigature(value: string) {
+        // TODO: rewrite this
+        this._labelStyle.font = value;
+        this._labelStyle.rule.style.fontFamily = `${this._labelStyle.font}, ${this._labelStyle.fallbackFontList}`;
+        this._labels.forEach(label => {
+            if (label) {
+                label.hidden = true;
+            }
+        });
         this._renderer.rerender();
     }
 
@@ -125,6 +141,28 @@ export class NodeUIBuilder {
         innerContainer.appendChild(document.createElement('br'));
         innerContainer.appendChild(spinner);
         innerContainer.appendChild(confirmBuuton);
+        
+        
+        nameSpan = document.createElement('span');
+        nameSpan.textContent = `${tr.apply('#font')}: `;
+
+        const fontList = document.createElement('select');
+        [this._labelStyle.defaultFont, ...PredefinedFontList].forEach(font => {
+            const option = document.createElement('option');
+            option.value = option.text = font;
+            fontList.appendChild(option);
+        });
+        fontList.value = this._labelStyle.defaultFont;
+        fontList.addEventListener('change', ev => {
+            const target = ev.target as typeof fontList;
+            this.fontLigature = target.value;
+        });
+
+        innerContainer.appendChild(document.createElement('br'));
+        innerContainer.appendChild(nameSpan);
+        innerContainer.appendChild(document.createElement('br'));
+        innerContainer.appendChild(fontList);
+
         $('#scivi_fsgraph_settings_appearance').append(innerContainer);
     }
 }
