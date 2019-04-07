@@ -19,6 +19,7 @@ interface StyleDef {
     rule: CSSStyleRule,
     font: string;
     defaultFont: string;
+    defaultBorderWidth: string
     fallbackFontList: string;
 }
 
@@ -29,7 +30,7 @@ export class NodeUIBuilder {
     private _labelStyle: StyleDef | null;
 
     constructor(private _renderer: VivaWebGLRenderer) {
-        this._container = _renderer._container
+        this._container = _renderer._container;
         this._labelStyle = this._prepareStyleClass();
 
         this._buildUi();
@@ -45,27 +46,25 @@ export class NodeUIBuilder {
     set fontSize(value: number) {
         this._fontSize = value;
         let fontString = this.fontSizeString;
-        for (let label of this._labels) {
-            if (label) {
-                label.style.fontSize = fontString;
-                // HACK: костыль! лень ыло заводить лишнюю переменную или не менее костыльно прокидывать событие изменения размера шрифта каждому визуалу
-                label.hidden = true;
-            }
-        }
+        this._labelStyle.rule.style.fontSize = fontString;
 
-        this._renderer.rerender();
+        this._invalidateLabels();
     }
 
     set fontLigature(value: string) {
         // TODO: rewrite this
         this._labelStyle.font = value;
         this._labelStyle.rule.style.fontFamily = `${this._labelStyle.font}, ${this._labelStyle.fallbackFontList}`;
-        this._labels.forEach(label => {
-            if (label) {
-                label.hidden = true;
-            }
-        });
-        this._renderer.rerender();
+        
+        this._invalidateLabels();
+    }
+
+    get borderVisible(): boolean {
+        return !!this._labelStyle.rule.style.borderWidth && (this._labelStyle.rule.style.borderWidth != '0px');
+    }
+
+    set borderVisible(value: boolean) {
+        this._labelStyle.rule.style.borderWidth = value ? this._labelStyle.defaultBorderWidth : '0px';
     }
 
     private _prepareStyleClass(): StyleDef {
@@ -89,6 +88,7 @@ export class NodeUIBuilder {
         return {
             font: defaultFont,
             defaultFont: defaultFont,
+            defaultBorderWidth: targetStyle[0].style.borderWidth,
             fallbackFontList: fontArray.slice(1).join(','),
             rule: targetStyle[0]
         };
@@ -105,12 +105,20 @@ export class NodeUIBuilder {
             label.innerText = '--insert-text-here--';
             label.hidden = true;
             label.style.opacity = '0.85';
-            label.style.fontSize = this.fontSizeString;
             this._labels[id] = label;
             this._container.appendChild(label);
         }
 
         return this._labels[id];
+    }
+
+    private _invalidateLabels() {
+        this._labels
+            .filter(label => !!label)
+            .forEach(label => {
+                label.hidden = true;
+            });
+        this._renderer.rerender();
     }
 
     private _buildUi() {
@@ -162,6 +170,20 @@ export class NodeUIBuilder {
         innerContainer.appendChild(nameSpan);
         innerContainer.appendChild(document.createElement('br'));
         innerContainer.appendChild(fontList);
+
+        // border style
+        nameSpan = document.createElement('span');
+        nameSpan.textContent = tr.apply('#border_visible');
+        const cb = document.createElement('input');
+        cb.type = 'checkbox';
+        cb.checked = this.borderVisible;
+        cb.onchange = (ev) => {
+            this.borderVisible = cb.checked;
+        };
+
+        innerContainer.appendChild(document.createElement('br'));
+        innerContainer.appendChild(nameSpan);
+        innerContainer.appendChild(cb);
 
         $('#scivi_fsgraph_settings_appearance').append(innerContainer);
     }

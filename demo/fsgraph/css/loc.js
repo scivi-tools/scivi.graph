@@ -44,6 +44,7 @@ var g_fsgraph_loc = {
         "#node_type": "Node type: ",
         "#node_alpha": "Node alpha",
         "#edge_alpha": "Edge alpha",
+        "#border_visible": "Show label border:",
     },
     "ru": {
         "#control": "Управление",
@@ -90,5 +91,6 @@ var g_fsgraph_loc = {
         "#node_type": "Тип вершин: ",
         "#node_alpha": "Непрозрачность вершин",
         "#edge_alpha": "Непрозрачность связей",
+        "#border_visible": "Отображать рамку меток:",
     },
 };
