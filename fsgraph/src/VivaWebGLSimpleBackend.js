@@ -12,7 +12,7 @@ import { VivaWideLinkRenderer } from './VivaMod/VivaWideLinkRenderer';
 import { newNodeProgram } from './VivaMod/newNodeProgram';
 import { webglGraphics } from './VivaMod/webglGraphics';
 import { webglInputEvents } from './VivaMod/webglInputEvents';
-import { NodeUIBuilder } from './NodeUIBuilder';
+import { NodeUIBuilder } from './Graphics/NodeUIBuilder';
 import { Node } from './Node';
 import { Edge } from './Edge';
 
