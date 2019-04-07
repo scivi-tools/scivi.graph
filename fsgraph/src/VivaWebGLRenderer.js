@@ -14,7 +14,7 @@ import 'jquery-ui/ui/widgets/accordion';
 import 'jquery-ui/ui/widgets/dialog';
 import * as Split from 'split.js';
 import { Point2D } from './Point2D';
-import { NodeUIBuilder } from './NodeUIBuilder';
+import { NodeUIBuilder } from './Graphics/NodeUIBuilder';
 import { getOrCreateTranslatorInstance } from './Misc/Translator';
 import { VivaImageNodeUI } from './VivaImageNodeUI';
 

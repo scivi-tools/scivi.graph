@@ -16,6 +16,7 @@ var g_fsgraph_loc = {
         "#change_name": "Change",
         "#incoming_nodes": "Incoming links from",
         "#outcoming_nodes": "Outgoing links to",
+        "#font": "Font",
         "#font_size": "Font size",
         "#apply": "Apply",
         "#layout_settigns": {
@@ -43,6 +44,7 @@ var g_fsgraph_loc = {
         "#node_type": "Node type: ",
         "#node_alpha": "Node alpha",
         "#edge_alpha": "Edge alpha",
+        "#border_visible": "Show label border:",
     },
     "ru": {
         "#control": "Управление",
@@ -61,6 +63,7 @@ var g_fsgraph_loc = {
         "#change_name": "Изменить",
         "#incoming_nodes": "Входящие связи из",
         "#outcoming_nodes": "Исходящие связи в",
+        "#font": "Ширфт",
         "#font_size": "Размер ширфта",
         "#apply": "Применить",
         "#layout_settigns": {
@@ -88,5 +91,6 @@ var g_fsgraph_loc = {
         "#node_type": "Тип вершин: ",
         "#node_alpha": "Непрозрачность вершин",
         "#edge_alpha": "Непрозрачность связей",
+        "#border_visible": "Отображать рамку меток:",
     },
 };

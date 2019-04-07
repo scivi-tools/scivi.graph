@@ -29,7 +29,27 @@ module.exports = (env, args) => {
                     test: /\.(ts|js)$/,
                     exclude: /node_modules/,
                     loader: 'ts-loader'
-                }
+                },
+                {
+                    test: /\.css$/,
+                    use: [
+                        {
+                            loader: 'style-loader',
+                            options: {
+                                attrs: {
+                                    'title': 'webpack-compiled'
+                                },
+                                singleton: true
+                            }
+                        },
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                modules: true
+                            }
+                        }
+                    ],
+                },
             ]
         },
         resolve: {
