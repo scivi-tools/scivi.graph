@@ -1,0 +1,11 @@
+body {
+    height: 100%;
+    width: 100%;
+
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#scivi_map_root {
+    height: 100%;
+    width: 100%;
+}

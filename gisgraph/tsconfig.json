@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "allowSyntheticDefaultImports": true,
         "baseUrl": ".",
         "rootDir": "src",
         "outDir": "dist",
@@ -11,6 +12,10 @@
         "lib": [
             "es2015",
             "dom"
+        ],
+        "typeRoots": [
+            "node_modules/@types",
+            "./src/@types"
         ]
     },
     "include": [

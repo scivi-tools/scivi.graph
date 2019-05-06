@@ -1,6 +1,21 @@
 const path = require('path');
+const webpack = require('webpack');
+const webpackDevServer = require('webpack-dev-server');
 
-module.exports = (env, args) => {
+/** @type {webpackDevServer.Configuration} */
+const devServerConfig = {
+    contentBase: path.join(__dirname, '..', 'demo'),
+    overlay: true,
+    watchContentBase: true,
+    writeToDisk: true
+};
+
+/**
+ * @param {string} env 
+ * @param {Object.<string, string>} args 
+ * @returns {webpack.Configuration}
+ */
+function WebpackConfig(env, args) {
     const is_rel_env = args.mode === "production";
 
     return {
@@ -46,6 +61,9 @@ module.exports = (env, args) => {
         stats: {
             excludeModules: false,
             maxModules: 100
-        }
+        },
+        devServer: devServerConfig
     }
 }
+
+module.exports = WebpackConfig;

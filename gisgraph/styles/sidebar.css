@@ -1,0 +1,25 @@
+.overlay {
+    background-color: #FEFEFE;
+    position: absolute;
+    width: inherit;
+    height: inherit;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+}
+
+h1.sidebar_header {
+    text-align: center;
+}
+
+div.list_wrapper {
+    display: flex;
+    flex-flow: row wrap;
+    padding: 5pt;
+}
+
+div.list_wrapper > div {
+    padding-left: 5pt;
+}

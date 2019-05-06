@@ -1,9 +1,11 @@
-import { GraphController } from "./Core/GraphController";
-import * as L from "leaflet";
+import * as d3 from 'd3';
+import * as L from 'leaflet';
+import Split from 'split.js';
+import { GraphController } from './Core/GraphController';
+import { Sidebar } from './Sidebar';
 
-import 'leaflet/dist/leaflet.css'
-import '../styles/renderer.css'
-import * as d3 from "d3";
+import 'leaflet/dist/leaflet.css';
+import '../styles/renderer.css';
 
 // TODO: completely rewrite this shit
 // split into separate modules, at least:
@@ -14,22 +16,34 @@ export class Renderer {
     private _map: L.Map | null = null;
     private _svg: d3.Selection<d3.BaseType, object, any, any> | null = null;
     private _g: d3.Selection<SVGGElement, object, any, any> | null = null;
+    private _sidebar: Sidebar;
 
     constructor(
         private readonly _rootElement: HTMLElement
     ) {
         this.buildUI();
+
+        this._sidebar = new Sidebar(document.getElementById('scivi_gisgraph_b')!);
     }
 
     private buildUI(): Renderer {
         this._rootElement.innerHTML = `
-            <div id="scivi_map_root" style="height: 100%; width: 100%"></div>
+            <div id="scivi_gisgraph_a" class="split split-horizontal">
+                <div id="scivi_map_root"></div>
+            </div>
+            <div id="scivi_gisgraph_b" class="split split-horizontal"></div>
         `;
 
         return this;
     }
 
     init(): Renderer {
+        Split(['#scivi_gisgraph_a', '#scivi_gisgraph_b'], {
+            gutterSize: 5,
+            sizes: [70, 30],
+            minSize: 50
+        });
+
         // TODO: check if browser supports svg and fail if not
         this._map = L.map('scivi_map_root').setView([20, 0], 1.5);
         L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -47,12 +61,7 @@ export class Renderer {
 
     run(): Renderer {
         // TODO: center graph on bounding box?
-
-        const tooltip = document.createElement('div');
-        tooltip.className = 'tooltip';
-        tooltip.style.visibility = 'hidden';
-        this._rootElement.append(tooltip);
-
+        const self = this;
         if (!!this._controller && !!this._g) {
             const nodeSizeRange = [7, 40];
             const desiredMaxWeight = 30000;
@@ -76,15 +85,7 @@ export class Renderer {
                 .attr("r", node => weightThreshold(node.weight))
                 .on('click', function (node) {
                     const event = (d3.event as MouseEvent);
-                    tooltip.innerHTML = `
-                        <span>${node.name}</span>
-                        <ul>
-                            ${node.metadata.map(v => `<li>${v}</li>`).join('')}
-                        </ul>
-                    `;
-                    tooltip.style.left = `${event.pageX}px`;
-                    tooltip.style.top = `${event.pageY}px`;
-                    tooltip.style.visibility = 'visible';
+                    self._sidebar.node = node;
                     event.stopPropagation();
                 });
             // text labels
@@ -120,7 +121,7 @@ export class Renderer {
             
             
             this._svg!.on('click', () => {
-                tooltip.style.visibility = 'hidden';
+                this._sidebar.reset();
             });
 
             const map = (this._map as L.Map);
