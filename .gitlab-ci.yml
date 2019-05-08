@@ -2,11 +2,11 @@ variables:
   DOCKER_DRIVER: overlay2
 
 stages:
-  - build_cgraph
+  # - build_cgraph
   - build_fsgraph
-  - build_gisgraph
-  - build
-  - deploy
+  # - build_gisgraph
+  # - build
+  # - deploy
 
 build_cgraph:
   image: node:6
@@ -36,6 +36,9 @@ build_fsgraph:
     paths:
       - fsgraph/node_modules
   before_script:
+    - pushd lib/utils
+    - npm version 1.0.0-$CI_COMMIT_SHA
+    - popd
     - pushd fsgraph
     - npm install
     - popd
