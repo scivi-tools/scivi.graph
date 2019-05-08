@@ -12,9 +12,9 @@ build_cgraph:
   image: node:6
   stage: build_cgraph
   cache:
-    key: "npm"
+    key: "npm-cgraph"
     paths:
-      - node_modules
+      - cgraph/node_modules
   before_script:
     - pushd cgraph
     - npm install
