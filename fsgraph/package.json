@@ -10,7 +10,7 @@
   "author": "",
   "license": "",
   "dependencies": {
-    "@scivi/utils": "file:///../lib/utils",
+    "@scivi/utils": "file:../lib/utils",
     "jquery": "3.3.1",
     "jquery-ui": "1.12.1",
     "ngraph.centrality": "0.3.0",
