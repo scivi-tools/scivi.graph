@@ -36,10 +36,8 @@ build_fsgraph:
     paths:
       - fsgraph/node_modules
   before_script:
-    - pushd lib/utils
-    - npm version 1.0.0-$CI_COMMIT_SHA
-    - popd
     - pushd fsgraph
+    - npm run update-locals
     - npm install
     - popd
   script:
