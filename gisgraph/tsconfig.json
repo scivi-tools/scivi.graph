@@ -2,7 +2,7 @@
     "compilerOptions": {
         "allowSyntheticDefaultImports": true,
         "baseUrl": ".",
-        "rootDir": "src",
+        "rootDir": ".",
         "outDir": "dist",
         "module": "es6",
         "target": "es5",
@@ -19,10 +19,7 @@
         ]
     },
     "include": [
-        "./src/*"
-    ],
-    "exclude": [
-        "node_modules",
-        "**/node_modules/*"
+        "./src/*",
+        "./node_modules/@scivi/**/*"
     ]
 }

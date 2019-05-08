@@ -42,7 +42,7 @@ function WebpackConfig(env, args) {
             rules: [
                 {
                     test: /\.ts$/,
-                    exclude: /node_modules/,
+                    exclude: /node_modules(?![\\/]@scivi)/,
                     loader: 'ts-loader'
                 },
                 {
@@ -56,7 +56,8 @@ function WebpackConfig(env, args) {
             ]
         },
         resolve: {
-            extensions: ['.ts', '.js']
+            extensions: ['.ts', '.js'],
+            symlinks: false
         },
         stats: {
             excludeModules: false,

@@ -1,3 +1,4 @@
+import { getOrCreateTranslatorInstance } from '@scivi/utils';
 import { Node } from './Core/Node';
 import { tryLoadGCSEOnce } from './GApi/Loader';
 
@@ -13,9 +14,11 @@ export class Sidebar {
     private _locList: HTMLUListElement;
 
     constructor(container: HTMLElement) {
+        const tr = getOrCreateTranslatorInstance();
+
         this._overlay = (() => {
             const res = document.createElement('div');
-            res.textContent = 'Выберите узел';
+            res.textContent = tr.apply('select_node');
             res.classList.add('overlay');
             return res;
         })();
@@ -27,13 +30,13 @@ export class Sidebar {
 
         const conceptListWrapper = document.createElement('div');
         const conceptHeader = document.createElement('span');
-        conceptHeader.textContent = 'Концепты:';
+        conceptHeader.textContent = tr.apply('concepts');
         this._metaList = document.createElement('ul');
         conceptListWrapper.append(conceptHeader, this._metaList);
 
         const locationListWrapper = document.createElement('div');
         const locationHeader = document.createElement('span');
-        locationHeader.textContent = 'Локация:';
+        locationHeader.textContent = tr.apply('location');
         this._locList = document.createElement('ul');
         locationListWrapper.append(locationHeader, this._locList);
 
