@@ -8,10 +8,10 @@
   },
   "author": "rew_mad",
   "dependencies": {
+    "@types/node-polyglot": "0.4.31",
     "node-polyglot": "2.3.0"
   },
   "devDependencies": {
-    "@types/node-polyglot": "0.4.31",
     "typescript": "3.2.2"
   }
 }
