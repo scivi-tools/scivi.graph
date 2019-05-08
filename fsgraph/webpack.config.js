@@ -27,7 +27,7 @@ module.exports = (env, args) => {
             rules: [
                 {
                     test: /\.(ts|js)$/,
-                    exclude: /node_modules/,
+                    exclude: /node_modules(?![\\/]@scivi)/,
                     loader: 'ts-loader'
                 },
                 {
@@ -53,7 +53,8 @@ module.exports = (env, args) => {
             ]
         },
         resolve: {
-            extensions: [ '.js', '.ts' ]
+            extensions: [ '.js', '.ts' ],
+            symlinks: false
         },
         stats: {
             excludeModules: false,

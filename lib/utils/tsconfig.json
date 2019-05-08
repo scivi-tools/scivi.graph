@@ -2,7 +2,7 @@
     "compilerOptions": {
         "allowSyntheticDefaultImports": true,
         "baseUrl": ".",
-        "rootDir": ".",
+        "rootDir": "src",
         "outDir": "dist",
         "module": "es6",
         "target": "es5",
@@ -12,14 +12,13 @@
         "lib": [
             "es2015",
             "dom"
-        ],
-        "typeRoots": [
-            "node_modules/@types",
-            "./src/@types"
         ]
     },
     "include": [
-        "./src/*",
-        "./node_modules/@scivi/**/*"
+        "./src/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "**/node_modules/*"
     ]
 }

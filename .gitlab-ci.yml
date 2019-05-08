@@ -37,6 +37,7 @@ build_fsgraph:
       - fsgraph/node_modules
   before_script:
     - pushd fsgraph
+    - npm run update-locals
     - npm install
     - popd
   script:
@@ -57,6 +58,7 @@ build_gisgraph:
       - gisgraph/node_modules
   before_script:
     - pushd gisgraph
+    - npm run update-locals
     - npm install
     - popd
   script:

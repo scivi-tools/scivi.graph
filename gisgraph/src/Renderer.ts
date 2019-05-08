@@ -1,3 +1,4 @@
+import { getOrCreateTranslatorInstance } from '@scivi/utils';
 import * as d3 from 'd3';
 import * as $ from 'jquery';
 import 'jquery-ui/ui/widgets/slider';
@@ -53,6 +54,7 @@ export class Renderer {
             throw new Error('Can not change graph controller on the fly!');
         }
         this._controller = controller;
+        const tr = getOrCreateTranslatorInstance();
 
         if (!!this._controller.currentState.metrics) {
             // ..
@@ -64,7 +66,7 @@ export class Renderer {
             const value = 'datetime';
             const monitoringValue = this._controller.currentState.metrics.monitoredValues[value];
             const slideChangedCallback = (values: number[]) => {
-                footerDesc.textContent = `Фильтрация по дате обучения: ${new Date(values[0]).toLocaleDateString()} - ${new Date(values[1]).toLocaleDateString()}`;
+                footerDesc.textContent = `${tr.apply('datetime_filter')}: ${new Date(values[0]).toLocaleDateString()} - ${new Date(values[1]).toLocaleDateString()}`;
             };
             $(document.createElement('div'))
                 .attr('id', 'scivi_footer_slider')

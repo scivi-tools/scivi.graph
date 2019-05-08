@@ -8,11 +8,16 @@
         <link rel="stylesheet" href="../../cgraph/css/default.css"/>
         <link rel="stylesheet" href="../css/default.css"/>
 
+        <script src="../localization.js"></script>
         <script src="data.json.js"></script>
         <script src="../lib/SciViGISGraph.vendor.js"></script>
         <script src="../lib/SciViGISGraph.main.js"></script>
         <script>
             function main(data) {
+                var lang = SciViGISGraph.main.getParameterByName("lang") || "ru";
+                document.documentElement.lang = lang;
+                SciViGISGraph.main.getOrCreateTranslatorInstance(lang).extend(g_gisgraph_loc);
+
                 var graphController = SciViGISGraph.main.FromDummyNodeList(data);
                 var renderer = new SciViGISGraph.main.Renderer(document.body);
                 renderer.init(graphController).run();

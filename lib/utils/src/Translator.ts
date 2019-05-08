@@ -1,45 +1,31 @@
-
 import * as Polyglot from 'node-polyglot';
 
 export class Translator {
-    /**
-     * 
-     * @param {string} locale 
-     */
-    constructor(locale = 'ru') {
-        this._locale = locale;
-
+    private _instance: Polyglot;
+    constructor(
+        private _locale: string = 'ru'
+    ) {
         this._instance = new Polyglot({
             allowMissing: false,
-            locale
+            locale: _locale
         });
     }
 
-    /**
-     * 
-     * @param {Object.<string, Object.<string, string>>} dict 
-     */
-    extend(dict) {
+    extend(dict: {[_: string]: {[_: string]: string}}) {
         this._instance.extend(dict[this._locale]);
 
         return this;
     }
 
-    /**
-     * 
-     * @param {string} key 
-     * @returns {string}
-     */
-    apply(key) {
+    apply(key: string): string {
         return this._instance.t(key);
     }
 
     /**
      * Do not use it, too slow too damned
      * @deprecated
-     * @param {Node} item 
      */
-    applyRecursively(item) {
+    applyRecursively(item: Node) {
         if (item.nodeType === Node.TEXT_NODE) {
             item.nodeValue = this.apply(item.nodeValue || '');
         } else {
@@ -51,9 +37,8 @@ export class Translator {
         }
     }
 }
-/** @type {Translator} */
-let TranslatorInstance;
 
+let TranslatorInstance: Translator;
 export function getOrCreateTranslatorInstance(lang = '') {
     if (!TranslatorInstance) {
         TranslatorInstance = new Translator(lang);
