@@ -4,6 +4,7 @@ import { GraphController } from './Core/GraphController';
 import { GraphState } from './Core/GraphState';
 import { Point } from './Core/Point';
 import { Node } from './Core/Node';
+import { Metrics } from './Core/Metrics';
 
 export interface DummyNodeEntry {
     name: string;
@@ -12,8 +13,9 @@ export interface DummyNodeEntry {
     latLng: {
         x: number,
         y: number
-    }
+    };
     words: string[];
+    datetime: number;
 }
 
 export async function FromDummyNodeListAsync(list: DummyNodeEntry[]): Promise<GraphController> {
@@ -29,7 +31,7 @@ export async function FromDummyNodeListAsync(list: DummyNodeEntry[]): Promise<Gr
         return new Node(entry.name, entry.value, {
             'words': entry.words,
             'locations': locations
-        }, new Point(Number(res[0].x), Number(res[0].y)));
+        }, new Point(Number(res[0].x), Number(res[0].y)), entry.datetime);
     }).filter(value => !!value);
     const nodes = (await Promise.all(requests) as Node[]);
 
@@ -38,13 +40,15 @@ export async function FromDummyNodeListAsync(list: DummyNodeEntry[]): Promise<Gr
 
 export function FromDummyNodeList(list: DummyNodeEntry[]): GraphController {
     // TODO: replace x->y (lon->lat) in data
+    const monitoredFields = ['weight', 'datetime'];
     return new GraphController([
         new GraphState(
             list.filter(node => !!node)
                 .map(node => new Node(node.name, node.value, {
                     [Node.CONCEPTS_META_NAME]: node.words,
                     [Node.LOCATION_META_NAME]: node.location.split(';')
-                }, new Point(node.latLng.y, node.latLng.x)))
+                }, new Point(node.latLng.y, node.latLng.x), node.datetime)),
+            new Metrics(monitoredFields)
         )
     ]);
 }

@@ -8,6 +8,7 @@ export class Node {
         public name: string,
         public readonly weight: number,
         public readonly metadata: { [x: string]: any[] },
-        public readonly location: Point
+        public readonly location: Point,
+        public readonly datetime: number,
     ) { }
 }

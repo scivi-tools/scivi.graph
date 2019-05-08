@@ -15,9 +15,7 @@
             function main(data) {
                 var graphController = SciViGISGraph.main.FromDummyNodeList(data);
                 var renderer = new SciViGISGraph.main.Renderer(document.body);
-                renderer.init();
-                renderer.graphController = graphController;
-                renderer.run();
+                renderer.init(graphController).run();
             }
         </script>
     </head>

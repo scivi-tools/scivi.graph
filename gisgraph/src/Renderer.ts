@@ -1,8 +1,11 @@
 import * as d3 from 'd3';
+import * as $ from 'jquery';
+import 'jquery-ui/ui/widgets/slider';
 import * as L from 'leaflet';
 import Split from 'split.js';
 import { GraphController } from './Core/GraphController';
 import { Sidebar } from './Sidebar';
+import { Node } from './Core/Node';
 
 import 'leaflet/dist/leaflet.css';
 import '../styles/renderer.css';
@@ -16,6 +19,7 @@ export class Renderer {
     private _map: L.Map | null = null;
     private _svg: d3.Selection<d3.BaseType, object, any, any> | null = null;
     private _g: d3.Selection<SVGGElement, object, any, any> | null = null;
+    private _nodeConatinerList?: d3.Selection<SVGGElement, Node, SVGGElement, any>;
     private _sidebar: Sidebar;
 
     constructor(
@@ -30,19 +34,56 @@ export class Renderer {
         this._rootElement.innerHTML = `
             <div id="scivi_gisgraph_a" class="split split-horizontal">
                 <div id="scivi_map_root"></div>
+                <div id="scivi_map_footer"></div>
             </div>
             <div id="scivi_gisgraph_b" class="split split-horizontal"></div>
         `;
 
-        return this;
-    }
-
-    init(): Renderer {
         Split(['#scivi_gisgraph_a', '#scivi_gisgraph_b'], {
             gutterSize: 5,
             sizes: [70, 30],
             minSize: 50
         });
+
+        return this;
+    }
+
+    init(controller: GraphController): Renderer {
+        if (!!this._controller) {
+            throw new Error('Can not change graph controller on the fly!');
+        }
+        this._controller = controller;
+
+        if (!!this._controller.currentState.metrics) {
+            // ..
+            const footer = $('#scivi_map_footer');
+            const footerDesc = document.createElement('span');
+            footer.append(footerDesc);
+
+            // build datetime filter
+            const value = 'datetime';
+            const monitoringValue = this._controller.currentState.metrics.monitoredValues[value];
+            const slideChangedCallback = (values: number[]) => {
+                footerDesc.textContent = `Фильтрация по дате обучения: ${new Date(values[0]).toLocaleDateString()} - ${new Date(values[1]).toLocaleDateString()}`;
+            };
+            $(document.createElement('div'))
+                .attr('id', 'scivi_footer_slider')
+                .slider({
+                    range: true,
+                    min: monitoringValue.min,
+                    max: monitoringValue.max,
+                    step: 86400000, // millisec per day
+                    values: [monitoringValue.min!, monitoringValue.max!],
+                    slide: (event, params) => {
+                        this._nodeConatinerList!.classed('disabled', false).filter(x => 
+                            (x[value] < params.values![0]) || (x[value] > params.values![1])
+                        ).classed('disabled', true);
+                        slideChangedCallback(params.values!);
+                    }
+                })
+                .appendTo(footer);
+            slideChangedCallback([monitoringValue.min!, monitoringValue.max!]);
+        }
 
         // TODO: check if browser supports svg and fail if not
         this._map = L.map('scivi_map_root').setView([20, 0], 1.5);
@@ -52,7 +93,7 @@ export class Renderer {
             noWrap: true
         }).addTo(this._map);
         L.svg().addTo(this._map);
-        
+
         this._svg = d3.select(this._map.getPanes().overlayPane).select('svg').attr("pointer-events", "auto");;
         this._g = this._svg.select('g');
 
@@ -70,14 +111,14 @@ export class Renderer {
                 return m * (nodeSizeRange[1] - nodeSizeRange[0]) + nodeSizeRange[0];
             };
 
-            const nodeContainers = this._g
+            this._nodeConatinerList = this._g
                 .selectAll('g .nodes')
                 .data(this._controller.currentState.nodes)
                 .enter()
                 .append('g')
                 .classed('nodes', true);
             // circles
-            nodeContainers
+            this._nodeConatinerList
                 .append('circle')
                 .style("stroke", "black")  
                 .style("opacity", .6) 
@@ -89,7 +130,7 @@ export class Renderer {
                     event.stopPropagation();
                 });
             // text labels
-            const labelContainers = nodeContainers.append('g');
+            const labelContainers = this._nodeConatinerList.append('g');
             const textBBoxes = labelContainers.append('rect');
             const labels = labelContainers
                 .append('text')
@@ -113,20 +154,20 @@ export class Renderer {
                 .style('stroke', 'black')
                 .style('opacity', 0.9)
                 ;
-            
+
             labelContainers
                 .attr('transform', function (node) {
                     return `translate(${-this.getBoundingClientRect().width / 2}, ${10 + weightThreshold(node.weight)})`;
                 });
-            
-            
+
+
             this._svg!.on('click', () => {
                 this._sidebar.reset();
             });
 
             const map = (this._map as L.Map);
             const updateCallback = () => {
-                nodeContainers.attr('transform', node => {
+                this._nodeConatinerList!.attr('transform', node => {
                     const translatedCoords = map.latLngToLayerPoint([node.location.x, node.location.y]);
                     return `translate(${translatedCoords.x}, ${translatedCoords.y})`;
                 });
@@ -137,12 +178,5 @@ export class Renderer {
         }
 
         return this;
-    }
-
-    set graphController(controller: GraphController | null) {
-        if (!!this._controller) {
-            throw new Error('Can not change graph controller on the fly!');
-        }
-        this._controller = controller;
     }
 }
