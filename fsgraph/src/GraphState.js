@@ -4,7 +4,7 @@ import { Edge } from './Edge';
 import { VivaStateView } from './VivaStateView';
 import { GraphController } from './GraphController';
 import { DummyMetrics } from './DummyMetrics';
-import { getOrCreateTranslatorInstance } from './Misc/Translator';
+import { getOrCreateTranslatorInstance } from '@scivi/utils';
 import * as $ from 'jquery';
 import 'jquery-ui/ui/widgets/slider';
 

@@ -1,6 +1,6 @@
 import { VivaWebGLRenderer } from '../VivaWebGLRenderer';
 import { VivaImageNodeUI } from '../VivaImageNodeUI';
-import { getOrCreateTranslatorInstance } from '../Misc/Translator';
+import { getOrCreateTranslatorInstance } from '@scivi/utils';
 import { BuiltinStyleObserver } from '../Misc/BuiltinStyleObserver';
 import { NodeUIStyler } from './NodeUIStyler';
 import * as $ from 'jquery';

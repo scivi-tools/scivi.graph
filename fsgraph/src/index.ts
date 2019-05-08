@@ -5,7 +5,7 @@
 export * from './GraphController'
 export * from './VivaWebGLRenderer'
 export * from './VivaStateView'
-export { getOrCreateTranslatorInstance } from './Misc/Translator'
+export { getOrCreateTranslatorInstance } from '@scivi/utils'
 
 export function getParameterByName(name: string, url: string): string
 {

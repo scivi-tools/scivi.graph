@@ -1,6 +1,6 @@
 import Viva from './viva-proxy'
 import merge from 'ngraph.merge'
-import { getOrCreateTranslatorInstance } from './Misc/Translator'
+import { getOrCreateTranslatorInstance } from '@scivi/utils'
 import * as $ from 'jquery'
 import 'jquery-ui/ui/widgets/slider'
 

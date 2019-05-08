@@ -1,0 +1,17 @@
+{
+  "name": "@scivi/utils",
+  "version": "0.0.1",
+  "description": "Various developer utils for scivi-*graph projects.",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "rew_mad",
+  "dependencies": {
+    "node-polyglot": "2.3.0"
+  },
+  "devDependencies": {
+    "@types/node-polyglot": "0.4.31",
+    "typescript": "3.2.2"
+  }
+}

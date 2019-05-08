@@ -3,7 +3,7 @@ import { VivaBaseUI } from './VivaBaseUI';
 import { Node } from './Node';
 import { Edge } from './Edge';
 import { Point2D } from './Point2D';
-import { getOrCreateTranslatorInstance } from './Misc/Translator';
+import { getOrCreateTranslatorInstance } from '@scivi/utils';
 import * as $ from 'jquery';
 
 /**

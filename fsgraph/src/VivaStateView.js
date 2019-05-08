@@ -3,7 +3,7 @@ import { Node } from './Node'
 import { VivaImageNodeUI } from './VivaImageNodeUI'
 import { VivaLinkUI } from './VivaLinkUI'
 import { VivaWebGLRenderer } from './VivaWebGLRenderer'
-import { getOrCreateTranslatorInstance } from './Misc/Translator'
+import { getOrCreateTranslatorInstance } from '@scivi/utils'
 import * as $ from 'jquery'
 import 'jquery-ui/ui/widgets/slider'
 import { ColorConverter } from './ColorConverter';
