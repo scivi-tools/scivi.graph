@@ -119,18 +119,42 @@ export class Renderer {
                 .enter()
                 .append('g')
                 .classed('nodes', true);
+            const updateCallback = (selection: d3.Selection<SVGGraphicsElement, Node, any, any>) => {
+                selection.attr('transform', node => {
+                    const translatedCoords = this._map!.latLngToLayerPoint([node.location.x, node.location.y]);
+                    return `translate(${translatedCoords.x}, ${translatedCoords.y})`;
+                });
+            }
             // circles
             this._nodeConatinerList
                 .append('circle')
-                .style("stroke", "black")  
-                .style("opacity", .6) 
-                .style("fill", "red")
-                .attr("r", node => weightThreshold(node.weight))
+                .style('stroke', 'black')
+                .style('opacity', 0.6)
+                .style('fill', 'red')
+                .attr('r', node => weightThreshold(node.weight))
                 .on('click', function (node) {
                     const event = (d3.event as MouseEvent);
                     self._sidebar.node = node;
                     event.stopPropagation();
-                });
+                    event.preventDefault();
+                })
+                .call(
+                    d3.drag<SVGCircleElement, Node>()
+                        .container(this._g.node()!)
+                        .on('start', function () {
+                            self._map!.dragging.disable();
+                        })
+                        .on('drag', function (node) {
+                            const event = (d3.event as d3.D3DragEvent<SVGCircleElement, Node, any>);
+                            const mapCoords = self._map!.layerPointToLatLng([event.x, event.y]);
+                            node.location.x = mapCoords.lat;
+                            node.location.y = mapCoords.lng;
+                            updateCallback(d3.select(this.parentNode as SVGGraphicsElement));
+                        })
+                        .on('end', function () {
+                            self._map!.dragging.enable();
+                        })
+                );
             // text labels
             const labelContainers = this._nodeConatinerList.append('g');
             const textBBoxes = labelContainers.append('rect');
@@ -166,17 +190,13 @@ export class Renderer {
             this._svg!.on('click', () => {
                 this._sidebar.reset();
             });
-
-            const map = (this._map as L.Map);
-            const updateCallback = () => {
-                this._nodeConatinerList!.attr('transform', node => {
-                    const translatedCoords = map.latLngToLayerPoint([node.location.x, node.location.y]);
-                    return `translate(${translatedCoords.x}, ${translatedCoords.y})`;
-                });
-            }
-            map.on('viewreset', updateCallback);
-            map.on('zoomend', updateCallback);
-            updateCallback();
+            this._map!.on('viewreset', () => {
+                updateCallback(this._nodeConatinerList!)
+            });
+            this._map!.on('zoomend', () => {
+                updateCallback(this._nodeConatinerList!)
+            });
+            updateCallback(this._nodeConatinerList!);
         }
 
         return this;

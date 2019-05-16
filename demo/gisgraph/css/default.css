@@ -16,6 +16,7 @@ body {
     width: 100%;
     flex: 1;
     display: flex;
+    cursor: default;
 }
 
 #scivi_map_footer {
