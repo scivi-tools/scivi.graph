@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>SciVi-CGraph</title>
+        
+        <script src="../lib/scivi-cgraph.min.js"></script>
+
+        <link rel="stylesheet" href="../css/jquery-ui.css"/>
+        <link rel="stylesheet" href="../css/jquery.contextMenu.css"/>
+        <link rel="stylesheet" href="../css/default.css"/>
+
+        <script src="data.js"></script>
+        <script src="../css/loc-ru.js"></script>
+        <script src="../css/loc-en.js"></script>
+
+        <script>
+            function getParameterByName(name, url)
+            {
+                if (!url)
+                    url = window.location.href;
+                name = name.replace(/[\[\]]/g, "\\$&");
+                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
+                var results = regex.exec(url);
+                if (!results)
+                    return null;
+                if (!results[2])
+                    return '';
+                return decodeURIComponent(results[2].replace(/\+/g, " "));
+            }
+
+            function main()
+            {
+                var locRus = getParameterByName("lang") === "ru";
+                var loc = locRus ? g_loc_ru : g_loc_en;
+
+                var graph = new CGraph();
+
+                var g = graph.parse(g_data);
+
+                if (locRus) {
+                    for (var i = 0, n = g.data["0"].edges.length; i < n; ++i)
+                        g.data["0"].edges[i].tooltip = g.data["0"].edges[i].tooltip.replace("traffic", "трафик");
+                }
+
+                var textColors1 = [ 0xffffff ];
+                var colors1 = [ 0xffffff, 0xdd1111, 0x489CA0, 0xffffff ];
+                var steps1 = [ 0, 1 ];
+                var names1 = locRus ? 
+                             [ "None", "Корпус А", "Корпус Б", "None" ] : 
+                             [ "None", "Building A", "Building B", "None" ];
+                var scale1 = graph.createScale(steps1, colors1, textColors1, names1, function (node) { return node.custom["building"]; });
+
+                var textColors2 = [ 0x000000 ];
+                var colors2 = [ 0xffffff, 0xF0AB13, 0xECDE38, 0xF0AB13, 0xECDE38, 0xF0AB13,
+                                0xCAB3FF, 0x73DAF0, 0xCAB3FF, 0x73DAF0, 0xF0AB13, 0xECDE38, 0xF0AB13, 0xECDE38,
+                                0xCAB3FF, 0x73DAF0, 0xCAB3FF, 0x73DAF0, 0xffffff ];
+                var steps2 = [ 0, 1, 2, 3, 4, 10, 11, 12, 13, 14 ];
+                var names2 = locRus ? 
+                             [ "None", "Зал 1", "Зал 2", "Зал 3", "Зал 4", "Зал 5", "Зал 1", "Зал 2", "Зал 3", "Зал 4", "Зал 5", "None" ] :
+                             [ "None", "Department 1", "Department 1", "Department 2", "Department 3", "Department 4", "Department 5", "Department 6", "Department 2", "Department 3", "Department 9", "None" ];
+                var scale2 = graph.createScale(steps2, colors2, textColors2, names2, function (node) { return node.custom["department"] + node.custom["building"] * 10; });
+
+                var renderer = graph.run(loc, g, [scale2, scale1], null,
+                                         locRus ? "Распределённая сеть устройств Интернета вещей" : "Human Traffic between Doctors",
+                                         locRus ? "Распределённая сеть устройств Интернета вещей" : "Human Traffic between Doctors");
+            }
+        </script>
+    </head>
+
+    <body onload="main();">
+    </body>
+</html>
