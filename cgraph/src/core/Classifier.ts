@@ -131,6 +131,9 @@ namespace SciViCGraph
 
         public initTreeView(treeView: HTMLElement, svRenderer: Renderer)
         {
+            if (!treeView)
+                return;
+
             // HINT: it's better to generate the full html. Yes, it's more complicated, but more efficient.
             // And then we can remove the crutch from the hummingbird-treeview.js with the checked state of inputs.
             let div = $("<div>", { "class": "hummingbird-treeview-converter", "data-height": "500px" });

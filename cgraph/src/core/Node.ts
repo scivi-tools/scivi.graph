@@ -94,6 +94,9 @@ namespace SciViCGraph
 
         public postInfo()
         {
+            if (!this.m_info)
+                return;
+
             let header = document.createElement("div");
             let name = document.createElement("input");
             name.type = "text";

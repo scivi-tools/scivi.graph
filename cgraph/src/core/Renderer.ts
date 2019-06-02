@@ -183,8 +183,10 @@ namespace SciViCGraph
 
             this.m_renderer['plugins']['interaction']['moveWhenInside'] = true;
 
-            this.m_nodesList = new List(this.m_list);
-            this.m_statistics = new Stats(this.m_stats, this);
+            if (this.m_list)
+                this.m_nodesList = new List(this.m_list);
+            if (this.m_stats)
+                this.m_statistics = new Stats(this.m_stats, this);
 
             if (this.m_states.isDynamic)
                 this.currentData() // Force state to load
@@ -278,8 +280,10 @@ namespace SciViCGraph
                 this.fitScale();
             this.createCache();
 
-            this.m_nodesList.buildList(this.currentData().nodes, this);
-            this.m_statistics.buildChart(this.currentData().nodes, this.m_stage.colors);
+            if (this.m_nodesList)
+                this.m_nodesList.buildList(this.currentData().nodes, this);
+            if (this.m_statistics)
+                this.m_statistics.buildChart(this.currentData().nodes, this.m_stage.colors);
         }
 
         private init()
@@ -437,11 +441,13 @@ namespace SciViCGraph
             if (this.m_selectedNode)
                 this.m_selectedNode.handleCursorMove(NaN, NaN, NaN, NaN, NaN);
             this.m_selectedNode = null;
-            while (this.m_info.firstChild)
-                this.m_info.removeChild(this.m_info.firstChild);
-            let dv = document.createElement("div");
-            dv.innerHTML = this.m_localizer["LOC_SELSTUB"];
-            this.m_info.appendChild(dv);
+            if (this.m_info) {
+                while (this.m_info.firstChild)
+                    this.m_info.removeChild(this.m_info.firstChild);
+                let dv = document.createElement("div");
+                dv.innerHTML = this.m_localizer["LOC_SELSTUB"];
+                this.m_info.appendChild(dv);
+            }
         }
 
         private roundVal(x: number, s: number): number
@@ -462,6 +468,9 @@ namespace SciViCGraph
 
         private initFilters()
         {
+            if (!this.m_filters)
+                return;
+
             this.m_filters.innerHTML =
                 "<div>" + 
                 this.m_localizer["LOC_NODETHRESHOLD"] + 
@@ -671,80 +680,82 @@ namespace SciViCGraph
 
             this.contextMenuEnabled = false;
 
-            this.m_settings.innerHTML = 
-            "<div>" + this.m_localizer["LOC_PASSIVETEXTALPHA"] + "&nbsp;<span id='scivi_node_alpha'>" +
-                Node.passiveTextAlpha.toString() + "</span></div>" +
-                "<div id='scivi_node_alpha_slider' style='margin: 10px 10px 10px 5px'></div>" +
-            "<div>" + this.m_localizer["LOC_PASSIVEEDGEALPHA"] + "&nbsp;<span id='scivi_edge_alpha'>" +
-                Edge.passiveEdgeAlpha.toString() + "</span></div>" +
-                "<div id='scivi_edge_alpha_slider' style='margin: 10px 10px 10px 5px'></div><br/><hr/><br/>" +
-            "<table><tr><td>" +
-                "<table>" +
-                    "<tr><td>" + this.m_localizer["LOC_NODEFONT"] + "</td><td><input id='scivi_nodes_font' style='width:50px' type='number' min='" +
-                        Renderer.m_minFontSize.toString() + "' max='" + Renderer.m_maxFontSize.toString() +
-                        "' value='" + this.m_nodesFontSize.toString() + "' required/></td></tr>" +
-                    "<tr><td>" + this.m_localizer["LOC_RINGFONT"] + "</td><td><input id='scivi_ring_font' style='width:50px' type='number' min='" +
-                        Renderer.m_minFontSize.toString() + "' max='" + Renderer.m_maxFontSize.toString() +
-                        "' value='" + this.m_ringScaleFontSize.toString() + "' required/></td></tr>" +
-                "</table>" +
-                    "</td><td>" +
-                        "<div id='scivi_apply_fonts' class='scivi_button'>" + this.m_localizer["LOC_APPLY"] + "</div>" +
-                "</td></tr></table><br/><hr/><br/>" +
-            "<div id='scivi_fit_to_screen' class='scivi_button'>" + this.m_localizer["LOC_FIT_TO_SCREEN"] + "</div>" +
-            "<div id='scivi_sort_by_ring' class='scivi_button'>" + this.m_localizer["LOC_SORT_BY_RING"] + "</div>" +
-            "<div id='scivi_calc_modularity' class='scivi_button'>" + this.m_localizer["LOC_CALC_MODULARITY"] + "</div>";
+            if (this.m_settings) {
+                this.m_settings.innerHTML = 
+                "<div>" + this.m_localizer["LOC_PASSIVETEXTALPHA"] + "&nbsp;<span id='scivi_node_alpha'>" +
+                    Node.passiveTextAlpha.toString() + "</span></div>" +
+                    "<div id='scivi_node_alpha_slider' style='margin: 10px 10px 10px 5px'></div>" +
+                "<div>" + this.m_localizer["LOC_PASSIVEEDGEALPHA"] + "&nbsp;<span id='scivi_edge_alpha'>" +
+                    Edge.passiveEdgeAlpha.toString() + "</span></div>" +
+                    "<div id='scivi_edge_alpha_slider' style='margin: 10px 10px 10px 5px'></div><br/><hr/><br/>" +
+                "<table><tr><td>" +
+                    "<table>" +
+                        "<tr><td>" + this.m_localizer["LOC_NODEFONT"] + "</td><td><input id='scivi_nodes_font' style='width:50px' type='number' min='" +
+                            Renderer.m_minFontSize.toString() + "' max='" + Renderer.m_maxFontSize.toString() +
+                            "' value='" + this.m_nodesFontSize.toString() + "' required/></td></tr>" +
+                        "<tr><td>" + this.m_localizer["LOC_RINGFONT"] + "</td><td><input id='scivi_ring_font' style='width:50px' type='number' min='" +
+                            Renderer.m_minFontSize.toString() + "' max='" + Renderer.m_maxFontSize.toString() +
+                            "' value='" + this.m_ringScaleFontSize.toString() + "' required/></td></tr>" +
+                    "</table>" +
+                        "</td><td>" +
+                            "<div id='scivi_apply_fonts' class='scivi_button'>" + this.m_localizer["LOC_APPLY"] + "</div>" +
+                    "</td></tr></table><br/><hr/><br/>" +
+                "<div id='scivi_fit_to_screen' class='scivi_button'>" + this.m_localizer["LOC_FIT_TO_SCREEN"] + "</div>" +
+                "<div id='scivi_sort_by_ring' class='scivi_button'>" + this.m_localizer["LOC_SORT_BY_RING"] + "</div>" +
+                "<div id='scivi_calc_modularity' class='scivi_button'>" + this.m_localizer["LOC_CALC_MODULARITY"] + "</div>";
+
+                $("#scivi_node_alpha_slider").slider({
+                    min: 0,
+                    max: 1,
+                    range: false,
+                    value: Node.passiveTextAlpha,
+                    step: 0.1,
+                    slide: (event, ui) => { this.changeNodeAlpha(ui.value); }
+                });
+
+                $("#scivi_edge_alpha_slider").slider({
+                    min: 0,
+                    max: 1,
+                    range: false,
+                    value: Edge.passiveEdgeAlpha,
+                    step: 0.1,
+                    slide: (event, ui) => { this.changeEdgeAlpha(ui.value); }
+                });
+
+                const nodesFSInput = $("#scivi_nodes_font")[0] as HTMLInputElement;
+                const ringFSInput = $("#scivi_ring_font")[0] as HTMLInputElement;
+                $("#scivi_apply_fonts").click(() => {
+                    const nodesFS = parseFloat(nodesFSInput.value);
+                    const ringFS = parseFloat(ringFSInput.value);
+                    if (!isNaN(nodesFS) && !isNaN(ringFS) &&
+                        nodesFS >= Renderer.m_minFontSize && nodesFS <= Renderer.m_maxFontSize && nodesFS === Math.round(nodesFS) &&
+                        ringFS >= Renderer.m_minFontSize && ringFS <= Renderer.m_maxFontSize && ringFS === Math.round(ringFS)) {
+                        this.m_nodesFontSize = nodesFS;
+                        this.m_ringScaleFontSize = ringFS;
+                        this.reinit(false, false);
+                    }
+                });
+
+                $("#scivi_fit_to_screen").click(() => {
+                    this.fitScale();
+                    this.createCache();
+                    this.render(true, true);
+                });
+
+                $("#scivi_sort_by_ring").click(() => {
+                    this.sortNodesByRingScale(false);
+                    this.reinit(false, false);
+                });
+
+                $("#scivi_calc_modularity").click(() => {
+                    this.m_modularityFilters[0].detectClusters(this.currentData());
+                    this.reinit(false, false);
+                });
+            }
 
             this.initFilters();
 
-            $("#scivi_node_alpha_slider").slider({
-                min: 0,
-                max: 1,
-                range: false,
-                value: Node.passiveTextAlpha,
-                step: 0.1,
-                slide: (event, ui) => { this.changeNodeAlpha(ui.value); }
-            });
-
-            $("#scivi_edge_alpha_slider").slider({
-                min: 0,
-                max: 1,
-                range: false,
-                value: Edge.passiveEdgeAlpha,
-                step: 0.1,
-                slide: (event, ui) => { this.changeEdgeAlpha(ui.value); }
-            });
-
-            const nodesFSInput = $("#scivi_nodes_font")[0] as HTMLInputElement;
-            const ringFSInput = $("#scivi_ring_font")[0] as HTMLInputElement;
-            $("#scivi_apply_fonts").click(() => {
-                const nodesFS = parseFloat(nodesFSInput.value);
-                const ringFS = parseFloat(ringFSInput.value);
-                if (!isNaN(nodesFS) && !isNaN(ringFS) &&
-                    nodesFS >= Renderer.m_minFontSize && nodesFS <= Renderer.m_maxFontSize && nodesFS === Math.round(nodesFS) &&
-                    ringFS >= Renderer.m_minFontSize && ringFS <= Renderer.m_maxFontSize && ringFS === Math.round(ringFS)) {
-                    this.m_nodesFontSize = nodesFS;
-                    this.m_ringScaleFontSize = ringFS;
-                    this.reinit(false, false);
-                }
-            });
-
             this.m_stateLineNav.build();
-
-            $("#scivi_fit_to_screen").click(() => {
-                this.fitScale();
-                this.createCache();
-                this.render(true, true);
-            });
-
-            $("#scivi_sort_by_ring").click(() => {
-                this.sortNodesByRingScale(false);
-                this.reinit(false, false);
-            });
-
-            $("#scivi_calc_modularity").click(() => {
-                this.m_modularityFilters[0].detectClusters(this.currentData());
-                this.reinit(false, false);
-            });
 
             $(document).keyup((e) => {
                 if (e.keyCode == 27) {
