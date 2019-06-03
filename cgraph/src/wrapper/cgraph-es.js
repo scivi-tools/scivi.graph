@@ -61,6 +61,8 @@ CGraph.prototype.run = function (loc, data, scales, colors, title, info, classif
     var split1G, splitS, stateLine;
 
     splitGraph.attr("id", "scivi_cgraph_a");
+    splitGraph.css("height", "100%");
+    splitGraph.css("width", "100%");
 
     if (data.hasStates) {
         splitG = $("<div>");

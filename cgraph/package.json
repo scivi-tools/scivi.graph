@@ -5,6 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "debug": "./build.sh debug",
+    "embed": "./build.sh embed",
     "release": "./build.sh release"
   },
   "author": "Konstantin Ryabinin",

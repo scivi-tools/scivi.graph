@@ -12,6 +12,8 @@ $TSC
 echo "module.exports = SciViCGraph;" >> ./build/scivi-cgraph.js
 if [ $1 == "debug" ]; then
     $BROWSERIFY ./src/wrapper/cgraph.js --standalone CGraph -o ../demo/cgraph/lib/scivi-cgraph.min.js
+elif [ $1 == "embed" ]; then
+    $BROWSERIFY ./src/wrapper/cgraph-es.js --standalone CGraph -o ../demo/cgraph/lib/scivi-cgraph.min.js
 else
     $BROWSERIFY ./src/wrapper/cgraph.js --standalone CGraph -o ./build/scivi-cgraph-tmp.js
     $UGLIFY ./build/scivi-cgraph-tmp.js -o ../demo/cgraph/lib/scivi-cgraph.min.js
