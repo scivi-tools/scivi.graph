@@ -198,7 +198,7 @@ namespace SciViCGraph
         {
             if (this.m_states.isDynamic) {
                 if (!this.m_states.data["current"]) {
-                    const parser = new Parser(this.m_states.dynaminSource.stateGetter(this.m_currentStateKey));
+                    const parser = new Parser(this.m_states.dynamicSource.stateGetter(this.m_currentStateKey));
                     this.m_states.data["current"] = parser.graphData;
                 }
                 return this.m_states.data["current"];
@@ -702,7 +702,8 @@ namespace SciViCGraph
                     "</td></tr></table><br/><hr/><br/>" +
                 "<div id='scivi_fit_to_screen' class='scivi_button'>" + this.m_localizer["LOC_FIT_TO_SCREEN"] + "</div>" +
                 "<div id='scivi_sort_by_ring' class='scivi_button'>" + this.m_localizer["LOC_SORT_BY_RING"] + "</div>" +
-                "<div id='scivi_calc_modularity' class='scivi_button'>" + this.m_localizer["LOC_CALC_MODULARITY"] + "</div>";
+                "<div id='scivi_calc_modularity' class='scivi_button'>" + this.m_localizer["LOC_CALC_MODULARITY"] + "</div>" +
+                "<div id='scivi_save_graph' class='scivi_button'>" + this.m_localizer["LOC_SAVE_GRAPH"] + "</div>";
 
                 $("#scivi_node_alpha_slider").slider({
                     min: 0,
@@ -750,6 +751,10 @@ namespace SciViCGraph
                 $("#scivi_calc_modularity").click(() => {
                     this.m_modularityFilters[0].detectClusters(this.currentData());
                     this.reinit(false, false);
+                });
+
+                $("#scivi_save_graph").click(() => {
+                    this.saveGraph();
                 });
             }
 
@@ -1614,6 +1619,59 @@ namespace SciViCGraph
         set contextMenuEnabled(enabled: boolean)
         {
             $("#" + this.m_view.id).contextMenu(enabled);
+        }
+
+        private downloadFile(filename: string, content: string)
+        {
+            let element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(content));
+            element.setAttribute('download', filename);
+
+            element.style.display = 'none';
+            document.body.appendChild(element);
+
+            element.click();
+
+            document.body.removeChild(element);
+        }
+
+        public saveGraph()
+        {
+            // FIXME: Convert dataKey to label
+            let g = "{\n  states: [\n";
+            let firstState = true;
+            Object.keys(this.m_states.data).forEach((dataKey) => {
+                if (!firstState)
+                    g += ",\n";
+                g += "    {\n      label: \"" + this.m_states.stateLines[0][dataKey] + "\",\n      nodes: [\n";
+                const data = this.m_states.data[dataKey];
+                let first = true;
+                for (let i = 0, n = data.nodes.length; i < n; ++i) {
+                    if (data.nodes[i].visible) {
+                        if (!first)
+                            g += ",\n";
+                        g += "        " + JSON.stringify(data.nodes[i].custom);
+                        first = false;
+                    }
+                }
+                g += "      ],\n      edges: [\n";
+                first = true;
+                for (let i = 0, n = data.edges.length; i < n; ++i) {
+                    if (data.edges[i].visible) {
+                        if (!first)
+                            g += ",\n";
+                        g += "        { \"source\": " + data.edges[i].source.id + 
+                             ", \"target\": " + data.edges[i].target.id + 
+                             ", \"weight\": " + data.edges[i].weight +
+                             ", \"tooltip\": " + data.edges[i].tooltip + " }";
+                        first = false;
+                    }
+                }
+                g += "      ]\n    }";
+                firstState = false;
+            });
+            g += "  ]\n}";
+            this.downloadFile("graph.js", g);
         }
     }
 }

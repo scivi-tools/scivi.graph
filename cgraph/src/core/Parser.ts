@@ -4,13 +4,13 @@ namespace SciViCGraph
     {
         public stateLines: string[][];
         public data: {};
-        public dynaminSource: IJsonDynamicSourceFormat;
+        public dynamicSource: IJsonDynamicSourceFormat;
 
         constructor()
         {
             this.stateLines = [];
             this.data = {};
-            this.dynaminSource = undefined;
+            this.dynamicSource = undefined;
         }
 
         get hasStates(): boolean
@@ -20,7 +20,7 @@ namespace SciViCGraph
 
         get isDynamic(): boolean
         {
-            return this.dynaminSource !== undefined;
+            return this.dynamicSource !== undefined;
         }
     }
 
@@ -173,7 +173,7 @@ namespace SciViCGraph
         {
             this.m_states = new GraphStates();
             this.m_states.stateLines = jsonData.stateLines;
-            this.m_states.dynaminSource = jsonData;
+            this.m_states.dynamicSource = jsonData;
         }
 
         get graphStates(): GraphStates
