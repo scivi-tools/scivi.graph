@@ -39,6 +39,7 @@ export function webglGraphics(opts) {
     var graphicsRoot;
     /** @type {WebGLRenderingContext} */
     var gl;
+    var msaaHook = 1;
     var width,
         height,
         nodesCount = 0,
@@ -104,10 +105,10 @@ export function webglGraphics(opts) {
                 height = Math.max(container.clientHeight, 1);
                 graphicsRoot.style.width = `${width}px`;
                 graphicsRoot.style.height = `${height}px`;
-                graphicsRoot.width = width;
-                graphicsRoot.height = height;
+                graphicsRoot.width = width * msaaHook;
+                graphicsRoot.height = height * msaaHook;
                 if (gl) {
-                    gl.viewport(0, 0, width, height);
+                    gl.viewport(0, 0, width * msaaHook, height * msaaHook);
                 }
                 if (linkProgram) {
                     linkProgram.updateSize(width / 2, height / 2);
@@ -335,15 +336,14 @@ export function webglGraphics(opts) {
         * provider prepare to render.
         */
         init : function (c) {
-            var contextParameters = {};
-
-            if (options.preserveDrawingBuffer) {
-                contextParameters.preserveDrawingBuffer = true;
-            }
+            /** @type {WebGLContextAttributes} */
+            var contextParameters = {
+                antialias: true,
+                preserveDrawingBuffer: options.preserveDrawingBuffer
+            };
 
             container = c;
 
-            updateSize();
             resetScaleInternal();
             container.appendChild(graphicsRoot);
 
@@ -354,6 +354,10 @@ export function webglGraphics(opts) {
                 window.alert(msg);
                 throw msg;
             }
+            if (!gl.getParameter(gl.SAMPLES)) {
+                msaaHook = 2;
+            }
+            updateSize();
             if (options.enableBlending) {
                 gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
                 gl.enable(gl.BLEND);
