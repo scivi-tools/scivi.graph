@@ -9,12 +9,14 @@ namespace SciViCGraph
         private m_info: HTMLElement;
         private m_text: PIXI.Text;
         private m_column: PIXI.Graphics;
+        private m_marker: PIXI.Graphics;
         private m_svRenderer: Renderer;
         private m_edgeBatches: EdgeBatch[];
         private m_isShown: boolean;
         private m_listLabel: HTMLSpanElement;
         private m_cbInput: HTMLInputElement;
         private m_hoveredEdge: Edge;
+        private m_markerRect: { x: number, y: number, w: number, h: number };
 
         public static passiveTextAlpha = 0.5;
         private static readonly m_hoveredTextAlpha = 1.0;
@@ -38,6 +40,12 @@ namespace SciViCGraph
                 wordWrapWidth: 200
             });
             this.addChild(this.m_text);
+
+            this.m_marker = new PIXI.Graphics();
+            this.m_marker.visible = false;
+            this.addChild(this.m_marker);
+
+            this.m_markerRect = { x: 0, y: 0, w: 0, h: 0 };
 
             this.m_highlight = undefined;
             this.m_needsUpdate = false;
@@ -326,6 +334,9 @@ namespace SciViCGraph
         set color(newColor: number) 
         {
             this.m_text.style.fill = color2string(newColor);
+            this.m_marker.beginFill(newColor, 1.0);
+            this.m_marker.clear();
+            this.m_marker.drawRect(this.m_markerRect.x, this.m_markerRect.y, this.m_markerRect.w, this.m_markerRect.h);
         }
 
         set info(newInfo: HTMLElement)
@@ -391,14 +402,19 @@ namespace SciViCGraph
 
         public setAnchor(x: number, y: number, maxHeight: number)
         {
-            let p = this.parent as Scene;
-            let w = Node.m_columnMinHeight +
-                    (maxHeight - Node.m_columnMinHeight) / (p.nodeWeight.max - p.nodeWeight.min) *
-                    (this.weight - p.nodeWeight.min);
+            const p = this.parent as Scene;
+            const w = Node.m_columnMinHeight +
+                      (maxHeight - Node.m_columnMinHeight) / (p.nodeWeight.max - p.nodeWeight.min) *
+                      (this.weight - p.nodeWeight.min);
+            const s = this.scale.x > 0.0 ? 1.0 : -1.0;
             this.m_column.clear();
             this.m_column.drawRect(-w * x, -this.m_text.height * y, w, this.m_text.height);
             this.m_text.anchor.set(x, y);
-            this.m_text.position.set(Node.m_textPadding * (this.scale.x > 0.0 ? 1.0 : -1.0), 0);
+            this.m_markerRect.w = Node.m_textPadding * 0.8;
+            this.m_markerRect.h = this.m_text.height * 0.5;
+            this.m_markerRect.x = -Node.m_textPadding * x + (Node.m_textPadding - this.m_markerRect.w) * (1.0 - x);
+            this.m_markerRect.y = -this.m_markerRect.h * y;
+            this.m_text.position.set(Node.m_textPadding * s, 0);
         }
 
         public setHighlightForEdgesAndTargetNodes(hl: HighlightType)
