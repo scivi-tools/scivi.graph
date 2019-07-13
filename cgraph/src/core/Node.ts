@@ -270,6 +270,7 @@ namespace SciViCGraph
                             this.m_listLabel.innerHTML = this.label;
                         }
                         this.alpha = Node.passiveTextAlpha;
+                        this.m_marker.visible = false;
                         break;
                     }
 
@@ -281,6 +282,7 @@ namespace SciViCGraph
                             this.m_listLabel.innerHTML = this.label;
                         }
                         this.alpha = Node.m_hoveredTextAlpha;
+                        this.m_marker.visible = false;
                         break;
                     }
 
@@ -292,6 +294,19 @@ namespace SciViCGraph
                             this.m_listLabel.innerHTML = "[-" + this.label + "-]";
                         }
                         this.alpha = Node.m_selectedTextAlpha;
+                        this.m_marker.visible = false;
+                        break;
+                    }
+
+                    case HighlightType.Multiselect: {
+                        this.m_text.style.fontWeight = "normal";
+                        this.m_text.text = this.label;
+                        if (this.m_listLabel) {
+                            this.m_listLabel.style.fontWeight = "normal";
+                            this.m_listLabel.innerHTML = this.label;
+                        }
+                        this.alpha = Node.m_hoveredTextAlpha;
+                        this.m_marker.visible = true;
                         break;
                     }
                 }
@@ -380,10 +395,18 @@ namespace SciViCGraph
             this.m_svRenderer = newSVRenderer;
         }
 
+        public dropOldHighlight(): boolean
+        {
+            if (this.m_highlightSet)
+                return false;
+            else {
+                this.highlight = HighlightType.None;
+                return true;
+            }
+        }
+
         public prepare(): boolean
         {
-            if (!this.m_highlightSet)
-                this.highlight = HighlightType.None;
             let result = this.m_needsUpdate;
             this.m_highlightSet = false;
             this.m_needsUpdate = false;

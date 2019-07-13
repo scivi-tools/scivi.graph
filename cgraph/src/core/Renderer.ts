@@ -4,7 +4,8 @@ namespace SciViCGraph
     {
         None = 0,
         Hover,
-        Selection
+        Selection,
+        Multiselect
     }
 
     export function color2string(c: number): string
@@ -59,6 +60,7 @@ namespace SciViCGraph
         private m_totalRadius: number;
         private m_hoveredNode: Node;
         private m_selectedNode: Node;
+        private m_multiselectedNodes: Node[];
         private m_highlightedGroup: number;
         private m_clickCaught: boolean;
         private m_clicked: boolean;
@@ -448,6 +450,7 @@ namespace SciViCGraph
                 dv.innerHTML = this.m_localizer["LOC_SELSTUB"];
                 this.m_info.appendChild(dv);
             }
+            this.m_multiselectedNodes = [];
         }
 
         private roundVal(x: number, s: number): number
@@ -624,8 +627,12 @@ namespace SciViCGraph
                             const dy = y - this.m_renderingCache.y;
                             const s = this.m_renderingCache.currentScale();
                             const node = this.getNodeByPosition(dx, dy, s, isInRing);
-                            if (!isInRing[0])
-                                this.selectNode(node);
+                            if (!isInRing[0]) {
+                                if (e.shiftKey)
+                                    this.multiselectNode(node);
+                                else
+                                    this.selectNode(node);
+                            }
                             if (!node) {
                                 if (e.shiftKey) {
                                     this.m_ringSegmentFilterBothEnds = false;
@@ -972,10 +979,16 @@ namespace SciViCGraph
                 this.m_hoveredNode.highlight = HighlightType.Hover;
                 this.m_hoveredNode.setHighlightForEdgesAndTargetNodes(HighlightType.Hover);
             }
+            this.m_multiselectedNodes.forEach((node) => {
+                if (node.visible && node !== this.m_selectedNode) {
+                    node.highlight = HighlightType.Multiselect;
+                    node.setHighlightForEdgesAndTargetNodes(HighlightType.Hover);
+                }
+            });
 
             this.currentData().nodes.forEach((node) => {
                 if (node.visible) {
-                    if (node !== this.m_selectedNode && node !== this.m_hoveredNode) {
+                    if (node.dropOldHighlight()) {
                         node.setHighlightForEdges(HighlightType.None);
                         if (this.m_highlightedGroup !== undefined && node.groupID === this.m_highlightedGroup)
                             node.highlight = HighlightType.Hover;
@@ -1289,6 +1302,23 @@ namespace SciViCGraph
             else {
                 this.m_selectedNode = node;
                 this.m_selectedNode.postInfo();
+            }
+            this.render(false, true);
+        }
+
+        public multiselectNode(node: Node)
+        {
+            if (node === null)
+                this.clearSelected();
+            else {
+                for (let i = 0, n = this.m_multiselectedNodes.length; i < n; ++i) {
+                    if (this.m_multiselectedNodes[i] === node) {
+                        this.m_multiselectedNodes.splice(i, 1);
+                        this.render(false, true);
+                        return;
+                    }
+                }
+                this.m_multiselectedNodes.push(node);
             }
             this.render(false, true);
         }

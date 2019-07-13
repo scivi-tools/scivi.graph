@@ -60,18 +60,12 @@ namespace SciViCGraph
                         break;
                     }
 
-                    case HighlightType.Hover: {
+                    case HighlightType.Hover: 
+                    case HighlightType.Selection:
+                    case HighlightType.Multiselect: {
                         this.m_fromColor = fromColor;
                         this.m_toColor = toColor;
                         this.m_alpha = Edge.m_hoveredEdgeAlpha;
-                        this.m_batch.sendToFront();
-                        break;
-                    }
-
-                    case HighlightType.Selection: {
-                        this.m_fromColor = fromColor;
-                        this.m_toColor = toColor;
-                        this.m_alpha = Edge.m_selectedEdgeAlpha;
                         this.m_batch.sendToFront();
                         break;
                     }
