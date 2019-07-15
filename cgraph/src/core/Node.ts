@@ -15,8 +15,10 @@ namespace SciViCGraph
         private m_isShown: boolean;
         private m_listLabel: HTMLSpanElement;
         private m_cbInput: HTMLInputElement;
+        private m_selInput: HTMLInputElement;
         private m_hoveredEdge: Edge;
         private m_markerRect: { x: number, y: number, w: number, h: number };
+        private m_multiselected: boolean;
 
         public static passiveTextAlpha = 0.5;
         private static readonly m_hoveredTextAlpha = 1.0;
@@ -53,7 +55,9 @@ namespace SciViCGraph
             this.m_isShown = true;
             this.m_listLabel = null;
             this.m_cbInput = null;
+            this.m_selInput = null;
             this.m_hoveredEdge = null;
+            this.m_multiselected = false;
         }
 
         get id(): number
@@ -229,9 +233,19 @@ namespace SciViCGraph
             this.m_cbInput = document.createElement("input");
             this.m_cbInput.type = "checkbox";
             this.m_cbInput.checked = this.m_isShown;
+            this.m_cbInput.style.marginLeft = "18px";
             this.m_cbInput.onchange = () => {
                 this.isShown = this.m_cbInput.checked;
                 this.m_svRenderer.updateNodesVisibility();
+            };
+
+            this.m_selInput = document.createElement("input");
+            this.m_selInput.type = "checkbox";
+            this.m_selInput.checked = this.m_multiselected;
+            this.m_selInput.style.marginLeft = "55px";
+            this.m_selInput.style.marginRight = "18px";
+            this.m_selInput.onchange = () => {
+                this.m_svRenderer.multiselectNode(this);
             };
 
             this.m_listLabel = document.createElement("span");
@@ -251,6 +265,7 @@ namespace SciViCGraph
 
             let itm = document.createElement("div");
             itm.appendChild(this.m_cbInput);
+            itm.appendChild(this.m_selInput);
             itm.appendChild(this.m_listLabel);
 
             list.appendChild(itm);
@@ -395,18 +410,10 @@ namespace SciViCGraph
             this.m_svRenderer = newSVRenderer;
         }
 
-        public dropOldHighlight(): boolean
-        {
-            if (this.m_highlightSet)
-                return false;
-            else {
-                this.highlight = HighlightType.None;
-                return true;
-            }
-        }
-
         public prepare(): boolean
         {
+            if (!this.m_highlightSet)
+                this.highlight = HighlightType.None;
             let result = this.m_needsUpdate;
             this.m_highlightSet = false;
             this.m_needsUpdate = false;
@@ -492,6 +499,17 @@ namespace SciViCGraph
         set align(a: string)
         {
             this.m_text.style.align = a;
+        }
+
+        get multiselected(): boolean
+        {
+            return this.m_multiselected;
+        }
+
+        set multiselected(ms: boolean)
+        {
+            this.m_multiselected = ms;
+            this.m_selInput.checked = ms; // Does not invoke onChange.
         }
 
         private getEdgeByPosition(x: number, y: number, s: number): Edge

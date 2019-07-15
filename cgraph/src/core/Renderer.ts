@@ -450,6 +450,11 @@ namespace SciViCGraph
                 dv.innerHTML = this.m_localizer["LOC_SELSTUB"];
                 this.m_info.appendChild(dv);
             }
+            if (this.m_multiselectedNodes) {
+                this.m_multiselectedNodes.forEach((node) => {
+                    node.multiselected = false;
+                });
+            }
             this.m_multiselectedNodes = [];
         }
 
@@ -988,7 +993,7 @@ namespace SciViCGraph
 
             this.currentData().nodes.forEach((node) => {
                 if (node.visible) {
-                    if (node.dropOldHighlight()) {
+                    if (node !== this.m_selectedNode && node !== this.m_hoveredNode && !node.multiselected) {
                         node.setHighlightForEdges(HighlightType.None);
                         if (this.m_highlightedGroup !== undefined && node.groupID === this.m_highlightedGroup)
                             node.highlight = HighlightType.Hover;
@@ -1313,11 +1318,13 @@ namespace SciViCGraph
             else {
                 for (let i = 0, n = this.m_multiselectedNodes.length; i < n; ++i) {
                     if (this.m_multiselectedNodes[i] === node) {
+                        node.multiselected = false;
                         this.m_multiselectedNodes.splice(i, 1);
                         this.render(false, true);
                         return;
                     }
                 }
+                node.multiselected = true;
                 this.m_multiselectedNodes.push(node);
             }
             this.render(false, true);
