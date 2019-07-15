@@ -140,9 +140,9 @@ namespace SciViCGraph
             selAll.html(renderer.localizer["LOC_ALL"]);
             selAll.click(() => {
                 this.m_listedNodes.forEach((node) => {
-                    node.isShown = true;
+                    renderer.addToMultiselection(node);
                 });
-                renderer.updateNodesVisibility();
+                renderer.render(false, true);
             });
             div2.append(selAll);
 
@@ -150,9 +150,9 @@ namespace SciViCGraph
             deselAll.html(renderer.localizer["LOC_NONE"]);
             deselAll.click(() => {
                 this.m_listedNodes.forEach((node) => {
-                    node.isShown = false;
+                    renderer.removeFromMultiselection(node);
                 });
-                renderer.updateNodesVisibility();
+                renderer.render(false, true);
             });
             div2.append(deselAll);
 

@@ -1316,18 +1316,33 @@ namespace SciViCGraph
             if (node === null)
                 this.clearSelected();
             else {
+                if (!this.removeFromMultiselection(node))
+                    this.addToMultiselection(node);
+            }
+            this.render(false, true);
+        }
+
+        public addToMultiselection(node)
+        {
+            if (!node.multiselected) {
+                node.multiselected = true;
+                this.m_multiselectedNodes.push(node);
+            }
+        }
+
+        public removeFromMultiselection(node): boolean
+        {
+            if (node.multiselected)
+            {
                 for (let i = 0, n = this.m_multiselectedNodes.length; i < n; ++i) {
                     if (this.m_multiselectedNodes[i] === node) {
                         node.multiselected = false;
                         this.m_multiselectedNodes.splice(i, 1);
-                        this.render(false, true);
-                        return;
+                        return true;
                     }
                 }
-                node.multiselected = true;
-                this.m_multiselectedNodes.push(node);
             }
-            this.render(false, true);
+            return false;
         }
 
         private selectRingSegment()
