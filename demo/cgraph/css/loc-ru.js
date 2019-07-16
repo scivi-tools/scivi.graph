@@ -55,5 +55,7 @@ var g_loc_ru = {
     "LOC_FINDREGEXP": "Найти по regexp",
     "LOC_NOT": "Не",
     "LOC_TREE": "Дерево",
-    "LOC_SAVE_GRAPH": "Экспорт графа"
+    "LOC_SAVE_GRAPH": "Экспорт графа",
+    "LOC_HELP": "Справка",
+    "LOC_HELPLOC": "../css/help-ru.html"
 };

@@ -55,5 +55,7 @@ var g_loc_en = {
     "LOC_FINDREGEXP": "Find by regexp",
     "LOC_NOT": "Not",
     "LOC_TREE": "Tree",
-    "LOC_SAVE_GRAPH": "Export graph"
+    "LOC_SAVE_GRAPH": "Export graph",
+    "LOC_HELP": "Get Help",
+    "LOC_HELPLOC": "../css/help-en.html"
 };

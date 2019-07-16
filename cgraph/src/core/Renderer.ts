@@ -720,7 +720,8 @@ namespace SciViCGraph
                 "<div id='scivi_fit_to_screen' class='scivi_button'>" + this.m_localizer["LOC_FIT_TO_SCREEN"] + "</div>" +
                 "<div id='scivi_sort_by_ring' class='scivi_button'>" + this.m_localizer["LOC_SORT_BY_RING"] + "</div>" +
                 "<div id='scivi_calc_modularity' class='scivi_button'>" + this.m_localizer["LOC_CALC_MODULARITY"] + "</div>" +
-                "<div id='scivi_save_graph' class='scivi_button'>" + this.m_localizer["LOC_SAVE_GRAPH"] + "</div>";
+                "<div id='scivi_save_graph' class='scivi_button'>" + this.m_localizer["LOC_SAVE_GRAPH"] + "</div>" +
+                "<br/><br/><hr/><br/><div class='scivi_button' onclick='window.location.href = \"" + this.m_localizer["LOC_HELPLOC"] + "\"'>" + this.m_localizer["LOC_HELP"] + "</div>";
 
                 $("#scivi_node_alpha_slider").slider({
                     min: 0,
