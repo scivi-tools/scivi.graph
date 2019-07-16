@@ -226,7 +226,10 @@ namespace SciViCGraph
 
             Object.keys(this.m_states.data).forEach((dataKey) => {
                 const data = this.m_states.data[dataKey];
-                for (let i = 0, n = data.nodes.length; i < n; ++i) {
+                const n = data.nodes.length
+                const angleStep = 2.0 * Math.PI / n;
+
+                for (let i = 0; i < n; ++i) {
                     if (this.m_nodeWeight.min === undefined || this.m_nodeWeight.min > data.nodes[i].weight)
                         this.m_nodeWeight.min = data.nodes[i].weight;
                     if (this.m_nodeWeight.max === undefined || this.m_nodeWeight.max < data.nodes[i].weight)
@@ -236,7 +239,9 @@ namespace SciViCGraph
                         if (d > 0.0 && (this.m_nodeWeight.step === undefined || this.m_nodeWeight.step > d))
                             this.m_nodeWeight.step = d;
                     }
+                    data.nodes[i].rotation = i * angleStep;
                 }
+
                 for (let i = 0, n = data.edges.length; i < n; ++i) {
                     if (this.m_edgeWeight.min === undefined || this.m_edgeWeight.min > data.edges[i].weight)
                         this.m_edgeWeight.min = data.edges[i].weight;
@@ -841,6 +846,8 @@ namespace SciViCGraph
         private createNodes()
         {
             const angleStep = 2.0 * Math.PI / this.currentData().nodes.length;
+            const a1 = Math.PI / 2;
+            const a2 = 3 * a1;
 
             this.currentData().nodes.forEach((node: Node, i: number) => {
                 let x = this.m_radius * Math.cos(i * angleStep);
@@ -849,9 +856,9 @@ namespace SciViCGraph
                 this.m_stage.addChild(node);
 
                 node.position.set(x, y);
-                node.rotation = Math.atan2(-x, y) + Math.PI / 2;
+                node.rotation = i * angleStep;
 
-                if (node.rotation > Math.PI / 2) {
+                if (node.rotation > a1 && node.rotation < a2) {
                     node.scale.set(-0.5, -0.5);
                     node.setAnchor(1.0, 0.5, this.m_maxTextLength);
                     node.align = "right";
