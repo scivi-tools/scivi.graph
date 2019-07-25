@@ -46,7 +46,7 @@ namespace SciViCGraph
                 levels.push([]);
             levels[depth - 1].push(root);
             root["klasses"] = [];
-            if (root["klass"])
+            if (root["klass"] !== undefined)
                 root["klasses"].push(root["klass"]);
             if (!root["color"]) {
                 root["color"] = Color.hsv2rgb([levels[depth - 1].length % 2 ? (hueFrom + hueTo) / 2 : 360 - (hueFrom + hueTo) / 2,
