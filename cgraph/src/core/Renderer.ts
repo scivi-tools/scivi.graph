@@ -913,6 +913,7 @@ namespace SciViCGraph
         {
             if (this.m_applicableScaleLevelsCount === 0) {
                 this.m_ringScaleWithSegmentSelected = null;
+                this.m_ringScales = [];
                 return;
             }
 
