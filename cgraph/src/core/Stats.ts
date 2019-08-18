@@ -17,6 +17,11 @@ namespace SciViCGraph
         private m_nodes: Node[];
         private m_tooltip: HTMLElement;
         private m_list: HTMLElement;
+        private m_graphStat: HTMLElement;
+        private m_nodesCount: number;
+        private m_nodesWeight: number;
+        private m_edgesCount: number;
+        private m_edgesWeight: number;
         private m_clInput: any;
         private m_clWrapper: HTMLElement;
         private m_selectedGroupIndex: number;
@@ -44,6 +49,11 @@ namespace SciViCGraph
             this.m_nodes = null;
             this.m_tooltip = null;
             this.m_list = null;
+            this.m_graphStat = null;
+            this.m_nodesCount = 0;
+            this.m_nodesWeight = 0;
+            this.m_edgesCount = 0;
+            this.m_edgesWeight = 0;
             this.m_clInput = null;
             this.m_clWrapper = null;
             this.m_selectedGroupIndex = -1;
@@ -77,10 +87,12 @@ namespace SciViCGraph
             this.m_nodes = nodes;
             let result = [];
             this.m_nodes.forEach((node) => {
-                let n = node.groupID - result.length;
-                for (let i = n; i >= 0; --i)
-                    result.push(0);
-                result[node.groupID]++;
+                if (node.visible) {
+                    let n = node.groupID - result.length;
+                    for (let i = n; i >= 0; --i)
+                        result.push(0);
+                    result[node.groupID]++;
+                }
             });
             return result;
         }
@@ -160,7 +172,7 @@ namespace SciViCGraph
 
                 let list = "<ul>";
                 this.m_nodes.forEach((node) => {
-                    if (node.groupID === points[0]._index)
+                    if (node.visible && node.groupID === points[0]._index)
                         list += "<li>" + node.label + "</li>";
                 });
                 list += "</ul>";
@@ -212,11 +224,13 @@ namespace SciViCGraph
                 this.m_clInput.setColor(c, true);
             }
 
-            if (this.m_chart)
+            if (this.m_chart) {
+                this.clearSelection();
                 this.m_chart.update();
-            else {
+            } else {
                 let cvs = document.createElement("canvas");
                 let divChart = document.createElement("div");
+                this.m_graphStat = document.createElement("div");
                 this.m_list = document.createElement("div");
 
                 divChart.style.height = "300px";
@@ -227,6 +241,7 @@ namespace SciViCGraph
 
                 this.clearSelection();
 
+                this.m_stats.appendChild(this.m_graphStat);
                 this.m_stats.appendChild(divChart);
                 this.m_stats.appendChild(this.m_list);
                 
@@ -250,6 +265,30 @@ namespace SciViCGraph
 
                 this.m_chart = new Chart(ctx, config);
             }
+        }
+
+        private updateStats()
+        {
+            this.m_graphStat.innerHTML = this.m_svRenderer.localizer["LOC_GRAPHSTAT"] + " " +
+                                         this.m_svRenderer.localizer["LOC_NODES"] + " " + this.m_nodesCount +
+                                         " ( " + this.m_svRenderer.localizer["LOC_SUMWEIGHT"] + " " + this.m_nodesWeight + "); " +
+                                         this.m_svRenderer.localizer["LOC_EDGES"] + " " + this.m_edgesCount +
+                                         " ( " + this.m_svRenderer.localizer["LOC_SUMWEIGHT"] + " " + this.m_edgesWeight + ")";
+
+        }
+
+        public updateNodesStat(count: number, weight: number)
+        {
+            this.m_nodesCount = count;
+            this.m_nodesWeight = weight;
+            this.updateStats();
+        }
+
+        public updateEdgesStat(count: number, weight: number)
+        {
+            this.m_edgesCount = count;
+            this.m_edgesWeight = weight;
+            this.updateStats();
         }
     }
 }

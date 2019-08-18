@@ -289,8 +289,6 @@ namespace SciViCGraph
 
             if (this.m_nodesList)
                 this.m_nodesList.buildList(this.currentData().nodes, this);
-            if (this.m_statistics)
-                this.m_statistics.buildChart(this.currentData().nodes, this.m_stage.colors);
         }
 
         private init()
@@ -311,6 +309,9 @@ namespace SciViCGraph
             this.m_panPrevY = 0;
 
             this.createGraph(true);
+
+            this.filterNodes();
+            this.filterEdges();
 
             this.initInterface();
 
@@ -1152,6 +1153,8 @@ namespace SciViCGraph
         private filterEdges(): boolean
         {
             let result = false;
+            let cnt = 0;
+            let w = 0;
             const rmin = this.roundVal(this.m_edgeWeight.min, this.m_edgeWeight.step);
             const rmax = this.roundVal(this.m_edgeWeight.max, this.m_edgeWeight.step);
             this.currentData().edges.forEach((edge) => {
@@ -1164,13 +1167,21 @@ namespace SciViCGraph
                     if (edge.source === this.m_selectedNode || edge.target === this.m_selectedNode)
                         this.m_selectedNode.postInfo();
                 }
+                if (edge.visible) {
+                    ++cnt;
+                    w += edge.weight;
+                }
             });
+            if (this.m_statistics)
+                this.m_statistics.updateEdgesStat(cnt, w);
             return result;
         }
 
         private filterNodes(): boolean
         {
             let result = false;
+            let cnt = 0;
+            let w = 0;
             const rmin = this.roundVal(this.m_nodeWeight.min, this.m_nodeWeight.step);
             const rmax = this.roundVal(this.m_nodeWeight.max, this.m_nodeWeight.step);
             this.currentData().nodes.forEach((node) => {
@@ -1183,7 +1194,15 @@ namespace SciViCGraph
                     if (node === this.m_selectedNode)
                         this.m_clicked = true;
                 }
+                if (node.visible) {
+                    ++cnt;
+                    w += node.weight;
+                }
             });
+            if (this.m_statistics) {
+                this.m_statistics.buildChart(this.currentData().nodes, this.m_stage.colors);
+                this.m_statistics.updateNodesStat(cnt, w);
+            }
             return result;
         }
 

@@ -57,5 +57,7 @@ var g_loc_ru = {
     "LOC_TREE": "Дерево",
     "LOC_SAVE_GRAPH": "Экспорт графа",
     "LOC_HELP": "Справка",
-    "LOC_HELPLOC": "../css/help-ru.html"
+    "LOC_HELPLOC": "../css/help-ru.html",
+    "LOC_GRAPHSTAT": "Статистика по графу:",
+    "LOC_SUMWEIGHT": "∑ вес =",
 };

@@ -57,5 +57,7 @@ var g_loc_en = {
     "LOC_TREE": "Tree",
     "LOC_SAVE_GRAPH": "Export graph",
     "LOC_HELP": "Get Help",
-    "LOC_HELPLOC": "../css/help-en.html"
+    "LOC_HELPLOC": "../css/help-en.html",
+    "LOC_GRAPHSTAT": "Graph statistics:",
+    "LOC_SUMWEIGHT": "∑ weight =",
 };

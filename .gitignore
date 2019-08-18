@@ -1,3 +1,4 @@
 cgraph/build
 **/node_modules/**
 demo/*/lib
+demo/cgraph/game/
