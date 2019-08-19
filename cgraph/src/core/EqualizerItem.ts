@@ -7,6 +7,8 @@ namespace SciViCGraph
         private m_highlight: RingScaleSegment;
         private m_div: JQuery;
         private m_hash: string;
+        private m_nodeFilterSlider: FilterSlider;
+        private m_edgeFilterSlider: FilterSlider;
 
         constructor(private m_renderer: Renderer, segment: RingScaleSegment)
         {
@@ -78,6 +80,8 @@ namespace SciViCGraph
             this.m_hash = this.m_highlight.fromAngle.toString().replace(".", "-") + "_" +
                           this.m_highlight.toAngle.toString().replace(".", "-") + "_" +
                           this.m_highlight.radius.toString().replace(".", "-");
+            const nodeFilterSliderID = "scivi_node_treshold_" + this.m_hash;
+            const edgeFilterSliderID = "scivi_edge_treshold_" + this.m_hash;
             this.m_div = $("<div>", { id: "scivi_equalizer_item_" + this.m_hash });
             this.m_div.html("<div><div align='center'><div style='background-color: " +
                             color2string(this.m_highlight.color) +
@@ -86,39 +90,18 @@ namespace SciViCGraph
                             "; border-radius: 10px; margin-bottom: 10px; display: inline-block; width: 90%;'><b>" +
                             this.m_highlight.name +
                             "</b></div><div class='scivi_remove' id='scivi_equalizer_remove_" + this.m_hash + "'>X</div></div>" +
-
-                            "<div>" + this.m_renderer.localizer["LOC_NODES"] +
-                            ":&nbsp;<span id='scivi_node_treshold_" + this.m_hash + "'>" +
-                            this.m_renderer.roundValS(this.m_nodeWeight.min, this.m_nodeWeight.step) + " .. " +
-                            this.m_renderer.roundValS(this.m_nodeWeight.max, this.m_nodeWeight.step) +
-                            "</span></div>" +
-                            "<div id='scivi_node_treshold_slider_" + this.m_hash +
-                            "' style='margin: 10px 10px 10px 5px'></div>" +
-
-                            "<div>" + this.m_renderer.localizer["LOC_EDGES"] +
-                            ":&nbsp;<span id='scivi_edge_treshold_" + this.m_hash + "'>" +
-                            this.m_renderer.roundValS(this.m_edgeWeight.min, this.m_edgeWeight.step) + " .. " +
-                            this.m_renderer.roundValS(this.m_edgeWeight.max, this.m_edgeWeight.step) +
-                            "</span></div>" +
-                            "<div id='scivi_edge_treshold_slider_" + this.m_hash +
-                            "' style='margin: 10px 10px 10px 5px'></div><hr/><br/>");
+                            "<div id='" + nodeFilterSliderID + "'></div><div id='" + edgeFilterSliderID + "'></div>" +
+                            "<hr/><br/>");
             $("#scivi_equalizer").append(this.m_div);
-            $("#scivi_node_treshold_slider_" + this.m_hash).slider({
-                min: this.m_nodeWeight.min,
-                max: this.m_nodeWeight.max,
-                range: true,
-                values: [this.m_nodeWeight.min, this.m_nodeWeight.max],
-                step: this.m_nodeWeight.step,
-                slide: (event, ui) => { this.changeNodesTreshold(ui.values); }
-            });
-            $("#scivi_edge_treshold_slider_" + this.m_hash).slider({
-                min: this.m_edgeWeight.min,
-                max: this.m_edgeWeight.max,
-                range: true,
-                values: [this.m_edgeWeight.min, this.m_edgeWeight.max],
-                step: this.m_edgeWeight.step,
-                slide: (event, ui) => { this.changeEdgesTreshold(ui.values); }
-            });
+            this.m_nodeFilterSlider = new FilterSlider("#" + nodeFilterSliderID, this.m_renderer.localizer["LOC_NODES"],
+                                                       this.m_nodeWeight.min, this.m_nodeWeight.max,
+                                                       this.m_nodeWeight.min, this.m_nodeWeight.max,
+                                                       (fromVal: number, toVal: number) => { this.changeNodesTreshold(fromVal, toVal); });
+
+            this.m_edgeFilterSlider = new FilterSlider("#" + edgeFilterSliderID, this.m_renderer.localizer["LOC_EDGES"],
+                                                       this.m_edgeWeight.min, this.m_edgeWeight.max,
+                                                       this.m_edgeWeight.min, this.m_edgeWeight.max,
+                                                       (fromVal: number, toVal: number) => { this.changeEdgesTreshold(fromVal, toVal); });
             $("#scivi_equalizer_remove_" + this.m_hash).click(() => {
                 this.m_div.remove();
                 this.m_renderer.removeEqualizerItem(this);
@@ -128,23 +111,17 @@ namespace SciViCGraph
             $("#scivi_equalizer_item_" + this.m_hash)[0].scrollIntoView();
         }
 
-        private changeNodesTreshold(values: number[])
+        private changeNodesTreshold(fromVal: number, toVal: number)
         {
-             $("#scivi_node_treshold_" + this.m_hash).text(this.m_renderer.roundValS(values[0], this.m_edgeWeight.step) +
-                                                           " .. " +
-                                                           this.m_renderer.roundValS(values[1], this.m_edgeWeight.step));
-            this.m_nodeWeight.min = values[0];
-            this.m_nodeWeight.max = values[1];
+            this.m_nodeWeight.min = fromVal;
+            this.m_nodeWeight.max = toVal;
             this.m_renderer.equalizeNodes();
         }
 
-        private changeEdgesTreshold(values: number[])
+        private changeEdgesTreshold(fromVal: number, toVal: number)
         {
-            $("#scivi_edge_treshold_" + this.m_hash).text(this.m_renderer.roundValS(values[0], this.m_edgeWeight.step) +
-                                                          " .. " +
-                                                          this.m_renderer.roundValS(values[1], this.m_edgeWeight.step));
-            this.m_edgeWeight.min = values[0];
-            this.m_edgeWeight.max = values[1];
+            this.m_edgeWeight.min = fromVal;
+            this.m_edgeWeight.max = toVal;
             this.m_renderer.equalizeEdges();
         }
 

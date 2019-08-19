@@ -45,6 +45,11 @@ namespace SciViCGraph
             this.m_batch = batch;
         }
 
+        public setNeedsUpdate()
+        {
+            this.m_batch.setNeedsUpdate();
+        }
+
         set highlight(hl: HighlightType)
         {
             if (hl !== this.m_highlight) {

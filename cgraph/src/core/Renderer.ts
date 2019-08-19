@@ -91,6 +91,8 @@ namespace SciViCGraph
         private m_colorPicker: any;
         private m_modularityFilters: any[];
         private m_stateLineNav: StateLineNavigator;
+        private m_edgeFilterSlider: FilterSlider;
+        private m_nodeFilterSlider: FilterSlider;
 
         static readonly m_ringScaleWidth = 30;
         static readonly m_minFontSize = 5;
@@ -129,6 +131,8 @@ namespace SciViCGraph
             this.m_colorPicker = null;
             this.m_modularityFilters = [];
             this.m_stateLineNav = new StateLineNavigator(this, this.m_stateline);
+            this.m_edgeFilterSlider = null;
+            this.m_nodeFilterSlider = null;
 
             let tooltip = document.createElement("div");
             tooltip.className = "scivi_graph_tooltip";
@@ -486,38 +490,18 @@ namespace SciViCGraph
                 return;
 
             this.m_filters.innerHTML =
-                "<div>" + 
-                this.m_localizer["LOC_NODETHRESHOLD"] + 
-                "&nbsp;<span id='scivi_node_treshold'>" +
-                this.roundValS(this.m_nodeWeight.min, this.m_nodeWeight.step) + " .. " +
-                this.roundValS(this.m_nodeWeight.max, this.m_nodeWeight.step) + 
-                "</span>" +
-                "<div id='scivi_node_treshold_slider' style='margin: 10px 10px 10px 5px'></div></div>" +
-                "<div>" + 
-                this.m_localizer["LOC_EDGETHRESHOLD"] + 
-                "&nbsp;<span id='scivi_edge_treshold'>" +
-                this.roundValS(this.m_edgeWeight.min, this.m_edgeWeight.step) + " .. " + 
-                this.roundValS(this.m_edgeWeight.max, this.m_edgeWeight.step) + "</span>" +
-                "<div id='scivi_edge_treshold_slider' style='margin: 10px 10px 10px 5px'></div></div><hr/><br/>" +
+                "<div id='scivi_node_treshold'></div><div id='scivi_edge_treshold'></div><hr/><br/>" +
                 "<div id='scivi_equalizer'></div>";
 
-            $("#scivi_edge_treshold_slider").slider({
-                min: this.m_edgeWeight.min,
-                max: this.m_edgeWeight.max,
-                range: true,
-                values: [this.m_edgeWeight.min, this.m_edgeWeight.max],
-                step: this.m_edgeWeight.step,
-                slide: (event, ui) => { this.changeEdgeTreshold(ui.values); }
-            });
+            this.m_nodeFilterSlider = new FilterSlider("#scivi_node_treshold", this.m_localizer["LOC_NODETHRESHOLD"],
+                                                       this.m_nodeWeight.min, this.m_nodeWeight.max,
+                                                       this.m_nodeWeight.min, this.m_nodeWeight.max,
+                                                       (fromVal: number, toVal: number) => { this.changeNodeTreshold(fromVal, toVal); });
 
-            $("#scivi_node_treshold_slider").slider({
-                min: this.m_nodeWeight.min,
-                max: this.m_nodeWeight.max,
-                range: true,
-                values: [this.m_nodeWeight.min, this.m_nodeWeight.max],
-                step: this.m_nodeWeight.step,
-                slide: (event, ui) => { this.changeNodeTreshold(ui.values); }
-            });
+            this.m_edgeFilterSlider = new FilterSlider("#scivi_edge_treshold", this.m_localizer["LOC_EDGETHRESHOLD"],
+                                                       this.m_edgeWeight.min, this.m_edgeWeight.max,
+                                                       this.m_edgeWeight.min, this.m_edgeWeight.max,
+                                                       (fromVal: number, toVal: number) => { this.changeEdgeTreshold(fromVal, toVal); });
         }
 
         private initInterface()
@@ -1168,6 +1152,7 @@ namespace SciViCGraph
                         this.m_selectedNode.postInfo();
                 }
                 if (edge.visible) {
+                    edge.setNeedsUpdate(); // Thickness may have changed due to filtering => update needed.
                     ++cnt;
                     w += edge.weight;
                 }
@@ -1206,24 +1191,18 @@ namespace SciViCGraph
             return result;
         }
 
-        public changeEdgeTreshold(values: number[])
+        public changeEdgeTreshold(fromVal: number, toVal: number)
         {
-            $("#scivi_edge_treshold").text(this.roundValS(values[0], this.m_edgeWeight.step) +
-                                           " .. " +
-                                           this.roundValS(values[1], this.m_edgeWeight.step));
-            this.m_edgeWeight.min = values[0];
-            this.m_edgeWeight.max = values[1];
+            this.m_edgeWeight.min = fromVal;
+            this.m_edgeWeight.max = toVal;
             if (this.filterEdges())
                 this.render(true, true);
         }
 
-        public changeNodeTreshold(values: number[])
+        public changeNodeTreshold(fromVal: number, toVal: number)
         {
-            $("#scivi_node_treshold").text(this.roundValS(values[0], this.m_nodeWeight.step) +
-                                           " .. " +
-                                           this.roundValS(values[1], this.m_nodeWeight.step));
-            this.m_nodeWeight.min = values[0];
-            this.m_nodeWeight.max = values[1];
+            this.m_nodeWeight.min = fromVal;
+            this.m_nodeWeight.max = toVal;
             this.updateNodesVisibility();
         }
 
