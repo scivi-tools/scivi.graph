@@ -25,8 +25,8 @@ namespace SciViCGraph
 
         private calcWeights()
         {
-            this.m_nodeWeight = { min: undefined, max: undefined, step: undefined };
-            this.m_edgeWeight = { min: undefined, max: undefined, step: undefined };
+            this.m_nodeWeight = { min: undefined, max: undefined };
+            this.m_edgeWeight = { min: undefined, max: undefined };
 
             Object.keys(this.m_renderer.states.data).forEach((dataKey) => {
                 const data = this.m_renderer.states.data[dataKey];
@@ -36,11 +36,6 @@ namespace SciViCGraph
                             this.m_nodeWeight.min = data.nodes[i].weight;
                         if (this.m_nodeWeight.max === undefined || this.m_nodeWeight.max < data.nodes[i].weight)
                             this.m_nodeWeight.max = data.nodes[i].weight;
-                        for (let j = i + 1; j < n; ++j) {
-                            const d = Math.abs(data.nodes[i].weight - data.nodes[j].weight);
-                            if (d > 0.0 && (this.m_nodeWeight.step === undefined || this.m_nodeWeight.step > d))
-                                this.m_nodeWeight.step = d;
-                        }
                     }
                 }
                 for (let i = 0, n = data.edges.length; i < n; ++i) {
@@ -49,30 +44,19 @@ namespace SciViCGraph
                             this.m_edgeWeight.min = data.edges[i].weight;
                         if (this.m_edgeWeight.max === undefined || this.m_edgeWeight.max < data.edges[i].weight)
                             this.m_edgeWeight.max = data.edges[i].weight;
-                        for (let j = i + 1; j < n; ++j) {
-                            const d = Math.abs(data.edges[i].weight - data.edges[j].weight);
-                            if (d > 0.0 && (this.m_edgeWeight.step === undefined || this.m_edgeWeight.step > d))
-                                this.m_edgeWeight.step = d;
-                        }
                     }
                 }
             });
 
-            if (this.m_nodeWeight.min === undefined) {
+            if (this.m_nodeWeight.min === undefined)
                 this.m_nodeWeight.min = 0.0;
+            if (this.m_nodeWeight.max === undefined)
                 this.m_nodeWeight.max = 0.0;
-                this.m_nodeWeight.step = 0.0;
-            } else if (this.m_nodeWeight.step === undefined) {
-                this.m_nodeWeight.step = 0.0;
-            }
 
-            if (this.m_edgeWeight.min === undefined) {
+            if (this.m_edgeWeight.min === undefined)
                 this.m_edgeWeight.min = 0.0;
+            if (this.m_edgeWeight.max === undefined)
                 this.m_edgeWeight.max = 0.0;
-                this.m_edgeWeight.step = 0.0;
-            } else if (this.m_edgeWeight.step === undefined) {
-                this.m_edgeWeight.step = 0.0;
-            }
         }
 
         private addInterface()
@@ -137,16 +121,14 @@ namespace SciViCGraph
 
         public hidesNode(node: Node): boolean
         {
-            const th = this.m_nodeWeight.step / 2.0;
             return this.containsNode(node) &&
-                   (node.weight < this.m_nodeWeight.min - th || node.weight > this.m_nodeWeight.max + th);
+                   (node.weight < this.m_nodeWeight.min || node.weight > this.m_nodeWeight.max);
         }
 
         public hidesEdge(edge: Edge): boolean
         {
-            const th = this.m_edgeWeight.step / 2.0;
             return (this.containsNode(edge.source) || this.containsNode(edge.target)) &&
-                   (edge.weight < this.m_edgeWeight.min - th || edge.weight > this.m_edgeWeight.max + th);
+                   (edge.weight < this.m_edgeWeight.min || edge.weight > this.m_edgeWeight.max);
         }
     }
 }

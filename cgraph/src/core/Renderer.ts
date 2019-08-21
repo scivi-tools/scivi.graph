@@ -42,7 +42,7 @@ namespace SciViCGraph
         return result;
     }
 
-    export type Range = { min: number, max: number, step: number };
+    export type Range = { min: number, max: number };
 
     export class Renderer
     {
@@ -225,8 +225,8 @@ namespace SciViCGraph
 
         private calcWeights()
         {
-            this.m_nodeWeight = { min: undefined, max: undefined, step: undefined };
-            this.m_edgeWeight = { min: undefined, max: undefined, step: undefined };
+            this.m_nodeWeight = { min: undefined, max: undefined };
+            this.m_edgeWeight = { min: undefined, max: undefined };
 
             Object.keys(this.m_states.data).forEach((dataKey) => {
                 const data = this.m_states.data[dataKey];
@@ -238,11 +238,6 @@ namespace SciViCGraph
                         this.m_nodeWeight.min = data.nodes[i].weight;
                     if (this.m_nodeWeight.max === undefined || this.m_nodeWeight.max < data.nodes[i].weight)
                         this.m_nodeWeight.max = data.nodes[i].weight;
-                    for (let j = i + 1; j < n; ++j) {
-                        const d = Math.abs(data.nodes[i].weight - data.nodes[j].weight);
-                        if (d > 0.0 && (this.m_nodeWeight.step === undefined || this.m_nodeWeight.step > d))
-                            this.m_nodeWeight.step = d;
-                    }
                     data.nodes[i].rotation = i * angleStep;
                 }
 
@@ -251,11 +246,6 @@ namespace SciViCGraph
                         this.m_edgeWeight.min = data.edges[i].weight;
                     if (this.m_edgeWeight.max === undefined || this.m_edgeWeight.max < data.edges[i].weight)
                         this.m_edgeWeight.max = data.edges[i].weight;
-                    for (let j = i + 1; j < n; ++j) {
-                        const d = Math.abs(data.edges[i].weight - data.edges[j].weight);
-                        if (d > 0.0 && (this.m_edgeWeight.step === undefined || this.m_edgeWeight.step > d))
-                            this.m_edgeWeight.step = d;
-                    }
                 }
             });
 
@@ -263,15 +253,11 @@ namespace SciViCGraph
                 this.m_nodeWeight.min = 0.0;
             if (this.m_nodeWeight.max === undefined)
                 this.m_nodeWeight.max = 0.0;
-            if (this.m_nodeWeight.step === undefined)
-                this.m_nodeWeight.step = 0.0;
 
             if (this.m_edgeWeight.min === undefined)
                 this.m_edgeWeight.min = 0.0;
             if (this.m_edgeWeight.max === undefined)
                 this.m_edgeWeight.max = 0.0;
-            if (this.m_edgeWeight.step === undefined)
-                this.m_edgeWeight.step = 0.0;
         }
 
         private createStage()
@@ -466,22 +452,6 @@ namespace SciViCGraph
                 });
             }
             this.m_multiselectedNodes = [];
-        }
-
-        private roundVal(x: number, s: number): number
-        {
-            s = s - Math.floor(s);
-            if (s > 0.0) {
-                const f = Math.pow(10, -Math.round(Math.log(s) / Math.LN10));
-                return Math.round(x * f) / f;
-            } else {
-                return x;
-            }
-        }
-
-        public roundValS(x: number, s: number): string
-        {
-            return this.roundVal(x, s).toString();
         }
 
         private initFilters()
@@ -1139,10 +1109,10 @@ namespace SciViCGraph
             let result = false;
             let cnt = 0;
             let w = 0;
-            const rmin = this.roundVal(this.m_edgeWeight.min, this.m_edgeWeight.step);
-            const rmax = this.roundVal(this.m_edgeWeight.max, this.m_edgeWeight.step);
+            const rmin = this.m_edgeWeight.min;
+            const rmax = this.m_edgeWeight.max;
             this.currentData().edges.forEach((edge) => {
-                const rv = this.roundVal(edge.weight, this.m_edgeWeight.step);
+                const rv = edge.weight;
                 const vis = edge.source.visible && edge.target.visible && rv >= rmin && rv <= rmax &&
                             this.isEdgeVisibleByRingSegment(edge) && this.isEdgeVisibleByEqualizer(edge);
                 if (vis !== edge.visible) {
@@ -1167,10 +1137,10 @@ namespace SciViCGraph
             let result = false;
             let cnt = 0;
             let w = 0;
-            const rmin = this.roundVal(this.m_nodeWeight.min, this.m_nodeWeight.step);
-            const rmax = this.roundVal(this.m_nodeWeight.max, this.m_nodeWeight.step);
+            const rmin = this.m_nodeWeight.min;
+            const rmax = this.m_nodeWeight.max;
             this.currentData().nodes.forEach((node) => {
-                const rv = this.roundVal(node.weight, this.m_nodeWeight.step);
+                const rv = node.weight;
                 const vis = node.isShown && rv >= rmin && rv <= rmax &&
                             this.isNodeVisibleByEqualizer(node);
                 if (vis !== node.visible) {
