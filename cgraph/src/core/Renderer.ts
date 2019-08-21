@@ -93,6 +93,8 @@ namespace SciViCGraph
         private m_stateLineNav: StateLineNavigator;
         private m_edgeFilterSlider: FilterSlider;
         private m_nodeFilterSlider: FilterSlider;
+        private m_maxNumberOfNodes: number;
+        private m_maxNumberOfEdges: number;
 
         static readonly m_ringScaleWidth = 30;
         static readonly m_minFontSize = 5;
@@ -133,6 +135,8 @@ namespace SciViCGraph
             this.m_stateLineNav = new StateLineNavigator(this, this.m_stateline);
             this.m_edgeFilterSlider = null;
             this.m_nodeFilterSlider = null;
+            this.m_maxNumberOfNodes = 0;
+            this.m_maxNumberOfEdges = 0;
 
             let tooltip = document.createElement("div");
             tooltip.className = "scivi_graph_tooltip";
@@ -227,13 +231,21 @@ namespace SciViCGraph
         {
             this.m_nodeWeight = { min: undefined, max: undefined };
             this.m_edgeWeight = { min: undefined, max: undefined };
+            this.m_maxNumberOfNodes = 0;
+            this.m_maxNumberOfEdges = 0;
 
             Object.keys(this.m_states.data).forEach((dataKey) => {
                 const data = this.m_states.data[dataKey];
-                const n = data.nodes.length
-                const angleStep = 2.0 * Math.PI / n;
+                const nc = data.nodes.length;
+                const ec = data.edges.length;
+                const angleStep = 2.0 * Math.PI / nc;
 
-                for (let i = 0; i < n; ++i) {
+                if (nc > this.m_maxNumberOfNodes)
+                    this.m_maxNumberOfNodes = nc;
+                if (ec > this.m_maxNumberOfEdges)
+                    this.m_maxNumberOfEdges = ec;
+
+                for (let i = 0; i < nc; ++i) {
                     if (this.m_nodeWeight.min === undefined || this.m_nodeWeight.min > data.nodes[i].weight)
                         this.m_nodeWeight.min = data.nodes[i].weight;
                     if (this.m_nodeWeight.max === undefined || this.m_nodeWeight.max < data.nodes[i].weight)
@@ -241,7 +253,7 @@ namespace SciViCGraph
                     data.nodes[i].rotation = i * angleStep;
                 }
 
-                for (let i = 0, n = data.edges.length; i < n; ++i) {
+                for (let i = 0; i < ec; ++i) {
                     if (this.m_edgeWeight.min === undefined || this.m_edgeWeight.min > data.edges[i].weight)
                         this.m_edgeWeight.min = data.edges[i].weight;
                     if (this.m_edgeWeight.max === undefined || this.m_edgeWeight.max < data.edges[i].weight)
@@ -466,11 +478,13 @@ namespace SciViCGraph
             this.m_nodeFilterSlider = new FilterSlider("#scivi_node_treshold", this.m_localizer["LOC_NODETHRESHOLD"],
                                                        this.m_nodeWeight.min, this.m_nodeWeight.max,
                                                        this.m_nodeWeight.min, this.m_nodeWeight.max,
+                                                       this.m_maxNumberOfNodes * 2, // Heuristics
                                                        (fromVal: number, toVal: number) => { this.changeNodeTreshold(fromVal, toVal); });
 
             this.m_edgeFilterSlider = new FilterSlider("#scivi_edge_treshold", this.m_localizer["LOC_EDGETHRESHOLD"],
                                                        this.m_edgeWeight.min, this.m_edgeWeight.max,
                                                        this.m_edgeWeight.min, this.m_edgeWeight.max,
+                                                       this.m_maxNumberOfEdges * 2, // Heuristics
                                                        (fromVal: number, toVal: number) => { this.changeEdgeTreshold(fromVal, toVal); });
         }
 
@@ -1662,6 +1676,16 @@ namespace SciViCGraph
             element.click();
 
             document.body.removeChild(element);
+        }
+
+        get maxNumberOfNodes(): number
+        {
+            return this.m_maxNumberOfNodes;
+        }
+
+        get maxNumberOfEdges(): number
+        {
+            return this.m_maxNumberOfEdges;
         }
 
         public saveGraph()

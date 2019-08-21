@@ -80,11 +80,13 @@ namespace SciViCGraph
             this.m_nodeFilterSlider = new FilterSlider("#" + nodeFilterSliderID, this.m_renderer.localizer["LOC_NODES"],
                                                        this.m_nodeWeight.min, this.m_nodeWeight.max,
                                                        this.m_nodeWeight.min, this.m_nodeWeight.max,
+                                                       this.m_renderer.maxNumberOfNodes * 2, // Heurisrics
                                                        (fromVal: number, toVal: number) => { this.changeNodesTreshold(fromVal, toVal); });
 
             this.m_edgeFilterSlider = new FilterSlider("#" + edgeFilterSliderID, this.m_renderer.localizer["LOC_EDGES"],
                                                        this.m_edgeWeight.min, this.m_edgeWeight.max,
                                                        this.m_edgeWeight.min, this.m_edgeWeight.max,
+                                                       this.m_renderer.maxNumberOfEdges * 2, // Heurisrics
                                                        (fromVal: number, toVal: number) => { this.changeEdgesTreshold(fromVal, toVal); });
             $("#scivi_equalizer_remove_" + this.m_hash).click(() => {
                 this.m_div.remove();

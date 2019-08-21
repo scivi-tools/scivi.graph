@@ -4,6 +4,7 @@ namespace SciViCGraph
     {
         constructor(divID: string, label: string,
                     minVal: number, maxVal: number, curFromVal: number, curToVal: number,
+                    numberOfTicks: number,
                     cb: (fromVal: number, toVal: number) => void)
         {
             const fromFieldID = divID + "_from";
@@ -30,12 +31,15 @@ namespace SciViCGraph
             const sliderID = divID + "_slider";
             const sliderDiv = $("<div>").css("margin", "10px 10px 10px 5px");
 
+            if (numberOfTicks <= 0)
+                numberOfTicks = 1;
+
             sliderDiv.slider({
                 min: minVal,
                 max: maxVal,
                 range: true,
                 values: [curFromVal, curToVal],
-                step: Math.abs(maxVal - minVal) / 100.0,
+                step: Math.abs(maxVal - minVal) / numberOfTicks,
                 slide: (event, ui) => {
                     if (ui.value === ui.values[0]) {
                         curFromVal = ui.values[0];
