@@ -49,29 +49,31 @@ namespace SciViCGraph
             });
 
             fromField.change(() => {
-                curFromVal = parseFloat(fromField.val());
-                if (isNaN(curFromVal)) {
-                    curFromVal = minVal;
-                    fromField.val(curFromVal);
+                let fv = parseFloat(fromField.val());
+                if (isNaN(fv)) {
+                    fv = curFromVal;
+                    fromField.val(fv);
                 }
-                if (curFromVal > curToVal) {
-                    curFromVal = minVal;
-                    fromField.val(curFromVal);
+                if (fv > curToVal) {
+                    fv = curFromVal;
+                    fromField.val(fv);
                 }
+                curFromVal = fv;
                 sliderDiv.slider("values", 0, curFromVal);
                 cb(curFromVal, curToVal);
             });
 
             toField.change(() => {
-                curToVal = parseFloat(toField.val());
-                if (isNaN(curToVal)) {
-                    curToVal = maxVal;
-                    toField.val(curToVal);
+                let tv = parseFloat(toField.val());
+                if (isNaN(tv)) {
+                    tv = curToVal;
+                    toField.val(tv);
                 }
-                if (curFromVal > curToVal) {
-                    curToVal = maxVal;
-                    toField.val(curToVal);
+                if (curFromVal > tv) {
+                    tv = curToVal;
+                    toField.val(tv);
                 }
+                curToVal = tv;
                 sliderDiv.slider("values", 1, curToVal);
                 cb(curFromVal, curToVal);
             });
