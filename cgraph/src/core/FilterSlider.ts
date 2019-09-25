@@ -34,12 +34,16 @@ namespace SciViCGraph
             if (numberOfTicks <= 0)
                 numberOfTicks = 1;
 
+            let step = Math.abs(maxVal - minVal) / numberOfTicks;
+            if (step === 0)
+                step = 1;
+
             sliderDiv.slider({
                 min: minVal,
                 max: maxVal,
                 range: true,
                 values: [curFromVal, curToVal],
-                step: Math.abs(maxVal - minVal) / numberOfTicks,
+                step: step,
                 slide: (event, ui) => {
                     if (ui.value === ui.values[0]) {
                         curFromVal = ui.values[0];

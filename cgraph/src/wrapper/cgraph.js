@@ -55,10 +55,13 @@ CGraph.prototype.createClassifier = function (tree, getKlass)
     return new SciViCGraph.Classifier(tree, getKlass);
 }
 
-CGraph.prototype.run = function (loc, data, scales, colors, title, info, classifier)
+CGraph.prototype.run = function (loc, data, scales, colors, title, info, classifier, container)
 {
+    container = container || "body";
+
     var splitGraph = $("<div>");
     var split1G, splitS, stateLine;
+    var graphContainer = $(container);
 
     splitGraph.attr("id", "scivi_cgraph_a");
     splitGraph.attr("class", "split split-horizontal");
@@ -111,8 +114,8 @@ CGraph.prototype.run = function (loc, data, scales, colors, title, info, classif
     splitInfo.attr("id", "scivi_cgraph_b");
     splitInfo.attr("class", "split split-horizontal");
 
-    $("body").prepend(splitInfo);
-    $("body").prepend(splitGraph);
+    graphContainer.prepend(splitInfo);
+    graphContainer.prepend(splitGraph);
 
     var renderer = new SciViCGraph.Renderer($("#scivi_cgraph_view")[0], $("#scivi_cgraph_info")[0],
                                             $("#scivi_cgraph_list")[0], $("#scivi_cgraph_settings")[0],
