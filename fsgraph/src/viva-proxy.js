@@ -6,8 +6,9 @@
  * системой модулей ES6, а точнее - для обеспечения работы IS в VSCode
  */
 
-import fa2f from './VivaMod/Layout/forceForceAtlas2';
-import fa2 from './VivaMod/Layout/forceAtlas2';
+import fa2 from './VivaMod/Layout/forceForceAtlas2';
+import cl from './VivaMod/Layout/CircleLayout'
+//import fa2 from './VivaMod/Layout/forceAtlas2';
 
 export default {
   Utils: {
@@ -26,7 +27,8 @@ export default {
     forceDirected: require('ngraph.forcelayout'),
     // @ts-ignore
     constant: require('vivagraphjs/src/Layout/constant.js'),
-    forceAtlas2: fa2,
-    forceAtlas2f: fa2f
+    //forceAtlas2: fa2,
+    forceAtlas2f: fa2,
+    CircleLayout: cl
   }
 };
