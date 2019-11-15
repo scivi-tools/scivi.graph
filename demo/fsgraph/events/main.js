@@ -15,15 +15,18 @@ var g_colors = [
 var FSGraph = SciViFSGraph.main;
 
 function main() {
-    var usedLayout = FSGraph.getParameterByName("layout") || "forceAtlas2f";
+    
     var lang = SciViFSGraph.main.getParameterByName("lang") || "ru";
     document.documentElement.lang = lang;
     FSGraph.getOrCreateTranslatorInstance(lang).extend(g_fsgraph_loc);
 
-    var controller = FSGraph.GraphController.fromJson(g_data, usedLayout);
-    var renderer = new FSGraph.VivaWebGLRenderer(document.body);
+	var renderer = new FSGraph.VivaWebGLRenderer(document.body);
+	var usedLayout = FSGraph.getParameterByName("layout") || "CircleLayout";
+    var controller = FSGraph.GraphController.fromJson(g_data);
+    
         
-    renderer.graphController = controller;
+    //укладка строится уже на этапе подключения графа к процессу рендеринга
+    renderer.setGraphController(controller, usedLayout);
     renderer.viewRules = renderer.buildDefaultView(g_colors, ['circle', 'romb']);
     renderer.run(1000);
 }
