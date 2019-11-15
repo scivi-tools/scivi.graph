@@ -9,10 +9,9 @@ import { AllMetrics } from './GraphMetrics';
 export class GraphController {
     /**
      * 
-     * @param {number} statesCount 
-     * @param {string} layoutName 
+     * @param {number} statesCount
      */
-    constructor(statesCount, layoutName) {
+    constructor(statesCount) {
         /** @type {GraphState[]} */
         this.states = [];
         this.states.length = statesCount;
@@ -24,10 +23,11 @@ export class GraphController {
         this.monitoredValues = ['weight'];
         this._metrics = new DummyMetrics(this.monitoredValues);
         this._edgeMetrics = new DummyMetrics(this.monitoredValues);
-        
-        this.layoutBuilder = LayoutBuilder.buildLayout(layoutName, this._graph);
-        /** @type {Ngraph.Generic.Layout} */
-        this._layoutInstance = this.layoutBuilder.layout;
+
+
+        //** @type {Ngraph.Generic.Layout} */
+        this.layoutInstance = null;
+        //this._layoutBuilder = null;
 
         /** @type {Function} */
         this._onStateUpdated = null;
@@ -83,11 +83,6 @@ export class GraphController {
         return this._currentStateId;
     }
 
-    /** @returns {Ngraph.Generic.Layout} */
-    get layoutInstance() {
-        return this._layoutInstance;
-    }
-
     /** @returns {DummyMetrics} */
     get metrics() {
         return this._metrics;
@@ -117,7 +112,7 @@ export class GraphController {
      * @param {number} value
      */
     setCurrentStateIdEx(value) {
-        if (value != this._currentStateId) {
+        if (value !== this._currentStateId) {
             /** @type {Object.<string, number[]>[]?} */
             let prevFilterValues = null;
             // Сохраняем всевозможную инфу в предыдущем состоянии (те же позиции вершин)
@@ -135,31 +130,30 @@ export class GraphController {
 
     /**
      * 
-     * @param {Object} json 
-     * @param {string} layoutName 
+     * @param {Object} json
      */
-    static fromJson(json, layoutName) {
-        let controller = new GraphController(1, layoutName);
-
+    static fromJson(json) {
+        let controller = new GraphController(1);
         controller.parseJsonState(json);
         controller._currentStateId = -1;
+        //controller.layoutBuilder = LayoutBuilder.buildLayout(layoutName, controller.graph);
         return controller;
     }
 
     /**
      * 
-     * @param {Object} json 
-     * @param {string} layoutName 
+     * @param {Object} json
      */
-    static fromStatedJson(json, layoutName) {
+    static fromStatedJson(json) {
         /** @type {Object[]} */
         let states = json["states"];
-        let controller = new GraphController(states.length, layoutName);
+        let controller = new GraphController(states.length);
 
         for (let state of states) {
             controller.parseJsonState(state);
         }
         controller._currentStateId = -1;
+        //controller.layoutBuilder = LayoutBuilder.buildLayout(layoutName, controller.graph);
         return controller;
     }
 }
