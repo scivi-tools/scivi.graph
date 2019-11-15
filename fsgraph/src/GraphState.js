@@ -77,8 +77,9 @@ export class GraphState {
 
         this._controller.graph.beginUpdate();
         let graphNode = this._controller.graph.addNode(node.id, node);
-        graphNode['position'] = node.position;
-        graphNode['size'] = 42;
+        graphNode.position = {x: node.position.x, y: node.position.y};
+        //TODO: Make a size of node configurable
+        graphNode['size'] = 20;
         this._controller.graph.endUpdate();
     };
 
