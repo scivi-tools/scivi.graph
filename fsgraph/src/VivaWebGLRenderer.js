@@ -3,6 +3,7 @@ import Viva from './viva-proxy';
 import { GraphController } from './GraphController';
 import { VivaWebGLSimpleBackend } from './VivaWebGLSimpleBackend';
 import { VivaStateView } from './VivaStateView';
+import { LayoutBuilder } from './LayoutBuilder';
 import { WebGLDnDManager, DnDHandler } from './VivaMod/webglInputManager';
 import * as $ from 'jquery';
 import 'jquery-ui/ui/widget';
@@ -49,6 +50,8 @@ export class VivaWebGLRenderer {
 
         /** @type {Ngraph.Graph.Graph} */
         this._graphBackend = null;
+        /** @type {LayoutBuilder} */
+        this._layoutBuilder = null;
         /** @type {Ngraph.Generic.Layout} */
         this._layoutBackend = null;
         /** @type {GraphController} */
@@ -117,14 +120,6 @@ export class VivaWebGLRenderer {
     }
 
     /**
-     * @param {Ngraph.Generic.Layout} value
-     */
-    set layoutBackend(value) {
-        this._layoutBackend = value;
-        // TODO: обработка событий и всё такое?
-    }
-
-    /**
      * @param {VivaStateView} value
      */
     set viewRules(value) {
@@ -153,22 +148,28 @@ export class VivaWebGLRenderer {
         });
     }
 
+    //назначить новый граф контроллер и указать какую укладку использовать
     /**
      * @param {GraphController} value
+     * @param {string} layoutName
      */
-    set graphController(value) {
+    setGraphController(value, layoutName) {
         if (!!this._graphController) {
             throw new Error('Changin controller on the fly not supported!');
         }
         this._graphController = value;
         this._graphController.onStateUpdatedCallback = this.rerender.bind(this);
-        this.layoutBackend = value.layoutInstance;
+        //this.layoutBackend = value.layoutInstance;
         this.graphBackend = value.graph;
 
+        //выбираем начальное состояние
         this.currentStateId = 0;
-
-        value.layoutBuilder.buildUI();
-        value.layoutBuilder.onSetiingChangedCallback = this.kick.bind(this);
+        //и создаем укладку
+        this._layoutBuilder = LayoutBuilder.buildLayout(layoutName, this._graphBackend);
+        this._layoutBackend = this._layoutBuilder.layout;
+        this._graphController.layoutInstance = this._layoutBackend;
+        this._layoutBuilder.buildUI();
+        this._layoutBuilder.onSetiingChangedCallback = this.kick.bind(this);
         this._buildTimeline();
         this._buildMetricsUI();
     }
@@ -366,7 +367,7 @@ export class VivaWebGLRenderer {
         dialog.dialog({
             modal: true,
             buttons: buttonsDescr
-        })
+        });
         /**
          * 
          * @param {number} it 
