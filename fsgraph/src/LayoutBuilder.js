@@ -3,6 +3,7 @@ import merge from 'ngraph.merge'
 import { getOrCreateTranslatorInstance } from '@scivi/utils'
 import * as $ from 'jquery'
 import 'jquery-ui/ui/widgets/slider'
+import {GraphController} from "./GraphController";
 
 //Создает радио кнопку как элемент списка span с текстом
 function createRadioElement(id, name, checked, label) {
@@ -124,7 +125,7 @@ export class LayoutBuilder {
     /**
      * 
      * @param {string} name 
-     * @param {Ngraph.Graph.Graph} graph 
+     * @param {GraphController} graph
      */
     static buildLayout(name, graph) {
         /** @type {function(any, Object.<string, any>): Ngraph.Generic.Layout} */
@@ -141,9 +142,8 @@ export class LayoutBuilder {
             // TODO: use Object.assign instead
             merge(settings, defaultSettings);
         }
-
-        let layout = new LayoutBuilder(name, result(graph, settings), settings);
-        return layout;
+        settings['graphState'] = graph.currentState;
+        return new LayoutBuilder(name, result(graph.graph, settings), settings);
     }
 }
 
@@ -165,6 +165,7 @@ const _NumRanges = {
 
 const _DefaultSettings = {
     'forceAtlas2': {
+        'graphState' : null,
         'barnesHutOptimize': false,
         'linLogMode': true,
         'outboundAttractionDistribution': true,
@@ -173,6 +174,7 @@ const _DefaultSettings = {
         'edgeWeightInfluence': 1
     },
     'forceAtlas2f': {
+        'graphState' : null,
         'springLength': 25,
         'springCoeff': 0.0006,
         'edgeWeightInfluence': 1,
@@ -181,8 +183,13 @@ const _DefaultSettings = {
         }
     },
     'forceDirected': {
+        'graphState' : null,
         springTransform: (link, spring) => {
             spring.weight = link.data.weight;
         }
+    },
+    'CircleLayout':{
+        'graphState' : null,
+        'maxRadius' : 1500,
     }
 };
