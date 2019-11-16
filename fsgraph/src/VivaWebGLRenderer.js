@@ -148,7 +148,6 @@ export class VivaWebGLRenderer {
         });
     }
 
-    //назначить новый граф контроллер и указать какую укладку использовать
     /**
      * @param {GraphController} value
      * @param {string} layoutName
@@ -162,10 +161,8 @@ export class VivaWebGLRenderer {
         //this.layoutBackend = value.layoutInstance;
         this.graphBackend = value.graph;
 
-        //выбираем начальное состояние
         this.currentStateId = 0;
-        //и создаем укладку
-        this._layoutBuilder = LayoutBuilder.buildLayout(layoutName, this._graphBackend);
+        this._layoutBuilder = LayoutBuilder.buildLayout(layoutName, this._graphController);
         this._layoutBackend = this._layoutBuilder.layout;
         this._graphController.layoutInstance = this._layoutBackend;
         this._layoutBuilder.buildUI();
