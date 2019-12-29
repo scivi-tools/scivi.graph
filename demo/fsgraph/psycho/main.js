@@ -21,10 +21,9 @@ function main() {
 
 	var renderer = new FSGraph.VivaWebGLRenderer(document.body);
     var usedLayout = FSGraph.getParameterByName("layout") || "CircleLayout";
-    //теперь графовое состояние не зависит от укладки
     var controller = FSGraph.GraphController.fromStatedJson(g_data);
     
-    //укладка строится уже на этапе подключения графа к процессу рендеринга
+        
     renderer.setGraphController(controller, usedLayout);
     renderer.viewRules = renderer.buildDefaultView(g_colors, ['circle', 'romb']);
     renderer.run(1000);

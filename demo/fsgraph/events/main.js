@@ -9,23 +9,21 @@ var g_colors = [
     // node1
     0xFFBA60FF, 0xFF6F00FF,
     // node2
-    0xD5EAFFFF, 0x004282FF
+    0xD533ff00, 0x0033ff00
 ];
 
 var FSGraph = SciViFSGraph.main;
 
 function main() {
-    
     var lang = SciViFSGraph.main.getParameterByName("lang") || "ru";
     document.documentElement.lang = lang;
     FSGraph.getOrCreateTranslatorInstance(lang).extend(g_fsgraph_loc);
 
 	var renderer = new FSGraph.VivaWebGLRenderer(document.body);
-	var usedLayout = FSGraph.getParameterByName("layout") || "CircleLayout";
+	var usedLayout = FSGraph.getParameterByName("layout") || "HierarchicalLayout";
     var controller = FSGraph.GraphController.fromJson(g_data);
     
         
-    //укладка строится уже на этапе подключения графа к процессу рендеринга
     renderer.setGraphController(controller, usedLayout);
     renderer.viewRules = renderer.buildDefaultView(g_colors, ['circle', 'romb']);
     renderer.run(1000);

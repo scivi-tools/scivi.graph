@@ -9,7 +9,7 @@ import { VivaImageNodeUI } from './VivaImageNodeUI';
 import { VivaLinkUI } from './VivaLinkUI';
 import { newLinkProgram } from './VivaMod/newLinkProgram';
 import { VivaWideLinkRenderer } from './VivaMod/VivaWideLinkRenderer';
-import { VivaLineLinkRenderer } from './VivaMod/VivaLineLinkRenderer';
+//import { VivaLineLinkRenderer } from './VivaMod/VivaLineLinkRenderer';
 import { newNodeProgram } from './VivaMod/newNodeProgram';
 import { webglGraphics } from './VivaMod/webglGraphics';
 import { webglInputEvents } from './VivaMod/webglInputEvents';
