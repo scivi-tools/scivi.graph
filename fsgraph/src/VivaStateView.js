@@ -40,13 +40,9 @@ export class VivaStateView {
 
         // TODO: clon array right way
         /** @type {number[]} */
-        this._nodeSizeDiap = [];
-        this._nodeSizeDiap[0] = _DefNodeSizeDiap[0];
-        this._nodeSizeDiap[1] = _DefNodeSizeDiap[1];
+        this._nodeSizeDiap = _DefNodeSizeDiap.slice();
         /** @type {number[]} */
-        this._edgeSizeDiap = [];
-        this._edgeSizeDiap[0] = _DefEdgeSizeDiap[0];
-        this._edgeSizeDiap[1] = _DefEdgeSizeDiap[1];
+        this._edgeSizeDiap = _DefEdgeSizeDiap.slice();
 
         this._colorPairs = colorPairs;
         /** Node, then edge */
@@ -305,16 +301,17 @@ let lastNodeClicked = null;
  * @param {boolean} toggled 
  */
 function toggleRelatedWords(graph, renderer, nodeUI, toggled) {
+    //выделяем текущую вершину
     nodeUI.selected = toggled;
     let realNode = nodeUI._realNode;
     // TODO: nodUI.selected, not node.selected!
     graph.forEachLinkedNode(realNode.id, (node, link) => {
         let nodeUI = renderer.graphics.getNodeUI(node.id);
         let linkUI = renderer.graphics.getLinkUI(link.id);
-        if (node.data.groupId !== 0) {
-            nodeUI.showLabel = toggled;
-            nodeUI.selected = toggled;
-        }
+        //if (node.data.groupId !== 0) {
+        nodeUI.showLabel = toggled;
+        nodeUI.selected = toggled;
+        //}
         linkUI.selected = toggled;
         if (toggled) {
             renderer.graphics.bringLinkToFront(linkUI);
@@ -334,12 +331,14 @@ function toggleRelatedWords(graph, renderer, nodeUI, toggled) {
 function selectNodeByGroup(graph, renderer, nodeUI, toggled) {
     /** @type {Node} */
     let realNode = nodeUI.node.data;
-    if (realNode.groupId === 0) {   
+    /*if (realNode.groupId === 0) {
         toggleRelatedWords(graph, renderer, nodeUI, toggled);
     } else {
         nodeUI.showLabel = toggled;
         nodeUI.selected = toggled;
-    }
+    }*/
+    //выделяем связанные вершины
+    toggleRelatedWords(graph, renderer, nodeUI, toggled);
 }
 
 /**
@@ -349,15 +348,18 @@ function selectNodeByGroup(graph, renderer, nodeUI, toggled) {
  * @param {VivaWebGLRenderer} renderer
  */
 function selectNode2G(nodeUI, graph, renderer) {
+    //если мы нажали на вершину
     if (nodeUI != null) {
         nodeUI.buildDetailedInfo();
-        
+        //если раньше было что-то выделено, то очищаем выделение
         if (lastNodeClicked) {
             selectNodeByGroup(graph, renderer, lastNodeClicked, false);
         }
+        //выделяем снова
         selectNodeByGroup(graph, renderer, nodeUI, true);
         lastNodeClicked = nodeUI;
     } else {
+        //если раньше что-то было выделено, то убираем выделение
         if (lastNodeClicked) {
             selectNodeByGroup(graph, renderer, lastNodeClicked, false);
             lastNodeClicked.detailedInfoHTML.innerHTML = '';

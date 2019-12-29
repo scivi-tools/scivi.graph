@@ -11,7 +11,7 @@ import * as $ from 'jquery';
  */
 export class VivaImageNodeUI extends VivaBaseUI {
     /**
-     * @param {*} graphics webglGraphics
+     * @param {VivaGeneric.WebGlGraphics} graphics
      * @param {Ngraph.Graph.Node} node
      * @param {HTMLSpanElement} titleSpan 
      */
@@ -79,7 +79,7 @@ export class VivaImageNodeUI extends VivaBaseUI {
      */
     set showLabel(value) {
         this._showLabel = value;
-        if (value == this._span.hidden) {
+        if (value === this._span.hidden) {
             this._span.hidden = !value;
         }
     }
@@ -91,6 +91,16 @@ export class VivaImageNodeUI extends VivaBaseUI {
     }
 
     onRender() {
+        //Определяем удаленность вершины от экрана
+        //const transform =
+        //const scale =
+        //TODO: make it variable and configurable
+        //** @type Node */
+        //const GraphStateNode = this._node.data;
+        //const GraphPositionCoefficient =
+        //var ShowBorder = ShowBorderCoefficient / GraphStateNode.weight_norm;
+
+        this.showLabel = this.selected;
         if (this._showLabel) {
             // HACK: вах какой костыль!
             if (this._span.hidden === this._showLabel) {
@@ -107,6 +117,10 @@ export class VivaImageNodeUI extends VivaBaseUI {
             this._span.style.top = `${domPos.y - this._spanHeight}px`;
             this._span.style.opacity = this.selected ? '1' : this._spanOpacity;
         }
+    }
+
+    onSelectedChanged() {
+        super.onSelectedChanged();
     }
 
     buildDetailedInfo() {

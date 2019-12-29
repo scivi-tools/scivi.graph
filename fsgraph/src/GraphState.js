@@ -56,15 +56,24 @@ export class GraphState {
     };
 
     addEdge(fromId, toId, data) {
-        const newEdge = new Edge(this, fromId, toId, data);
-        this.edges.push(newEdge);
+        if (!this.nodes[toId].edges.some((edge) => edge.toId === fromId)) {
+            const newEdge = new Edge(this, fromId, toId, data);
+            this.edges.push(newEdge);
 
-        this.nodes[fromId].addEdge(newEdge);
-        this.nodes[toId].addEdge(newEdge);
-        // TODO: count some metrics here
-        // @ts-ignore
-        this._edgeMetrics.accumulate(newEdge);
+            this.nodes[fromId].addEdge(newEdge);
+            this.nodes[toId].addEdge(newEdge);
+            // TODO: count some metrics here
+            // @ts-ignore
+            this._edgeMetrics.accumulate(newEdge);
+        }
     };
+
+    calcWeightNorms(){
+        for(var node of this.nodes)
+            if (node !== undefined) {
+                node.weight_norm = (node.weight - this._metrics.minWeight + 1) / (this._metrics.maxWeight - this._metrics.minWeight + 1);
+            }
+    }
 
     /**
      * 
@@ -78,8 +87,7 @@ export class GraphState {
         this._controller.graph.beginUpdate();
         let graphNode = this._controller.graph.addNode(node.id, node);
         graphNode.position = {x: node.position.x, y: node.position.y};
-        //TODO: Make a size of node configurable
-        graphNode['size'] = 20;
+        graphNode['size'] = node.weight;
         this._controller.graph.endUpdate();
     };
 
