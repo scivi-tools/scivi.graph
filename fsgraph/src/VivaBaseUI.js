@@ -10,7 +10,7 @@ export class VivaBaseUI {
         this._id = id;
         this.size = size;
         this.color = color;
-        this.selected = false;
+        this._selected = false;
     };
 
     get id() {
@@ -19,6 +19,18 @@ export class VivaBaseUI {
 
     set id(value) {
         this._id = value;
+    }
+
+    get selected(){return this._selected;}
+    set selected(value)
+    {
+        this._selected = value;
+        this.onSelectedChanged();
+    }
+
+    onSelectedChanged()
+    {
+
     }
 
     onPlaceUI() {
