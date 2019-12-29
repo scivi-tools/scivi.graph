@@ -25,7 +25,8 @@ export class Node {
         this.groupId = groupId;
         /** @type {number} */
         this.weight = DH.getValueDef(data, 'weight', 'number', 1);
-        
+        /** @type {Number} */
+        this.weight_norm = 0.0;
         this.position = new Point2D(Math.random() * 1500 - 750, Math.random() * 1500 - 750);
 
         /** @type {Edge[]} */

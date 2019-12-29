@@ -6,15 +6,15 @@ import { Point2D } from './Point2D';
  */
 export class VivaLinkUI extends VivaBaseUI {
     /**
-     * 
-     * @param {*} graphics 
-     * @param {Ngraph.Graph.Link} edge 
+     *
+     * @param {*} graphics
+     * @param {Ngraph.Graph.Link} edge
      */
     constructor(graphics, edge) {
         super(edge.id);
-
+        //связь
         this.link = edge;
-
+        //координаты начала и конца
         /** @type {Ngraph.Graph.Position2} */
         this.pos = {
             from: new Point2D(),

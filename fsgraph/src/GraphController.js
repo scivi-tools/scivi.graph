@@ -62,7 +62,7 @@ export class GraphController {
         // TODO: тут тоже геттеры нужны
         this._metrics.accumulateMetric(cs._metrics);
         this._edgeMetrics.accumulateMetric(cs._edgeMetrics);
-
+        cs.calcWeightNorms();
         this._currentStateId++;
     }
 
