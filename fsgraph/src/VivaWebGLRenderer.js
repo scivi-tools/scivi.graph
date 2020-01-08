@@ -888,7 +888,6 @@ export class VivaWebGLRenderer {
                                         if (!!layoutBuilder._onSettingUpdatedCallback) {
                                             layoutBuilder._onSettingUpdatedCallback();
                                         }
-                                        //else layoutBuilder.applyLayout(renderer._graphController.currentState, layoutBuilder.name);
                                     };
                                     innerC.appendChild(cb);
                                     break;

@@ -54,6 +54,8 @@ export class LayoutBuilder {
     {
         if(this.layout !== null)
             this.layout.dispose();
+        if (this.name !== name)
+            this.settings = null;
         this.layout = null;
 
         let layout = Viva.Layout[name];
@@ -110,7 +112,7 @@ export class LayoutBuilder {
     }*/
 }
 
-export const _ConstantLayouts = ['CircleLayout', 'PlanarianLayout'];
+export const _ConstantLayouts = ['CircleLayout', 'HierarchicalLayout'];
 export const _ForceLayouts = ['forceDirected', 'forceAtlas2', 'forceAtlas2f', 'FruchtermanReingold', 'KamadaKawai'];
 
 export const _NumRanges = {
@@ -234,28 +236,6 @@ export const _DefaultSettings = {
             spring.weight = link.data.weight;
         }
     },
-
-    'PlanetarianLayout': {
-            //Коэффициенты
-            'springLength': 1000,     //Длина пружины в спокойном состоянии (минимальная длина ребра)
-            'springCoeff': 0.0002,  //Коэффициент упругости пружины
-            'gravity': -0.05,        //Ускорение свободного падения(g)
-            'theta': 0.5,           //Коэффициент алгоритма Барнса Хата [0, 1]. Определяет точность алгоритма
-            'dragCoeff': 0.5,      //Коэффициент силы трения [0, 1]. Чем больше, тем больше силы надо чтобы объект двигался
-            'timeStep' : 20,        //Шаг по времени (dt)
-            //Функции, которые можно переопределить
-            'createQuadTree': undefined,//Функция построения квадро-дерева
-            'createBounds' :undefined,  //Функция которая ограничивает ноды (AABB)
-            'createDragForce' :undefined,//Функция определяющая силу трения
-            'createSpringForce' :undefined,//Функция определяющая силу упругости
-            'integrator' : undefined,        //Функция которая перемещает предметы в соответствии с силами, действующими на них
-            'createBody' : undefined,    //Функция создающая тела(переводит ноду в физическое тело)
-            springTransform: (link, spring) => {
-                spring.weight = link.data.weight;
-            },
-            'maxRadius' : 2000,
-            'ratioRadius': 0.55
-        },
 
     'FruchtermanReingold': {
         //область в которой укладываем
