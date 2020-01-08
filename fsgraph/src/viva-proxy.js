@@ -9,7 +9,7 @@
 import forceAtlas2f_createLayout from './VivaMod/Layout/forceAtlas2f';
 import CircleLayout_createLayout from './VivaMod/Layout/CircleLayout';
 import HierarchicalLayout_createLayout from './VivaMod/Layout/HierarchicalLayout';
-//import fa2 from './VivaMod/Layout/forceAtlas2';
+import fa2 from './VivaMod/Layout/forceAtlas2';
 import KamadaKawai_createLayout from './VivaMod/Layout/KamadaKawai';
 import FruchtermanReingold_createLayout from './VivaMod/Layout/FruchtermanReingold';
 import constant from './VivaMod/ConstantLayout';
@@ -30,7 +30,7 @@ export default {
     // @ts-ignore
     forceDirected: require('ngraph.forcelayout'),
     constant: constant,
-    //forceAtlas2: fa2,
+    forceAtlas2: fa2,
     forceAtlas2f: forceAtlas2f_createLayout,
     CircleLayout: CircleLayout_createLayout,
     HierarchicalLayout: HierarchicalLayout_createLayout,
