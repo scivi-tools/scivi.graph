@@ -142,11 +142,11 @@ export const _NumRanges = {
     },
     'FruchtermanReingold': {
         //область в которой укладываем
-        'AreaWidth' : [100, 5000, 100],
-        'AreaHeight' : [100, 5000, 100],
-        'OptimalDistanceCoeff' : [0.1, 0.9, 0.1],  //Коэффициент жесткости пружин
+        'AreaWidth' : [100, 10000, 100],
+        'AreaHeight' : [100, 10000, 100],
+        'OptimalDistanceCoeff' : [0.1, 10, 0.1],  //Коэффициент жесткости пружин
         'Accuracy': [0.5, 25, 0.5],      //Точность укладки
-        'InitialTemperatureCoeff': [5, 100, 5],   //Коэффициент начальной температуры
+        'InitialTemperatureCoeff': [5, 200, 5],   //Коэффициент начальной температуры
         'CoolingCoeff' : [0.1, 0.95, 0.05]       //Коэффициент (до 1) охлаждения графа
     },
     'KamadaKawai': {

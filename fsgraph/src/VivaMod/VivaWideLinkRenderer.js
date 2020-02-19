@@ -70,29 +70,30 @@ export class VivaWideLinkRenderer {
         const angle = Point2D.Subtract(fromPos, toPos).angle;
         const rotCos = -Math.sin(angle);
         const rotSin = Math.cos(angle);
+        const size_coeff = linkUI.size;
 
-        this._links[idx + 2] = fromPos.x + linkUI.size * rotCos;
-        this._links[idx + 3] = +(fromPos.y + linkUI.size * rotSin);
+        this._links[idx + 2] = fromPos.x + linkUI.size * rotCos * size_coeff;
+        this._links[idx + 3] = +(fromPos.y + linkUI.size * rotSin * size_coeff);
         this._colors[idx + 4] = linkUI.color;
     
-        this._links[idx + 5 + 2] = toPos.x + linkUI.size * rotCos;
-        this._links[idx + 5 + 3] = +(toPos.y + linkUI.size * rotSin);
+        this._links[idx + 5 + 2] = toPos.x + linkUI.size * rotCos * size_coeff;
+        this._links[idx + 5 + 3] = +(toPos.y + linkUI.size * rotSin * size_coeff);
         this._colors[idx + 5 + 4] = linkUI.color;
     
-        this._links[idx + 10 + 2] = fromPos.x - linkUI.size * rotCos;
-        this._links[idx + 10 + 3] = +(fromPos.y - linkUI.size * rotSin);
+        this._links[idx + 10 + 2] = fromPos.x - linkUI.size * rotCos * size_coeff;
+        this._links[idx + 10 + 3] = +(fromPos.y - linkUI.size * rotSin * size_coeff);
         this._colors[idx + 10 + 4] = linkUI.color;
     
-        this._links[idx + 15 + 2] = toPos.x + linkUI.size * rotCos;
-        this._links[idx + 15 + 3] = +(toPos.y + linkUI.size * rotSin);
+        this._links[idx + 15 + 2] = toPos.x + linkUI.size * rotCos * size_coeff;
+        this._links[idx + 15 + 3] = +(toPos.y + linkUI.size * rotSin * size_coeff);
         this._colors[idx + 15 + 4] = linkUI.color;
     
-        this._links[idx + 20 + 2] = toPos.x - linkUI.size * rotCos;
-        this._links[idx + 20 + 3] = +(toPos.y - linkUI.size * rotSin);
+        this._links[idx + 20 + 2] = toPos.x - linkUI.size * rotCos * size_coeff;
+        this._links[idx + 20 + 3] = +(toPos.y - linkUI.size * rotSin * size_coeff);
         this._colors[idx + 20 + 4] = linkUI.color;
     
-        this._links[idx + 25 + 2] = fromPos.x - linkUI.size * rotCos;
-        this._links[idx + 25 + 3] = +(fromPos.y - linkUI.size * rotSin);
+        this._links[idx + 25 + 2] = fromPos.x - linkUI.size * rotCos * size_coeff;
+        this._links[idx + 25 + 3] = +(fromPos.y - linkUI.size * rotSin * size_coeff);
         this._colors[idx + 25 + 4] = linkUI.color;
     }
 
@@ -210,15 +211,20 @@ function createNodeFragmentShader() {
         precision mediump float;
         varying vec2 v_uv;
         varying vec4 v_color;
-        const float minBorderR = 0.92;
-        const float maxBorderR = 0.98;
+        const float minBorderR = 0.6;
+        const float maxBorderR = 0.7;
+        const float maxR = 1.0;
         const float maxBorderOpacity = 0.8;
 
         void main(void) {
-            float d = sqrt(v_uv.y * v_uv.y);
-            float inR = step(minBorderR, d);
+            float d = abs(v_uv.y);
+            float inR = smoothstep(minBorderR, maxBorderR, d);
             float outR = step(maxBorderR, d);
-            gl_FragColor = mix(v_color, mix(vec4(0, 0, 0, v_color.a * maxBorderOpacity), vec4(0), outR), inR);
+            float opacity = smoothstep(maxR, outR, d);
+            vec4 opacityBorderColor = vec4(v_color.xyz, opacity * maxBorderOpacity);
+            vec4 borderColor = mix(vec4(v_color.xyz, maxBorderOpacity), opacityBorderColor, outR);
+            gl_FragColor = mix(v_color, borderColor, inR);
+            //
         }`;
 }
 

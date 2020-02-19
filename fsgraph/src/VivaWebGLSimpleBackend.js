@@ -9,7 +9,6 @@ import { VivaImageNodeUI } from './VivaImageNodeUI';
 import { VivaLinkUI } from './VivaLinkUI';
 import { newLinkProgram } from './VivaMod/newLinkProgram';
 import { VivaWideLinkRenderer } from './VivaMod/VivaWideLinkRenderer';
-//import { VivaLineLinkRenderer } from './VivaMod/VivaLineLinkRenderer';
 import { newNodeProgram } from './VivaMod/newNodeProgram';
 import { webglGraphics } from './VivaMod/webglGraphics';
 import { webglInputEvents } from './VivaMod/webglInputEvents';
@@ -69,6 +68,7 @@ export class VivaWebGLSimpleBackend {
             return new VivaLinkUI(this._graphics, link);
         });
 
+
         // Устанавливаем действия при отображении примитивов
         // TODO: задать само действие д.б. можно снаружи этого класса!
         this._graphics.placeLink(linkUI => this.onRenderEdgeCallback(linkUI));
@@ -76,6 +76,8 @@ export class VivaWebGLSimpleBackend {
             this.onRenderNodeCallback(nodeUI);
             nodeUI.onRender();
         });
+        //применить укладку к placedLabels
+
     }
 
     get graphics() {

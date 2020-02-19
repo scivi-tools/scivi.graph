@@ -30,28 +30,30 @@ export class VivaRombusNodeRenderer extends VivaColoredNodeRenderer {
      */
     position(nodeUI, pos) {
         const idx = nodeUI.id * ATTRIBUTES_PER_PRIMITIVE;
+        const node_size = nodeUI.size;
+        pos.y = -pos.y;
         this._nodes[idx + 2] = pos.x;
-        this._nodes[idx + 3] = -(pos.y - nodeUI.size);
+        this._nodes[idx + 3] = pos.y - node_size;
         this._colors[idx + 4] = nodeUI.color;
     
-        this._nodes[idx + 5 + 2] = pos.x + nodeUI.size;
-        this._nodes[idx + 5 + 3] = -(pos.y);
+        this._nodes[idx + 5 + 2] = pos.x + node_size;
+        this._nodes[idx + 5 + 3] = pos.y;
         this._colors[idx + 5 + 4] = nodeUI.color;
     
-        this._nodes[idx + 10 + 2] = pos.x - nodeUI.size;
-        this._nodes[idx + 10 + 3] = -(pos.y);
+        this._nodes[idx + 10 + 2] = pos.x;
+        this._nodes[idx + 10 + 3] = pos.y + node_size;
         this._colors[idx + 10 + 4] = nodeUI.color;
     
-        this._nodes[idx + 15 + 2] = pos.x - nodeUI.size;
-        this._nodes[idx + 15 + 3] = -(pos.y);
+        this._nodes[idx + 15 + 2] = pos.x;
+        this._nodes[idx + 15 + 3] = pos.y + node_size;
         this._colors[idx + 15 + 4] = nodeUI.color;
     
-        this._nodes[idx + 20 + 2] = pos.x + nodeUI.size;
-        this._nodes[idx + 20 + 3] = -(pos.y);
+        this._nodes[idx + 20 + 2] = pos.x - node_size;
+        this._nodes[idx + 20 + 3] = pos.y;
         this._colors[idx + 20 + 4] = nodeUI.color;
     
         this._nodes[idx + 25 + 2] = pos.x;
-        this._nodes[idx + 25 + 3] = -(pos.y + nodeUI.size);
+        this._nodes[idx + 25 + 3] = pos.y - node_size;
         this._colors[idx + 25 + 4] = nodeUI.color;
     }
 
@@ -81,19 +83,20 @@ export class VivaRombusNodeRenderer extends VivaColoredNodeRenderer {
         this._nodes[idx + 5] = 1;
         this._nodes[idx + 5 + 1] = 0.5;
 
-        this._nodes[idx + 10] = 0;
-        this._nodes[idx + 10 + 1] = 0.5;
+        this._nodes[idx + 10] = 0.5;
+        this._nodes[idx + 10 + 1] = 1;
 
-        this._nodes[idx + 15] = 0;
-        this._nodes[idx + 15 + 1] = 0.5;
+        this._nodes[idx + 15] = 0.5;
+        this._nodes[idx + 15 + 1] = 1;
 
-        this._nodes[idx + 20] = 1;
+        this._nodes[idx + 20] = 0;
         this._nodes[idx + 20 + 1] = 0.5;
 
         this._nodes[idx + 25] = 0.5;
-        this._nodes[idx + 25 + 1] = 1;
+        this._nodes[idx + 25 + 1] = 0;
 
         this._nodesCount += 1;
+        this._frontNodeId = ui.id;
     }
     
     // #endregion
@@ -105,14 +108,18 @@ function createNodeFragmentShader() {
         precision mediump float;
         varying vec2 v_uv;
         varying vec4 v_color;
-        const float minBorderR = 0.92;
-        const float maxBorderR = 0.98;
-        const float maxBorderOpacity = 0.8;
+        const float minBorderR = 0.7;
+        const float maxBorderR = 0.85;
+        const float maxR = 1.0;
+        const float maxBorderOpacity = 0.9;
 
         void main(void) {
             float d = abs(v_uv.x) + abs(v_uv.y);
-            float inR = step(minBorderR, d);
+            float inR = smoothstep(minBorderR, maxBorderR, d);
             float outR = step(maxBorderR, d);
-            gl_FragColor = mix(v_color, mix(vec4(0, 0, 0, v_color.a * maxBorderOpacity), vec4(0), outR), inR);
+            float opacity = smoothstep(maxR, maxBorderR, d);
+            vec4 outBorderColor = vec4(vec3(0), opacity * maxBorderOpacity);
+            vec4 border = mix(vec4(vec3(0), maxBorderOpacity), outBorderColor, maxR);
+            gl_FragColor = mix(v_color, border, inR);
         }`;
 }

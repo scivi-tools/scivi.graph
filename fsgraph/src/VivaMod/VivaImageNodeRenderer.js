@@ -9,6 +9,7 @@
 import Viva from '../viva-proxy'
 import { VivaBaseUI } from '../VivaBaseUI'
 import { VivaImageNodeUI } from '../VivaImageNodeUI'
+import * as WGLU from "./WebGLUtils";
 
 const ATTRIBUTES_PER_PRIMITIVE = 18;
 
@@ -32,6 +33,7 @@ export class VivaImageNodeRenderer {
         this._height = null;
         this._transform = null;
         this._sizeDirty = false;
+        this._frontNodeId = 0;
 
         // TODO: workaround assert if interface is implemented
         // https://github.com/Microsoft/TypeScript/issues/17498#issuecomment-399439654   
@@ -67,28 +69,30 @@ export class VivaImageNodeRenderer {
      */
     position(nodeUI, pos) {
         const idx = nodeUI.id * ATTRIBUTES_PER_PRIMITIVE;
-        this._nodes[idx] = pos.x - nodeUI.size;
-        this._nodes[idx + 1] = -(pos.y - nodeUI.size);
+        const node_size = nodeUI.size;
+        pos.y = -pos.y;
+        this._nodes[idx] = pos.x - node_size;
+        this._nodes[idx + 1] = pos.y - node_size;
         this._nodes[idx + 2] = nodeUI.offset * 4;
     
-        this._nodes[idx + 3] = pos.x + nodeUI.size;
-        this._nodes[idx + 4] = -(pos.y - nodeUI.size);
+        this._nodes[idx + 3] = pos.x + node_size;
+        this._nodes[idx + 4] = pos.y - node_size;
         this._nodes[idx + 5] = nodeUI.offset * 4 + 1;
     
-        this._nodes[idx + 6] = pos.x - nodeUI.size;
-        this._nodes[idx + 7] = -(pos.y + nodeUI.size);
+        this._nodes[idx + 6] = pos.x + node_size;
+        this._nodes[idx + 7] = pos.y + node_size;
         this._nodes[idx + 8] = nodeUI.offset * 4 + 2;
     
-        this._nodes[idx + 9] = pos.x - nodeUI.size;
-        this._nodes[idx + 10] = -(pos.y + nodeUI.size);
+        this._nodes[idx + 9] = pos.x - node_size;
+        this._nodes[idx + 10] = pos.y - node_size;
         this._nodes[idx + 11] = nodeUI.offset * 4 + 2;
     
-        this._nodes[idx + 12] = pos.x + nodeUI.size;
-        this._nodes[idx + 13] = -(pos.y - nodeUI.size);
+        this._nodes[idx + 12] = pos.x + node_size;
+        this._nodes[idx + 13] = pos.y + node_size;
         this._nodes[idx + 14] = nodeUI.offset * 4 + 1;
     
-        this._nodes[idx + 15] = pos.x + nodeUI.size;
-        this._nodes[idx + 16] = -(pos.y + nodeUI.size);
+        this._nodes[idx + 15] = pos.x - node_size;
+        this._nodes[idx + 16] = pos.y + node_size;
         this._nodes[idx + 17] = nodeUI.offset * 4 + 3;
     }
 
@@ -110,6 +114,7 @@ export class VivaImageNodeRenderer {
                 ui.offset = coordinates.offset;
             });
         }
+        this._frontNodeId = ui.id;
     }
   
     removeNode(nodeUI) {
@@ -158,6 +163,7 @@ export class VivaImageNodeRenderer {
         this._ensureAtlasTextureUpdated();
     
         this._gl.drawArrays(this._gl.TRIANGLES, 0, this._nodesCount * 6);
+        this._frontNodeId = this._nodesCount - 1;
     }
     
     // #endregion
@@ -192,6 +198,19 @@ export class VivaImageNodeRenderer {
       
             this._atlas.clearDirty();
         }
+    }
+
+    bringToFront(node) {
+        if (this._frontNodeId > node.id) {
+            WGLU.SwapArrayPart(this._nodes, node.id * ATTRIBUTES_PER_PRIMITIVE, this._frontNodeId * ATTRIBUTES_PER_PRIMITIVE, ATTRIBUTES_PER_PRIMITIVE);
+        }
+        if (this._frontNodeId > 0) {
+            this._frontNodeId -= 1;
+        }
+    }
+
+    getFrontNodeId(groupId) {
+        return this._frontNodeId;
     }
 }
 

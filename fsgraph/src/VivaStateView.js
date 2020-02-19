@@ -8,6 +8,7 @@ import * as $ from 'jquery'
 import 'jquery-ui/ui/widgets/slider'
 import { ColorConverter } from './ColorConverter';
 import { RENDERER_MAP } from './VivaMod/ProxyGroupNodeRenderer';
+import {SelectionMode} from "./SelectionMode";
 
 /* TODO: Пересматриваем концепцию кастомизации отображения графа
  * Теперь этот класс будет содержать инфу о том, как визуализировать связи
@@ -64,7 +65,11 @@ export class VivaStateView {
         this.onNodeTypeChange = stub;
 
         /** @type {function(VivaImageNodeUI, Ngraph.Graph.Graph, VivaWebGLRenderer) : void} */
-        this.onNodeClick = selectNode2G;
+        this.onNodeClick = OnNodeClick;
+
+        this.onNodeEnter = OnNodeEnter;
+
+        this.onNodeLeave = OnNodeLeave;
 
         /** @type {VivaWebGLRenderer} */
         this._renderer = renderer;
@@ -82,7 +87,7 @@ export class VivaStateView {
      * @returns {void}
      */
     _setDiap(diap, from, to) {
-        let changed = (from != diap[0]) || (to != diap[1]);
+        let changed = (from !== diap[0]) || (to !== diap[1]);
         if (changed) {
             diap[0] = from;
             diap[1] = to;
@@ -290,35 +295,17 @@ function stub() {
     ;
 }
 
-/** @type {VivaImageNodeUI?} */
-let lastNodeClicked = null;
+/** @type {VivaImageNodeUI?[]} */
+let clickedNodes = [];
+
+let LastEnteredNode = null;
 
 /**
- * 
- * @param {Ngraph.Graph.Graph} graph 
- * @param {VivaWebGLRenderer} renderer
- * @param {VivaImageNodeUI} nodeUI 
- * @param {boolean} toggled 
+ * @param {VivaImageNodeUI} nodeUI
+ * @return boolean
  */
-function toggleRelatedWords(graph, renderer, nodeUI, toggled) {
-    //выделяем текущую вершину
-    nodeUI.selected = toggled;
-    let realNode = nodeUI._realNode;
-    // TODO: nodUI.selected, not node.selected!
-    graph.forEachLinkedNode(realNode.id, (node, link) => {
-        let nodeUI = renderer.graphics.getNodeUI(node.id);
-        let linkUI = renderer.graphics.getLinkUI(link.id);
-        //if (node.data.groupId !== 0) {
-        nodeUI.showLabel = toggled;
-        nodeUI.selected = toggled;
-        //}
-        linkUI.selected = toggled;
-        if (toggled) {
-            renderer.graphics.bringLinkToFront(linkUI);
-        }
-
-        return false;
-    });
+function isClickedNode(nodeUI) {
+    return nodeUI.isClicked;//clickedNodes.indexOf(nodeUI) !== -1;
 }
 
 /**
@@ -326,19 +313,30 @@ function toggleRelatedWords(graph, renderer, nodeUI, toggled) {
  * @param {Ngraph.Graph.Graph} graph 
  * @param {VivaWebGLRenderer} renderer
  * @param {VivaImageNodeUI} nodeUI 
- * @param {boolean} toggled 
+ * @param {boolean} toggled
  */
 function selectNodeByGroup(graph, renderer, nodeUI, toggled) {
-    /** @type {Node} */
-    let realNode = nodeUI.node.data;
-    /*if (realNode.groupId === 0) {
-        toggleRelatedWords(graph, renderer, nodeUI, toggled);
-    } else {
-        nodeUI.showLabel = toggled;
-        nodeUI.selected = toggled;
-    }*/
-    //выделяем связанные вершины
-    toggleRelatedWords(graph, renderer, nodeUI, toggled);
+    //выделяем текущую вершину
+    nodeUI.selectionMode = toggled ? SelectionMode.SELECTED_BY_USER : SelectionMode.NONE;
+    let realNode = nodeUI._realNode;
+    graph.forEachLinkedNode(realNode.id, (node, link) => {
+        /** @type VivaImageNodeUI */
+        let nodeUI = renderer.graphics.getNodeUI(node.id);
+        /** @type VivaLinkUI */
+        let linkUI = renderer.graphics.getLinkUI(link.id);
+
+        //выделяем смежную вершину
+        if (!isClickedNode(nodeUI))
+            nodeUI.selectionMode = toggled ? SelectionMode.SELECTED_LIKE_ADJACENT : SelectionMode.NONE;
+
+        const isLinkToggled = toggled || (isClickedNode(renderer.graphics.getNodeUI(link.toId)) &&
+                                            isClickedNode(renderer.graphics.getNodeUI(link.fromId)));
+        //выделяем инцедентные ребра
+        linkUI.selectionMode = isLinkToggled ? SelectionMode.SELECTED_BY_USER : SelectionMode.NONE;
+        if (isLinkToggled)
+            renderer.graphics.bringLinkToFront(linkUI);
+        return false;
+    });
 }
 
 /**
@@ -347,24 +345,66 @@ function selectNodeByGroup(graph, renderer, nodeUI, toggled) {
  * @param {Ngraph.Graph.Graph} graph
  * @param {VivaWebGLRenderer} renderer
  */
-function selectNode2G(nodeUI, graph, renderer) {
+function OnNodeClick(nodeUI, graph, renderer) {
     //если мы нажали на вершину
     if (nodeUI != null) {
-        nodeUI.buildDetailedInfo();
-        //если раньше было что-то выделено, то очищаем выделение
-        if (lastNodeClicked) {
-            selectNodeByGroup(graph, renderer, lastNodeClicked, false);
+        let realNode = nodeUI._realNode;
+        if (!isClickedNode(nodeUI)) {
+            nodeUI.buildDetailedInfo();
+            clickedNodes.push(nodeUI);
+            nodeUI.isClicked = true;
+            graph.forEachLinkedNode(realNode.id, (node, link) =>{
+               let linkedNodeUI = renderer.graphics.getNodeUI(node.id);
+               let linkUI = renderer.graphics.getLinkUI(link.id);
+               if (isClickedNode(linkedNodeUI))
+                   linkUI.selectionMode = SelectionMode.SELECTED_BY_USER;
+                renderer.graphics.bringLinkToFront(linkUI);
+               return false;
+            });
         }
-        //выделяем снова
-        selectNodeByGroup(graph, renderer, nodeUI, true);
-        lastNodeClicked = nodeUI;
-    } else {
-        //если раньше что-то было выделено, то убираем выделение
-        if (lastNodeClicked) {
-            selectNodeByGroup(graph, renderer, lastNodeClicked, false);
-            lastNodeClicked.detailedInfoHTML.innerHTML = '';
-            lastNodeClicked = null;
+        else
+        {
+            clickedNodes.splice( clickedNodes.indexOf(nodeUI), 1 );
+            nodeUI.isClicked = false;
+            var node = document.getElementById(nodeUI._span.className + "_info");
+            nodeUI.detailedInfoHTML.removeChild(node);
+            graph.forEachLinkedNode(realNode.id, (node, link) =>{
+                renderer.graphics.getLinkUI(link.id).selectionMode = SelectionMode.NONE;
+                return false;
+            });
         }
+        renderer.rerender();
     }
+}
+
+/**
+ *
+ * @param {VivaImageNodeUI} nodeUI
+ * @param {Ngraph.Graph.Graph} graph
+ * @param {VivaWebGLRenderer} renderer
+ */
+function OnNodeEnter(nodeUI, graph, renderer)
+{
+    //если раньше было что-то выделено, то очищаем выделение
+    if (LastEnteredNode) {
+        selectNodeByGroup(graph, renderer, LastEnteredNode, false);
+    }
+    //выделяем снова
+    selectNodeByGroup(graph, renderer, nodeUI, true);
+    LastEnteredNode = nodeUI;
+    renderer.rerender();
+}
+
+/**
+ *
+ * @param {VivaImageNodeUI} nodeUI
+ * @param {Ngraph.Graph.Graph} graph
+ * @param {VivaWebGLRenderer} renderer
+ */
+function OnNodeLeave(nodeUI, graph, renderer)
+{
+    //если раньше что-то было выделено, то убираем выделение
+    selectNodeByGroup(graph, renderer, LastEnteredNode, false);
+    LastEnteredNode = null;
     renderer.rerender();
 }

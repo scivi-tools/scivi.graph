@@ -5,6 +5,7 @@ import { Edge } from './Edge';
 import { Point2D } from './Point2D';
 import { getOrCreateTranslatorInstance } from '@scivi/utils';
 import * as $ from 'jquery';
+import {SelectionMode} from "./SelectionMode";
 
 /**
  * @implements {VivaGeneric.NodeUI}
@@ -16,7 +17,7 @@ export class VivaImageNodeUI extends VivaBaseUI {
      * @param {HTMLSpanElement} titleSpan 
      */
     constructor(graphics, node, titleSpan) {
-        super(node.id);
+        super(graphics, node.id, node.data.weight_norm);
         this.node = node;
         this._offset = 0;
         this._span = titleSpan;
@@ -25,10 +26,16 @@ export class VivaImageNodeUI extends VivaBaseUI {
         this._spanOpacity = this._span.style.opacity;
         this._labelChanged = true;
         this._showLabel = false;
+        this.isClicked = false;
 
-        this._graphics = graphics;
+        //this._graphics = graphics;
+        this.labelDirection = {x: 0, y:0};
 
-        this.position = new Point2D();
+        //Координаты в которых будем рисовать ноду
+        this._drawPosition = {x: 0, y: 0};
+        this._maxPositionOffsetLength = 0;
+        //Сюда будем сохранять координаты вершины до смещения при отрисовке заголовка
+        this._position = {x: 0, y: 0};
 
         // this._invalidateLabel();
 
@@ -48,6 +55,18 @@ export class VivaImageNodeUI extends VivaBaseUI {
         return this._node;
     }
 
+    get size()
+    {
+        var coeff = this._size > 40 ? 0.5 : 2.0;
+        return this._size;// * (this.graphics.getScaleFactor() < 1 ? coeff / this.graphics.getScaleFactor() : coeff);
+    }
+
+    set size(value)
+    {
+        this._size = value;
+        this._maxPositionOffsetLength = value * 2.0;
+    }
+
     /**
      * @param {Ngraph.Graph.Node} value
      */
@@ -62,6 +81,16 @@ export class VivaImageNodeUI extends VivaBaseUI {
         };
     }
 
+    set position(value)
+    {
+        this._position = value;
+    }
+
+    get position()
+    {
+        return this._position;
+    }
+
     get label() {
         return this._realNode.label;
     }
@@ -74,6 +103,25 @@ export class VivaImageNodeUI extends VivaBaseUI {
         this._invalidateLabel();
     }
 
+    get drawPosition()
+    {
+        return this._drawPosition;
+    }
+
+    set drawPosition(value)
+    {
+        var offset = {x: value.x - this._position.x, y: value.y - this._position.y};
+        var offset_length = Math.sqrt(offset.x * offset.x + offset.y * offset.y);
+        if (offset_length > 0)
+        {
+            var normalized_offset_length = Math.min(this._maxPositionOffsetLength, offset_length);
+            offset.x *= normalized_offset_length / offset_length;
+            offset.y *= normalized_offset_length / offset_length;
+        }
+        this._drawPosition.x = this.position.x + offset.x;
+        this._drawPosition.y = this.position.y + offset.y;
+    }
+
     /**
      * @param {boolean} value
      */
@@ -84,6 +132,11 @@ export class VivaImageNodeUI extends VivaBaseUI {
         }
     }
 
+    isSelected()
+    {
+        return this.isClicked || super.isSelected();
+    }
+
     _invalidateLabel() {
         this._span.innerText = this._realNode.label;
         this._spanWidth = $(this._span).width();
@@ -91,40 +144,60 @@ export class VivaImageNodeUI extends VivaBaseUI {
     }
 
     onRender() {
-        //Определяем удаленность вершины от экрана
-        //const transform =
-        //const scale =
-        //TODO: make it variable and configurable
-        //** @type Node */
-        //const GraphStateNode = this._node.data;
-        //const GraphPositionCoefficient =
-        //var ShowBorder = ShowBorderCoefficient / GraphStateNode.weight_norm;
-
-        this.showLabel = this.selected;
+        this.showLabel = this.isSelected();
         if (this._showLabel) {
             // HACK: вах какой костыль!
-            if (this._span.hidden === this._showLabel) {
+            /*if (this._span.hidden) {
                 this._labelChanged = true;
-                this.showLabel = this._showLabel;
+                this.showLabel = true;
             }
             if (this._labelChanged) {
                 this._invalidateLabel();
                 this._labelChanged = false;
+            }*/
+            this._invalidateLabel();
+
+            let angle = 0;
+            let domPos = this.drawPosition;
+            //нормировка labelDirection
+            let vec_len = Math.sqrt(this.labelDirection.x * this.labelDirection.x + this.labelDirection.y * this.labelDirection.y);
+            if (vec_len > 0) {
+                this.labelDirection.x *= (this._spanWidth) / vec_len;
+                this.labelDirection.y *= (this._spanWidth) / vec_len;
+                if (Math.abs(this.labelDirection.x) !== 0)
+                    angle = Math.atan(this.labelDirection.y / this.labelDirection.x);
             }
-            let domPos = { x: this.position.x, y: this.position.y - this.size };
-            this._graphics.transformGraphToClientCoordinates(domPos);
-            this._span.style.left = `${domPos.x - this._spanWidth / 2}px`;
-            this._span.style.top = `${domPos.y - this._spanHeight}px`;
-            this._span.style.opacity = this.selected ? '1' : this._spanOpacity;
+            this.graphics.transformGraphToClientCoordinates(domPos);
+            this._span.style.transform = `translate(${domPos.x - this._spanWidth / 2}px, ${domPos.y - this._spanHeight / 2}px)`;
+            //this._span.style.transform += `scale(${this.graphics.getScaleFactor()})`;
+            if (this.selectionMode === SelectionMode.SELECTED_LIKE_ADJACENT) {
+                let globalAngle = this.graphics.getRotationAngle();
+                if (angle - globalAngle >= Math.PI / 2) angle -= Math.PI;
+                if (angle - globalAngle <= -Math.PI / 2) angle += Math.PI;
+                this._span.style.transform += `rotate(${-globalAngle}rad)`;
+                this._span.style.transform += `translate(${this.labelDirection.x / 2}px, 
+                                                        ${this.labelDirection.y / 2}px)`;
+            }
+            else
+                this._span.style.transform += `translate(${0}px, 
+                                                        ${-this._size / 2}px)`;
+            this._span.style.transform += `rotate(${angle}rad)`;
+            this._span.style.opacity = this.isSelected ? '1' : this._spanOpacity;
+
         }
     }
 
     onSelectedChanged() {
         super.onSelectedChanged();
+        /*if (this.selected)
+            this.graphics.bringNodeToFront(this);*/
     }
 
     buildDetailedInfo() {
         const tr = getOrCreateTranslatorInstance();
+        let info = document.createElement("div");
+        info.id = this._span.className + "_info";
+
         let header = document.createElement("div");
         let name = document.createElement("input");
         name.type = "text";
@@ -154,7 +227,7 @@ export class VivaImageNodeUI extends VivaBaseUI {
         let connList2 = `<span>${tr.apply('#incoming_nodes')}:</span><ul>`;
         this._realNode.edges.forEach((edge) => {
             if (edge.visible) {
-                if (edge.toId != this._realNode.id)
+                if (edge.toId !== this._realNode.id)
                     connList += `<li><span>${this._realNode._state.nodes[edge.toId].label}</span></li>`;
                 else
                     connList2 += `<li><span>${this._realNode._state.nodes[edge.fromId].label}</span></li>`;
@@ -165,12 +238,12 @@ export class VivaImageNodeUI extends VivaBaseUI {
         outcomingNodesList.innerHTML = connList;
         incomingNodesList.innerHTML = connList2;
 
-        this.detailedInfoHTML.innerHTML = '';
-
-        this.detailedInfoHTML.appendChild(header);
+        //this.detailedInfoHTML.innerHTML = '';
+        this.detailedInfoHTML.appendChild(info);
+        info.appendChild(header);
         nodeListContainer.appendChild(outcomingNodesList);
         nodeListContainer.appendChild(incomingNodesList);
-        this.detailedInfoHTML.appendChild(nodeListContainer);
+        info.appendChild(nodeListContainer);
     };
 };
 

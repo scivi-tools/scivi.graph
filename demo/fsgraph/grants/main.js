@@ -20,7 +20,7 @@ function main() {
     FSGraph.getOrCreateTranslatorInstance(lang).extend(g_fsgraph_loc);
 
     var renderer = new FSGraph.VivaWebGLRenderer(document.body);
-    var usedLayout = FSGraph.getParameterByName("layout") || "PlanarianLayout";
+    var usedLayout = FSGraph.getParameterByName("layout") || "HierarchicalLayout";
     var controller = FSGraph.GraphController.fromStatedJson(g_data);
     
         

@@ -41,6 +41,13 @@ export class GraphState {
         return this._label;
     }
 
+    get graphSize(){
+        let rect = this._controller.layoutInstance.getGraphRect();
+        let width = (rect.x2 - rect.x1) / 2.0;
+        let height = (rect.y2 - rect.y1) / 2.0;
+        return Math.sqrt(width * width + height * height);
+    }
+
     addNode(id, groupId, data) {
         // ensure that group alredy exists before pushing to it
         if (!this.groups[groupId]) {
@@ -69,10 +76,10 @@ export class GraphState {
     };
 
     calcWeightNorms(){
-        for(var node of this.nodes)
-            if (node !== undefined) {
-                node.weight_norm = (node.weight - this._metrics.minWeight + 1) / (this._metrics.maxWeight - this._metrics.minWeight + 1);
-            }
+        this.nodes.forEach  (node =>
+            node.weight_norm = (node.weight - this._metrics.minWeight + 1) /
+                            (this._metrics.maxWeight - this._metrics.minWeight + 1)
+                            );
     }
 
     /**
@@ -81,7 +88,7 @@ export class GraphState {
      */
     restoreNode(node) {
         if (!node.visible) {
-            return;
+            return
         }
 
         this._controller.graph.beginUpdate();

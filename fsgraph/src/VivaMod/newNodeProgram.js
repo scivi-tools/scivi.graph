@@ -106,10 +106,13 @@ export function newNodeProgram() {
 
   function position(nodeUI, pos) {
     var idx = nodeUI.id;
+    /** @type VivaGeneric.WebGlGraphics */
+    var graphics = nodeUI._graphics;
+    var size_coeff = 2.0 /  graphics.getScaleFactor();
 
     positions[idx * ATTRIBUTES_PER_PRIMITIVE] = pos.x;
     positions[idx * ATTRIBUTES_PER_PRIMITIVE + 1] = -pos.y;
-    positions[idx * ATTRIBUTES_PER_PRIMITIVE + 2] = nodeUI.size;
+    positions[idx * ATTRIBUTES_PER_PRIMITIVE + 2] = nodeUI.size * size_coeff;
 
     colors[idx * ATTRIBUTES_PER_PRIMITIVE + 3] = nodeUI.color;
   }

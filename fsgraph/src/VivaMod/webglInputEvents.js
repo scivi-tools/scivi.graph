@@ -103,11 +103,12 @@ export function webglInputEvents(webglGraphics) {
 
   function preciseCheck(nodeUI, x, y) {
     if (nodeUI && nodeUI.size) {
-      var pos = nodeUI.position,
-        half = nodeUI.size;
+      var pos = nodeUI.position;
+      var node_size = nodeUI.size;
+      const eps = 1.0;
 
-      return pos.x - half < x && x < pos.x + half &&
-        pos.y - half < y && y < pos.y + half;
+      return pos.x - node_size - eps < x && x < pos.x + node_size + eps &&
+        pos.y - node_size - eps < y && y < pos.y + node_size + eps;
     }
 
     return true;
@@ -263,8 +264,7 @@ export function webglInputEvents(webglGraphics) {
     var timeoutHandlerId = 0,
       noclick = false;
 
-    root.addEventListener('click',
-      function(e) {
+    root.addEventListener('click', function(e) {
         var clickTime = +new Date();
         if ((clickTime - lastDownTime > 200) || (noclick)) {
           return;

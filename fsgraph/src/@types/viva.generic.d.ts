@@ -5,6 +5,8 @@ declare namespace VivaGeneric {
     export interface NodeUI {
         id: number,
         position: Ngraph.Graph.Position,
+        drawPosition: Ngraph.Graph.Position,
+        labelDirection: Ngraph.Graph.Position,
         node: Ngraph.Graph.Node
     }
 
@@ -26,6 +28,8 @@ declare namespace VivaGeneric {
         createNode(ui: NodeUI) : void,
         removeNode(ui: NodeUI) : void,
         replaceProperties(replacedNode: NodeUI, newNode: NodeUI) : void
+        bringToFront(node: NodeUI) : void,
+        getFrontNodeId(groupId: number) : number
     }
 
     export interface LinkProgram extends Program {
@@ -102,6 +106,8 @@ declare namespace VivaGeneric {
 
         bringLinkToFront(linkUI: LinkT): void;
 
+        bringNodeToFront(nodeUI: NodeT) : void;
+
         /**
          * Sets translate operation that should be applied to all nodes and links.
          */
@@ -122,6 +128,10 @@ declare namespace VivaGeneric {
         translateRel(dx: number, dy: number): void;
 
         scale(scaleFactor: number, scrollPoint: Ngraph.Graph.Position): number;
+
+        getScaleFactor() : number;
+
+        getRotationAngle() : number;
 
         resetScale(): WebGlGraphics<NodeT, LinkT>;
 

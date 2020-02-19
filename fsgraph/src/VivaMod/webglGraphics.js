@@ -8,6 +8,7 @@ import { newLinkProgram } from './newLinkProgram'
 import { newNodeProgram } from './newNodeProgram'
 import * as eventify from 'ngraph.events';
 import merge from 'ngraph.merge';
+import {SelectionMode} from "../SelectionMode";
 
 /**
  * Performs webgl-based graph rendering. This module does not perform
@@ -39,9 +40,15 @@ export function webglGraphics(opts) {
     var graphicsRoot;
     /** @type {WebGLRenderingContext} */
     var gl;
-    var msaaHook = 1;
+    var MSAA_SampleCount = 4;
+    var MSAA_Framebuffer;  //фреймбуфер с MSAA изображением сцены
+    var MSAA_Texture;       //текстура в которую будем рендерить MSAA-сцену
+    var intermediate_Framebuffer;   //фреймбуффер для сжатого изображения из рендербуфера, которое потом можно обработать
     var width,
         height,
+        //scaleRate = [0.01, 2.0]
+        scaleRate = 1.0,
+        angle = 0.0,
         nodesCount = 0,
         linksCount = 0,
         transform = [],
@@ -57,6 +64,7 @@ export function webglGraphics(opts) {
         userPlaceNodeCallback,
         userPlaceLinkCallback,
         nodes = [],
+        userSelectedNodes = [], // список нод выделенных пользователем
         links = [],
         initCallback,
 
@@ -97,6 +105,7 @@ export function webglGraphics(opts) {
                         0, realPixelRatio, 0, 0,
                         0, 0, realPixelRatio, 0,
                         0, 0, 0, 1];
+            scaleRate = realPixelRatio;
         },
 
         updateSize = function () {
@@ -105,11 +114,19 @@ export function webglGraphics(opts) {
                 height = Math.max(container.clientHeight, 1);
                 graphicsRoot.style.width = `${width}px`;
                 graphicsRoot.style.height = `${height}px`;
-                graphicsRoot.width = width * msaaHook;
-                graphicsRoot.height = height * msaaHook;
-                if (gl) {
-                    gl.viewport(0, 0, width * msaaHook, height * msaaHook);
-                }
+                graphicsRoot.width = width * MSAA_SampleCount;
+                graphicsRoot.height = height * MSAA_SampleCount;
+                //создаем текстуру в которую будем рендерить
+                /*MSAA_Texture = gl.createTexture();
+                gl.bindTexture(gl.TEXTURE_2D, MSAA_Texture);
+                gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA,
+                    width * MSAA_SampleCount, height * MSAA_SampleCount,
+                    0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+                MSAA_Framebuffer = gl.createFramebuffer();
+                gl.bindFramebuffer(gl.FRAMEBUFFER, MSAA_Framebuffer);
+                gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.DEPTH_STENCIL_ATTACHMENT, gl.TEXTURE_2D, MSAA_Texture, 0);*/
+
+                gl.viewport(0, 0, width * MSAA_SampleCount, height * MSAA_SampleCount);
                 if (linkProgram) {
                     linkProgram.updateSize(width / 2, height / 2);
                 }
@@ -119,8 +136,83 @@ export function webglGraphics(opts) {
             }
         },
 
+
+
         fireRescaled = function (graphics) {
             graphics.fire("rescaled");
+        },
+
+        scale = function (_scaleFactor, scrollPoint) {
+            if (scaleRate <= 2 && scaleRate >= 0.01) {
+                // Transform scroll point to clip-space coordinates:
+                var cx = 2 * scrollPoint.x / width - 1,
+                    cy = 1 - (2 * scrollPoint.y) / height;
+                scaleRate *= _scaleFactor;
+                if (scaleRate > 2.0)
+                {
+                    scaleRate = 2.0;
+                    _scaleFactor = 1.0;
+                }
+                if (scaleRate < 0.01)
+                {
+                    scaleRate = 0.01;
+                    _scaleFactor = 1.0;
+                }
+                cx -= transform[12];
+                cy -= transform[13];
+
+                transform[12] += cx * (1 - _scaleFactor);
+                transform[13] += cy * (1 - _scaleFactor);
+
+                transform[0] *= _scaleFactor;
+                transform[1] *= _scaleFactor;
+                transform[4] *= _scaleFactor;
+                transform[5] *= _scaleFactor;
+                transform[10] *= _scaleFactor;
+
+                updateTransformUniform();
+                fireRescaled(this);
+            }
+            return transform[10];
+        },
+
+        userBeginRender = function()
+        {
+            //возвращаем все ноды на место
+            nodes.forEach(node => {
+                node.drawPosition = {x: node.position.x, y: node.position.y};
+                node.labelDirection = {x: 0, y: 0};
+                });
+            /** @type VivaGeneric.NodeUI */
+            let selectedNodeUI = nodes.filter(node => node.selectionMode === SelectionMode.SELECTED_BY_USER).shift();
+            if (selectedNodeUI !== undefined) {
+                /** @type Ngraph.Graph.Node */
+                let selectedNode = selectedNodeUI.node;
+                let adjacentNodesUI = selectedNode.links.map(link => allNodes[link.toId !== selectedNode.id ? link.toId : link.fromId]);
+
+                //Все для смежных вершин
+                if (adjacentNodesUI.length > 0) {
+                    const G = 3;
+                    let calcForce = function(node1, node2){
+                        let distance = {x: node2.drawPosition.x - node1.drawPosition.x, y: node2.drawPosition.y - node1.drawPosition.y};
+                        let dis_len = Math.sqrt(distance.x * distance.x + distance.y * distance.y);
+                        let F = G * (node1.size * node2.size) / (dis_len * dis_len);
+                        distance.x *= F / dis_len;
+                        distance.y *= F / dis_len;
+                        return distance;
+                    };
+                    let initNode = function(node, pos_offset, center_node)
+                    {
+                        node.position_offset = {x: pos_offset.x, y: pos_offset.y};
+                        node.labelDirection.x += node.position.x - center_node.position.x;
+                        node.labelDirection.y += node.position.y - center_node.position.y;
+                    };
+                    for (let i = 0; i < adjacentNodesUI.length; ++i)
+                    {
+                        initNode(adjacentNodesUI[i], {x: 0, y: 0}, selectedNodeUI);
+                    }
+                }
+            }
         };
     
     graphicsRoot = window.document.createElement("canvas");
@@ -234,6 +326,24 @@ export function webglGraphics(opts) {
             }
         },
 
+        bringNodeToFront : function (nodeUI) {
+            var frontNodeId = nodeProgram.getFrontNodeId(nodeUI.node.data.groupId),
+                srcNodeId,
+                temp;
+
+            nodeProgram.bringToFront(nodeUI);
+
+            if (frontNodeId > nodeUI.id) {
+                srcNodeId = nodeUI.id;
+
+                temp = nodes[frontNodeId];
+                nodes[frontNodeId] = nodes[srcNodeId];
+                nodes[frontNodeId].id = srcNodeId;
+                nodes[srcNodeId] = temp;
+                nodes[srcNodeId].id = srcNodeId;
+            }
+        },
+
         /**
          * Sets translate operation that should be applied to all nodes and links.
          */
@@ -278,7 +388,7 @@ export function webglGraphics(opts) {
             ui.id = uiid;
             ui.position = boundPosition;
             ui.node = node;
-
+            
             nodeProgram.createNode(ui);
 
             nodes[uiid] = ui;
@@ -292,27 +402,14 @@ export function webglGraphics(opts) {
             updateTransformUniform();
         },
 
-        scale : function (scaleFactor, scrollPoint) {
-            // Transform scroll point to clip-space coordinates:
-            var cx = 2 * scrollPoint.x / width - 1,
-                cy = 1 - (2 * scrollPoint.y) / height;
+        scale : scale,
 
-            cx -= transform[12];
-            cy -= transform[13];
+        getScaleFactor: function(){
+          return scaleRate;
+        },
 
-            transform[12] += cx * (1 - scaleFactor);
-            transform[13] += cy * (1 - scaleFactor);
-
-            transform[0] *= scaleFactor;
-            transform[1] *= scaleFactor;
-            transform[4] *= scaleFactor;
-            transform[5] *= scaleFactor;
-            transform[10] *= scaleFactor;
-
-            updateTransformUniform();
-            fireRescaled(this);
-
-            return transform[10];
+        getRotationAngle() {
+            return angle;
         },
 
         resetScale : function () {
@@ -347,20 +444,24 @@ export function webglGraphics(opts) {
             resetScaleInternal();
             container.appendChild(graphicsRoot);
 
-
-            gl = /** @type {WebGLRenderingContext} */ (graphicsRoot.getContext('experimental-webgl', contextParameters));
+           /** @type {WebGLRenderingContext} */
+            gl = (graphicsRoot.getContext('experimental-webgl', contextParameters));
             if (!gl) {
                 var msg = "Could not initialize WebGL. Seems like the browser doesn't support it.";
                 window.alert(msg);
                 throw msg;
             }
+
             if (!gl.getParameter(gl.SAMPLES)) {
-                msaaHook = 2;
+                MSAA_SampleCount = 4;
             }
             updateSize();
             if (options.enableBlending) {
+                //gl.enable(gl.SAMPLE_COVERAGE);
+                //gl.sampleCoverage(1.0, false);
                 gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
                 gl.enable(gl.BLEND);
+                gl.enable(gl.CULL_FACE);
             }
             if (options.clearColor) {
                 var color = options.clearColorValue;
@@ -368,7 +469,10 @@ export function webglGraphics(opts) {
                 // TODO: not the best way, really. Should come up with something better
                 // what if we need more updates inside beginRender, like depth buffer?
                 this.beginRender = function () {
-                    gl.clear(gl.COLOR_BUFFER_BIT);
+                   // gl.bindFramebuffer(gl.FRAMEBUFFER, MSAA_Framebuffer);
+                    //gl.viewport(0, 0, width * MSAA_SampleCount, height * MSAA_SampleCount);
+                    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+                    userBeginRender();
                 };
             }
 
@@ -463,18 +567,16 @@ export function webglGraphics(opts) {
         },
 
         renderNodes: function () {
-            var pos = {x : 0, y : 0};
+            var pos = {x:0, y:0};
             // WebGL coordinate system is different. Would be better
             // to have this transform in the shader code, but it would
             // require every shader to be updated..
             for (var i = 0; i < nodesCount; ++i) {
                 var ui = nodes[i];
-                pos.x = ui.position.x;
-                pos.y = ui.position.y;
+                pos = {x: ui.drawPosition.x, y: ui.drawPosition.y};
                 if (userPlaceNodeCallback) {
-                    userPlaceNodeCallback(ui, pos);
+                    userPlaceNodeCallback(ui, ui.position);
                 }
-
                 nodeProgram.position(ui, pos);
             }
         },
@@ -485,18 +587,18 @@ export function webglGraphics(opts) {
             var toPos = {x : 0, y : 0};
             var fromPos = {x : 0, y : 0};
             for (var i = 0; i < linksCount; ++i) {
-                var ui = links[i];
-                var pos = ui.pos.from;
+                var ui = links[i].link;
+                var pos = graphics.getNodeUI(ui.fromId).drawPosition;
                 fromPos.x = pos.x;
                 fromPos.y = -pos.y;
-                pos = ui.pos.to;
+                pos = graphics.getNodeUI(ui.toId).drawPosition;
                 toPos.x = pos.x;
                 toPos.y = -pos.y;
                 if (userPlaceLinkCallback) {
-                    userPlaceLinkCallback(ui, fromPos, toPos);
+                    userPlaceLinkCallback(links[i], fromPos, toPos);
                 }
 
-                linkProgram.position(ui, fromPos, toPos);
+                linkProgram.position(links[i], fromPos, toPos);
             }
         },
 
@@ -634,11 +736,11 @@ export function webglGraphics(opts) {
         },
 
         /**
-         * @param {number} angle
+         * @param {number} _angle
          */
-        rotate : function(angle) {
-            var cx = Math.cos(angle);
-            var sx = Math.sin(angle);
+        rotate : function(_angle) {
+            var cx = Math.cos(_angle);
+            var sx = Math.sin(_angle);
             var scale = transform[10];
 
             // Сначала повернём центр взад
@@ -656,6 +758,7 @@ export function webglGraphics(opts) {
             // transform[13] = restoredTransform[1];
 
             updateTransformUniform();
+            angle = _angle;
         },
 
         getTransform : function () {
