@@ -1,12 +1,19 @@
-
-window.$ = require("jquery");
-window.jQuery = $;
-require("jquery-ui/ui/core");
-require("jquery-ui/ui/widget");
-require("jquery-ui/ui/mouse");
-require("jquery-ui/ui/slider");
-require("jquery-ui/ui/tabs");
-require("jquery-contextmenu");
+if (!window.$)
+    window.$ = require("jquery");
+if (!window.jQuery)
+    window.jQuery = $;
+if (!window.$.ui) {
+    require("jquery-ui/ui/core");
+    require("jquery-ui/ui/widget");
+}
+if (!window.$.ui.mouse)
+    require("jquery-ui/ui/mouse");
+if (!window.$.ui.slider)
+    require("jquery-ui/ui/slider");
+if (!window.$.ui.tabs)
+    require("jquery-ui/ui/tabs");
+if (!window.$.contextMenu)
+    require("jquery-contextmenu");
 var PIXI = require("pixi.js");
 var Split = require("split.js");
 require("chart.js");
