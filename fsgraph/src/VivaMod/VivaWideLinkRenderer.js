@@ -220,7 +220,7 @@ function createNodeFragmentShader() {
             float d = abs(v_uv.y);
             float inR = smoothstep(minBorderR, maxBorderR, d);
             float outR = step(maxBorderR, d);
-            float opacity = smoothstep(maxR, outR, d);
+            float opacity = 1.0 - smoothstep(maxR, outR, d);
             vec4 opacityBorderColor = vec4(v_color.xyz, opacity * maxBorderOpacity);
             vec4 borderColor = mix(vec4(v_color.xyz, maxBorderOpacity), opacityBorderColor, outR);
             gl_FragColor = mix(v_color, borderColor, inR);
