@@ -17,11 +17,11 @@ import {SelectionMode} from "./SelectionMode";
  * их цвета (+ связей) для всех состояний: (не)выбрано/(не)активно
  */
 
-const _MaxNodeSizeDiap = [1, 50];
-const _NodeSizeStep = 1;
+const _MaxNodeSizeDiap = [1, 500];
+const _NodeSizeStep = 5;
 const _DefNodeSizeDiap = [7, 45];
-const _MaxEdgeSizeDiap = [0.5, 50];
-const _EdgeSizeStep = 0.5;
+const _MaxEdgeSizeDiap = [1.5, 5];
+const _EdgeSizeStep = 0.1;
 const _DefEdgeSizeDiap = [1, 5];
 
 /**
@@ -124,7 +124,7 @@ export class VivaStateView {
      * @param {number} maxValue 
      * @returns {number}
      */
-    getEdgeUISize(value = 1, maxValue = 1) {
+    getEdgeUISize(value = 1, maxValue = _MaxEdgeSizeDiap[1]) {
         return this._getInterpolated(this._edgeSizeDiap, value, maxValue);
     }
 
