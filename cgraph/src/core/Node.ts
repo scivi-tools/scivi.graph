@@ -104,6 +104,14 @@ namespace SciViCGraph
             return this.m_dict;
         }
 
+        public clone(newID?: number): Node
+        {
+            const dict = JSON.parse(JSON.stringify(this.m_dict));
+            if (newID !== undefined)
+                dict["id"] = newID;
+            return new Node(dict);
+        }
+
         public postInfo()
         {
             if (!this.m_info)

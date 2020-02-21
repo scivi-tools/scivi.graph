@@ -15,7 +15,7 @@ namespace SciViCGraph
         {
             let indices = this.m_renderer.currentStateKey.split("|");
             indices[stateLineIndex] = stateIndex.toString();
-            this.m_renderer.changeCurrentState(indices.join("|"));
+            this.m_renderer.changeCurrentState(indices.join("|"), false);
         }
 
         private createStateLine(labels: string[], stateLineIndex: number): any

@@ -91,6 +91,7 @@ namespace SciViCGraph
         private m_colorPicker: any;
         private m_modularityFilters: any[];
         private m_stateLineNav: StateLineNavigator;
+        private m_stateCalc: Calculator;
         private m_edgeFilterSlider: FilterSlider;
         private m_nodeFilterSlider: FilterSlider;
         private m_maxNumberOfNodes: number;
@@ -108,6 +109,7 @@ namespace SciViCGraph
                     private m_stats: HTMLElement,
                     private m_stateline: HTMLElement,
                     private m_treeView: HTMLElement,
+                    private m_calculator: HTMLElement,
                     private m_localizer: {})
         {
             this.m_scaleLevels = null;
@@ -133,6 +135,7 @@ namespace SciViCGraph
             this.m_colorPicker = null;
             this.m_modularityFilters = [];
             this.m_stateLineNav = new StateLineNavigator(this, this.m_stateline);
+            this.m_stateCalc = new Calculator(this, this.m_calculator);
             this.m_edgeFilterSlider = null;
             this.m_nodeFilterSlider = null;
             this.m_maxNumberOfNodes = 0;
@@ -748,6 +751,9 @@ namespace SciViCGraph
             this.initFilters();
 
             this.m_stateLineNav.build();
+
+            if (this.m_states.hasStates)
+                this.m_stateCalc.build();
 
             $(document).keyup((e) => {
                 if (e.keyCode == 27) {
@@ -1431,7 +1437,7 @@ namespace SciViCGraph
             return this.m_localizer;
         }
 
-        public changeCurrentState(cs: string)
+        public changeCurrentState(cs: string, forceRecalcWeights: boolean)
         {
             if (this.m_states.isDynamic) {
                 this.m_states.data["current"] = null;
@@ -1444,6 +1450,13 @@ namespace SciViCGraph
                 this.m_equalizer = [];
             } else {
                 this.m_currentStateKey = cs;
+                if (forceRecalcWeights) {
+                    this.calcWeights();
+                    this.m_stage.nodeWeight = this.m_nodeWeight;
+                    this.m_stage.edgeWeight = this.m_edgeWeight;
+                    this.initFilters();
+                    this.m_equalizer = [];
+                }
             }
             this.reinit(false, false);
         }

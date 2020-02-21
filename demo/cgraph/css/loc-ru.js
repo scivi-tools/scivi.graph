@@ -60,4 +60,11 @@ var g_loc_ru = {
     "LOC_HELPLOC": "../css/help-ru.html",
     "LOC_GRAPHSTAT": "Статистика по графу:",
     "LOC_SUMWEIGHT": "∑ вес =",
+    "LOC_CALCULATOR": "Калькулятор",
+    "LOC_ADDOPERAND": "Добавть операнд",
+    "LOC_OPUNION": "Объединение",
+    "LOC_OPDIFF": "Разность",
+    "LOC_OPINTERSECT": "Пересечение",
+    "LOC_CALCULATE": "Вычислить",
+    "LOC_CLEANCALC": "Очистить",
 };

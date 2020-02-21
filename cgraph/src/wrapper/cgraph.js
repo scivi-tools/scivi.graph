@@ -107,6 +107,7 @@ CGraph.prototype.run = function (loc, data, scales, colors, title, info, classif
         "        <li><a href=\"#scivi_cgraph_filters\">" + loc["LOC_FILTERS"] + "</a></li>" +
         "        <li><a href=\"#scivi_cgraph_stats\">" + loc["LOC_GROUPS"] + "</a></li>" +
         (classifier ? "        <li><a href=\"#scivi_cgraph_tree\">" + loc["LOC_TREE"] + "</a></li>" : "") +
+        (data.hasStates ? "        <li><a href=\"#scivi_cgraph_calc\">" + loc["LOC_CALCULATOR"] + "</a></li>" : "") +
         (info ? "        <li><a href=\"#scivi_cgraph_ginfo\">" + loc["LOC_GINFO"] + "</a></li>" : "") +
         "    </ul>" +
         "    <div id=\"scivi_cgraph_info\"></div>" +
@@ -115,6 +116,7 @@ CGraph.prototype.run = function (loc, data, scales, colors, title, info, classif
         "    <div id=\"scivi_cgraph_filters\"></div>" +
         "    <div id=\"scivi_cgraph_stats\"></div>" +
         "    <div id=\"scivi_cgraph_tree\"></div>" +
+        "    <div id=\"scivi_cgraph_calc\"></div>" +
         (info ? "    <div id=\"scivi_cgraph_ginfo\">" + info + "</div>" : "") +
         "</div>"
     );
@@ -126,9 +128,10 @@ CGraph.prototype.run = function (loc, data, scales, colors, title, info, classif
 
     var renderer = new SciViCGraph.Renderer($("#scivi_cgraph_view")[0], $("#scivi_cgraph_info")[0],
                                             $("#scivi_cgraph_list")[0], $("#scivi_cgraph_settings")[0],
-                                            $("#scivi_cgraph_filters")[0], $("#scivi_cgraph_stats")[0],
+                                            $("#scivi_cgraph_filters")[0],
+                                            data.hasStates ? $("#scivi_cgraph_stats")[0] : null,
                                             data.hasStates ? $("#scivi_cgraph_stateline")[0] : null,
-                                            $("#scivi_cgraph_tree")[0],
+                                            $("#scivi_cgraph_tree")[0], $("#scivi_cgraph_calc")[0],
                                             loc);
 
     if (data.hasStates) {

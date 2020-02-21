@@ -60,4 +60,11 @@ var g_loc_en = {
     "LOC_HELPLOC": "../css/help-en.html",
     "LOC_GRAPHSTAT": "Graph statistics:",
     "LOC_SUMWEIGHT": "∑ weight =",
+    "LOC_CALCULATOR": "Calculator",
+    "LOC_ADDOPERAND": "Add Operand",
+    "LOC_OPUNION": "Union",
+    "LOC_OPDIFF": "Difference",
+    "LOC_OPINTERSECT": "Intersection",
+    "LOC_CALCULATE": "Calculate",
+    "LOC_CLEANCALC": "Clean",
 };
