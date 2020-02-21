@@ -90,7 +90,7 @@ namespace SciViCGraph
         private findCorrespondingEdge(src: Node, dst: Node, edges: Edge[]): Edge
         {
             for (let i = 0, n = edges.length; i < n; ++i) {
-                if ((edges[i].source === src) && (edges[i].target === dst))
+                if ((edges[i].source.label === src.label) && (edges[i].target.label === dst.label))
                     return edges[i];
             }
             return null;
@@ -131,7 +131,30 @@ namespace SciViCGraph
 
         private stateDiff(stateA: GraphData, stateB: GraphData): GraphData
         {
-            return null; // TODO
+            const resultNodes = [];
+            stateA.nodes.forEach((node) => {
+                const newNode = node.clone();
+                const corrNode = this.findCorrespondingNode(node, stateB.nodes);
+                if (corrNode)
+                    newNode.custom["weight"] = Math.max(newNode.weight - corrNode.weight, 0);
+                resultNodes.push(newNode);
+            });
+
+            const resultEdges = [];
+            stateA.edges.forEach((edge) => {
+                const src = this.findCorrespondingNode(edge.source, resultNodes);
+                const dst = this.findCorrespondingNode(edge.target, resultNodes);
+                const corrEdge = this.findCorrespondingEdge(src, dst, stateB.edges);
+                if (corrEdge) {
+                    const ew = edge.weight - corrEdge.weight;
+                    if (ew > 0)
+                        resultEdges.push(new Edge(src, dst, ew, null));
+                } else {
+                    resultEdges.push(new Edge(src, dst, edge.weight, null));
+                }
+            });
+
+            return new GraphData(resultNodes, resultEdges);
         }
 
         private stateIntersect(stateA: GraphData, stateB: GraphData): GraphData
