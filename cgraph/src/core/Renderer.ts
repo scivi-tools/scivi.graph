@@ -1437,7 +1437,7 @@ namespace SciViCGraph
             return this.m_localizer;
         }
 
-        public changeCurrentState(cs: string, forceRecalcWeights: boolean)
+        public changeCurrentState(cs: string)
         {
             if (this.m_states.isDynamic) {
                 this.m_states.data["current"] = null;
@@ -1450,14 +1450,20 @@ namespace SciViCGraph
                 this.m_equalizer = [];
             } else {
                 this.m_currentStateKey = cs;
-                if (forceRecalcWeights) {
-                    this.calcWeights();
-                    this.m_stage.nodeWeight = this.m_nodeWeight;
-                    this.m_stage.edgeWeight = this.m_edgeWeight;
-                    this.initFilters();
-                    this.m_equalizer = [];
-                }
             }
+            this.reinit(false, false);
+        }
+
+        public changeCurrentStateToCalculated()
+        {
+            this.m_currentStateKey = "calculated";
+            this.calcWeights();
+            this.m_stage.nodeWeight = this.m_nodeWeight;
+            this.m_stage.edgeWeight = this.m_edgeWeight;
+            this.initFilters();
+            this.m_equalizer = [];
+            this.sortNodesByRingScale(false);
+            this.m_stateLineNav.curtain();
             this.reinit(false, false);
         }
 

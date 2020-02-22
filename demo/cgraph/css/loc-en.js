@@ -69,4 +69,5 @@ var g_loc_en = {
     "LOC_OPINTERSECT": "Intersection",
     "LOC_CALCULATE": "Calculate",
     "LOC_CLEANCALC": "Clean",
+    "LOC_STATECALCULATED": "Current state was calculated. Click to return to previous one.",
 };

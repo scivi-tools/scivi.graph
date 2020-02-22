@@ -14,6 +14,9 @@ namespace SciViCGraph
 
         constructor(private m_renderer: Renderer, private m_container: HTMLElement)
         {
+            this.m_exprDiv = null;
+            this.m_operands = null;
+            this.m_operations = null;
         }
 
         private addFirstOperation()
@@ -68,11 +71,11 @@ namespace SciViCGraph
         private createOperationCombo(): JQuery
         {
             const combo = $('<select id="combo">');
+            $('<option>', { value: Calculator.m_opIntersect, text: this.m_renderer.localizer["LOC_OPINTERSECT"] }).appendTo(combo);
+            $('<option>', { value: Calculator.m_opSymDiff, text: this.m_renderer.localizer["LOC_OPSYMDIFF"] }).appendTo(combo);
             $('<option>', { value: Calculator.m_opSum, text: this.m_renderer.localizer["LOC_OPSUM"] }).appendTo(combo);
             $('<option>', { value: Calculator.m_opUnion, text: this.m_renderer.localizer["LOC_OPUNION"] }).appendTo(combo);
             $('<option>', { value: Calculator.m_opDiff, text: this.m_renderer.localizer["LOC_OPDIFF"] }).appendTo(combo);
-            $('<option>', { value: Calculator.m_opSymDiff, text: this.m_renderer.localizer["LOC_OPSYMDIFF"] }).appendTo(combo);
-            $('<option>', { value: Calculator.m_opIntersect, text: this.m_renderer.localizer["LOC_OPINTERSECT"] }).appendTo(combo);
             this.m_operations.push(combo);
             return combo;
         }
@@ -85,18 +88,22 @@ namespace SciViCGraph
 
         private findCorrespondingNode(node: Node, nodes: Node[]): Node
         {
-            for (let i = 0, n = nodes.length; i < n; ++i) {
-                if (nodes[i].label === node.label)
-                    return nodes[i];
+            if (node) {
+                for (let i = 0, n = nodes.length; i < n; ++i) {
+                    if (nodes[i].label === node.label)
+                        return nodes[i];
+                }
             }
             return null;
         }
 
         private findCorrespondingEdge(src: Node, dst: Node, edges: Edge[]): Edge
         {
-            for (let i = 0, n = edges.length; i < n; ++i) {
-                if ((edges[i].source.label === src.label) && (edges[i].target.label === dst.label))
-                    return edges[i];
+            if (src && dst) {
+                for (let i = 0, n = edges.length; i < n; ++i) {
+                    if ((edges[i].source.label === src.label) && (edges[i].target.label === dst.label))
+                        return edges[i];
+                }
             }
             return null;
         }
@@ -226,7 +233,6 @@ namespace SciViCGraph
 
         private calculate()
         {
-            const resultKey = "calculated";
             let result = this.getState(this.m_operands[0].val());
             for (let i = 0, n = this.m_operations.length; i < n; ++i) {
                 switch (this.m_operations[i].val()) {
@@ -251,8 +257,8 @@ namespace SciViCGraph
                         break;
                 }
             }
-            this.m_renderer.states.data[resultKey] = result;
-            this.m_renderer.changeCurrentState(resultKey, true);
+            this.m_renderer.states.data["calculated"] = result;
+            this.m_renderer.changeCurrentStateToCalculated();
         }
 
         public build()
