@@ -59,7 +59,7 @@
 
                 var states = graph.parseStatesHierarchy(g_data);
 
-                var classifier = graph.createClassifier(g_data.classifier, function (node) { return node.custom["class"]; });
+                var classifier = graph.createClassifier(g_data.classifier, function (node) { var result = node.custom["class"]; return result === undefined ? -1 : result; });
 
                 var renderer = graph.run(loc, states, [], null,
                                          locRus ? "Геоконцепты" : "Geoconcepts",
