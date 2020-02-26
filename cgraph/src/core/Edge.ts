@@ -12,7 +12,7 @@ namespace SciViCGraph
         private m_thickness: number;
         private m_glowThickness: number;
 
-        public static passiveEdgeAlpha = 0.2;
+        public static passiveEdgeAlpha = 0.5;
         private static readonly m_hoveredEdgeAlpha = 1.0;
         private static readonly m_selectedEdgeAlpha = 1.0;
 

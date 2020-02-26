@@ -20,7 +20,7 @@ namespace SciViCGraph
         private m_markerRect: { x: number, y: number, w: number, h: number };
         private m_multiselected: boolean;
 
-        public static passiveTextAlpha = 0.5;
+        public static passiveTextAlpha = 1.0;
         private static readonly m_hoveredTextAlpha = 1.0;
         private static readonly m_selectedTextAlpha = 1.0;
 
