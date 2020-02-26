@@ -51,6 +51,7 @@ var g_loc_ru = {
     "LOC_RING_FILTER_ARCS_GROUP": "Фильтровать дуги",
     "LOC_RING_FILTER_ARCS_GROUP_SINGLE": "Один конец (Shift+LMB)",
     "LOC_RING_FILTER_ARCS_GROUP_BOTH": "Оба конца (Alt+LMB)",
+    "LOC_RING_PAINT_NODES": "Окрасить вершины",
     "LOC_FINDSTRING": "Найти по строке",
     "LOC_FINDREGEXP": "Найти по regexp",
     "LOC_NOT": "Не",

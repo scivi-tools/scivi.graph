@@ -19,6 +19,7 @@ namespace SciViCGraph
         private m_hoveredEdge: Edge;
         private m_markerRect: { x: number, y: number, w: number, h: number };
         private m_multiselected: boolean;
+        private m_customColor;
 
         public static passiveTextAlpha = 1.0;
         private static readonly m_hoveredTextAlpha = 1.0;
@@ -58,6 +59,7 @@ namespace SciViCGraph
             this.m_selInput = null;
             this.m_hoveredEdge = null;
             this.m_multiselected = false;
+            this.m_customColor = null;
         }
 
         get id(): number
@@ -350,7 +352,7 @@ namespace SciViCGraph
 
         get groupColor(): number
         {
-            return (this.parent as Scene).colors[this.groupID];
+            return this.m_customColor === null ? (this.parent as Scene).colors[this.groupID] : this.m_customColor;
         }
 
         get isShown(): boolean
@@ -518,6 +520,16 @@ namespace SciViCGraph
         {
             this.m_multiselected = ms;
             this.m_selInput.checked = ms; // Does not invoke onChange.
+        }
+
+        get customColor(): number
+        {
+            return this.m_customColor;
+        }
+
+        set customColor(c: number)
+        {
+            this.m_customColor = c;
         }
 
         private getEdgeByPosition(x: number, y: number, s: number): Edge

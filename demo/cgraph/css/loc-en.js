@@ -51,6 +51,7 @@ var g_loc_en = {
     "LOC_RING_FILTER_ARCS_GROUP": "Filter arcs",
     "LOC_RING_FILTER_ARCS_GROUP_SINGLE": "Single end (Shift+LMB)",
     "LOC_RING_FILTER_ARCS_GROUP_BOTH": "Both ends (Alt+LMB)",
+    "LOC_RING_PAINT_NODES": "Paint nodes",
     "LOC_FINDSTRING": "Find by string",
     "LOC_FINDREGEXP": "Find by regexp",
     "LOC_NOT": "Not",

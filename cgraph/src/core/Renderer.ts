@@ -663,6 +663,12 @@ namespace SciViCGraph
                                 }
                             }
                         }
+                    },
+                    paint: {
+                        name: this.m_localizer["LOC_RING_PAINT_NODES"],
+                        callback: (key, opt) => {
+                            this.paintNodesByRingSegment();
+                        }
                     }
                 }
             });
@@ -1356,6 +1362,33 @@ namespace SciViCGraph
             }
             const f2 = this.filterEdges();
             this.render(f1 || f2, true);
+        }
+
+        private paintNodesByRingSegment()
+        {
+            let activeRS = null;
+            let needsUpdate = false;
+            if (this.m_ringScales) {
+                for (let i = 0, n = this.m_ringScales.length; i < n; ++i) {
+                    activeRS = this.m_ringScales[i].contextSegment;
+                    if (activeRS)
+                        break;
+                }
+            }
+            if (activeRS) {
+                this.currentData().nodes.forEach((node) => {
+                    if (activeRS.containsAngle(node.rotation)) {
+                        node.customColor = activeRS.color;
+                        needsUpdate = true;
+                    }
+                });
+            }
+            if (needsUpdate) {
+                this.currentData().nodes.forEach((node) => {
+                    node.invalidate(false);
+                });
+                this.render(true, true);
+            }
         }
 
         private addEqualizerItem()
