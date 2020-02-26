@@ -2,11 +2,10 @@ namespace SciViCGraph
 {
     export class Calculator
     {
-        static readonly m_opSum = "0";
-        static readonly m_opUnion = "1";
+        static readonly m_opUnion = "0";
+        static readonly m_opIntersect = "1";
         static readonly m_opDiff = "2";
         static readonly m_opSymDiff = "3";
-        static readonly m_opIntersect = "4";
 
         private m_exprDiv: JQuery;
         private m_operands: JQuery[];
@@ -72,10 +71,9 @@ namespace SciViCGraph
         {
             const combo = $('<select id="combo">');
             $('<option>', { value: Calculator.m_opIntersect, text: this.m_renderer.localizer["LOC_OPINTERSECT"] }).appendTo(combo);
-            $('<option>', { value: Calculator.m_opSymDiff, text: this.m_renderer.localizer["LOC_OPSYMDIFF"] }).appendTo(combo);
-            $('<option>', { value: Calculator.m_opSum, text: this.m_renderer.localizer["LOC_OPSUM"] }).appendTo(combo);
-            $('<option>', { value: Calculator.m_opUnion, text: this.m_renderer.localizer["LOC_OPUNION"] }).appendTo(combo);
             $('<option>', { value: Calculator.m_opDiff, text: this.m_renderer.localizer["LOC_OPDIFF"] }).appendTo(combo);
+            $('<option>', { value: Calculator.m_opSymDiff, text: this.m_renderer.localizer["LOC_OPSYMDIFF"] }).appendTo(combo);
+            $('<option>', { value: Calculator.m_opUnion, text: this.m_renderer.localizer["LOC_OPUNION"] }).appendTo(combo);
             this.m_operations.push(combo);
             return combo;
         }
@@ -106,39 +104,6 @@ namespace SciViCGraph
                 }
             }
             return null;
-        }
-
-        private stateSum(stateA: GraphData, stateB: GraphData): GraphData
-        {
-            const resultNodes = [];
-            stateA.nodes.forEach((node) => {
-                resultNodes.push(node.clone());
-            });
-            stateB.nodes.forEach((node) => {
-                const corrNode = this.findCorrespondingNode(node, resultNodes);
-                if (corrNode)
-                    corrNode.custom["weight"] = corrNode.weight + node.weight;
-                else
-                    resultNodes.push(node.clone(resultNodes.length));
-            });
-
-            const resultEdges = [];
-            stateA.edges.forEach((edge) => {
-                const src = this.findCorrespondingNode(edge.source, resultNodes);
-                const dst = this.findCorrespondingNode(edge.target, resultNodes);
-                resultEdges.push(new Edge(src, dst, edge.weight, null));
-            });
-            stateB.edges.forEach((edge) => {
-                const src = this.findCorrespondingNode(edge.source, resultNodes);
-                const dst = this.findCorrespondingNode(edge.target, resultNodes);
-                const corrEdge = this.findCorrespondingEdge(src, dst, resultEdges);
-                if (corrEdge)
-                    corrEdge.weight += edge.weight;
-                else
-                    resultEdges.push(new Edge(src, dst, edge.weight, null));
-            });
-
-            return new GraphData(resultNodes, resultEdges);
         }
 
         private stateUnion(stateA: GraphData, stateB: GraphData): GraphData
@@ -174,39 +139,6 @@ namespace SciViCGraph
             return new GraphData(resultNodes, resultEdges);
         }
 
-        private stateDiff(stateA: GraphData, stateB: GraphData): GraphData
-        {
-            const resultNodes = [];
-            stateA.nodes.forEach((node) => {
-                const newNode = node.clone();
-                const corrNode = this.findCorrespondingNode(node, stateB.nodes);
-                if (corrNode)
-                    newNode.custom["weight"] = Math.max(newNode.weight - corrNode.weight, 0);
-                resultNodes.push(newNode);
-            });
-
-            const resultEdges = [];
-            stateA.edges.forEach((edge) => {
-                const src = this.findCorrespondingNode(edge.source, resultNodes);
-                const dst = this.findCorrespondingNode(edge.target, resultNodes);
-                const corrEdge = this.findCorrespondingEdge(src, dst, stateB.edges);
-                if (corrEdge) {
-                    const ew = edge.weight - corrEdge.weight;
-                    if (ew > 0)
-                        resultEdges.push(new Edge(src, dst, ew, null));
-                } else {
-                    resultEdges.push(new Edge(src, dst, edge.weight, null));
-                }
-            });
-
-            return new GraphData(resultNodes, resultEdges);
-        }
-
-        private stateSymDiff(stateA: GraphData, stateB: GraphData): GraphData
-        {
-            return this.stateDiff(this.stateUnion(stateA, stateB), this.stateIntersect(stateA, stateB));
-        }
-
         private stateIntersect(stateA: GraphData, stateB: GraphData): GraphData
         {
             const resultNodes = [];
@@ -231,17 +163,45 @@ namespace SciViCGraph
             return new GraphData(resultNodes, resultEdges);
         }
 
+        private stateDiff(stateA: GraphData, stateB: GraphData): GraphData
+        {
+            const resultNodes = [];
+            stateA.nodes.forEach((node) => {
+                const newNode = node.clone();
+                const corrNode = this.findCorrespondingNode(node, stateB.nodes);
+                if (corrNode)
+                    newNode.custom["weight"] = Math.max(newNode.weight - corrNode.weight, 0);
+                resultNodes.push(newNode);
+            });
+
+            const resultEdges = [];
+            stateA.edges.forEach((edge) => {
+                const src = this.findCorrespondingNode(edge.source, resultNodes);
+                const dst = this.findCorrespondingNode(edge.target, resultNodes);
+                const corrEdge = this.findCorrespondingEdge(src, dst, stateB.edges);
+                if (!corrEdge)
+                    resultEdges.push(new Edge(src, dst, edge.weight, null));
+            });
+
+            return new GraphData(resultNodes, resultEdges);
+        }
+
+        private stateSymDiff(stateA: GraphData, stateB: GraphData): GraphData
+        {
+            return this.stateDiff(this.stateUnion(stateA, stateB), this.stateIntersect(stateA, stateB));
+        }
+
         private calculate()
         {
             let result = this.getState(this.m_operands[0].val());
             for (let i = 0, n = this.m_operations.length; i < n; ++i) {
                 switch (this.m_operations[i].val()) {
-                    case Calculator.m_opSum:
-                        result = this.stateSum(result, this.getState(this.m_operands[i + 1].val()));
-                        break;
-
                     case Calculator.m_opUnion:
                         result = this.stateUnion(result, this.getState(this.m_operands[i + 1].val()));
+                        break;
+
+                    case Calculator.m_opIntersect:
+                        result = this.stateIntersect(result, this.getState(this.m_operands[i + 1].val()));
                         break;
 
                     case Calculator.m_opDiff:
@@ -250,10 +210,6 @@ namespace SciViCGraph
 
                     case Calculator.m_opSymDiff:
                         result = this.stateSymDiff(result, this.getState(this.m_operands[i + 1].val()));
-                        break;
-
-                    case Calculator.m_opIntersect:
-                        result = this.stateIntersect(result, this.getState(this.m_operands[i + 1].val()));
                         break;
                 }
             }
