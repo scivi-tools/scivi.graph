@@ -129,9 +129,10 @@ CGraph.prototype.run = function (loc, data, scales, colors, title, info, classif
     var renderer = new SciViCGraph.Renderer($("#scivi_cgraph_view")[0], $("#scivi_cgraph_info")[0],
                                             $("#scivi_cgraph_list")[0], $("#scivi_cgraph_settings")[0],
                                             $("#scivi_cgraph_filters")[0],
-                                            data.hasStates ? $("#scivi_cgraph_stats")[0] : null,
+                                            $("#scivi_cgraph_stats")[0],
                                             data.hasStates ? $("#scivi_cgraph_stateline")[0] : null,
-                                            $("#scivi_cgraph_tree")[0], $("#scivi_cgraph_calc")[0],
+                                            classifier ? $("#scivi_cgraph_tree")[0] : null, 
+                                            data.hasStates ? $("#scivi_cgraph_calc")[0] : null,
                                             loc);
 
     if (data.hasStates) {
