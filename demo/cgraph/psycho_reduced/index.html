@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="../css/default.css"/>
 
         <script src="graph.js"></script>
+        <script src="graph_en.js"></script>
         <script src="classifier.js"></script>
         <script src="../css/loc-ru.js"></script>
         <script src="../css/loc-en.js"></script>
@@ -58,7 +59,7 @@
 
                 var graph = new CGraph();
 
-                var states = graph.parseStates(g_data);
+                var states = graph.parseStates(locRus ? g_data : g_data_en);
 
                 var colors1 = [ 0xdd1111, 0x489CA0 ];
 
