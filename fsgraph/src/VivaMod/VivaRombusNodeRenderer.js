@@ -108,8 +108,8 @@ function createNodeFragmentShader() {
         precision mediump float;
         varying vec2 v_uv;
         varying vec4 v_color;
-        const float minBorderR = 0.7;
-        const float maxBorderR = 0.85;
+        const float minBorderR = 0.77;
+        const float maxBorderR = 0.9;
         const float maxR = 1.0;
         const float maxBorderOpacity = 0.9;
 

@@ -17,12 +17,12 @@ import {SelectionMode} from "./SelectionMode";
  * их цвета (+ связей) для всех состояний: (не)выбрано/(не)активно
  */
 
-const _MaxNodeSizeDiap = [1, 500];
-const _NodeSizeStep = 5;
-const _DefNodeSizeDiap = [7, 45];
-const _MaxEdgeSizeDiap = [1.5, 5];
-const _EdgeSizeStep = 0.1;
-const _DefEdgeSizeDiap = [1, 5];
+export const _MaxNodeSizeDiap = [1, 500];
+export const _NodeSizeStep = 5;
+export const _DefNodeSizeDiap = [7, 45];
+export const _MaxEdgeSizeDiap = [1.5, 5];
+export const _EdgeSizeStep = 0.1;
+export const _DefEdgeSizeDiap = [1, 5];
 
 /**
  * Что-то типа ViewRules - правила отображения

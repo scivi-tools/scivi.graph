@@ -6,6 +6,7 @@ import { Point2D } from './Point2D';
 import { getOrCreateTranslatorInstance } from '@scivi/utils';
 import * as $ from 'jquery';
 import {SelectionMode} from "./SelectionMode";
+import {VivaStateView, _MaxNodeSizeDiap} from "./VivaStateView";
 
 /**
  * @implements {VivaGeneric.NodeUI}
@@ -159,28 +160,47 @@ export class VivaImageNodeUI extends VivaBaseUI {
 
             let angle = 0;
             let domPos = this.drawPosition;
+            let size = this.size;
             //нормировка labelDirection
             let vec_len = Math.sqrt(this.labelDirection.x * this.labelDirection.x + this.labelDirection.y * this.labelDirection.y);
             if (vec_len > 0) {
-                this.labelDirection.x *= (this._spanWidth) / vec_len;
-                this.labelDirection.y *= (this._spanWidth) / vec_len;
+                this.labelDirection.x /= vec_len;
+                this.labelDirection.y /= vec_len;
+
+                if (this.labelDirection.x >= Math.sqrt(2) / 2.0)
+                    this.labelDirection.x = 1.0;
+                else if (this.labelDirection.x <= -Math.sqrt(2) / 2.0)
+                    this.labelDirection.x = -1.0;
+                else this.labelDirection.x = 0.0;
+
+                if (this.labelDirection.y >= Math.sqrt(2) / 2.0)
+                    this.labelDirection.y = 1.0;
+                else if (this.labelDirection.y <= -Math.sqrt(2) / 2.0)
+                    this.labelDirection.y = -1.0;
+                else this.labelDirection.y = 0.0;
+
                 if (Math.abs(this.labelDirection.x) !== 0)
                     angle = Math.atan(this.labelDirection.y / this.labelDirection.x);
+
+                if (this.labelDirection.x !== 0.0)
+                    this.labelDirection.x *= (size / 2.0 + this._spanWidth / 2.0);
+                if (this.labelDirection.y !== 0.0)
+                    this.labelDirection.y *= (size / 2.0 + this._spanHeight);
             }
             this.graphics.transformGraphToClientCoordinates(domPos);
             this._span.style.transform = `translate(${domPos.x - this._spanWidth / 2}px, ${domPos.y - this._spanHeight / 2}px)`;
-            //this._span.style.transform += `scale(${this.graphics.getScaleFactor()})`;
+            this._span.style.transform += `scale(${this.graphics.getScaleFactor() + size / _MaxNodeSizeDiap[1]})`;
             if (this.selectionMode === SelectionMode.SELECTED_LIKE_ADJACENT) {
                 let globalAngle = this.graphics.getRotationAngle();
-                if (angle - globalAngle >= Math.PI / 2) angle -= Math.PI;
-                if (angle - globalAngle <= -Math.PI / 2) angle += Math.PI;
-                this._span.style.transform += `rotate(${-globalAngle}rad)`;
-                this._span.style.transform += `translate(${this.labelDirection.x / 2}px, 
-                                                        ${this.labelDirection.y / 2}px)`;
+                if (angle - globalAngle > Math.PI / 2.0) angle -= Math.PI;
+                if (angle - globalAngle < -Math.PI / 2.0) angle += Math.PI;
+                //this._span.style.transform += `rotate(${-globalAngle}rad)`;
+                this._span.style.transform += `translate(${this.labelDirection.x}px,
+                                                        ${this.labelDirection.y}px)`;
             }
             else
                 this._span.style.transform += `translate(${0}px, 
-                                                        ${-this._size / 2}px)`;
+                                                        ${-size / 2}px)`;
             this._span.style.transform += `rotate(${angle}rad)`;
             this._span.style.opacity = this.isSelected ? '1' : this._spanOpacity;
 

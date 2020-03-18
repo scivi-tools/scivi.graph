@@ -205,13 +205,13 @@ export class VivaColoredNodeRenderer {
 }
 
 // TODO: Use glslify for shaders
-function createNodeFragmentShader() {
+function createNodeFragmentShader()     {
     return `
         precision mediump float;
         varying vec2 v_uv;
         varying vec4 v_color;
-        const float minBorderR = 0.7;
-        const float maxBorderR = 0.8;
+        const float minBorderR = 0.8;
+        const float maxBorderR = 0.9;
         const float maxR = 1.0;
         const float maxBorderOpacity = 0.9;
 
