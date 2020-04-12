@@ -20,9 +20,13 @@ import {SelectionMode} from "./SelectionMode";
 export const _MaxNodeSizeDiap = [1, 500];
 export const _NodeSizeStep = 5;
 export const _DefNodeSizeDiap = [7, 45];
-export const _MaxEdgeSizeDiap = [1.5, 5];
+export const _MaxEdgeSizeDiap = [0.1, 10];
 export const _EdgeSizeStep = 0.1;
-export const _DefEdgeSizeDiap = [1, 5];
+export const _DefEdgeSizeDiap = [1, 2];
+
+export function LinearInterpolation(x, x1, x2, y1, y2) {
+    return y1 + (y2 - y1) * (x - x1) / (x2 - x1);
+}
 
 /**
  * Что-то типа ViewRules - правила отображения
@@ -102,7 +106,7 @@ export class VivaStateView {
      * @returns {number}
      */
     _getInterpolated(diap, value, maxValue) {
-        return (value >= 0)
+        return (value > 0)
         ? (diap[0] + (diap[1] - diap[0]) * value / maxValue)
         : diap[0];
     }
@@ -115,7 +119,7 @@ export class VivaStateView {
      */
     getNodeUISize(value = 1, maxValue = 1) {
         // TODO: максимальный вес вершин нужно хранить где-то в состоянии графа (по группам!)
-        return this._getInterpolated(this._nodeSizeDiap, value, maxValue);
+        return this._getInterpolated(_DefNodeSizeDiap, value, maxValue);
     }
 
     /**
@@ -125,7 +129,7 @@ export class VivaStateView {
      * @returns {number}
      */
     getEdgeUISize(value = 1, maxValue = _MaxEdgeSizeDiap[1]) {
-        return this._getInterpolated(this._edgeSizeDiap, value, maxValue);
+        return this._getInterpolated(_DefEdgeSizeDiap, value, maxValue);
     }
 
     _buildUI() {
@@ -139,7 +143,7 @@ export class VivaStateView {
         const diapNames = [tr.apply('#node_size_diap'), tr.apply('#edge_size_diap')];
         const diapRanges = [_MaxNodeSizeDiap, _MaxEdgeSizeDiap];
         const diapSteps = [_NodeSizeStep, _EdgeSizeStep];
-        const diapSetters = [this._nodeSizeDiap, this._edgeSizeDiap];
+        const diapSetters = [_DefNodeSizeDiap, _DefEdgeSizeDiap];
         const alphaDiapNames = [tr.apply('#node_alpha'), tr.apply('#edge_alpha')];
         for (let i = 0; i < 2; i++) {
             const diapLi = document.createElement('li');
@@ -148,7 +152,7 @@ export class VivaStateView {
             const numLabel = document.createElement('span');
             // TODO: should be done another way
             const setDiapLabel = (/** @type {number[]} */values) => {
-                numLabel.innerText = `${values[0]}..${values[1]}`;
+                numLabel.innerText = `[${values[0]};${values[1]}]`;
             };
             setDiapLabel(diapSetters[i]);
 

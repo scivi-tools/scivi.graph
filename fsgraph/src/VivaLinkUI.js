@@ -1,5 +1,22 @@
 import { VivaBaseUI } from './VivaBaseUI';
 import { Point2D } from './Point2D';
+import {webglGraphics, maxScaleRate, minScaleRate} from "./VivaMod/webglGraphics";
+import {VivaStateView, LinearInterpolation} from "./VivaStateView";
+
+
+/**
+ * @return {number}
+ */
+export function LinearSpline(x, x1, x2, x3, y1, y2, y3) {
+    if (x < x2)
+    {
+        return LinearInterpolation(x, x1, x2, y1, y2);
+    }
+    else
+    {
+        return LinearInterpolation(x, x2, x3, y2, y3);
+    }
+}
 
 /**
  * @implements {VivaGeneric.LinkUI}
@@ -27,16 +44,18 @@ export class VivaLinkUI extends VivaBaseUI {
         /** @type {VivaGeneric.LinkUI} */
         const assertion = this;
     }
-
+    
     get size()
     {
-        const minSize = 1.5;
-        const maxSize = 5.0;
-        let size = Math.min(Math.max(minSize, this._size), maxSize);
-        const scaleRate = this.graphics.getScaleFactor();
         const graphSize = this.link.data._state.graphSize;
-        const coeff = 0.1 * Math.log(3.0 - scaleRate) / scaleRate + 0.1/scaleRate + 1.0;
-        return size * (coeff > 1.0 ? Math.min(coeff, 2.0) : 1.0);
+        const scaleRate = this.graphics.getScaleFactor();
+        let size = this._size;
+        let maxSizeCoeff = 6.0;//scale = 0.01
+        let midSizeCoeff = 2.0;
+        let midScaleRate = 0.5;
+        let minSizeCoeff = 1.0;//scale = 2
+        const coeff = LinearSpline(scaleRate, minScaleRate, midScaleRate, maxScaleRate, maxSizeCoeff, midSizeCoeff,  minSizeCoeff);
+        return size * coeff;
     }
 
     set size(value)

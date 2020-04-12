@@ -17,7 +17,7 @@ export default function createLayout(graph, options) {
     let displacements = []; //dx для каждой вершины
     graph.forEachNode(node => {
         displacements[node.id] = {x: 0, y: 0};
-        node.position = {x: random.next(2 * width) - width, y : random.next(2 * height) - height};
+        //node.position = {x: random.next(2 * width) - width, y : random.next(2 * height) - height};
         return false;
     });
     let temperature = options['InitialTemperatureCoeff'] * Math.sqrt(graph.getNodesCount());
@@ -63,15 +63,6 @@ export default function createLayout(graph, options) {
             e.u. disp := e.u.disp + ( ∆ /| ∆ |) * fa (| ∆ |)
         end
          */
-        /*graph.forEachNode(v => {
-            graph.forEachNode(u => {
-                if (v !== u) {
-
-                }
-                return false;
-            });
-            return false;
-        });*/
         graph.forEachLink(link => {
            const v = graph.getNode(link.fromId);
            const u = graph.getNode(link.toId);

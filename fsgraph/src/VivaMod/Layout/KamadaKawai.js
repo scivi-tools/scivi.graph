@@ -20,12 +20,13 @@ export default function createLayout(graph, settings) {
     var k = [];
 
     /** @type Ngraph.Graph.Position */
-    var max_dE;
+    var max_dE = {x: 0, y: 0};
+    var last_dE = {x: 0, y: 0};
     /** @type Ngraph.Graph.Node */
     var max_dE_node = null;
 
     init();
-    calcMaxDE();
+    calcMaxDE(max_dE);
 
     let layout = Viva.Layout.constant(graph, settings);
     layout.placeNode(function(node)
@@ -35,13 +36,19 @@ export default function createLayout(graph, settings) {
 
     layout.step = function(){
         //смещаем ноду пока энергия не станет минимальной
-        while(getVecLength(max_dE) > eps) {
-            max_dE = calcNodePosition(max_dE, max_dE_node);
+        //while(getVecLength(max_dE) > eps) {
+            replaceNode(max_dE_node, max_dE);
+        //}
+        if (getVecLength(max_dE) < eps)
+        {
+            calcMaxDE(max_dE);
+            getVecLength(max_dE) < eps;
         }
+        else return false;
         //перевычисляем максимальный dE
-        calcMaxDE();
+
         //alert(max_dE.x + ", " + max_dE.y);
-        return getVecLength(max_dE) < eps;
+        //return
     };
 
     //включаем возможность перемещения нод
@@ -70,7 +77,7 @@ export default function createLayout(graph, settings) {
             distances[v.id] = [];
             lengths[v.id] = [];
             k[v.id] = [];
-            v.position = {x: random.next(2 * W) - W, y: random.next(2 * W) - W};
+            //v.position = {x: random.next(2 * W) - W, y: random.next(2 * W) - W};
             return false;
         });
 
@@ -118,45 +125,48 @@ export default function createLayout(graph, settings) {
         });
     }
 
-    function calcMaxDE() {
-        max_dE = {x: 0, y: 0};
+    //O(n^2)
+    function calcMaxDE(max_dE) {
+        max_dE.x = 0;
+        max_dE.y = 0;
         max_dE_node = null;
+        var dE = {x: 0, y: 0};
         graph.forEachNode(v => {
                 /** @type Ngraph.Graph.Position */
-                var dE = calcDE(v);
+                calcDE(v, dE);
                 let dE_norm = getVecLength(dE);
                 if (dE_norm > getVecLength(max_dE)) {
-                    max_dE = dE;
+                    max_dE.x = dE.x;
+                    max_dE.y = dE.y;
                     max_dE_node = v;
                 }
             return false;
         });
     }
 
-    function calcDE(node) {
-        var dE = {x: 0,y: 0};
+    //O(n)
+    function calcDE(node, dE) {
+        dE.x = 0;
+        dE.y = 0;
         graph.forEachNode(u => {
             if (node !== u && u.links.length !== 0) {
                 const node_pos = node.position;
                 const u_pos = u.position;
-                const temp_x = node_pos.x - u_pos.x;
-                const temp_y = node_pos.y - u_pos.y;
-                dE.x += k[node.id][u.id] * temp_x * (1 - lengths[node.id][u.id] / getPointDistance(node_pos, u_pos));
-                dE.y += k[node.id][u.id] * temp_y * (1 - lengths[node.id][u.id] / getPointDistance(node_pos, u_pos));
+                const dx = node_pos.x - u_pos.x;
+                const dy = node_pos.y - u_pos.y;
+                dE.x += k[node.id][u.id] * dx * (1 - lengths[node.id][u.id] / getPointDistance(node_pos, u_pos));
+                dE.y += k[node.id][u.id] * dy * (1 - lengths[node.id][u.id] / getPointDistance(node_pos, u_pos));
             }
             return false;
         });
-        return dE;
     }
 
-    /**
+    /** O(n)
      * Смещаем ноду,чтобы уменьшить ее энергию
-     * @param {Ngraph.Graph.Position} dE
      * @param {Ngraph.Graph.Node} node
+     * @param {Ngraph.Graph.Position} dE
      */
-    function calcNodePosition(dE, node) {
-        /** @type Ngraph.Graph.Position */
-        let delta = {x: 0, y: 0};
+    function replaceNode(node, dE) {
         //---------- вычисляем delta решая ДУ --------------
         let d2E_dx = 0;
         let d2E_dy = 0;
@@ -166,23 +176,24 @@ export default function createLayout(graph, settings) {
                 const node_pos = node.position;
                 const u_pos = u.position;
                 var distance = getPointDistance(node_pos, u_pos);
+                let dy = (node_pos.y - u_pos.y);
+                let dx = (node_pos.x - u_pos.x);
                 d2E_dx += k[node.id][u.id] * (1 -
-                    lengths[node.id][u.id] * Math.pow((node_pos.y - u_pos.y), 2) / Math.pow(distance, 3));
+                    lengths[node.id][u.id] * dy * dy / distance / distance / distance);
                 d2E_dy += k[node.id][u.id] * (1 -
-                    lengths[node.id][u.id] * Math.pow((node_pos.x - u_pos.x), 2) / Math.pow(distance, 3));
-                d2E_dxy += k[node.id][u.id] * (lengths[node.id][u.id] * (node_pos.x - u_pos.x) * (node_pos.y - u_pos.y) /
-                    Math.pow(distance, 3));
+                    lengths[node.id][u.id] * dx * dx / distance / distance / distance);
+                d2E_dxy += k[node.id][u.id] * (lengths[node.id][u.id] * dx * dy / distance / distance / distance);
             }
             return false;
         });
         const det = d2E_dx * d2E_dy - d2E_dxy * d2E_dxy;
-        delta.x = (d2E_dxy * dE.y - d2E_dy * dE.x) / det;
-        delta.y = (d2E_dxy * dE.x - d2E_dx * dE.y) / det;
+        let dx = (d2E_dxy * dE.y - d2E_dy * dE.x) / det;
+        let dy = (d2E_dxy * dE.x - d2E_dx * dE.y) / det;
+        //alert("dx:" + dx + "\ndy:" + dy);
         //--------------------------------------------------
-        node.position.x += delta.x;
-        node.position.y += delta.y;
-        dE = calcDE(node);
-        return dE;
+        node.position.x += dx;
+        node.position.y += dy;
+        calcDE(node, dE);
     }
 }
 

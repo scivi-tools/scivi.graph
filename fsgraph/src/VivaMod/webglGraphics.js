@@ -10,6 +10,9 @@ import * as eventify from 'ngraph.events';
 import merge from 'ngraph.merge';
 import {SelectionMode} from "../SelectionMode";
 
+export const maxScaleRate = 2.0;
+export const minScaleRate = 0.01;
+
 /**
  * Performs webgl-based graph rendering. This module does not perform
  * layout, but only visualizes nodes and edges of the graph.
@@ -148,14 +151,14 @@ export function webglGraphics(opts) {
                 var cx = 2 * scrollPoint.x / width - 1,
                     cy = 1 - (2 * scrollPoint.y) / height;
                 scaleRate *= _scaleFactor;
-                if (scaleRate > 2.0)
+                if (scaleRate > maxScaleRate)
                 {
-                    scaleRate = 2.0;
+                    scaleRate = maxScaleRate;
                     _scaleFactor = 1.0;
                 }
-                if (scaleRate < 0.01)
+                if (scaleRate < minScaleRate)
                 {
-                    scaleRate = 0.01;
+                    scaleRate = minScaleRate;
                     _scaleFactor = 1.0;
                 }
                 cx -= transform[12];

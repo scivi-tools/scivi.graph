@@ -6,7 +6,8 @@ import { Point2D } from './Point2D';
 import { getOrCreateTranslatorInstance } from '@scivi/utils';
 import * as $ from 'jquery';
 import {SelectionMode} from "./SelectionMode";
-import {VivaStateView, _MaxNodeSizeDiap} from "./VivaStateView";
+import {VivaStateView, _DefNodeSizeDiap, LinearInterpolation} from "./VivaStateView";
+import {maxScaleRate, minScaleRate} from "./VivaMod/webglGraphics";
 
 /**
  * @implements {VivaGeneric.NodeUI}
@@ -58,7 +59,7 @@ export class VivaImageNodeUI extends VivaBaseUI {
 
     get size()
     {
-        var coeff = this._size > 40 ? 0.5 : 2.0;
+        //var coeff = this._size > 40 ? 0.5 : 2.0;
         return this._size;// * (this.graphics.getScaleFactor() < 1 ? coeff / this.graphics.getScaleFactor() : coeff);
     }
 
@@ -160,6 +161,8 @@ export class VivaImageNodeUI extends VivaBaseUI {
 
             let angle = 0;
             let domPos = this.drawPosition;
+            let scaleRate = this.graphics.getScaleFactor();
+
             let size = this.size;
             //нормировка labelDirection
             let vec_len = Math.sqrt(this.labelDirection.x * this.labelDirection.x + this.labelDirection.y * this.labelDirection.y);
@@ -181,27 +184,25 @@ export class VivaImageNodeUI extends VivaBaseUI {
 
                 if (Math.abs(this.labelDirection.x) !== 0)
                     angle = Math.atan(this.labelDirection.y / this.labelDirection.x);
-
-                if (this.labelDirection.x !== 0.0)
-                    this.labelDirection.x *= (size / 2.0 + this._spanWidth / 2.0);
-                if (this.labelDirection.y !== 0.0)
-                    this.labelDirection.y *= (size / 2.0 + this._spanHeight);
             }
+            //labelDirection сейчас нормирован к длине 1
+
             this.graphics.transformGraphToClientCoordinates(domPos);
+
             this._span.style.transform = `translate(${domPos.x - this._spanWidth / 2}px, ${domPos.y - this._spanHeight / 2}px)`;
-            this._span.style.transform += `scale(${this.graphics.getScaleFactor() + size / _MaxNodeSizeDiap[1]})`;
             if (this.selectionMode === SelectionMode.SELECTED_LIKE_ADJACENT) {
                 let globalAngle = this.graphics.getRotationAngle();
                 if (angle - globalAngle > Math.PI / 2.0) angle -= Math.PI;
                 if (angle - globalAngle < -Math.PI / 2.0) angle += Math.PI;
                 //this._span.style.transform += `rotate(${-globalAngle}rad)`;
-                this._span.style.transform += `translate(${this.labelDirection.x}px,
-                                                        ${this.labelDirection.y}px)`;
+                this._span.style.transform += `translate(${this.labelDirection.x * (size + this._spanWidth / 2.0) * scaleRate}px,
+                                                        ${this.labelDirection.y * (size  + this._spanHeight) * scaleRate}px)`;
             }
             else
                 this._span.style.transform += `translate(${0}px, 
-                                                        ${-size / 2}px)`;
+                                                        ${(-size + _DefNodeSizeDiap[0] / _DefNodeSizeDiap[1]) * scaleRate}px)`;
             this._span.style.transform += `rotate(${angle}rad)`;
+            this._span.style.transform += `scale(${0.03 * size * scaleRate})`;
             this._span.style.opacity = this.isSelected ? '1' : this._spanOpacity;
 
         }
@@ -266,4 +267,3 @@ export class VivaImageNodeUI extends VivaBaseUI {
         info.appendChild(nodeListContainer);
     };
 };
-

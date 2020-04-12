@@ -119,7 +119,7 @@ export const _NumRanges = {
     // from, to, step
     // ----------------- Силовые укладки -----------------
     'forceDirected' : {
-        'springLength': [5, 50, 5],
+        'springLength': [10, 10000, 10],
         'springCoeff': [0, 0.0016, 0.0001],
         'gravity': [-5, 5, 0.1],
         'theta': [0.1, 0.9, 0.1],
@@ -133,7 +133,7 @@ export const _NumRanges = {
         'theta': [0.1, 0.9, 0.1]
     },
     'forceAtlas2f': {
-        'springLength': [5, 50, 5],
+        'springLength': [10, 10000, 10],
         'springCoeff': [0, 0.0016, 0.0001],
         'gravity': [-10, 10, 0.5],
         'theta': [0.1, 0.9, 0.1],
