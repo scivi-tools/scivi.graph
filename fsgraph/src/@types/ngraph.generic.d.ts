@@ -18,6 +18,7 @@ declare namespace Ngraph {
             getLinkPosition(id: any) : Graph.Position2,
             isNodePinned(node: Graph.Node) : boolean,
             pinNode(node: Graph.Node, pin : boolean) : void,
+            dispose(): void,
             lastMove: number
         }
 

@@ -3,6 +3,7 @@ import Viva from './viva-proxy';
 import { GraphController } from './GraphController';
 import { VivaWebGLSimpleBackend } from './VivaWebGLSimpleBackend';
 import { VivaStateView } from './VivaStateView';
+import {_DefaultSettings, _NumRanges, _ConstantLayouts, _ForceLayouts, LayoutBuilder} from './LayoutBuilder';
 import { WebGLDnDManager, DnDHandler } from './VivaMod/webglInputManager';
 import * as $ from 'jquery';
 import 'jquery-ui/ui/widget';
@@ -39,6 +40,7 @@ export class VivaWebGLRenderer {
      * @param {*} backend 
      */
     constructor(baseContainer, backend = null) {
+        this.layoutListDomId = "cbLayoutList";
         this._container = this._buildUi(baseContainer);
         this._baseContainer = baseContainer;
 
@@ -49,6 +51,8 @@ export class VivaWebGLRenderer {
 
         /** @type {Ngraph.Graph.Graph} */
         this._graphBackend = null;
+        /** @type {LayoutBuilder} */
+        this._layoutBuilder = null;
         /** @type {Ngraph.Generic.Layout} */
         this._layoutBackend = null;
         /** @type {GraphController} */
@@ -117,14 +121,6 @@ export class VivaWebGLRenderer {
     }
 
     /**
-     * @param {Ngraph.Generic.Layout} value
-     */
-    set layoutBackend(value) {
-        this._layoutBackend = value;
-        // TODO: обработка событий и всё такое?
-    }
-
-    /**
      * @param {VivaStateView} value
      */
     set viewRules(value) {
@@ -145,6 +141,16 @@ export class VivaWebGLRenderer {
             return false;
         });
 
+        this.graphicsInputListner.mouseEnter(nodeUI => {
+            value.onNodeEnter(nodeUI, this._graphBackend, this);
+            return false;
+        });
+
+        this.graphicsInputListner.mouseLeave(nodeUI => {
+            value.onNodeLeave(nodeUI, this._graphBackend, this);
+            return false;
+        });
+
         this.graphicsInputListner.dblClick(nodeUI => {
             if (nodeUI) {
                 this._layoutBackend.pinNode(nodeUI.node, !this._layoutBackend.isNodePinned(nodeUI.node));
@@ -155,22 +161,44 @@ export class VivaWebGLRenderer {
 
     /**
      * @param {GraphController} value
+     * @param {string} layoutName
      */
-    set graphController(value) {
+    setGraphController(value, layoutName) {
         if (!!this._graphController) {
             throw new Error('Changin controller on the fly not supported!');
         }
         this._graphController = value;
         this._graphController.onStateUpdatedCallback = this.rerender.bind(this);
-        this.layoutBackend = value.layoutInstance;
         this.graphBackend = value.graph;
 
         this.currentStateId = 0;
-
-        value.layoutBuilder.buildUI();
-        value.layoutBuilder.onSetiingChangedCallback = this.kick.bind(this);
+        this._layoutBuilder = new LayoutBuilder(value.graph);
+        this.selectLayout(layoutName);
+        /*this._layoutBuilder = LayoutBuilder.buildLayout(layoutName, this._graphController);
+        this._layoutBackend = this._layoutBuilder.layout;
+        this._graphController.layoutInstance = this._layoutBackend;
+        this._layoutBuilder.onSettingChangedCallback = this.kick.bind(this);*/
         this._buildTimeline();
         this._buildMetricsUI();
+    }
+
+    selectLayout(name)
+    {
+        let layoutList = document.getElementById(this.layoutListDomId);
+        // @ts-ignore
+        layoutList.value = name;
+        layoutList.onchange(null);
+    }
+
+    onLayoutChanged()
+    {
+        this._layoutBackend = this._layoutBuilder.layout;
+        this._graphController.layoutInstance = this._layoutBackend;
+        this._layoutBuilder.onSettingChangedCallback = this.kick.bind(this);
+        this._graphBackend.on('changed', (changes) => this._onGraphChanged(changes));
+        if (this._isInitialized)
+            this._layoutBuilder.updateGraph();
+
     }
 
     /**
@@ -202,11 +230,11 @@ export class VivaWebGLRenderer {
         // TODO: move this shit out of here (in enherited from VStateView class)
         result.onNodeRender = (nodeUI) => {
             nodeUI.node['size'] = nodeUI.size = result.getNodeUISize(nodeUI.node.data.weight, metrics.maxWeight);
-            nodeUI.color = result._colorPairs[(1 + nodeUI.node.data.groupId) * 2 + (nodeUI.selected ? 1: 0)];
+            nodeUI.color = result._colorPairs[(1 + nodeUI.node.data.groupId) * 2 + (nodeUI.isSelected() ? 1: 0)];
         };
         result.onEdgeRender = (edgeUI) => {
             edgeUI.link['size'] = edgeUI.size = result.getEdgeUISize(edgeUI.link.data.weight, edgeMetrics.maxWeight);
-            edgeUI.color = result._colorPairs[edgeUI.selected ? 1 : 0];
+            edgeUI.color = result._colorPairs[edgeUI.isSelected() ? 1 : 0];
         };
         result.onSettingsUpdate = this.rerender.bind(this);
         result.onNodeTypeChange = (type, idx) => {
@@ -220,6 +248,10 @@ export class VivaWebGLRenderer {
      * @param {number} value
      */
     set currentStateId(value) {
+        if (!this.isManuallyPaused){
+            this.pause();
+            this._updateUI();
+        }
         this._graphController.setCurrentStateIdEx(value);
         this.buildNodeListInfo();
         if (!!this._viewRules) {
@@ -243,7 +275,7 @@ export class VivaWebGLRenderer {
      * 
      */
     run(prepareIterations = 0) {
-        if (prepareIterations > 0) {
+        if (this._layoutBackend != null && prepareIterations > 0) {
             this._initPrelayoutEnv(prepareIterations);
             return;
         }
@@ -366,7 +398,7 @@ export class VivaWebGLRenderer {
         dialog.dialog({
             modal: true,
             buttons: buttonsDescr
-        })
+        });
         /**
          * 
          * @param {number} it 
@@ -450,7 +482,6 @@ export class VivaWebGLRenderer {
         } else if (change.changeType === 'update') {
             this._releaseNodeEvents(node);
             this._removeNodeUi(node);
-
             this._createNodeUi(node);
             this._listenNodeEvents(node);
         }
@@ -468,7 +499,8 @@ export class VivaWebGLRenderer {
         } else if (change.changeType === 'remove') {
             this._removeLinkUi(link);
         } else if (change.changeType === 'update') {
-            throw 'Update type is not implemented. TODO: Implement me!';
+            this._removeLinkUi(link);
+            this._createLinkUi(link);
         }
     }
 
@@ -570,7 +602,7 @@ export class VivaWebGLRenderer {
             return false;
         });
     
-        this._graphBackend.on('changed', (changes) => this._onGraphChanged(changes));
+        //this._graphBackend.on('changed', (changes) => this._onGraphChanged(changes));
     }
 
     /**
@@ -633,7 +665,7 @@ export class VivaWebGLRenderer {
     // #endregion
 
     _buildDefaultDnDHandler() {
-        let wasPinned = false
+        let wasPinned = false;
         this._defDnDHandler = new DnDHandler((e, pos, node) => {
                 wasPinned = this._layoutBackend.isNodePinned(node);
                 this._layoutBackend.pinNode(node, true);
@@ -772,10 +804,153 @@ export class VivaWebGLRenderer {
             that.rerender();
         });
         controlElement.append(fitToScreenButton);
-
+        this._buildLayoutUI();
         this._updateUI();
 
         return $('#scivi_fsgraph_view')[0];
+    }
+
+    //Функция построения интерфейса настройки укладки графа
+    _buildLayoutUI() {
+        //TODO: сделать хороший интерфейс для настройки укладки
+        const tr = getOrCreateTranslatorInstance();
+        const baseContainer = $('#scivi_fsgraph_settings_layout');
+        //создаем панель настройки укладки
+        const layout_panel = document.createElement('div');
+        layout_panel.className = 'layout_panel';
+
+        //панель которая содержит список готовых укладок
+        const layout_list = document.createElement('div');
+        layout_list.className = 'layout_list';
+        layout_panel.append(layout_list);
+        layout_panel.append(document.createElement('br'));
+
+        const LayoutSettingPanelDomId = 'layout_setting';
+
+        //панель которая содержит свойства выбранной укладки
+        const layout_setting = document.createElement('div');
+        layout_setting.id = LayoutSettingPanelDomId;
+        layout_panel.append(layout_setting);
+
+        new _fillLayoutList(this, layout_list);
+
+        /**
+         * @param {VivaWebGLRenderer} renderer
+         * @param {HTMLDivElement} div_layout_list
+         */
+        function _fillLayoutList(renderer, div_layout_list)
+        {
+            const label = document.createElement('a');
+            label.text = 'Выберите алгоритм укладки';
+            div_layout_list.append(label);
+            div_layout_list.append(document.createElement('br'));
+            const cbLayouts = document.createElement('select');
+            cbLayouts.className = 'cbLayoutList';
+            cbLayouts.id = renderer.layoutListDomId;
+            for (let layout in _DefaultSettings) {
+                const option = document.createElement('option');
+                option.value = layout;
+                option.text = layout;
+                cbLayouts.append(option);
+            }
+            cbLayouts.onchange = function(){
+                renderer.pause();
+                const layout_name = cbLayouts.options[cbLayouts.selectedIndex].value;
+                renderer._graphBackend.off('changed', null);
+                renderer._layoutBuilder.applyLayout(renderer._graphController.currentState, layout_name);
+                renderer.onLayoutChanged();
+                const setting_panel = document.getElementById(LayoutSettingPanelDomId);
+                // @ts-ignore
+                new FillSettingsPanel(setting_panel, layout_name);
+
+                renderer.resume();
+
+                /**
+                 * @param {HTMLDivElement} div_layout_settings
+                 * @constructor
+                 */
+                function FillSettingsPanel(div_layout_settings)
+                {
+                    div_layout_settings.innerHTML = '';
+                    const label = document.createElement('a');
+                    label.text = 'Настройки укладки';
+                    div_layout_settings.append(label);
+                    div_layout_settings.append(document.createElement('br'));
+                    const layoutBuilder = renderer._layoutBuilder;
+                    for (let key in layoutBuilder.settings) {
+                        let value = layoutBuilder.settings[key];
+                        if (value != null && _NumRanges[layoutBuilder.name][key] !== undefined) {
+                            let skipme = false;
+                            const innerC = document.createElement('li');
+                            innerC.innerHTML += `<span>${tr.apply(`#layout_settigns.#${key}`)}: </span>`;
+
+                            const type = typeof value
+                            switch (type) {
+                                case 'boolean':
+                                    let cb = document.createElement('input');
+                                    cb.type = 'checkbox';
+                                    cb.checked = value;
+                                    cb.onchange = (ev) => {
+                                        layoutBuilder.settings[key] = cb.checked;
+                                        renderer._graphBackend.off('changed', null);
+                                        layoutBuilder.applyLayout(renderer._graphController.currentState, layoutBuilder.name);
+                                        renderer.onLayoutChanged();
+                                        //renderer.rerender();
+                                        if (!!layoutBuilder._onSettingUpdatedCallback) {
+                                            layoutBuilder._onSettingUpdatedCallback();
+                                        }
+                                    };
+                                    innerC.appendChild(cb);
+                                    break;
+
+                                case 'number':
+                                    if (_NumRanges[layoutBuilder.name] && _NumRanges[layoutBuilder.name][key]) {
+                                        const valueLabel = document.createElement('span');
+                                        valueLabel.innerText = value;
+
+                                        let rangeEl = document.createElement('div');
+                                        let range = _NumRanges[layoutBuilder.name][key];
+                                        $(rangeEl).slider({
+                                            min: range[0],
+                                            max: range[1],
+                                            value: value,
+                                            step: range[2],
+                                            slide: (event, ui) => {
+                                                layoutBuilder.settings[key] = ui.value;
+                                                valueLabel.innerText = ui.value.toString();
+                                                renderer._graphBackend.off('changed', null);
+                                                layoutBuilder.applyLayout(renderer._graphController.currentState, layoutBuilder.name);
+                                                renderer.onLayoutChanged();
+                                                //renderer.rerender();
+                                                if (!!layoutBuilder._onSettingUpdatedCallback) {
+                                                    layoutBuilder._onSettingUpdatedCallback();
+                                                }
+                                            }
+                                        });
+                                        innerC.appendChild(valueLabel);
+                                        innerC.appendChild(rangeEl);
+                                    } else {
+                                        skipme = true;
+                                    }
+                                    break;
+
+                                default:
+                                    console.log(`Skipping unsupported layout setting ${key} of type ${type}`);
+                                    skipme = true;
+                                    break;
+                            }
+                            div_layout_settings.appendChild(innerC);
+                        } else {
+                            console.log(`Skipping null-valued layout setting ${key}`);
+                        }
+                    }
+                }
+        };
+
+            div_layout_list.append(cbLayouts);
+        }
+
+        baseContainer.append(layout_panel);
     }
 
     _buildTimeline() {

@@ -41,6 +41,13 @@ export class GraphState {
         return this._label;
     }
 
+    get graphSize(){
+        let rect = this._controller.layoutInstance.getGraphRect();
+        let width = (rect.x2 - rect.x1) / 2.0;
+        let height = (rect.y2 - rect.y1) / 2.0;
+        return Math.sqrt(width * width + height * height);
+    }
+
     addNode(id, groupId, data) {
         // ensure that group alredy exists before pushing to it
         if (!this.groups[groupId]) {
@@ -56,15 +63,24 @@ export class GraphState {
     };
 
     addEdge(fromId, toId, data) {
-        const newEdge = new Edge(this, fromId, toId, data);
-        this.edges.push(newEdge);
+        if (!this.nodes[toId].edges.some((edge) => edge.toId === fromId)) {
+            const newEdge = new Edge(this, fromId, toId, data);
+            this.edges.push(newEdge);
 
-        this.nodes[fromId].addEdge(newEdge);
-        this.nodes[toId].addEdge(newEdge);
-        // TODO: count some metrics here
-        // @ts-ignore
-        this._edgeMetrics.accumulate(newEdge);
+            this.nodes[fromId].addEdge(newEdge);
+            this.nodes[toId].addEdge(newEdge);
+            // TODO: count some metrics here
+            // @ts-ignore
+            this._edgeMetrics.accumulate(newEdge);
+        }
     };
+
+    calcWeightNorms(){
+        this.nodes.forEach  (node =>
+            node.weight_norm = (node.weight - this._metrics.minWeight + 1) /
+                            (this._metrics.maxWeight - this._metrics.minWeight + 1)
+                            );
+    }
 
     /**
      * 
@@ -72,13 +88,13 @@ export class GraphState {
      */
     restoreNode(node) {
         if (!node.visible) {
-            return;
+            return
         }
 
         this._controller.graph.beginUpdate();
         let graphNode = this._controller.graph.addNode(node.id, node);
-        graphNode['position'] = node.position;
-        graphNode['size'] = 42;
+        graphNode.position = {x: node.position.x, y: node.position.y};
+        graphNode['size'] = node.weight;
         this._controller.graph.endUpdate();
     };
 

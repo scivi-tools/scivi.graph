@@ -1,6 +1,7 @@
 import { VivaColoredNodeRenderer } from './VivaColoredNodeRenderer';
 import { VivaRombusNodeRenderer } from './VivaRombusNodeRenderer';
-import { VivaTriangleNodeRenderer } from './VivaTriangleNodeRenderer';
+import {ATTRIBUTES_PER_PRIMITIVE, VivaTriangleNodeRenderer} from './VivaTriangleNodeRenderer';
+import * as WGLU from "./WebGLUtils";
 
 interface HookedNodeUI extends VivaGeneric.NodeUI {
     __id_hooked?: boolean;
@@ -24,7 +25,6 @@ export class ProxyGroupNodeRenderer implements VivaGeneric.NodeProgram {
 
     constructor(rendererList: string[]) {
         this._renderers = rendererList.map((v, i, _) => new RENDERER_MAP[v](64));
-
         // ща пойдут костыли космического масштаба
         // Проблема: разделяя вершины по группам, становится невозможно представлять их в виде непрерывных массивов, поскольку появляются дыры в нумерации
         // Решение: хранить внутри каждой вершины её ид внутри группы, подменять реальный ид на него и обратно при вызове любых функций
@@ -137,6 +137,14 @@ export class ProxyGroupNodeRenderer implements VivaGeneric.NodeProgram {
         for (let renderer of this._renderers) {
             renderer.render();
         }
+    }
+
+    bringToFront(node) {
+        this._renderers[node.node.data.groupId].bringToFront(node);
+    }
+
+    getFrontNodeId(groupId) {
+        return this._renderers[groupId].getFrontNodeId(groupId);
     }
 
     // #endregion

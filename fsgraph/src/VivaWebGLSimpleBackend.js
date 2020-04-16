@@ -68,6 +68,7 @@ export class VivaWebGLSimpleBackend {
             return new VivaLinkUI(this._graphics, link);
         });
 
+
         // Устанавливаем действия при отображении примитивов
         // TODO: задать само действие д.б. можно снаружи этого класса!
         this._graphics.placeLink(linkUI => this.onRenderEdgeCallback(linkUI));
@@ -75,6 +76,8 @@ export class VivaWebGLSimpleBackend {
             this.onRenderNodeCallback(nodeUI);
             nodeUI.onRender();
         });
+        //применить укладку к placedLabels
+
     }
 
     get graphics() {

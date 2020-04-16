@@ -22,6 +22,8 @@ export class DummyMetrics {
         /** @type {number} */
         this.maxWeight = -Infinity;
         /** @type {number} */
+        this.minWeight = Infinity;
+        /** @type {number} */
         this.maxGroupId = -1;
     }
 
@@ -78,6 +80,7 @@ export class DummyMetrics {
      */
     accumulate(node) {
         this.maxWeight = Math.max(node.weight, this.maxWeight);
+        this.minWeight = Math.min(node.weight, this.minWeight);
         this.maxGroupId = Math.max(node.groupId, this.maxGroupId);
 
         this._mergeMaxs(node, this.minMaxValues);
@@ -93,6 +96,7 @@ export class DummyMetrics {
      */
     accumulateMetric(metrics) {
         this.maxWeight = Math.max(metrics.maxWeight, this.maxWeight);
+        this.minWeight = Math.min(metrics.minWeight, this.minWeight);
         this.maxGroupId = Math.max(metrics.maxGroupId, this.maxGroupId);
         
         for (let g = 0; g < metrics.maxGroupId + 1; g++) {

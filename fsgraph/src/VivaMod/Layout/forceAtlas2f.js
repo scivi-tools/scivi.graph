@@ -1,6 +1,7 @@
 import Viva from '../../viva-proxy';
 import merge from 'ngraph.merge';
 import * as random from 'ngraph.random';
+import {_DefaultSettings} from '../../LayoutBuilder'
 
 /**
  * @param {Ngraph.Graph.Graph} graph
@@ -59,22 +60,15 @@ function _createSpringForce(options) {
     return new CustomSpringForceUpdater(options);
 }
 
-/** @typedef {{springCoeff: number,springLength: number, edgeWeightInfluence: number, outboundAttCompensation: number, outboundAttractionDistribution: boolean}} ForceAtlas2Options */
 
 class CustomSpringForceUpdater {
     /**
      * 
-     * @param {Partial<ForceAtlas2Options>} options 
+     * @param {Object} options
      */
     constructor(options) {
-        this._options = merge(options, {
-            springCoeff: 0.0002,
-            springLength: 80,
-            edgeWeightInfluence: 1,
-            outboundAttCompensation: 1,
-            outboundAttractionDistribution: false,
-        });
-
+        this._options = merge(options, _DefaultSettings.forceAtlas2f);
+        typeof _DefaultSettings.forceAtlas2f;
         this._random = random.random(42);
     }
 

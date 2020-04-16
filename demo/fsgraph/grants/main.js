@@ -14,15 +14,17 @@ var FSGraph = SciViFSGraph.main;
 var g_renderer = null;
 
 function main() {
-    var usedLayout = FSGraph.getParameterByName("layout") || "forceAtlas2f";
+    
     var lang = SciViFSGraph.main.getParameterByName("lang") || "ru";
     document.documentElement.lang = lang;
     FSGraph.getOrCreateTranslatorInstance(lang).extend(g_fsgraph_loc);
 
-    var controller = FSGraph.GraphController.fromStatedJson(g_data, usedLayout);
     var renderer = new FSGraph.VivaWebGLRenderer(document.body);
+    var usedLayout = FSGraph.getParameterByName("layout") || "HierarchicalLayout";
+    var controller = FSGraph.GraphController.fromStatedJson(g_data);
+    
         
-    renderer.graphController = controller;
+    renderer.setGraphController(controller, usedLayout);
     renderer.viewRules = renderer.buildDefaultView(g_colors);
     renderer.run(1000);
 

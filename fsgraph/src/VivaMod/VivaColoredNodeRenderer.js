@@ -33,6 +33,7 @@ export class VivaColoredNodeRenderer {
         this._height = null;
         this._transform = null;
         this._sizeDirty = false;
+        this._frontNodeId = 0;
 
         // TODO: workaround assert if interface is implemented
         // https://github.com/Microsoft/TypeScript/issues/17498#issuecomment-399439654   
@@ -69,28 +70,30 @@ export class VivaColoredNodeRenderer {
      */
     position(nodeUI, pos) {
         const idx = nodeUI.id * ATTRIBUTES_PER_PRIMITIVE;
-        this._nodes[idx + 2] = pos.x - nodeUI.size;
-        this._nodes[idx + 3] = -(pos.y - nodeUI.size);
+        const node_size = nodeUI.size;
+        pos.y = -pos.y;
+        this._nodes[idx + 2] = pos.x - node_size;
+        this._nodes[idx + 3] = pos.y - node_size;
         this._colors[idx + 4] = nodeUI.color;
     
-        this._nodes[idx + 5 + 2] = pos.x + nodeUI.size;
-        this._nodes[idx + 5 + 3] = -(pos.y - nodeUI.size);
+        this._nodes[idx + 5 + 2] = pos.x + node_size;
+        this._nodes[idx + 5 + 3] = pos.y - node_size;
         this._colors[idx + 5 + 4] = nodeUI.color;
     
-        this._nodes[idx + 10 + 2] = pos.x - nodeUI.size;
-        this._nodes[idx + 10 + 3] = -(pos.y + nodeUI.size);
+        this._nodes[idx + 10 + 2] = pos.x + node_size;
+        this._nodes[idx + 10 + 3] = pos.y + node_size;
         this._colors[idx + 10 + 4] = nodeUI.color;
     
-        this._nodes[idx + 15 + 2] = pos.x - nodeUI.size;
-        this._nodes[idx + 15 + 3] = -(pos.y + nodeUI.size);
+        this._nodes[idx + 15 + 2] = pos.x - node_size;
+        this._nodes[idx + 15 + 3] = pos.y - node_size;
         this._colors[idx + 15 + 4] = nodeUI.color;
     
-        this._nodes[idx + 20 + 2] = pos.x + nodeUI.size;
-        this._nodes[idx + 20 + 3] = -(pos.y - nodeUI.size);
+        this._nodes[idx + 20 + 2] = pos.x + node_size;
+        this._nodes[idx + 20 + 3] = pos.y + node_size;
         this._colors[idx + 20 + 4] = nodeUI.color;
     
-        this._nodes[idx + 25 + 2] = pos.x + nodeUI.size;
-        this._nodes[idx + 25 + 3] = -(pos.y + nodeUI.size);
+        this._nodes[idx + 25 + 2] = pos.x - node_size;
+        this._nodes[idx + 25 + 3] = pos.y + node_size;
         this._colors[idx + 25 + 4] = nodeUI.color;
     }
 
@@ -110,9 +113,10 @@ export class VivaColoredNodeRenderer {
             this._colors = extColors;
             this._nodes = extNodes;
             this._byteStorage = extendedStorage;
+            this._frontNodeId = ui.id;
         }
 
-        const idx = this._nodesCount * ATTRIBUTES_PER_PRIMITIVE
+        const idx = this._nodesCount * ATTRIBUTES_PER_PRIMITIVE;
 
         this._nodes[idx] = 0;
         this._nodes[idx + 1] = 0;
@@ -120,16 +124,16 @@ export class VivaColoredNodeRenderer {
         this._nodes[idx + 5] = 1;
         this._nodes[idx + 5 + 1] = 0;
 
-        this._nodes[idx + 10] = 0;
+        this._nodes[idx + 10] = 1;
         this._nodes[idx + 10 + 1] = 1;
 
         this._nodes[idx + 15] = 0;
-        this._nodes[idx + 15 + 1] = 1;
+        this._nodes[idx + 15 + 1] = 0;
 
         this._nodes[idx + 20] = 1;
-        this._nodes[idx + 20 + 1] = 0;
+        this._nodes[idx + 20 + 1] = 1;
 
-        this._nodes[idx + 25] = 1;
+        this._nodes[idx + 25] = 0;
         this._nodes[idx + 25 + 1] = 1;
 
         this._nodesCount += 1;
@@ -181,26 +185,44 @@ export class VivaColoredNodeRenderer {
         this._gl.vertexAttribPointer(this._locations.color, 4, this._gl.UNSIGNED_BYTE, true, 5 * Float32Array.BYTES_PER_ELEMENT, 4 * 4);
     
         this._gl.drawArrays(this._gl.TRIANGLES, 0, this._nodesCount * 6);
+        this._frontNodeId = this._nodesCount - 1;
     }
     
     // #endregion
+
+    bringToFront(node) {
+        if (this._frontNodeId > node.id) {
+            WGLU.SwapArrayPart(this._nodes, node.id * ATTRIBUTES_PER_PRIMITIVE, this._frontNodeId * ATTRIBUTES_PER_PRIMITIVE, ATTRIBUTES_PER_PRIMITIVE);
+        }
+        if (this._frontNodeId > 0) {
+            this._frontNodeId -= 1;
+        }
+    }
+
+    getFrontNodeId(groupId) {
+        return this._frontNodeId;
+    }
 }
 
 // TODO: Use glslify for shaders
-function createNodeFragmentShader() {
+function createNodeFragmentShader()     {
     return `
         precision mediump float;
         varying vec2 v_uv;
         varying vec4 v_color;
-        const float minBorderR = 0.92;
-        const float maxBorderR = 0.98;
-        const float maxBorderOpacity = 0.8;
+        const float minBorderR = 0.8;
+        const float maxBorderR = 0.9;
+        const float maxR = 1.0;
+        const float maxBorderOpacity = 0.9;
 
         void main(void) {
             float d = sqrt(v_uv.x * v_uv.x + v_uv.y * v_uv.y);
-            float inR = step(minBorderR, d);
-            float outR = step(maxBorderR, d);
-            gl_FragColor = mix(v_color, mix(vec4(0, 0, 0, v_color.a * maxBorderOpacity), vec4(0), outR), inR);
+            float inR = smoothstep(minBorderR, maxBorderR, d);
+            float maxR = step(maxBorderR, d);
+            float opacity = smoothstep(maxR, maxBorderR, d);
+            vec4 outBorderColor = vec4(0.0, 0.0, 0.0, opacity * maxBorderOpacity);
+            vec4 border = mix(vec4(0.0, 0.0, 0.0, maxBorderOpacity), outBorderColor, maxR);
+            gl_FragColor = mix(v_color, border, inR);
         }`;
 }
 
