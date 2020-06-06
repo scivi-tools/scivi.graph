@@ -64,9 +64,11 @@ CGraph.prototype.createClassifier = function (tree, getKlass)
 
 CGraph.prototype.reshape = function ()
 {
-    if (this.graphContainer.width() <= this.graphContainer.height())
-        this.graphSplit.collapse(1);
-    this.renderer.reshape();
+    if (this.graphContainer) {
+        if (this.graphContainer.width() <= this.graphContainer.height())
+            this.graphSplit.collapse(1);
+        this.renderer.reshape();
+    }
 }
 
 CGraph.prototype.run = function (loc, data, scales, colors, title, info, classifier, container)

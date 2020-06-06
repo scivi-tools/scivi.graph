@@ -1778,5 +1778,10 @@ namespace SciViCGraph
             g += "  ]\n}";
             this.downloadFile("graph.js", g);
         }
+
+        public selectGraphState(stateName: string)
+        {
+            this.m_stateLineNav.selectState(stateName);
+        }
     }
 }
