@@ -3,12 +3,16 @@ namespace SciViCGraph
     export class Curve extends PIXI.Graphics
     {
         protected m_colors: { from: number, to: number, alpha: number }[];
+        protected m_capArrow: boolean;
+        protected m_arrowLength: number;
 
         constructor()
         {
             super();
 
             this.m_colors = [];
+            this.m_capArrow = false;
+            this.m_arrowLength = 10;
         }
 
         private addVertex(vertices: number[], px: number, py: number, nx: number, ny: number,
@@ -120,6 +124,16 @@ namespace SciViCGraph
                     r = rFrom + t * (rTo - rFrom);
                     g = gFrom + t * (gTo - gFrom);
                     b = bFrom + t * (bTo - bFrom);
+                }
+
+                if (this.m_capArrow) {
+                    if (i === length - 2) {
+                        widthIn = this.m_arrowLength / 2;
+                        widthOut = widthIn + feather;
+                    } else if (i === length - 1) {
+                        widthIn = 0;
+                        widthOut = feather;
+                    }
                 }
 
                 n1x = -(p2y - p1y);
@@ -387,14 +401,34 @@ namespace SciViCGraph
             const fromY = points[points.length - 1];
             const n = this.segmentsCount(this.quadraticCurveLength(fromX, fromY, cpX, cpY, toX, toY));
 
+            let corrToX = toX;
+            let corrToY = toY;
+
+            if (this.m_capArrow) {
+                const j = (n - 1) / n;
+                xa = fromX + ((cpX - fromX) * j);
+                ya = fromY + ((cpY - fromY) * j);
+                xa = xa + (((cpX + ((toX - cpX) * j)) - xa) * j) - toX;
+                ya = ya + (((cpY + ((toY - cpY) * j)) - ya) * j) - toY;
+                const l = this.m_arrowLength / Math.sqrt(xa * xa + ya * ya);
+                corrToX += xa * l;
+                corrToY += ya * l;
+            }
+
             for (let i = 1; i <= n; ++i) {
                 const j = i / n;
 
                 xa = fromX + ((cpX - fromX) * j);
                 ya = fromY + ((cpY - fromY) * j);
 
-                points.push(xa + (((cpX + ((toX - cpX) * j)) - xa) * j),
-                    ya + (((cpY + ((toY - cpY) * j)) - ya) * j));
+                points.push(xa + (((cpX + ((corrToX - cpX) * j)) - xa) * j),
+                            ya + (((cpY + ((corrToY - cpY) * j)) - ya) * j));
+            }
+
+            if (this.m_capArrow) {
+                const n = points.length;
+                points.push(points[n - 2], points[n - 1]);
+                points.push(toX, toY);
             }
 
             this.dirty++;
@@ -518,6 +552,26 @@ namespace SciViCGraph
         public addColor(c: { from: number, to: number, alpha: number })
         {
             this.m_colors.push(c);
+        }
+
+        get capArrow(): boolean
+        {
+            return this.m_capArrow;
+        }
+
+        set capArrow(ca: boolean)
+        {
+            this.m_capArrow = ca;
+        }
+
+        get arrowLength(): number
+        {
+            return this.m_arrowLength;
+        }
+
+        set arrowLength(al: number)
+        {
+            this.m_arrowLength = al;
         }
 
         public bringToFront()
