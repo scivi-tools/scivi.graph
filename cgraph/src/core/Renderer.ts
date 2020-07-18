@@ -616,7 +616,8 @@ namespace SciViCGraph
                             const dy = y - this.m_renderingCache.y;
                             const s = this.m_renderingCache.currentScale();
                             const node = this.getNodeByPosition(dx, dy, s, isInRing);
-                            if (!isInRing[0]) {
+                            const shouldSelectNode = !isInRing[0] && !this.m_transientEdgeBatch && !(e.altKey && node == this.m_selectedNode);
+                            if (shouldSelectNode) {
                                 if (e.shiftKey)
                                     this.multiselectNode(node);
                                 else
