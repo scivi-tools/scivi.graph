@@ -11,10 +11,13 @@ namespace SciViCGraph
         private m_visible: boolean;
         private m_thickness: number;
         private m_glowThickness: number;
+        private m_cursorPos: { x: number, y: number };
+        private m_isDirected: boolean;
 
         public static passiveEdgeAlpha = 0.5;
         private static readonly m_hoveredEdgeAlpha = 1.0;
         private static readonly m_selectedEdgeAlpha = 1.0;
+        private static readonly m_detachedColor = 0xff0000;
 
         public static readonly minThickness = 1.5;
         public static readonly maxThickness = 10.0;
@@ -30,6 +33,8 @@ namespace SciViCGraph
             this.m_visible = true;
             this.m_thickness = 0.0;
             this.m_glowThickness = 0.0;
+            this.m_cursorPos = { x: 0, y: 0 };
+            this.m_isDirected = false;
         }
 
         private passiveColor(rgb: number)
@@ -54,8 +59,8 @@ namespace SciViCGraph
         {
             if (hl !== this.m_highlight) {
                 this.m_highlight = hl;
-                let fromColor = this.source.groupColor;
-                let toColor = this.target.groupColor;
+                let fromColor = this.source ? this.source.groupColor : Edge.m_detachedColor;
+                let toColor = this.target ? this.target.groupColor : Edge.m_detachedColor;
                 switch (this.m_highlight) {
                     case HighlightType.None: {
                         this.m_fromColor = this.passiveColor(fromColor)
@@ -121,6 +126,16 @@ namespace SciViCGraph
         set thickness(th: number)
         {
             this.m_thickness = th;
+        }
+
+        get isDirected(): boolean
+        {
+            return this.m_isDirected;
+        }
+
+        set isDirected(d: boolean)
+        {
+            this.m_isDirected = d;
         }
 
         public invalidate(wipeInternals: boolean)
@@ -190,7 +205,17 @@ namespace SciViCGraph
 
         public controlPoints(): Point[]
         {
-            if (this.source === this.target) {
+            if (this.source === null) {
+                const c1 = { x: this.m_cursorPos.x, y: this.m_cursorPos.y };
+                const c2 = { x: 0.0, y: 0.0 };
+                const c3 = { x: this.target.x, y: this.target.y };
+                return [ c1, c2, c3 ];
+            } else if (this.target === null) {
+                const c1 = { x: this.source.x, y: this.source.y };
+                const c2 = { x: 0.0, y: 0.0 };
+                const c3 = { x: this.m_cursorPos.x, y: this.m_cursorPos.y };
+                return [ c1, c2, c3 ];
+            } else if (this.source === this.target) {
                 const c1 = { x: this.source.x, y: this.source.y };
                 const x1 = 0.0;
                 const y1 = 0.0;
@@ -205,6 +230,11 @@ namespace SciViCGraph
                 const c3 = { x: this.target.x, y: this.target.y };
                 return [ c1, c2, c3 ];
             }
+        }
+
+        public setCursorPos(p: Point)
+        {
+            this.m_cursorPos = p;
         }
     }
 }

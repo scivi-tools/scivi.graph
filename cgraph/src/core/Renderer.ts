@@ -54,6 +54,8 @@ namespace SciViCGraph
         private m_statesStack: GraphStates[];
         private m_colors: number[];
         private m_edgeBatches: EdgeBatch[];
+        private m_transientEdgeBatch: EdgeBatch;
+        private m_transientEdge: Edge;
         private m_nodeWeight: Range;
         private m_edgeWeight: Range;
         private m_radius: number;
@@ -81,7 +83,7 @@ namespace SciViCGraph
         private m_draggedNodeIndex: number;
         private m_nodePlaceHolder: NodePlaceHolder;
         private m_nodeBorder: NodeBorder;
-        private m_cursorPos: { x: number, y: number };
+        private m_cursorPos: Point;
         private m_draggedRingIndex: number;
         private m_ringPlaceHolder: RingPlaceHolder;
         private m_ringBorder: RingBorder;
@@ -118,6 +120,8 @@ namespace SciViCGraph
             this.m_ringScales = null;
             this.m_zoomTimerID = null;
             this.m_statesStack = null;
+            this.m_edgeBatches = null;
+            this.m_transientEdgeBatch = null;
             this.m_nodesFontSize = 24;
             this.m_ringScaleFontSize = 36;
             this.m_currentStateKey = null;
@@ -552,7 +556,9 @@ namespace SciViCGraph
                     else
                         this.panGraph(x, y);
                 } else {
-                    if (e.buttons === 0)
+                    if (this.m_transientEdgeBatch)
+                        this.changeTransientEdge();
+                    else if (e.buttons === 0)
                         this.hoverGraph(x, y);
                 }
             };
@@ -587,6 +593,7 @@ namespace SciViCGraph
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
                 this.m_mousePressed = true;
+                this.m_panning = false;
                 if (!this.startDragNode(x, y) && !this.startDragRing(x, y)) {
                     // If not drag, then pan.
                     this.m_panPrevX = x;
@@ -615,7 +622,16 @@ namespace SciViCGraph
                                 else
                                     this.selectNode(node);
                             }
-                            if (!node) {
+                            if (node) {
+                                if (!this.m_transientEdgeBatch) {
+                                    if (e.altKey) {
+                                        this.createTransientEdgeWithSourceNode(node);
+                                    }
+                                } else {
+                                    this.commitTransientEdge();
+                                }
+                            } else {
+                                this.dropTransientEdge();
                                 if (e.shiftKey) {
                                     this.m_ringSegmentFilterBothEnds = false;
                                     this.selectRingSegment();
@@ -771,6 +787,7 @@ namespace SciViCGraph
                     this.m_mousePressed = false; // Ensure panning is actually blocked by mouse move.
                     if (this.m_cursorPos.x !== undefined && this.m_cursorPos.y !== undefined)
                         this.hoverGraph(this.m_cursorPos.x, this.m_cursorPos.y);
+                    this.dropTransientEdge();
                 } else if (e.keyCode === 72) {
                     if (this.m_selectedNode) {
                         this.m_selectedNode.isShown = false;
@@ -997,6 +1014,11 @@ namespace SciViCGraph
                 let nr = batch.prepare();
                 needsRender = needsRender || nr;
             });
+
+            if (this.m_transientEdgeBatch) {
+                let nr = this.m_transientEdgeBatch.prepare();
+                needsRender = needsRender || nr;
+            }
 
             if (needsRender)
                 this.m_renderingCache.update();
@@ -1541,6 +1563,59 @@ namespace SciViCGraph
             }
             this.contextMenuEnabled = m;
             this.render(f1 || f2, true);
+        }
+
+        private createTransientEdgeWithSourceNode(node: Node)
+        {
+            this.m_transientEdgeBatch = new EdgeBatch();
+            this.m_transientEdge = new Edge(node, node, 1, null);
+            this.m_transientEdgeBatch.addEdge(this.m_transientEdge);
+            this.m_transientEdge.highlight = HighlightType.Hover;
+            this.m_transientEdge.isDirected = true;
+            this.m_stage.addChild(this.m_transientEdgeBatch);
+            this.render(true, true);
+        }
+
+        private changeTransientEdge()
+        {
+            if (this.m_transientEdgeBatch) {
+                const lx = this.m_cursorPos.x - this.m_renderingCache.x;
+                const ly = this.m_cursorPos.y - this.m_renderingCache.y;
+                const s = this.m_renderingCache.currentScale();
+                const node = this.getNodeByPosition(lx, ly, s);
+                this.m_transientEdge.target = node;
+                if (!node)
+                    this.m_transientEdge.setCursorPos({ x: lx / s, y: ly / s });
+                this.m_transientEdge.invalidate(false);
+                this.m_transientEdge.highlight = HighlightType.Hover;
+                this.render(true, true);
+            }
+        }
+
+        private commitTransientEdge()
+        {
+            if (this.m_transientEdgeBatch) {
+                const needsReinit = this.m_transientEdge.target !== null;
+                if (needsReinit)
+                    this.currentData().edges.push(this.m_transientEdge);
+                this.m_stage.removeChild(this.m_transientEdgeBatch);
+                this.m_transientEdge = null;
+                this.m_transientEdgeBatch = null;
+                if (needsReinit)
+                    this.reinit(false, false);
+                else
+                    this.render(true, true);
+            }
+        }
+
+        private dropTransientEdge()
+        {
+            if (this.m_transientEdgeBatch) {
+                this.m_stage.removeChild(this.m_transientEdgeBatch);
+                this.m_transientEdge = null;
+                this.m_transientEdgeBatch = null;
+                this.render(true, true);
+            }
         }
 
         private startDragNode(x: number, y: number): boolean
