@@ -782,21 +782,29 @@ namespace SciViCGraph
                 this.m_stateCalc.build();
 
             $(document).keyup((e) => {
-                if (e.keyCode == 27) {
-                    this.m_draggedNodeIndex = -1;
-                    this.dropNode(0.0, 0.0);
-                    this.m_draggedRingIndex = -1;
-                    this.dropRing(0.0, 0.0);
-                    this.m_panning = true; // Prevent selection on mouse up.
-                    this.m_mousePressed = false; // Ensure panning is actually blocked by mouse move.
-                    if (this.m_cursorPos.x !== undefined && this.m_cursorPos.y !== undefined)
-                        this.hoverGraph(this.m_cursorPos.x, this.m_cursorPos.y);
-                    this.dropTransientEdge();
-                } else if (e.keyCode === 72) {
-                    if (this.m_selectedNode) {
-                        this.m_selectedNode.isShown = false;
-                        this.updateNodesVisibility();
-                    }
+                switch (e.keyCode) {
+                    case 27: // ESC
+                        this.m_draggedNodeIndex = -1;
+                        this.dropNode(0.0, 0.0);
+                        this.m_draggedRingIndex = -1;
+                        this.dropRing(0.0, 0.0);
+                        this.m_panning = true; // Prevent selection on mouse up.
+                        this.m_mousePressed = false; // Ensure panning is actually blocked by mouse move.
+                        if (this.m_cursorPos.x !== undefined && this.m_cursorPos.y !== undefined)
+                            this.hoverGraph(this.m_cursorPos.x, this.m_cursorPos.y);
+                        this.dropTransientEdge();
+                        break;
+
+                    case 46: // DEL
+                        this.deleteSelectedEdge();
+                        break;
+
+                    case 72: // H
+                        if (this.m_selectedNode) {
+                            this.m_selectedNode.isShown = false;
+                            this.updateNodesVisibility();
+                        }
+                        break;
                 }
             });
 
@@ -1627,6 +1635,23 @@ namespace SciViCGraph
             if (this.m_selectedNode) {
                 if (this.m_selectedNode.handleClick())
                     this.render(true, true);
+            }
+        }
+
+        private deleteSelectedEdge()
+        {
+            if (this.m_selectedNode && this.m_selectedNode.selectedEdge) {
+                const d = this.currentData();
+                const n = d.edges.length;
+                let i = 0;
+                for (; i < n; ++i) {
+                    if (d.edges[i] === this.m_selectedNode.selectedEdge)
+                        break;
+                }
+                if (i < n) {
+                    d.edges.splice(i, 1);
+                    this.reinit(false, false);
+                }
             }
         }
 

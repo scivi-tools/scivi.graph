@@ -615,5 +615,10 @@ namespace SciViCGraph
             }
             return result;
         }
+
+        get selectedEdge(): Edge
+        {
+            return this.m_selectedEdge;
+        }
     }
 }
