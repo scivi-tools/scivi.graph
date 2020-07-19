@@ -5,6 +5,7 @@ namespace SciViCGraph
         protected m_colors: { from: number, to: number, alpha: number }[];
         protected m_capArrow: boolean;
         protected m_arrowLength: number;
+        protected m_arrowThickness: number;
 
         constructor()
         {
@@ -128,7 +129,7 @@ namespace SciViCGraph
 
                 if (this.m_capArrow) {
                     if (i === length - 2) {
-                        widthIn = this.m_arrowLength / 2;
+                        widthIn = this.m_arrowThickness / 2;
                         widthOut = widthIn + feather;
                     } else if (i === length - 1) {
                         widthIn = 0;
@@ -358,7 +359,7 @@ namespace SciViCGraph
                 nt3 = nt2 * nt;
 
                 x = (nt3 * fromX) + (3.0 * nt2 * t * cpX) + (3.0 * nt * t2 * cpX2) + (t3 * toX);
-                y = (nt3 * fromY) + (3.0 * nt2 * t * cpY) + (3 * nt * t2 * cpY2) + (t3 * toY);
+                y = (nt3 * fromY) + (3.0 * nt2 * t * cpY) + (3.0 * nt * t2 * cpY2) + (t3 * toY);
                 dx = prevX - x;
                 dy = prevY - y;
                 prevX = x;
@@ -586,6 +587,16 @@ namespace SciViCGraph
         set arrowLength(al: number)
         {
             this.m_arrowLength = al;
+        }
+
+        get arrowThickness(): number
+        {
+            return this.m_arrowThickness;
+        }
+
+        set arrowThickness(th: number)
+        {
+            this.m_arrowThickness = th;
         }
 
         public bringToFront()
