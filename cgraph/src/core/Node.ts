@@ -17,6 +17,7 @@ namespace SciViCGraph
         private m_cbInput: HTMLInputElement;
         private m_selInput: HTMLInputElement;
         private m_hoveredEdge: Edge;
+        private m_selectedEdge: Edge;
         private m_markerRect: { x: number, y: number, w: number, h: number };
         private m_multiselected: boolean;
         private m_customColor;
@@ -58,6 +59,7 @@ namespace SciViCGraph
             this.m_cbInput = null;
             this.m_selInput = null;
             this.m_hoveredEdge = null;
+            this.m_selectedEdge = null;
             this.m_multiselected = false;
             this.m_customColor = null;
         }
@@ -470,6 +472,12 @@ namespace SciViCGraph
 
         public setHighlightForEdges(hl: HighlightType)
         {
+            if (hl === HighlightType.None) {
+                if (this.m_selectedEdge) {
+                    this.m_selectedEdge.isGlowing = false;
+                    this.m_selectedEdge = null;
+                }
+            }
             this.m_edges.forEach((edge) => {
                 if (edge.visible)
                     edge.highlight = hl;
@@ -554,7 +562,7 @@ namespace SciViCGraph
             const offset = 20;
             if (hoveredEdge) {
                 if (this.m_hoveredEdge !== hoveredEdge) {
-                    if (this.m_hoveredEdge)
+                    if (this.m_hoveredEdge && this.m_hoveredEdge !== this.m_selectedEdge)
                         this.m_hoveredEdge.isGlowing = false;
                     this.m_hoveredEdge = hoveredEdge;
                     this.m_hoveredEdge.isGlowing = true;
@@ -572,7 +580,8 @@ namespace SciViCGraph
                 return false;
             } else {
                 if (this.m_hoveredEdge) {
-                    this.m_hoveredEdge.isGlowing = false;
+                    if (this.m_hoveredEdge !== this.m_selectedEdge)
+                        this.m_hoveredEdge.isGlowing = false;
                     this.m_hoveredEdge = null;
                     if ($(".scivi_graph_tooltip")[0]["host"] === this) {
                         $(".scivi_graph_tooltip").stop(true);
@@ -582,6 +591,34 @@ namespace SciViCGraph
                 }
             }
             return false;
+        }
+
+        public handleClick(): boolean
+        {
+            let result = false;
+            if (this.m_hoveredEdge) {
+                if (this.m_selectedEdge === this.m_hoveredEdge)
+                    this.m_selectedEdge = null;
+                else {
+                    if (this.m_selectedEdge) {
+                        this.m_selectedEdge.isGlowing = false;
+                        result = true;
+                    }
+                    this.m_selectedEdge = this.m_hoveredEdge;
+                }
+            } else {
+                if (this.m_selectedEdge) {
+                    this.m_selectedEdge.isGlowing = false;
+                    this.m_selectedEdge = null;
+                    result = true;
+                }
+            }
+            return result;
+        }
+
+        get selectedEdge(): Edge
+        {
+            return this.m_selectedEdge;
         }
     }
 }

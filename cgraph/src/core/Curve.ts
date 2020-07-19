@@ -3,12 +3,14 @@ namespace SciViCGraph
     export class Curve extends PIXI.Graphics
     {
         protected m_colors: { from: number, to: number, alpha: number }[];
+        protected m_arrowThicknesses: number[];
 
         constructor()
         {
             super();
 
             this.m_colors = [];
+            this.m_arrowThicknesses = [];
         }
 
         private addVertex(vertices: number[], px: number, py: number, nx: number, ny: number,
@@ -27,7 +29,7 @@ namespace SciViCGraph
             vertices.push(px + dx, py + dy, 0, 0, 0, 0);
         }
 
-        private buildLine(graphicsData, webGLData, fromColor: number, toColor: number, alpha: number)
+        private buildLine(graphicsData, webGLData, fromColor: number, toColor: number, alpha: number, arrowThickness: number)
         {
             graphicsData.points = graphicsData.shape.points.slice();
             let points = graphicsData.points;
@@ -120,6 +122,16 @@ namespace SciViCGraph
                     r = rFrom + t * (rTo - rFrom);
                     g = gFrom + t * (gTo - gFrom);
                     b = bFrom + t * (bTo - bFrom);
+                }
+
+                if (arrowThickness > 0.0) {
+                    if (i === length - 2) {
+                        widthIn = arrowThickness / 2;
+                        widthOut = widthIn + feather;
+                    } else if (i === length - 1) {
+                        widthIn = 0;
+                        widthOut = feather;
+                    }
                 }
 
                 n1x = -(p2y - p1y);
@@ -227,7 +239,7 @@ namespace SciViCGraph
 
             for (let i = webGL.lastIndex; i < this.graphicsData.length; ++i) {
                 this.buildLine(this.graphicsData[i], graphicsRenderer.getWebGLData(webGL, 0), 
-                               this.m_colors[i].from, this.m_colors[i].to, this.m_colors[i].alpha);
+                               this.m_colors[i].from, this.m_colors[i].to, this.m_colors[i].alpha, this.m_arrowThicknesses[i]);
                 webGL.lastIndex++;
             }
 
@@ -344,7 +356,7 @@ namespace SciViCGraph
                 nt3 = nt2 * nt;
 
                 x = (nt3 * fromX) + (3.0 * nt2 * t * cpX) + (3.0 * nt * t2 * cpX2) + (t3 * toX);
-                y = (nt3 * fromY) + (3.0 * nt2 * t * cpY) + (3 * nt * t2 * cpY2) + (t3 * toY);
+                y = (nt3 * fromY) + (3.0 * nt2 * t * cpY) + (3.0 * nt * t2 * cpY2) + (t3 * toY);
                 dx = prevX - x;
                 dy = prevY - y;
                 prevX = x;
@@ -366,7 +378,7 @@ namespace SciViCGraph
             return result;
         }
 
-        public quadraticCurveTo(cpX: number, cpY: number, toX: number, toY: number)
+        public quadraticCurveWithArrowTo(cpX: number, cpY: number, toX: number, toY: number, arrowLength: number, arrowThickness: number)
         {
             if (this.currentPath)
             {
@@ -387,17 +399,37 @@ namespace SciViCGraph
             const fromY = points[points.length - 1];
             const n = this.segmentsCount(this.quadraticCurveLength(fromX, fromY, cpX, cpY, toX, toY));
 
+            let corrToX = toX;
+            let corrToY = toY;
+
+            const capArrow = arrowLength > 0.0 && arrowThickness > 0.0;
+
+            if (capArrow) {
+                xa = cpX - toX;
+                ya = cpY - toY;
+                const l = arrowLength / Math.sqrt(xa * xa + ya * ya);
+                corrToX += xa * l;
+                corrToY += ya * l;
+            }
+
             for (let i = 1; i <= n; ++i) {
                 const j = i / n;
 
                 xa = fromX + ((cpX - fromX) * j);
                 ya = fromY + ((cpY - fromY) * j);
 
-                points.push(xa + (((cpX + ((toX - cpX) * j)) - xa) * j),
-                    ya + (((cpY + ((toY - cpY) * j)) - ya) * j));
+                points.push(xa + (((cpX + ((corrToX - cpX) * j)) - xa) * j),
+                            ya + (((cpY + ((corrToY - cpY) * j)) - ya) * j));
+            }
+
+            if (capArrow) {
+                const n = points.length;
+                points.push(points[n - 2], points[n - 1]);
+                points.push(toX, toY);
             }
 
             this.dirty++;
+            this.m_arrowThicknesses.push(arrowThickness);
 
             return this;
         }
@@ -490,7 +522,7 @@ namespace SciViCGraph
             return path;
         }
 
-        public bezierCurveTo(cpX, cpY, cpX2, cpY2, toX, toY)
+        public bezierCurveWithArrowTo(cpX, cpY, cpX2, cpY2, toX, toY, arrowLength: number, arrowThickness: number)
         {
             if (this.currentPath) {
                 if (this.currentPath.shape.points.length === 0)
@@ -508,9 +540,29 @@ namespace SciViCGraph
 
             const n = this.segmentsCount(this.bezierCurveLength(fromX, fromY, cpX, cpY, cpX2, cpY2, toX, toY));
 
-            this.bezier(fromX, fromY, cpX, cpY, cpX2, cpY2, toX, toY, n, points);
+            let corrToX = toX;
+            let corrToY = toY;
+
+            const capArrow = arrowLength > 0.0 && arrowThickness > 0.0;
+
+            if (capArrow) {
+                const xa = cpX2 - toX;
+                const ya = cpY2 - toY;
+                const l = arrowLength / Math.sqrt(xa * xa + ya * ya);
+                corrToX += xa * l;
+                corrToY += ya * l;
+            }
+
+            this.bezier(fromX, fromY, cpX, cpY, cpX2, cpY2, corrToX, corrToY, n, points);
+
+            if (capArrow) {
+                const n = points.length;
+                points.push(points[n - 2], points[n - 1]);
+                points.push(toX, toY);
+            }
 
             this.dirty++;
+            this.m_arrowThicknesses.push(arrowThickness);
 
             return this;
         }

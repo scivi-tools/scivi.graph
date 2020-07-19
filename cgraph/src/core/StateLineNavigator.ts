@@ -4,11 +4,13 @@ namespace SciViCGraph
     {
         private m_curtain: JQuery;
         private m_currentKeyIndices: number[];
+        private m_sliders: JQuery[];
 
         constructor(private m_renderer: Renderer, private m_container: HTMLElement)
         {
             this.m_curtain = null;
             this.m_currentKeyIndices = null;
+            this.m_sliders = null;
         }
 
         private extractIndexFromKey(key: string, stateLineIndex: number): number
@@ -52,6 +54,7 @@ namespace SciViCGraph
                     line.append(el);
                 }
             });
+            this.m_sliders.push(line);
             result.append(line);
             return result;
         }
@@ -60,6 +63,7 @@ namespace SciViCGraph
         {
             if (this.m_container) {
                 this.m_currentKeyIndices = [];
+                this.m_sliders = [];
                 this.m_renderer.states.stateLines.forEach(() => {
                     this.m_currentKeyIndices.push(0);
                 });
@@ -73,12 +77,18 @@ namespace SciViCGraph
         public updateStateLineLabels()
         {
             if (this.m_container) {
-                const lp = parseFloat($("#scivi_cgraph_stateline").css('padding-left'));
-                const rp = parseFloat($("#scivi_cgraph_stateline").css('padding-right'));
-                const m = Math.min(lp, rp) * 2;
+                let m = 0;
+                for (let i = 0, n = this.m_renderer.states.stateLines.length; i < n; ++i) {
+                    if (this.m_renderer.states.stateLines[i].length > m)
+                        m = this.m_renderer.states.stateLines[i].length;
+                }
+                m = this.m_container.clientWidth / m;
+                const p = (m / 2) + "px";
+                $("#scivi_cgraph_stateline").css("padding-left", p);
+                $("#scivi_cgraph_stateline").css("padding-right", p);
                 this.m_renderer.states.stateLines.forEach((sl, index) => {
                     const sel = ".scivi_stateline_label_" + index.toString();
-                    let w = (this.m_container.clientWidth - lp - rp) / sl.length;
+                    let w = (this.m_container.clientWidth - m) / sl.length;
                     if (w < 30)
                         w = 30;
                     else if (w > m)
@@ -104,6 +114,23 @@ namespace SciViCGraph
                 this.m_curtain.append(bg);
             }
             $(this.m_container).append(this.m_curtain);
+        }
+
+        public selectState(name: string)
+        {
+            if (this.m_container) {
+                for (let i = 0, n = this.m_renderer.states.stateLines.length; i < n; ++i) {
+                    const line = this.m_renderer.states.stateLines[i];
+                    for (let j = 0, m = line.length; j < m; ++j) {
+                        const stateName = line[j];
+                        if (stateName.substring(0, name.length) === name) {
+                            this.m_sliders[i].slider("value", j);
+                            this.changeCurrentState(i, j);
+                            break;
+                        }
+                    }
+                }
+            }
         }
     }
 }

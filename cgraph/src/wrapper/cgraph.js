@@ -62,6 +62,15 @@ CGraph.prototype.createClassifier = function (tree, getKlass)
     return new SciViCGraph.Classifier(tree, getKlass);
 }
 
+CGraph.prototype.reshape = function ()
+{
+    if (this.graphContainer) {
+        if (this.graphContainer.width() <= this.graphContainer.height())
+            this.graphSplit.collapse(1);
+        this.renderer.reshape();
+    }
+}
+
 CGraph.prototype.run = function (loc, data, scales, colors, title, info, classifier, container)
 {
     container = container || "body";
@@ -136,22 +145,26 @@ CGraph.prototype.run = function (loc, data, scales, colors, title, info, classif
                                             loc);
 
     if (data.hasStates) {
-        var h = (data.stateLines.length * 50.0 + 16.0) / $(window).height() * 100.0;
+        var h = (data.stateLines.length * 50.0 + 16.0) / graphContainer.height() * 100.0;
         Split(["#scivi_cgraph_a1", "#scivi_cgraph_a2"], {
             gutterSize: 8,
             cursor: "row-resize",
             direction: "vertical",
             sizes: [100.0 - h, h],
-            minSize: [30, 30],
+            minSize: [100, 0],
             onDrag: function () { renderer.reshape(); }
         });
     }
 
-    Split(["#scivi_cgraph_a", "#scivi_cgraph_b"], {
+    var graphSplit = Split(["#scivi_cgraph_a", "#scivi_cgraph_b"], {
         gutterSize: 8,
         cursor: "col-resize",
+        minSize: [100, 0],
         onDrag: function () { renderer.reshape(); }
     });
+
+    if (graphContainer.width() <= graphContainer.height())
+        graphSplit.collapse(1);
 
     $("#scivi_cgraph_tabs").tabs({heightStyle: "fill"});
 
@@ -174,6 +187,10 @@ CGraph.prototype.run = function (loc, data, scales, colors, title, info, classif
     }
     renderer.sortNodesByRingScale(true);
     renderer.run();
+
+    this.renderer = renderer;
+    this.graphContainer = graphContainer;
+    this.graphSplit = graphSplit;
 
     return renderer;
 }
