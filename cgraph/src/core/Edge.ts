@@ -188,12 +188,42 @@ namespace SciViCGraph
             return p.x >= minC.x && p.x <= maxC.x && p.y >= minC.y && p.y <= maxC.y;
         }
 
+        private distanceToQuadCurve(p: Point, c1: Point, c2: Point, c3: Point): number
+        {
+            if (this.isDirected) {
+                const xa = c2.x - c3.x;
+                const ya = c2.y - c3.y;
+                const l = Edge.maxThickness / Math.sqrt(xa * xa + ya * ya);
+                const corrTo = { x: c3.x + xa * l, y: c3.y + ya * l };
+                const curveDist = Geometry.distanceToQuadCurve(p, c1, c2, corrTo);
+                const arrowDist = Geometry.distanceToLineSegment(p, corrTo, c3);
+                return Math.min(curveDist, arrowDist);
+            } else {
+                return Geometry.distanceToQuadCurve(p, c1, c2, c3);
+            }
+        }
+
+        private distanceToBezierCurve(p: Point, c1: Point, c2: Point, c3: Point, c4: Point): number
+        {
+            if (this.isDirected) {
+                const xa = c3.x - c4.x;
+                const ya = c3.y - c4.y;
+                const l = Edge.maxThickness / Math.sqrt(xa * xa + ya * ya);
+                const corrTo = { x: c4.x + xa * l, y: c4.y + ya * l };
+                const curveDist = Geometry.distanceToBezierCurve(p, c1, c2, c3, corrTo);
+                const arrowDist = Geometry.distanceToLineSegment(p, corrTo, c4);
+                return Math.min(curveDist, arrowDist);
+            } else {
+                return Geometry.distanceToBezierCurve(p, c1, c2, c3, c4);
+            }
+        }
+
         private hitTestWithCurve(p: Point, cp: Point[]): boolean
         {
             if (cp.length === 3)
-                return Geometry.distanceToQuadCurve(p, cp[0], cp[1], cp[2]) <= this.m_thickness;
+                return this.distanceToQuadCurve(p, cp[0], cp[1], cp[2]) <= this.m_thickness;
             else
-                return Geometry.distanceToBezierCurve(p, cp[0], cp[1], cp[2], cp[3]) <= this.m_thickness;
+                return this.distanceToBezierCurve(p, cp[0], cp[1], cp[2], cp[3]) <= this.m_thickness;
         }
 
         public hitTest(x: number, y: number): boolean

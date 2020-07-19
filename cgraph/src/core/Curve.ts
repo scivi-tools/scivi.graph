@@ -405,11 +405,8 @@ namespace SciViCGraph
             let corrToY = toY;
 
             if (this.m_capArrow) {
-                const j = (n - 1) / n;
-                xa = fromX + ((cpX - fromX) * j);
-                ya = fromY + ((cpY - fromY) * j);
-                xa = xa + (((cpX + ((toX - cpX) * j)) - xa) * j) - toX;
-                ya = ya + (((cpY + ((toY - cpY) * j)) - ya) * j) - toY;
+                xa = cpX - toX;
+                ya = cpY - toY;
                 const l = this.m_arrowLength / Math.sqrt(xa * xa + ya * ya);
                 corrToX += xa * l;
                 corrToY += ya * l;
@@ -542,7 +539,24 @@ namespace SciViCGraph
 
             const n = this.segmentsCount(this.bezierCurveLength(fromX, fromY, cpX, cpY, cpX2, cpY2, toX, toY));
 
-            this.bezier(fromX, fromY, cpX, cpY, cpX2, cpY2, toX, toY, n, points);
+            let corrToX = toX;
+            let corrToY = toY;
+
+            if (this.m_capArrow) {
+                const xa = cpX2 - toX;
+                const ya = cpY2 - toY;
+                const l = this.m_arrowLength / Math.sqrt(xa * xa + ya * ya);
+                corrToX += xa * l;
+                corrToY += ya * l;
+            }
+
+            this.bezier(fromX, fromY, cpX, cpY, cpX2, cpY2, corrToX, corrToY, n, points);
+
+            if (this.m_capArrow) {
+                const n = points.length;
+                points.push(points[n - 2], points[n - 1]);
+                points.push(toX, toY);
+            }
 
             this.dirty++;
 
