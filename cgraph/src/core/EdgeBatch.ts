@@ -18,16 +18,15 @@ namespace SciViCGraph
         private drawCurve(curve: Curve, cp: Point[], thickness: number, fromColor: number, toColor: number, alpha: number,
                           arrow: boolean, arrowLength: number, arrowThickness: number)
         {
+            if (!arrow)
+                arrowLength = arrowThickness = 0.0;
             curve.lineStyle(thickness, 0x0, 1);
-            curve.capArrow = arrow;
-            curve.arrowLength = arrowLength;
-            curve.arrowThickness = arrowThickness;
             curve.addColor({ from: fromColor, to: toColor, alpha: alpha });
             curve.moveTo(cp[0].x, cp[0].y);
             if (cp.length === 3)
-                curve.quadraticCurveTo(cp[1].x, cp[1].y, cp[2].x, cp[2].y);
+                curve.quadraticCurveWithArrowTo(cp[1].x, cp[1].y, cp[2].x, cp[2].y, arrowLength, arrowThickness);
             else
-                curve.bezierCurveTo(cp[1].x, cp[1].y, cp[2].x, cp[2].y, cp[3].x, cp[3].y);
+                curve.bezierCurveWithArrowTo(cp[1].x, cp[1].y, cp[2].x, cp[2].y, cp[3].x, cp[3].y, arrowLength, arrowThickness);
         }
 
         private update()
