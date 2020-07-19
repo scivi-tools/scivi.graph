@@ -455,8 +455,10 @@ namespace SciViCGraph
 
         private clearSelected()
         {
-            if (this.m_selectedNode)
+            if (this.m_selectedNode) {
                 this.m_selectedNode.handleCursorMove(NaN, NaN, NaN, NaN, NaN);
+                this.m_selectedNode.handleClick();
+            }
             this.m_selectedNode = null;
             if (this.m_info) {
                 while (this.m_info.firstChild)
@@ -640,6 +642,7 @@ namespace SciViCGraph
                                     this.m_ringSegmentFilterBothEnds = true;
                                     this.selectRingSegment();
                                 }
+                                this.selectEdge();
                             }
                         }
                     }
@@ -662,7 +665,7 @@ namespace SciViCGraph
                             this.addEqualizerItem();
                         }
                     },
-                    arsc: {
+                    arcs: {
                         name: this.m_localizer["LOC_RING_FILTER_ARCS_GROUP"],
                         items: {
                             single: {
@@ -1616,6 +1619,14 @@ namespace SciViCGraph
                 this.m_transientEdge = null;
                 this.m_transientEdgeBatch = null;
                 this.render(true, true);
+            }
+        }
+
+        private selectEdge()
+        {
+            if (this.m_selectedNode) {
+                if (this.m_selectedNode.handleClick())
+                    this.render(true, true);
             }
         }
 
