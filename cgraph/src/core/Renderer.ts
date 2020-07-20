@@ -1613,10 +1613,12 @@ namespace SciViCGraph
                 this.m_stage.removeChild(this.m_transientEdgeBatch);
                 this.m_transientEdge = null;
                 this.m_transientEdgeBatch = null;
-                if (needsReinit)
+                if (needsReinit) {
+                    this.calcWeights();
                     this.reinit(false, false);
-                else
+                } else {
                     this.render(true, true);
+                }
             }
         }
 
