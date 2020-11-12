@@ -147,7 +147,7 @@ namespace SciViCGraph
 
             let tooltip = document.createElement("div");
             tooltip.className = "scivi_graph_tooltip";
-            m_view.parentElement.parentElement.appendChild(tooltip)
+            m_view.parentElement.parentElement.appendChild(tooltip);
             $(".scivi_graph_tooltip").hide(0);
 
             this.clearSelected();

@@ -46,8 +46,9 @@ namespace SciViCGraph
                     } else {
                         edge.thickness = (Edge.minThickness + Edge.maxThickness) / 2.0;
                     }
+                    const arrowSize = Math.pow(edge.thickness * 210, 1.0 / 2.5);
                     this.drawCurve(this, edge.controlPoints(), edge.thickness, edge.fromColor, edge.toColor, edge.alpha,
-                                   edge.isDirected, Edge.maxThickness, Edge.maxThickness);
+                                   edge.isDirected, arrowSize, arrowSize);
                 }
             });
 
@@ -95,8 +96,9 @@ namespace SciViCGraph
         {
             let result = new Curve();
             this.parent.addChild(result);
+            const arrowSize = Math.pow(edge.thickness * 210, 1.0 / 2.5);
             this.drawCurve(result, edge.controlPoints(), edge.thickness * 2.0, 0xFF0000, 0xFF0000, 0.5,
-                           edge.isDirected, Edge.maxThickness * 1.15, Edge.maxThickness * 1.65);
+                           edge.isDirected, arrowSize * 1.15, arrowSize * 1.65);
             return result;
         }
 
