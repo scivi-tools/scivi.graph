@@ -71,4 +71,8 @@ var g_loc_ru = {
     "LOC_CALCULATE": "Вычислить",
     "LOC_CLEANCALC": "Очистить",
     "LOC_STATECALCULATED": "Текущее состояние рассчитано калькулятором. Кликните, чтобы вернуться к предыдущему.",
+    "LOC_FILTER_SET": "Набор фильтров:",
+    "LOC_ADD_FILTER_SET": "+",
+    "LOC_REM_FILTER_SET": "–",
+    "LOC_SAVE_FILTER_SET": "Сохранить",
 };

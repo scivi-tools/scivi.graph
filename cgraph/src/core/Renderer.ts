@@ -43,6 +43,8 @@ namespace SciViCGraph
     }
 
     export type Range = { min: number, max: number };
+    export type FilterCode = { [id: string]: { nodes: Range, edges: Range } };
+    export type FilterSettings = { main: { nodes: Range, edges: Range }, scaleLevelsOrder: number[], equalizer: FilterCode };
 
     export class Renderer
     {
@@ -481,6 +483,12 @@ namespace SciViCGraph
                 return;
 
             this.m_filters.innerHTML =
+                "<div style='margin: 5px 0px 5px 0px;'>" + this.m_localizer["LOC_FILTER_SET"] +
+                "<div class='scivi_dropdown'><input type='text' id='scivi_filter_set_name'/><select id='scivi_filter_sets'></select></div>" + 
+                "<div class='scivi_button' id='scivi_add_filter_set'>" + this.m_localizer["LOC_ADD_FILTER_SET"] + "</div>" + 
+                "<div class='scivi_button' id='scivi_rem_filter_set'>" + this.m_localizer["LOC_REM_FILTER_SET"] + "</div>" + 
+                "<div class='scivi_button' id='scivi_save_filter_set'>" + this.m_localizer["LOC_SAVE_FILTER_SET"] + "</div>" + 
+                "</div><hr/><br/>" +
                 "<div id='scivi_node_treshold'></div><div id='scivi_edge_treshold'></div><hr/><br/>" +
                 "<div id='scivi_equalizer'></div>";
 
@@ -495,6 +503,47 @@ namespace SciViCGraph
                                                        this.m_edgeWeight.min, this.m_edgeWeight.max,
                                                        this.m_maxNumberOfEdges * 2, // Heuristics
                                                        (fromVal: number, toVal: number) => { this.changeEdgeTreshold(fromVal, toVal); });
+
+            $("#scivi_add_filter_set").click(() => {
+                let fs = $("#scivi_filter_sets");
+                let i = fs.children().length;
+                let k = "Filter set " + (i + 1);
+                let fj = JSON.stringify(this.dumpFilterSet());
+                let fk = "scivi_filter_set_" + i;
+                fs.append($("<option>", { value: i, text: k, id: fk }));
+                fs.val(i);
+                $("#scivi_filter_set_name").val(k);
+                $("#" + fk).data("fcode", fj);
+            });
+
+            $("#scivi_rem_filter_set").click(() => {
+                let fi = $("#scivi_filter_set_" + $("#scivi_filter_sets").val());
+                if (fi.length > 0) {
+                    fi.remove();
+                    fi = $("#scivi_filter_set_" + $("#scivi_filter_sets").val());
+                    if (fi.length > 0)
+                        $("#scivi_filter_set_name").val(fi.text());
+                    else
+                        $("#scivi_filter_set_name").val("");
+                }
+            });
+
+            $("#scivi_save_filter_set").click(() => {
+            });
+
+            $("#scivi_filter_sets").change(() => {
+                let fi = $("#scivi_filter_set_" + $("#scivi_filter_sets").val());
+                $("#scivi_filter_set_name").val(fi.text());
+                this.applyFilterSet(JSON.parse(fi.data("fcode")));
+            });
+
+            $("#scivi_filter_set_name").change(() => {
+                let fi = $("#scivi_filter_set_" + $("#scivi_filter_sets").val());
+                if (fi.length > 0)
+                    fi.text($("#scivi_filter_set_name").val());
+                else
+                    $("#scivi_filter_set_name").val("");
+            });
         }
 
         private initInterface()
@@ -1264,6 +1313,11 @@ namespace SciViCGraph
         set scaleLevels(s: Scale[])
         {
             this.m_scaleLevels = s;
+            if (this.m_scaleLevels) {
+                this.m_scaleLevels.forEach((sl: Scale, i: number) => {
+                    sl.id = i;
+                });
+            }
         }
 
         get classifier(): Classifier
@@ -1896,6 +1950,27 @@ namespace SciViCGraph
         public selectGraphState(stateName: string)
         {
             this.m_stateLineNav.selectState(stateName);
+        }
+
+        private dumpFilterSet(): FilterSettings
+        {
+            let scaleLevelsOrder = [];
+            this.m_scaleLevels.forEach((sl: Scale) => {
+                scaleLevelsOrder.push(sl.id);
+            });
+            let equalizer = {};
+            this.m_equalizer.forEach((eq) => {
+                eq.dumpFilterCode(equalizer);
+            });
+            return {
+                main: { nodes: this.m_nodeWeight, edges: this.m_edgeWeight },
+                scaleLevelsOrder: scaleLevelsOrder,
+                equalizer: equalizer
+            };
+        }
+
+        private applyFilterSet(fc: FilterSettings)
+        {
         }
     }
 }

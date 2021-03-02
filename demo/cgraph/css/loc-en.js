@@ -71,4 +71,8 @@ var g_loc_en = {
     "LOC_CALCULATE": "Calculate",
     "LOC_CLEANCALC": "Clean",
     "LOC_STATECALCULATED": "Current state was calculated. Click to return to previous one.",
+    "LOC_FILTER_SET": "Filter set:",
+    "LOC_ADD_FILTER_SET": "+",
+    "LOC_REM_FILTER_SET": "–",
+    "LOC_SAVE_FILTER_SET": "Save",
 };

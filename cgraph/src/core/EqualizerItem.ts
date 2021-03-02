@@ -132,5 +132,10 @@ namespace SciViCGraph
             return (this.containsNode(edge.source) || this.containsNode(edge.target)) &&
                    (edge.weight < this.m_edgeWeight.min || edge.weight > this.m_edgeWeight.max);
         }
+
+        public dumpFilterCode(fc: FilterCode)
+        {
+            fc[this.m_hash] = { nodes: this.m_nodeWeight, edges: this.m_edgeWeight };
+        }
     }
 }

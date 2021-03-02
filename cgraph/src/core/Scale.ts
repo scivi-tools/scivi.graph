@@ -3,11 +3,13 @@ namespace SciViCGraph
     export class Scale
     {
         private m_applicable: boolean;
+        private m_id: number;
 
         constructor(protected m_steps: any[], protected m_colors: number[], protected m_textColors: number[],
                     protected m_names: string[], public getValue: (node: Node) => any)
         {
             this.m_applicable = true;
+            this.m_id = -1;
         }
 
         public checkApplicability(nodes: Node[]): boolean
@@ -56,6 +58,16 @@ namespace SciViCGraph
         public getTextColor(id: number): number
         {
             return this.m_textColors[id % this.m_textColors.length];
+        }
+
+        get id(): number
+        {
+            return this.m_id;
+        }
+
+        set id(i: number)
+        {
+            this.m_id = i;
         }
     }
 

@@ -250,3 +250,32 @@ ul
     padding: 10px;
     cursor: pointer;
 }
+
+.scivi_dropdown
+{
+    position: inline-block;
+    display: inline-block;
+    width: 200px;
+    margin: 0px 5px 0px 5px;
+}
+
+.scivi_dropdown select
+{
+    width: 100%;
+    color: white;
+}
+
+.scivi_dropdown > *
+{
+    box-sizing: border-box;
+    height: 1.5em;
+}
+
+.scivi_dropdown input
+{
+    position: absolute;
+    width: 180px;
+    border: 0px;
+    background: rgba(0, 0, 0, 0);
+    padding-left: 10px;
+}
