@@ -2,6 +2,8 @@ namespace SciViCGraph
 {
     export class FilterSlider
     {
+        private m_slider: any;
+
         constructor(divID: string, label: string,
                     minVal: number, maxVal: number, curFromVal: number, curToVal: number,
                     numberOfTicks: number,
@@ -29,7 +31,7 @@ namespace SciViCGraph
             });
 
             const sliderID = divID + "_slider";
-            const sliderDiv = $("<div>").css("margin", "10px 10px 10px 5px");
+            this.m_slider = $("<div>").css("margin", "10px 10px 10px 5px");
 
             if (numberOfTicks <= 0)
                 numberOfTicks = 1;
@@ -38,7 +40,7 @@ namespace SciViCGraph
             if (step === 0)
                 step = 1;
 
-            sliderDiv.slider({
+            this.m_slider.slider({
                 min: minVal,
                 max: maxVal,
                 range: true,
@@ -67,7 +69,7 @@ namespace SciViCGraph
                     fromField.val(fv);
                 }
                 curFromVal = fv;
-                sliderDiv.slider("values", 0, curFromVal);
+                this.m_slider.slider("values", 0, curFromVal);
                 cb(curFromVal, curToVal);
             });
 
@@ -82,7 +84,7 @@ namespace SciViCGraph
                     toField.val(tv);
                 }
                 curToVal = tv;
-                sliderDiv.slider("values", 1, curToVal);
+                this.m_slider.slider("values", 1, curToVal);
                 cb(curFromVal, curToVal);
             });
             
@@ -90,7 +92,13 @@ namespace SciViCGraph
             div.append(fromField);
             div.append(" — ");
             div.append(toField);
-            div.append(sliderDiv);
+            div.append(this.m_slider);
+        }
+
+        public setValues(v: Range)
+        {
+            this.m_slider.slider("values", 0, v.min);
+            this.m_slider.slider("values", 1, v.max);
         }
     }
 }

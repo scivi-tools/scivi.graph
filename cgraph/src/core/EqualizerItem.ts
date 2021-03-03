@@ -24,6 +24,9 @@ namespace SciViCGraph
         {
             this.m_nodeWeight = nodeW;
             this.m_edgeWeight = edgeW;
+
+            this.m_nodeFilterSlider.setValues(this.m_nodeWeight);
+            this.m_edgeFilterSlider.setValues(this.m_edgeWeight);
         }
 
         public matchesRanges(nodeW: Range, edgeW: Range): boolean

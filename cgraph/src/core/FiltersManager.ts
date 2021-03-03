@@ -233,6 +233,9 @@ namespace SciViCGraph
             this.m_nodeWeight = fj.main.nodes;
             this.m_edgeWeight = fj.main.edges;
 
+            this.m_nodeFilterSlider.setValues(this.m_nodeWeight);
+            this.m_edgeFilterSlider.setValues(this.m_edgeWeight);
+
             this.m_renderer.reorderScaleLevels(fj.scaleLevelsOrder);
 
             this.m_equalizer.forEach((eq: EqualizerItem) => {
