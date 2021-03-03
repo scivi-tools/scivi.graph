@@ -131,10 +131,12 @@ namespace SciViCGraph
                 let k = "Filter set " + (i + 1);
                 let fj = JSON.parse(JSON.stringify(this.dumpFilterSet()));
                 let fk = "scivi_filter_set_" + i;
+                let fn = $("#scivi_filter_set_name");
                 fs.append($("<option>", { value: i, text: k, id: fk }));
                 fs.val(i);
-                $("#scivi_filter_set_name").val(k);
+                fn.val(k);
                 $("#" + fk).data("fcode", fj);
+                fn.select();
             });
 
             $("#scivi_rem_filter_set").click(() => {
