@@ -1387,12 +1387,14 @@ namespace SciViCGraph
             let r2 = this.filterEdges();
             if (r1 || r2)
                 this.render(true, true);
+            this.m_filtersManager.validateCurrentFilterSet();
         }
 
         public updateEdgesVisibility()
         {
             if (this.filterEdges())
                 this.render(true, true);
+            this.m_filtersManager.validateCurrentFilterSet();
         }
 
         public showAllNodes(show: boolean)

@@ -129,7 +129,7 @@ namespace SciViCGraph
                 let fs = $("#scivi_filter_sets");
                 let i = fs.children().length;
                 let k = "Filter set " + (i + 1);
-                let fj = JSON.stringify(this.dumpFilterSet());
+                let fj = JSON.parse(JSON.stringify(this.dumpFilterSet()));
                 let fk = "scivi_filter_set_" + i;
                 fs.append($("<option>", { value: i, text: k, id: fk }));
                 fs.val(i);
@@ -155,7 +155,7 @@ namespace SciViCGraph
             $("#scivi_filter_sets").change(() => {
                 let fi = $("#scivi_filter_set_" + $("#scivi_filter_sets").val());
                 $("#scivi_filter_set_name").val(fi.text());
-                this.applyFilterSet(JSON.parse(fi.data("fcode")));
+                this.applyFilterSet(fi.data("fcode"));
             });
 
             $("#scivi_filter_set_name").change(() => {
@@ -181,6 +181,36 @@ namespace SciViCGraph
             this.m_renderer.updateNodesVisibility();
         }
 
+        public validateCurrentFilterSet()
+        {
+            if (!this.currentFilterSettingsValid()) {
+                $("#scivi_filter_sets").val(-1);
+                $("#scivi_filter_set_name").val("");
+            }
+        }
+
+        private currentFilterSettingsValid(): boolean
+        {
+            let fi = $("#scivi_filter_set_" + $("#scivi_filter_sets").val());
+            if (fi.length > 0) {
+                let fj = fi.data("fcode");
+                if (fj.main.nodes.min !== this.m_nodeWeight.min || fj.main.nodes.max !== this.m_nodeWeight.max ||
+                    fj.main.edges.min !== this.m_edgeWeight.min || fj.main.edges.max !== this.m_edgeWeight.max)
+                    return false;
+                for (let i = 0, n = this.m_renderer.scaleLevels.length; i < n; ++i) {
+                    if (this.m_renderer.scaleLevels[i].id !== fj.scaleLevelsOrder[i])
+                        return false;
+                }
+                if (this.m_equalizer.length !== fj.equalizer.length)
+                    return false;
+                for (let i = 0, n = this.m_equalizer.length; i < n; ++i) {
+                    if (!this.m_equalizer[i].matchesRanges(fj.equalizer[i].nodes, fj.equalizer[i].edges))
+                        return false;
+                }
+            }
+            return true;
+        }
+
         private dumpFilterSet(): FilterSettings
         {
             let scaleLevelsOrder = [];
@@ -188,7 +218,7 @@ namespace SciViCGraph
                 scaleLevelsOrder.push(sl.id);
             });
             let equalizer = [];
-            this.m_equalizer.forEach((eq) => {
+            this.m_equalizer.forEach((eq: EqualizerItem) => {
                 eq.dumpFilterCode(equalizer);
             });
             return {
@@ -198,18 +228,18 @@ namespace SciViCGraph
             };
         }
 
-        private applyFilterSet(fc: FilterSettings)
+        private applyFilterSet(fj: FilterSettings)
         {
-            this.m_nodeWeight = fc.main.nodes;
-            this.m_edgeWeight = fc.main.edges;
+            this.m_nodeWeight = fj.main.nodes;
+            this.m_edgeWeight = fj.main.edges;
 
-            this.m_renderer.reorderScaleLevels(fc.scaleLevelsOrder);
+            this.m_renderer.reorderScaleLevels(fj.scaleLevelsOrder);
 
-            this.m_equalizer.forEach((eq) => {
+            this.m_equalizer.forEach((eq: EqualizerItem) => {
                 eq.harakiri();
             });
             this.m_equalizer = [];
-            fc.equalizer.forEach((eq) => {
+            fj.equalizer.forEach((eq: EqualizerCode) => {
                 let ei = new EqualizerItem(this.m_renderer,
                                            this.m_renderer.ringScales[eq.ringIndex].segmentByHash(eq.segmentHash),
                                            eq.ringIndex)

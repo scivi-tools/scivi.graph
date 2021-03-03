@@ -26,6 +26,12 @@ namespace SciViCGraph
             this.m_edgeWeight = edgeW;
         }
 
+        public matchesRanges(nodeW: Range, edgeW: Range): boolean
+        {
+            return nodeW.min === this.m_nodeWeight.min && nodeW.max === this.m_nodeWeight.max &&
+                   edgeW.min === this.m_edgeWeight.min && edgeW.max === this.m_edgeWeight.max;
+        }
+
         private containsNode(node: Node): boolean
         {
             return this.m_highlight.containsAngle(node.rotation);
