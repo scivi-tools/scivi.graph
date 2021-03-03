@@ -2,7 +2,7 @@ namespace SciViCGraph
 {
     export type Range = { min: number, max: number };
     export type EqualizerCode = { ringIndex: number, segmentHash: string, nodes: Range, edges: Range };
-    export type FilterSettings = { main: { nodes: Range, edges: Range }, scaleLevelsOrder: number[], equalizer: EqualizerCode[] };
+    export type FilterSettings = { name: string, main: { nodes: Range, edges: Range }, scaleLevelsOrder: number[], equalizer: EqualizerCode[] };
 
     export class FiltersManager
     {
@@ -184,13 +184,13 @@ namespace SciViCGraph
 
         public validateCurrentFilterSet()
         {
-            if (!this.currentFilterSettingsValid()) {
+            if (!this.currentFilterSetValid()) {
                 $("#scivi_filter_sets").val(-1);
                 $("#scivi_filter_set_name").val("");
             }
         }
 
-        private currentFilterSettingsValid(): boolean
+        private currentFilterSetValid(): boolean
         {
             let fi = $("#scivi_filter_set_" + $("#scivi_filter_sets").val());
             if (fi.length > 0) {
@@ -223,6 +223,7 @@ namespace SciViCGraph
                 eq.dumpFilterCode(equalizer);
             });
             return {
+                name: null,
                 main: { nodes: this.m_nodeWeight, edges: this.m_edgeWeight },
                 scaleLevelsOrder: scaleLevelsOrder,
                 equalizer: equalizer
@@ -257,11 +258,27 @@ namespace SciViCGraph
         private saveFilterSet()
         {
             let f = [];
-            $("#scivi_filter_sets").children().each((i: number, fi: Element) => {
-                f.push($(fi).data("fcode"));
+            $("#scivi_filter_sets").children().each((i: number, el: Element) => {
+                let fi = $(el);
+                let fj = fi.data("fcode");
+                fj.name = fi.text();
+                f.push(fj);
             });
             if (f.length > 0)
                 this.m_renderer.downloadFile("filterSet.json", JSON.stringify(f));
+        }
+
+        public loadFilterSet(filterSet: FilterSettings[])
+        {
+            let fs = $("#scivi_filter_sets");
+            fs.empty();
+            filterSet.forEach((fj: FilterSettings, i: number) => {
+                let fk = "scivi_filter_set_" + i;
+                fs.append($("<option>", { value: i, text: fj.name, id: fk }));
+                $("#" + fk).data("fcode", fj);
+            });
+            fs.val(-1);
+            $("#scivi_filter_set_name").val("");
         }
     }
 }

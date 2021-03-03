@@ -1817,5 +1817,10 @@ namespace SciViCGraph
         {
             this.m_stateLineNav.selectState(stateName);
         }
+
+        public loadFilterSet(filterSet: FilterSettings[])
+        {
+            this.m_filtersManager.loadFilterSet(filterSet);
+        }
     }
 }
