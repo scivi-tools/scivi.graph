@@ -74,5 +74,5 @@ var g_loc_ru = {
     "LOC_FILTER_SET": "Набор фильтров:",
     "LOC_ADD_FILTER_SET": "+",
     "LOC_REM_FILTER_SET": "–",
-    "LOC_SAVE_FILTER_SET": "Сохранить",
+    "LOC_SAVE_FILTER_SET": "Сохранить в файл",
 };

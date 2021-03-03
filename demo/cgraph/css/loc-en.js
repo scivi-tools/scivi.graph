@@ -74,5 +74,5 @@ var g_loc_en = {
     "LOC_FILTER_SET": "Filter set:",
     "LOC_ADD_FILTER_SET": "+",
     "LOC_REM_FILTER_SET": "–",
-    "LOC_SAVE_FILTER_SET": "Save",
+    "LOC_SAVE_FILTER_SET": "Save to File",
 };
