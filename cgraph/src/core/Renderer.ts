@@ -42,10 +42,6 @@ namespace SciViCGraph
         return result;
     }
 
-    export type Range = { min: number, max: number };
-    export type FilterCode = { [id: string]: { nodes: Range, edges: Range } };
-    export type FilterSettings = { main: { nodes: Range, edges: Range }, scaleLevelsOrder: number[], equalizer: FilterCode };
-
     export class Renderer
     {
         private m_renderer: PIXI.SystemRenderer;
@@ -58,8 +54,6 @@ namespace SciViCGraph
         private m_edgeBatches: EdgeBatch[];
         private m_transientEdgeBatch: EdgeBatch;
         private m_transientEdge: Edge;
-        private m_nodeWeight: Range;
-        private m_edgeWeight: Range;
         private m_radius: number;
         private m_totalRadius: number;
         private m_hoveredNode: Node;
@@ -91,15 +85,11 @@ namespace SciViCGraph
         private m_ringBorder: RingBorder;
         private m_ringSegmentFilterBothEnds: boolean;
         private m_ringScaleWithSegmentSelected: RingScale;
-        private m_equalizer: EqualizerItem[];
         private m_colorPicker: any;
         private m_modularityFilters: any[];
         private m_stateLineNav: StateLineNavigator;
         private m_stateCalc: Calculator;
-        private m_edgeFilterSlider: FilterSlider;
-        private m_nodeFilterSlider: FilterSlider;
-        private m_maxNumberOfNodes: number;
-        private m_maxNumberOfEdges: number;
+        private m_filtersManager: FiltersManager;
 
         static readonly m_ringScaleWidth = 30;
         static readonly m_minFontSize = 5;
@@ -137,15 +127,11 @@ namespace SciViCGraph
             this.m_ringBorder = null;
             this.m_ringSegmentFilterBothEnds = true;
             this.m_ringScaleWithSegmentSelected = null;
-            this.m_equalizer = [];
             this.m_colorPicker = null;
             this.m_modularityFilters = [];
             this.m_stateLineNav = new StateLineNavigator(this, this.m_stateline);
             this.m_stateCalc = new Calculator(this, this.m_calculator);
-            this.m_edgeFilterSlider = null;
-            this.m_nodeFilterSlider = null;
-            this.m_maxNumberOfNodes = 0;
-            this.m_maxNumberOfEdges = 0;
+            this.m_filtersManager = new FiltersManager(this, this.m_filters);
 
             let tooltip = document.createElement("div");
             tooltip.className = "scivi_graph_tooltip";
@@ -236,54 +222,9 @@ namespace SciViCGraph
             return this.m_currentStateKey;
         }
 
-        private calcWeights()
-        {
-            this.m_nodeWeight = { min: undefined, max: undefined };
-            this.m_edgeWeight = { min: undefined, max: undefined };
-            this.m_maxNumberOfNodes = 0;
-            this.m_maxNumberOfEdges = 0;
-
-            Object.keys(this.m_states.data).forEach((dataKey) => {
-                const data = this.m_states.data[dataKey];
-                const nc = data.nodes.length;
-                const ec = data.edges.length;
-                const angleStep = 2.0 * Math.PI / nc;
-
-                if (nc > this.m_maxNumberOfNodes)
-                    this.m_maxNumberOfNodes = nc;
-                if (ec > this.m_maxNumberOfEdges)
-                    this.m_maxNumberOfEdges = ec;
-
-                for (let i = 0; i < nc; ++i) {
-                    if (this.m_nodeWeight.min === undefined || this.m_nodeWeight.min > data.nodes[i].weight)
-                        this.m_nodeWeight.min = data.nodes[i].weight;
-                    if (this.m_nodeWeight.max === undefined || this.m_nodeWeight.max < data.nodes[i].weight)
-                        this.m_nodeWeight.max = data.nodes[i].weight;
-                    data.nodes[i].rotation = i * angleStep;
-                }
-
-                for (let i = 0; i < ec; ++i) {
-                    if (this.m_edgeWeight.min === undefined || this.m_edgeWeight.min > data.edges[i].weight)
-                        this.m_edgeWeight.min = data.edges[i].weight;
-                    if (this.m_edgeWeight.max === undefined || this.m_edgeWeight.max < data.edges[i].weight)
-                        this.m_edgeWeight.max = data.edges[i].weight;
-                }
-            });
-
-            if (this.m_nodeWeight.min === undefined)
-                this.m_nodeWeight.min = 0.0;
-            if (this.m_nodeWeight.max === undefined)
-                this.m_nodeWeight.max = 0.0;
-
-            if (this.m_edgeWeight.min === undefined)
-                this.m_edgeWeight.min = 0.0;
-            if (this.m_edgeWeight.max === undefined)
-                this.m_edgeWeight.max = 0.0;
-        }
-
         private createStage()
         {
-            this.m_stage = new Scene(this.m_colors, this.m_edgeWeight, this.m_nodeWeight);
+            this.m_stage = new Scene(this.m_colors, this.m_filtersManager.edgeWeight, this.m_filtersManager.nodeWeight);
             this.m_renderingCache = new RenderingCache(this.m_stage, this.m_renderer);
         }
 
@@ -304,7 +245,7 @@ namespace SciViCGraph
 
         private init()
         {
-            this.calcWeights();
+            this.m_filtersManager.calcWeights();
             this.createStage();
 
             this.m_hoveredNode = null;
@@ -475,75 +416,6 @@ namespace SciViCGraph
                 });
             }
             this.m_multiselectedNodes = [];
-        }
-
-        private initFilters()
-        {
-            if (!this.m_filters)
-                return;
-
-            this.m_filters.innerHTML =
-                "<div style='margin: 5px 0px 5px 0px;'>" + this.m_localizer["LOC_FILTER_SET"] +
-                "<div class='scivi_dropdown'><input type='text' id='scivi_filter_set_name'/><select id='scivi_filter_sets'></select></div>" + 
-                "<div class='scivi_button' id='scivi_add_filter_set'>" + this.m_localizer["LOC_ADD_FILTER_SET"] + "</div>" + 
-                "<div class='scivi_button' id='scivi_rem_filter_set'>" + this.m_localizer["LOC_REM_FILTER_SET"] + "</div>" + 
-                "<div class='scivi_button' id='scivi_save_filter_set'>" + this.m_localizer["LOC_SAVE_FILTER_SET"] + "</div>" + 
-                "</div><hr/><br/>" +
-                "<div id='scivi_node_treshold'></div><div id='scivi_edge_treshold'></div><hr/><br/>" +
-                "<div id='scivi_equalizer'></div>";
-
-            this.m_nodeFilterSlider = new FilterSlider("#scivi_node_treshold", this.m_localizer["LOC_NODETHRESHOLD"],
-                                                       this.m_nodeWeight.min, this.m_nodeWeight.max,
-                                                       this.m_nodeWeight.min, this.m_nodeWeight.max,
-                                                       this.m_maxNumberOfNodes * 2, // Heuristics
-                                                       (fromVal: number, toVal: number) => { this.changeNodeTreshold(fromVal, toVal); });
-
-            this.m_edgeFilterSlider = new FilterSlider("#scivi_edge_treshold", this.m_localizer["LOC_EDGETHRESHOLD"],
-                                                       this.m_edgeWeight.min, this.m_edgeWeight.max,
-                                                       this.m_edgeWeight.min, this.m_edgeWeight.max,
-                                                       this.m_maxNumberOfEdges * 2, // Heuristics
-                                                       (fromVal: number, toVal: number) => { this.changeEdgeTreshold(fromVal, toVal); });
-
-            $("#scivi_add_filter_set").click(() => {
-                let fs = $("#scivi_filter_sets");
-                let i = fs.children().length;
-                let k = "Filter set " + (i + 1);
-                let fj = JSON.stringify(this.dumpFilterSet());
-                let fk = "scivi_filter_set_" + i;
-                fs.append($("<option>", { value: i, text: k, id: fk }));
-                fs.val(i);
-                $("#scivi_filter_set_name").val(k);
-                $("#" + fk).data("fcode", fj);
-            });
-
-            $("#scivi_rem_filter_set").click(() => {
-                let fi = $("#scivi_filter_set_" + $("#scivi_filter_sets").val());
-                if (fi.length > 0) {
-                    fi.remove();
-                    fi = $("#scivi_filter_set_" + $("#scivi_filter_sets").val());
-                    if (fi.length > 0)
-                        $("#scivi_filter_set_name").val(fi.text());
-                    else
-                        $("#scivi_filter_set_name").val("");
-                }
-            });
-
-            $("#scivi_save_filter_set").click(() => {
-            });
-
-            $("#scivi_filter_sets").change(() => {
-                let fi = $("#scivi_filter_set_" + $("#scivi_filter_sets").val());
-                $("#scivi_filter_set_name").val(fi.text());
-                this.applyFilterSet(JSON.parse(fi.data("fcode")));
-            });
-
-            $("#scivi_filter_set_name").change(() => {
-                let fi = $("#scivi_filter_set_" + $("#scivi_filter_sets").val());
-                if (fi.length > 0)
-                    fi.text($("#scivi_filter_set_name").val());
-                else
-                    $("#scivi_filter_set_name").val("");
-            });
         }
 
         private initInterface()
@@ -823,7 +695,7 @@ namespace SciViCGraph
                 });
             }
 
-            this.initFilters();
+            this.m_filtersManager.initFilters();
 
             this.m_stateLineNav.build();
 
@@ -1197,8 +1069,8 @@ namespace SciViCGraph
 
         private isEdgeVisibleByEqualizer(edge: Edge): boolean
         {
-            for (let i = 0, n = this.m_equalizer.length; i < n; ++i) {
-                if (this.m_equalizer[i].hidesEdge(edge))
+            for (let i = 0, n = this.m_filtersManager.equalizer.length; i < n; ++i) {
+                if (this.m_filtersManager.equalizer[i].hidesEdge(edge))
                     return false;
             }
             return true;
@@ -1206,8 +1078,8 @@ namespace SciViCGraph
 
         private isNodeVisibleByEqualizer(node: Node): boolean
         {
-            for (let i = 0, n = this.m_equalizer.length; i < n; ++i) {
-                if (this.m_equalizer[i].hidesNode(node))
+            for (let i = 0, n = this.m_filtersManager.equalizer.length; i < n; ++i) {
+                if (this.m_filtersManager.equalizer[i].hidesNode(node))
                     return false;
             }
             return true;
@@ -1218,8 +1090,8 @@ namespace SciViCGraph
             let result = false;
             let cnt = 0;
             let w = 0;
-            const rmin = this.m_edgeWeight.min;
-            const rmax = this.m_edgeWeight.max;
+            const rmin = this.m_filtersManager.edgeWeight.min;
+            const rmax = this.m_filtersManager.edgeWeight.max;
             this.currentData().edges.forEach((edge) => {
                 const rv = edge.weight;
                 const vis = edge.source.visible && edge.target.visible && rv >= rmin && rv <= rmax &&
@@ -1246,8 +1118,8 @@ namespace SciViCGraph
             let result = false;
             let cnt = 0;
             let w = 0;
-            const rmin = this.m_nodeWeight.min;
-            const rmax = this.m_nodeWeight.max;
+            const rmin = this.m_filtersManager.nodeWeight.min;
+            const rmax = this.m_filtersManager.nodeWeight.max;
             this.currentData().nodes.forEach((node) => {
                 const rv = node.weight;
                 const vis = node.isShown && rv >= rmin && rv <= rmax &&
@@ -1268,21 +1140,6 @@ namespace SciViCGraph
                 this.m_statistics.updateNodesStat(cnt, w);
             }
             return result;
-        }
-
-        public changeEdgeTreshold(fromVal: number, toVal: number)
-        {
-            this.m_edgeWeight.min = fromVal;
-            this.m_edgeWeight.max = toVal;
-            if (this.filterEdges())
-                this.render(true, true);
-        }
-
-        public changeNodeTreshold(fromVal: number, toVal: number)
-        {
-            this.m_nodeWeight.min = fromVal;
-            this.m_nodeWeight.max = toVal;
-            this.updateNodesVisibility();
         }
 
         public changeNodeAlpha(value: number)
@@ -1486,14 +1343,14 @@ namespace SciViCGraph
                     const segm = this.m_ringScales[i].contextSegment;
                     if (segm) {
                         let needsCreate = true;
-                        for (let j = 0, m = this.m_equalizer.length; j < m; ++j) {
-                            if (this.m_equalizer[j].matches(segm)) {
+                        for (let j = 0, m = this.m_filtersManager.equalizer.length; j < m; ++j) {
+                            if (this.m_filtersManager.equalizer[j].matches(segm)) {
                                 needsCreate = false;
                                 break;
                             }
                         }
                         if (needsCreate)
-                            this.m_equalizer.push(new EqualizerItem(this, segm));
+                            this.m_filtersManager.equalizer.push(new EqualizerItem(this, segm));
                         break;
                     }
                 }
@@ -1502,9 +1359,9 @@ namespace SciViCGraph
 
         public removeEqualizerItem(item: EqualizerItem)
         {
-            const idx = this.m_equalizer.indexOf(item);
+            const idx = this.m_filtersManager.equalizer.indexOf(item);
             if (idx > -1) {
-                this.m_equalizer.splice(idx, 1);
+                this.m_filtersManager.equalizer.splice(idx, 1);
                 this.equalizeNodes();
                 this.equalizeEdges();
             }
@@ -1529,6 +1386,12 @@ namespace SciViCGraph
                 this.render(true, true);
         }
 
+        public updateEdgesVisibility()
+        {
+            if (this.filterEdges())
+                this.render(true, true);
+        }
+
         public showAllNodes(show: boolean)
         {
             this.currentData().nodes.forEach((node) => {
@@ -1544,7 +1407,7 @@ namespace SciViCGraph
 
         public updateNodeKlasses()
         {
-            this.calcWeights();
+            this.m_filtersManager.calcWeights();
             this.reinit(false, true);
         }
 
@@ -1564,11 +1427,10 @@ namespace SciViCGraph
                 this.m_states.data["current"] = null;
                 this.m_currentStateKey = cs;
                 this.currentData(); // Force state to load
-                this.calcWeights();
-                this.m_stage.nodeWeight = this.m_nodeWeight;
-                this.m_stage.edgeWeight = this.m_edgeWeight;
-                this.initFilters();
-                this.m_equalizer = [];
+                this.m_filtersManager.calcWeights();
+                this.m_stage.nodeWeight = this.m_filtersManager.nodeWeight;
+                this.m_stage.edgeWeight = this.m_filtersManager.edgeWeight;
+                this.m_filtersManager.initFilters();
             } else {
                 this.m_currentStateKey = cs;
             }
@@ -1578,11 +1440,10 @@ namespace SciViCGraph
         public changeCurrentStateToCalculated()
         {
             this.m_currentStateKey = "calculated";
-            this.calcWeights();
-            this.m_stage.nodeWeight = this.m_nodeWeight;
-            this.m_stage.edgeWeight = this.m_edgeWeight;
-            this.initFilters();
-            this.m_equalizer = [];
+            this.m_filtersManager.calcWeights();
+            this.m_stage.nodeWeight = this.m_filtersManager.nodeWeight;
+            this.m_stage.edgeWeight = this.m_filtersManager.edgeWeight;
+            this.m_filtersManager.initFilters();
             this.sortNodesByRingScale(false);
             this.m_stateLineNav.curtain();
             this.reinit(false, false);
@@ -1668,7 +1529,7 @@ namespace SciViCGraph
                 this.m_transientEdge = null;
                 this.m_transientEdgeBatch = null;
                 if (needsReinit) {
-                    this.calcWeights();
+                    this.m_filtersManager.calcWeights();
                     this.reinit(false, false);
                 } else {
                     this.render(true, true);
@@ -1900,12 +1761,12 @@ namespace SciViCGraph
 
         get maxNumberOfNodes(): number
         {
-            return this.m_maxNumberOfNodes;
+            return this.m_filtersManager.maxNumberOfNodes;
         }
 
         get maxNumberOfEdges(): number
         {
-            return this.m_maxNumberOfEdges;
+            return this.m_filtersManager.maxNumberOfEdges;
         }
 
         public saveGraph()
@@ -1950,27 +1811,6 @@ namespace SciViCGraph
         public selectGraphState(stateName: string)
         {
             this.m_stateLineNav.selectState(stateName);
-        }
-
-        private dumpFilterSet(): FilterSettings
-        {
-            let scaleLevelsOrder = [];
-            this.m_scaleLevels.forEach((sl: Scale) => {
-                scaleLevelsOrder.push(sl.id);
-            });
-            let equalizer = {};
-            this.m_equalizer.forEach((eq) => {
-                eq.dumpFilterCode(equalizer);
-            });
-            return {
-                main: { nodes: this.m_nodeWeight, edges: this.m_edgeWeight },
-                scaleLevelsOrder: scaleLevelsOrder,
-                equalizer: equalizer
-            };
-        }
-
-        private applyFilterSet(fc: FilterSettings)
-        {
         }
     }
 }
