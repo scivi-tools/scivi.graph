@@ -62,6 +62,11 @@ CGraph.prototype.createClassifier = function (tree, getKlass)
     return new SciViCGraph.Classifier(tree, getKlass);
 }
 
+CGraph.prototype.loadFilterSet = function (filterSet)
+{
+    this.renderer.loadFilterSet(filterSet);
+}
+
 CGraph.prototype.reshape = function ()
 {
     if (this.graphContainer) {
