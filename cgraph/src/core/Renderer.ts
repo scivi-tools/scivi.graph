@@ -1750,7 +1750,7 @@ namespace SciViCGraph
             $("#" + this.m_view.id).contextMenu(enabled);
         }
 
-        private downloadFile(filename: string, content: string)
+        public downloadFile(filename: string, content: string)
         {
             let element = document.createElement('a');
             element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(content));

@@ -127,7 +127,7 @@ namespace SciViCGraph
 
             $("#scivi_add_filter_set").click(() => {
                 let fs = $("#scivi_filter_sets");
-                let i = fs.children().length;
+                let i = fs.children("option").length;
                 let k = "Filter set " + (i + 1);
                 let fj = JSON.parse(JSON.stringify(this.dumpFilterSet()));
                 let fk = "scivi_filter_set_" + i;
@@ -150,6 +150,7 @@ namespace SciViCGraph
             });
 
             $("#scivi_save_filter_set").click(() => {
+                this.saveFilterSet();
             });
 
             $("#scivi_filter_sets").change(() => {
@@ -251,6 +252,16 @@ namespace SciViCGraph
             });
 
             this.m_renderer.updateNodesVisibility();
+        }
+
+        private saveFilterSet()
+        {
+            let f = [];
+            $("#scivi_filter_sets").children().each((i: number, fi: Element) => {
+                f.push($(fi).data("fcode"));
+            });
+            if (f.length > 0)
+                this.m_renderer.downloadFile("filterSet.json", JSON.stringify(f));
         }
     }
 }

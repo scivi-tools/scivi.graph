@@ -2,7 +2,7 @@ namespace SciViCGraph
 {
     export class FilterSlider
     {
-        private m_slider: any;
+        private m_slider: JQuery;
 
         constructor(divID: string, label: string,
                     minVal: number, maxVal: number, curFromVal: number, curToVal: number,
