@@ -60,7 +60,7 @@ namespace SciViCGraph
 
             r = this.m_outRadius - this.m_width / 2.0;
             const hl = new RingScaleSegment(from, to, r - this.m_inRadius, (r + this.m_inRadius) / 2.0, color, 0.1,
-                                            name, textColor, null);
+                                            name, textColor, sHash);
             this.addChild(hl);
             this.m_highlights.push(hl);
 
@@ -227,6 +227,11 @@ namespace SciViCGraph
         get contextSegment(): RingScaleSegment
         {
             return this.m_contextSegment === -1 ? null : this.m_highlights[this.m_contextSegment];
+        }
+
+        public segmentByHash(h: string): RingScaleSegment
+        {
+            return this.m_highlights[this.m_hashedSegmentIndices[h]];
         }
     }
 }

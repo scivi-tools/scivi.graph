@@ -10,12 +10,20 @@ namespace SciViCGraph
         private m_nodeFilterSlider: FilterSlider;
         private m_edgeFilterSlider: FilterSlider;
 
-        constructor(private m_renderer: Renderer, segment: RingScaleSegment)
+        constructor(private m_renderer: Renderer,
+                    segment: RingScaleSegment,
+                    private m_ringIndex: number)
         {
             this.m_highlight = segment.doCopy();
 
             this.calcWeights();
             this.addInterface();
+        }
+
+        public setWeights(nodeW: Range, edgeW: Range)
+        {
+            this.m_nodeWeight = nodeW;
+            this.m_edgeWeight = edgeW;
         }
 
         private containsNode(node: Node): boolean
@@ -101,14 +109,14 @@ namespace SciViCGraph
         {
             this.m_nodeWeight.min = fromVal;
             this.m_nodeWeight.max = toVal;
-            this.m_renderer.equalizeNodes();
+            this.m_renderer.updateNodesVisibility();
         }
 
         private changeEdgesTreshold(fromVal: number, toVal: number)
         {
             this.m_edgeWeight.min = fromVal;
             this.m_edgeWeight.max = toVal;
-            this.m_renderer.equalizeEdges();
+            this.m_renderer.updateEdgesVisibility();
         }
 
         public matches(segment: RingScaleSegment): boolean
@@ -133,9 +141,14 @@ namespace SciViCGraph
                    (edge.weight < this.m_edgeWeight.min || edge.weight > this.m_edgeWeight.max);
         }
 
-        public dumpFilterCode(fc: FilterCode)
+        public dumpFilterCode(fc: EqualizerCode[])
         {
-            fc[this.m_hash] = { nodes: this.m_nodeWeight, edges: this.m_edgeWeight };
+            fc.push({
+                ringIndex: this.m_ringIndex,
+                segmentHash: this.m_highlight.segmentHash,
+                nodes: this.m_nodeWeight,
+                edges: this.m_edgeWeight
+            });
         }
     }
 }

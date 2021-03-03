@@ -1,8 +1,8 @@
 namespace SciViCGraph
 {
     export type Range = { min: number, max: number };
-    export type FilterCode = { [id: string]: { nodes: Range, edges: Range } };
-    export type FilterSettings = { main: { nodes: Range, edges: Range }, scaleLevelsOrder: number[], equalizer: FilterCode };
+    export type EqualizerCode = { ringIndex: number, segmentHash: string, nodes: Range, edges: Range };
+    export type FilterSettings = { main: { nodes: Range, edges: Range }, scaleLevelsOrder: number[], equalizer: EqualizerCode[] };
 
     export class FiltersManager
     {
@@ -187,7 +187,7 @@ namespace SciViCGraph
             this.m_renderer.scaleLevels.forEach((sl: Scale) => {
                 scaleLevelsOrder.push(sl.id);
             });
-            let equalizer = {};
+            let equalizer = [];
             this.m_equalizer.forEach((eq) => {
                 eq.dumpFilterCode(equalizer);
             });
@@ -200,6 +200,24 @@ namespace SciViCGraph
 
         private applyFilterSet(fc: FilterSettings)
         {
+            this.m_nodeWeight = fc.main.nodes;
+            this.m_edgeWeight = fc.main.edges;
+
+            this.m_renderer.reorderScaleLevels(fc.scaleLevelsOrder);
+
+            this.m_equalizer.forEach((eq) => {
+                eq.harakiri();
+            });
+            this.m_equalizer = [];
+            fc.equalizer.forEach((eq) => {
+                let ei = new EqualizerItem(this.m_renderer,
+                                           this.m_renderer.ringScales[eq.ringIndex].segmentByHash(eq.segmentHash),
+                                           eq.ringIndex)
+                ei.setWeights(eq.nodes, eq.edges);
+                this.m_equalizer.push(ei);
+            });
+
+            this.m_renderer.updateNodesVisibility();
         }
     }
 }

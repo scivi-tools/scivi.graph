@@ -1177,6 +1177,21 @@ namespace SciViCGraph
             }
         }
 
+        get ringScales(): RingScale[]
+        {
+            return this.m_ringScales;
+        }
+
+        public reorderScaleLevels(order: number[])
+        {
+            let s = [];
+            order.forEach((i) => {
+                s.push(this.scaleLevels[i]);
+            });
+            this.m_scaleLevels = s;
+            this.sortNodesByRingScale(true);
+        }
+
         get classifier(): Classifier
         {
             return this.m_classifier;
@@ -1350,7 +1365,7 @@ namespace SciViCGraph
                             }
                         }
                         if (needsCreate)
-                            this.m_filtersManager.equalizer.push(new EqualizerItem(this, segm));
+                            this.m_filtersManager.equalizer.push(new EqualizerItem(this, segm, i));
                         break;
                     }
                 }
@@ -1362,20 +1377,8 @@ namespace SciViCGraph
             const idx = this.m_filtersManager.equalizer.indexOf(item);
             if (idx > -1) {
                 this.m_filtersManager.equalizer.splice(idx, 1);
-                this.equalizeNodes();
-                this.equalizeEdges();
+                this.updateNodesVisibility();
             }
-        }
-
-        public equalizeNodes()
-        {
-            this.updateNodesVisibility();
-        }
-
-        public equalizeEdges()
-        {
-            if (this.filterEdges())
-                this.render(true, true);
         }
 
         public updateNodesVisibility()
