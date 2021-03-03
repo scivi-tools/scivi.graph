@@ -136,18 +136,23 @@ namespace SciViCGraph
                 fs.val(i);
                 fn.val(k);
                 $("#" + fk).data("fcode", fj);
+                fn.prop("disabled", false);
                 fn.select();
             });
 
             $("#scivi_rem_filter_set").click(() => {
                 let fi = $("#scivi_filter_set_" + $("#scivi_filter_sets").val());
+                let fn = $("#scivi_filter_set_name");
                 if (fi.length > 0) {
                     fi.remove();
                     fi = $("#scivi_filter_set_" + $("#scivi_filter_sets").val());
-                    if (fi.length > 0)
-                        $("#scivi_filter_set_name").val(fi.text());
-                    else
-                        $("#scivi_filter_set_name").val("");
+                    if (fi.length > 0) {
+                        fn.val(fi.text());
+                        fn.prop("disabled", false);
+                    } else {
+                        fn.val("");
+                        fn.prop("disabled", true);
+                    }
                 }
             });
 
@@ -157,8 +162,10 @@ namespace SciViCGraph
 
             $("#scivi_filter_sets").change(() => {
                 let fi = $("#scivi_filter_set_" + $("#scivi_filter_sets").val());
-                $("#scivi_filter_set_name").val(fi.text());
-                this.applyFilterSet(fi.data("fcode"));
+                let fn = $("#scivi_filter_set_name");
+                fn.val(fi.text());
+                fn.prop("disabled", false);
+                this.applyFilterSet(JSON.parse(JSON.stringify(fi.data("fcode"))));
             });
 
             let filterSetName = $("#scivi_filter_set_name");
@@ -191,9 +198,17 @@ namespace SciViCGraph
 
         public validateCurrentFilterSet()
         {
-            if (!this.currentFilterSetValid()) {
+            let fn = $("#scivi_filter_set_name");
+            if (this.currentFilterSetValid()) {
+                fn.prop("disabled", false);
+            } else {
+                let n = $("#scivi_filter_sets").children("option").length;
                 $("#scivi_filter_sets").val(-1);
-                $("#scivi_filter_set_name").val("");
+                if (n == 0)
+                    fn.val("");
+                else
+                    fn.val(this.m_renderer.localizer["LOC_FILTER_SET_AVAILABLE"] + n);
+                fn.prop("disabled", true);
             }
         }
 
@@ -215,8 +230,9 @@ namespace SciViCGraph
                     if (!this.m_equalizer[i].matchesRanges(fj.equalizer[i].nodes, fj.equalizer[i].edges))
                         return false;
                 }
+                return true;
             }
-            return true;
+            return false;
         }
 
         private dumpFilterSet(): FilterSettings
