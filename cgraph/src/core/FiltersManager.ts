@@ -161,12 +161,17 @@ namespace SciViCGraph
                 this.applyFilterSet(fi.data("fcode"));
             });
 
-            $("#scivi_filter_set_name").change(() => {
+            let filterSetName = $("#scivi_filter_set_name");
+            filterSetName.change(() => {
                 let fi = $("#scivi_filter_set_" + $("#scivi_filter_sets").val());
                 if (fi.length > 0)
                     fi.text($("#scivi_filter_set_name").val());
                 else
                     $("#scivi_filter_set_name").val("");
+            });
+            filterSetName.keypress((e) => {
+                if (e.which == 13)
+                    filterSetName.blur();
             });
         }
 
