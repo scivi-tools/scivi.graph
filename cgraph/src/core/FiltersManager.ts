@@ -105,7 +105,7 @@ namespace SciViCGraph
 
             this.m_filters.innerHTML =
                 "<div style='margin: 5px 0px 5px 0px;'>" + this.m_renderer.localizer["LOC_FILTER_SET"] +
-                "<div class='scivi_dropdown'><input type='text' id='scivi_filter_set_name'/><select id='scivi_filter_sets'></select></div>" + 
+                "<div class='scivi_dropdown'><input type='text' id='scivi_filter_set_name' disabled/><select id='scivi_filter_sets'></select></div>" + 
                 "<div class='scivi_button' id='scivi_add_filter_set'>" + this.m_renderer.localizer["LOC_ADD_FILTER_SET"] + "</div>" + 
                 "<div class='scivi_button' id='scivi_rem_filter_set'>" + this.m_renderer.localizer["LOC_REM_FILTER_SET"] + "</div>" + 
                 "<div class='scivi_button' id='scivi_save_filter_set'>" + this.m_renderer.localizer["LOC_SAVE_FILTER_SET"] + "</div>" + 
@@ -198,8 +198,13 @@ namespace SciViCGraph
 
         public validateCurrentFilterSet()
         {
+            this.enableFilterSetName(this.currentFilterSetValid());
+        }
+
+        private enableFilterSetName(enabled: boolean)
+        {
             let fn = $("#scivi_filter_set_name");
-            if (this.currentFilterSetValid()) {
+            if (enabled) {
                 fn.prop("disabled", false);
             } else {
                 let n = $("#scivi_filter_sets").children("option").length;
@@ -300,8 +305,7 @@ namespace SciViCGraph
                 fs.append($("<option>", { value: i, text: fj.name, id: fk }));
                 $("#" + fk).data("fcode", fj);
             });
-            fs.val(-1);
-            $("#scivi_filter_set_name").val("");
+            this.enableFilterSetName(false);
         }
     }
 }
