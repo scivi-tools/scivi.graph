@@ -1,18 +1,8 @@
 namespace SciViCGraph
 {
-    interface ChartInstance
-    {
-        update: () => void;
-    }
-
-    declare var Chart: {
-        new (context: CanvasRenderingContext2D, config: {}): ChartInstance;
-        defaults: any;
-    };
-
     export class Stats
     {
-        private m_chart: ChartInstance;
+        private m_chart: Chart;
         private m_data: { datasets: any[], labels: string[] };
         private m_nodes: Node[];
         private m_tooltip: HTMLElement;
@@ -208,6 +198,11 @@ namespace SciViCGraph
             this.m_selectedGroupIndex = -1;
         }
 
+        private chartCaption(n: number)
+        {
+            return this.m_svRenderer.localizer["LOC_STATCAPTION"] + n + ")";
+        }
+
         public buildChart(nodes: Node[], colors: number[])
         {
             let data = this.countGroupContent(nodes);
@@ -226,6 +221,7 @@ namespace SciViCGraph
 
             if (this.m_chart) {
                 this.clearSelection();
+                this.m_chart.config.options.title.text = this.chartCaption(data.length);
                 this.m_chart.update();
             } else {
                 let cvs = document.createElement("canvas");
@@ -254,7 +250,7 @@ namespace SciViCGraph
                         responsive: true,
                         title: {
                             display: true,
-                            text: this.m_svRenderer.localizer["LOC_STATCAPTION"] + data.length + ")"
+                            text: this.chartCaption(data.length)
                         },
                         legend: {
                             display: false
