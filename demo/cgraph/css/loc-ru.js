@@ -76,4 +76,5 @@ var g_loc_ru = {
     "LOC_REM_FILTER_SET": "–",
     "LOC_SAVE_FILTER_SET": "Сохранить в файл",
     "LOC_FILTER_SET_AVAILABLE": "Доступных наборов: ",
+    "LOC_EDGE_EDIT": "Режим редактирования связей",
 };

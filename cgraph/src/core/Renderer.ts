@@ -72,7 +72,7 @@ namespace SciViCGraph
         private m_classifier: Classifier;
         private m_ringScales: RingScale[];
         private m_statistics: Stats;
-        private m_nodesList: List;
+        private m_nodesList: NodesList;
         private m_zoomTimerID: any;
         private m_nodesFontSize: number;
         private m_ringScaleFontSize: number;
@@ -90,6 +90,7 @@ namespace SciViCGraph
         private m_stateLineNav: StateLineNavigator;
         private m_stateCalc: Calculator;
         private m_filtersManager: FiltersManager;
+        private m_edgesEditMode: boolean;
 
         static readonly m_ringScaleWidth = 30;
         static readonly m_minFontSize = 5;
@@ -97,7 +98,7 @@ namespace SciViCGraph
 
         constructor(private m_view: HTMLElement, 
                     private m_info: HTMLElement, 
-                    private m_list: HTMLElement,
+                    private m_listForNodes: HTMLElement,
                     private m_settings: HTMLElement,
                     private m_filters: HTMLElement,
                     private m_stats: HTMLElement,
@@ -132,6 +133,7 @@ namespace SciViCGraph
             this.m_stateLineNav = new StateLineNavigator(this, this.m_stateline);
             this.m_stateCalc = new Calculator(this, this.m_calculator);
             this.m_filtersManager = new FiltersManager(this, this.m_filters);
+            this.m_edgesEditMode = false;
 
             let tooltip = document.createElement("div");
             tooltip.className = "scivi_graph_tooltip";
@@ -188,8 +190,8 @@ namespace SciViCGraph
 
             this.m_renderer['plugins']['interaction']['moveWhenInside'] = true;
 
-            if (this.m_list)
-                this.m_nodesList = new List(this.m_list);
+            if (this.m_listForNodes)
+                this.m_nodesList = new NodesList(this.m_listForNodes);
             if (this.m_stats)
                 this.m_statistics = new Stats(this.m_stats, this);
 
@@ -640,7 +642,8 @@ namespace SciViCGraph
                 "<div id='scivi_sort_by_ring' class='scivi_button'>" + this.m_localizer["LOC_SORT_BY_RING"] + "</div>" +
                 "<div id='scivi_calc_modularity' class='scivi_button'>" + this.m_localizer["LOC_CALC_MODULARITY"] + "</div>" +
                 "<div id='scivi_save_graph' class='scivi_button'>" + this.m_localizer["LOC_SAVE_GRAPH"] + "</div>" +
-                "<br/><br/><hr/><br/><div class='scivi_button' onclick='window.location.href = \"" + this.m_localizer["LOC_HELPLOC"] + "\"'>" + this.m_localizer["LOC_HELP"] + "</div>";
+                "<br/><br/><hr/><br/><div><input id='scivi_edge_edit' type='checkbox' value='" + (this.edgesEditMode ? "checked" : "") + "'/><span>" + this.m_localizer["LOC_EDGE_EDIT"] + "</span></div>" +
+                "<br/><hr/><br/><div class='scivi_button' onclick='window.location.href = \"" + this.m_localizer["LOC_HELPLOC"] + "\"'>" + this.m_localizer["LOC_HELP"] + "</div>";
 
                 $("#scivi_node_alpha_slider").slider({
                     min: 0,
@@ -693,6 +696,10 @@ namespace SciViCGraph
                 $("#scivi_save_graph").click(() => {
                     this.saveGraph();
                 });
+
+                $("#scivi_edge_edit").change(() => {
+                    this.edgesEditMode = !this.edgesEditMode;
+                });
             }
 
             this.m_filtersManager.initFilters();
@@ -717,6 +724,7 @@ namespace SciViCGraph
                         break;
 
                     case 46: // DEL
+                    case 8:  // BACKSPACE
                         this.deleteSelectedEdge();
                         break;
 
@@ -1821,6 +1829,16 @@ namespace SciViCGraph
         public loadFilterSet(filterSet: FilterSettings[])
         {
             this.m_filtersManager.loadFilterSet(filterSet);
+        }
+
+        get edgesEditMode(): boolean
+        {
+            return this.m_edgesEditMode;
+        }
+
+        set edgesEditMode(eem: boolean)
+        {
+            this.m_edgesEditMode = eem;
         }
     }
 }

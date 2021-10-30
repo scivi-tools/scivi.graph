@@ -8,7 +8,7 @@ namespace SciViCGraph
         RegExpFilter
     }
 
-    export class List
+    export class NodesList
     {
         private m_listDiv: JQuery;
         private m_nodes: Node[];
