@@ -479,6 +479,7 @@ namespace SciViCGraph
                 if (this.m_mousePressed) {
                     if (this.m_edgesEditMode && this.m_transientEdgeSource) {
                         this.createTransientEdgeWithSourceNode(this.m_transientEdgeSource);
+                        this.selectNode(this.m_transientEdgeSource);
                         this.m_transientEdgeSource = null;
                     } if (this.m_edgesEditMode && this.m_transientEdgeBatch) {
                         this.changeTransientEdge();
