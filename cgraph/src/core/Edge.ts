@@ -13,6 +13,7 @@ namespace SciViCGraph
         private m_glowThickness: number;
         private m_cursorPos: { x: number, y: number };
         private m_isDirected: boolean;
+        private m_enableLoop: boolean;
 
         public static passiveEdgeAlpha = 0.5;
         private static readonly m_hoveredEdgeAlpha = 1.0;
@@ -35,6 +36,7 @@ namespace SciViCGraph
             this.m_glowThickness = 0.0;
             this.m_cursorPos = { x: 0, y: 0 };
             this.m_isDirected = false;
+            this.m_enableLoop = false;
         }
 
         private passiveColor(rgb: number)
@@ -233,6 +235,22 @@ namespace SciViCGraph
             return this.hitTestWithBBox(p, cp) && this.hitTestWithCurve(p, cp);
         }
 
+        private freeCP(a: Point, b: Point): Point
+        {
+            // A - from point, B - to point, O = {0,0}, C - desired control point to calculate
+            const m = { x: (a.x + b.x) / 2.0, y: (a.y + b.y) / 2.0 }; // M = (A + B) / 2
+            const distAM = Geometry.distance(a, m);
+            const distAO = Math.sqrt(a.x * a.x + a.y * a.y);
+            if (distAO < 0.001)
+                return { x: 0.0, y: 0.0 }; // Not really a possible case, but beware anyway
+            let distAC = distAO * distAM * distAM / (a.x * (a.x - m.x) + a.y * (a.y - m.y)); // |AC| = |AO|*|AM|*|AM| / AO.AM
+            if (distAC < 0.0)
+                distAC = 0.0;
+            else if (distAC > distAO)
+                distAC = distAO;
+            return { x: a.x * (1.0 - distAC / distAO), y: a.y * (1.0 - distAC / distAO) }; // C = A + AO * |AC| / |AO|
+        }
+
         public controlPoints(): Point[]
         {
             if (this.source === null) {
@@ -242,8 +260,8 @@ namespace SciViCGraph
                 return [ c1, c2, c3 ];
             } else if (this.target === null) {
                 const c1 = { x: this.source.x, y: this.source.y };
-                const c2 = { x: 0.0, y: 0.0 };
                 const c3 = { x: this.m_cursorPos.x, y: this.m_cursorPos.y };
+                const c2 = this.freeCP(c1, c3);
                 return [ c1, c2, c3 ];
             } else if (this.source === this.target) {
                 const c1 = { x: this.source.x, y: this.source.y };
@@ -265,6 +283,16 @@ namespace SciViCGraph
         public setCursorPos(p: Point)
         {
             this.m_cursorPos = p;
+        }
+
+        public assignTarget(tg: Node)
+        {
+            if (tg === this.source)
+                this.target = this.m_enableLoop ? tg : null;
+            else {
+                this.m_enableLoop = true;
+                this.target = tg;
+            }
         }
     }
 }

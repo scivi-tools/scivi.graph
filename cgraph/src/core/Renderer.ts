@@ -54,6 +54,7 @@ namespace SciViCGraph
         private m_edgeBatches: EdgeBatch[];
         private m_transientEdgeBatch: EdgeBatch;
         private m_transientEdge: Edge;
+        private m_transientEdgeSource: Node;
         private m_radius: number;
         private m_totalRadius: number;
         private m_hoveredNode: Node;
@@ -115,6 +116,8 @@ namespace SciViCGraph
             this.m_statesStack = null;
             this.m_edgeBatches = null;
             this.m_transientEdgeBatch = null;
+            this.m_transientEdge = null;
+            this.m_transientEdgeSource = null;
             this.m_nodesFontSize = 24;
             this.m_ringScaleFontSize = 36;
             this.m_currentStateKey = null;
@@ -474,14 +477,20 @@ namespace SciViCGraph
                 this.m_cursorPos.x = x;
                 this.m_cursorPos.y = y;
                 if (this.m_mousePressed) {
-                    if (this.m_draggedNodeIndex !== -1)
+                    if (this.m_edgesEditMode && this.m_transientEdgeSource) {
+                        this.createTransientEdgeWithSourceNode(this.m_transientEdgeSource);
+                        this.m_transientEdgeSource = null;
+                    } if (this.m_edgesEditMode && this.m_transientEdgeBatch) {
+                        this.changeTransientEdge();
+                    } else if (this.m_draggedNodeIndex !== -1) {
                         this.dragNode(x, y);
-                    else if (this.m_draggedRingIndex !== -1)
+                    } else if (this.m_draggedRingIndex !== -1) {
                         this.dragRing(x, y);
-                    else
+                    } else {
                         this.panGraph(x, y);
+                    }
                 } else {
-                    if (this.m_transientEdgeBatch)
+                    if (!this.m_edgesEditMode && this.m_transientEdgeBatch)
                         this.changeTransientEdge();
                     else if (e.buttons === 0)
                         this.hoverGraph(x, y);
@@ -1523,9 +1532,8 @@ namespace SciViCGraph
                 const ly = this.m_cursorPos.y - this.m_renderingCache.y;
                 const s = this.m_renderingCache.currentScale();
                 const node = this.getNodeByPosition(lx, ly, s);
-                this.m_transientEdge.target = node;
-                if (!node)
-                    this.m_transientEdge.setCursorPos({ x: lx / s, y: ly / s });
+                this.m_transientEdge.assignTarget(node);
+                this.m_transientEdge.setCursorPos({ x: lx / s, y: ly / s });
                 this.m_transientEdge.invalidate(false);
                 this.m_transientEdge.highlight = HighlightType.Hover;
                 this.render(true, true);
@@ -1590,15 +1598,20 @@ namespace SciViCGraph
             const lx = x - this.m_renderingCache.x;
             const ly = y - this.m_renderingCache.y;
             const s = this.m_renderingCache.currentScale();
-            this.m_draggedNodeIndex = this.getNodeIndexByPosition(lx, ly, s);
-            if (this.m_draggedNodeIndex >= 0) {
-                if (this.m_nodeBorder === null) {
-                    this.m_nodeBorder = new NodeBorder();
-                    this.m_stage.addChild(this.m_nodeBorder);
+            if (this.m_edgesEditMode) {
+                this.m_transientEdgeSource = this.getNodeByPosition(lx, ly, s);
+                return this.m_transientEdgeSource !== null;
+            } else {
+                this.m_draggedNodeIndex = this.getNodeIndexByPosition(lx, ly, s);
+                if (this.m_draggedNodeIndex >= 0) {
+                    if (this.m_nodeBorder === null) {
+                        this.m_nodeBorder = new NodeBorder();
+                        this.m_stage.addChild(this.m_nodeBorder);
+                    }
+                    this.m_nodeBorder.showForNode(this.currentData().nodes[this.m_draggedNodeIndex]);
+                    this.render(true, true);
+                    return true;
                 }
-                this.m_nodeBorder.showForNode(this.currentData().nodes[this.m_draggedNodeIndex]);
-                this.render(true, true);
-                return true;
             }
             return false;
         }
