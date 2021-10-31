@@ -1591,7 +1591,10 @@ namespace SciViCGraph
                 }
                 if (i < n) {
                     d.edges.splice(i, 1);
+                    this.m_selectedNode.deleteSelectedEdge();
                     this.reinit(false, false);
+                    if (this.m_cursorPos.x !== undefined && this.m_cursorPos.y !== undefined)
+                        this.hoverGraph(this.m_cursorPos.x, this.m_cursorPos.y);
                 }
             }
         }

@@ -620,5 +620,15 @@ namespace SciViCGraph
         {
             return this.m_selectedEdge;
         }
+
+        public deleteSelectedEdge()
+        {
+            this.m_selectedEdge = null;
+            this.m_hoveredEdge = null;
+            if ($(".scivi_graph_tooltip")[0]["host"] === this) {
+                $(".scivi_graph_tooltip").stop(true);
+                $(".scivi_graph_tooltip").fadeOut(100);
+            }
+        }
     }
 }
