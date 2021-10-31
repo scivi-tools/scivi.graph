@@ -1537,7 +1537,7 @@ namespace SciViCGraph
                 const s = this.m_renderingCache.currentScale();
                 const node = this.getNodeByPosition(lx, ly, s);
                 this.m_transientEdge.assignTarget(node);
-                this.m_transientEdge.setCursorPos({ x: lx / s, y: ly / s });
+                this.m_transientEdge.setCursorPos({ x: lx / s, y: ly / s }, this.m_radius);
                 this.m_transientEdge.invalidate(false);
                 this.m_transientEdge.highlight = HighlightType.Hover;
                 this.render(true, true);

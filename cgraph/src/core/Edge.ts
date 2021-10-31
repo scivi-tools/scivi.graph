@@ -280,8 +280,16 @@ namespace SciViCGraph
             }
         }
 
-        public setCursorPos(p: Point)
+        public setCursorPos(p: Point, r: number)
         {
+            if (this.m_enableLoop) {
+                const l = Math.sqrt(p.x * p.x + p.y * p.y);
+                if (l > r) {
+                    const a = r / l;
+                    p.x *= a;
+                    p.y *= a;
+                }
+            }
             this.m_cursorPos = p;
         }
 
