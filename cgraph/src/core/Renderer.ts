@@ -516,6 +516,8 @@ namespace SciViCGraph
                     this.stopDragRing();
                     f = true;
                 }
+                this.m_transientEdgeSource = null;
+                this.dropTransientEdge();
                 this.m_mousePressed = false;
                 this.m_panning = false;
                 this.render(f, true);
