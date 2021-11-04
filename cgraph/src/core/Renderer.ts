@@ -1560,7 +1560,7 @@ namespace SciViCGraph
                 const needsReinit = this.m_transientEdge.target !== null;
                 if (needsReinit) {
                     this.currentData().edges.push(this.m_transientEdge);
-                    if (!this.createDirectedEdges)
+                    if (!this.createDirectedEdges && this.m_transientEdge.source !== this.m_transientEdge.target)
                         this.currentData().edges.push(new Edge(this.m_transientEdge.target, this.m_transientEdge.source, 1, null));
                 }
                 this.m_stage.removeChild(this.m_transientEdgeBatch);
