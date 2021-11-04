@@ -160,13 +160,19 @@ namespace SciViCGraph
 
                 let listHolder = document.createElement("div");
 
+                this.m_svRenderer.clearSelected();
+
                 let list = "<ul>";
                 this.m_nodes.forEach((node) => {
-                    if (node.visible && node.groupID === points[0]._index)
+                    if (node.visible && node.groupID === points[0]._index) {
                         list += "<li>" + node.label + "</li>";
+                        this.m_svRenderer.addToMultiselection(node);
+                    }
                 });
                 list += "</ul>";
                 listHolder.innerHTML = list;
+
+                this.m_svRenderer.render(false, true);
 
                 while (this.m_list.firstChild)
                     this.m_list.removeChild(this.m_list.firstChild);
@@ -196,6 +202,9 @@ namespace SciViCGraph
             this.m_clInput = null;
             this.m_clWrapper = null;
             this.m_selectedGroupIndex = -1;
+
+            this.m_svRenderer.clearSelected();
+            this.m_svRenderer.render(false, true);
         }
 
         private chartCaption(n: number)
