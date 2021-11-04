@@ -1860,7 +1860,7 @@ namespace SciViCGraph
             let nodeIndices = {};
             this.currentData().nodes.forEach((node) => {
                 if (node.visible) {
-                    nodeIndices[node.id] = n;
+                    nodeIndices[node.positionHash()] = n;
                     ++n;
                 }
             });
@@ -1874,7 +1874,7 @@ namespace SciViCGraph
             let index = 0;
             this.currentData().nodes.forEach((node) => {
                 if (node.visible) {
-                    const index = nodeIndices[node.id] + 1;
+                    const index = nodeIndices[node.positionHash()] + 1;
                     sMap[0][index] = "\"" + node.label + "\"";
                     sMap[index][0] = "\"" + node.label + "\"";
                     sMap[index][n + 1] = node.weight;
@@ -1883,7 +1883,7 @@ namespace SciViCGraph
             sMap[0][n + 1] = "Weight";
             this.currentData().edges.forEach((edge) => {
                 if (edge.visible && edge.source.visible && edge.target.visible) {
-                    sMap[nodeIndices[edge.source.id] + 1][nodeIndices[edge.target.id] + 1] = edge.weight;
+                    sMap[nodeIndices[edge.source.positionHash()] + 1][nodeIndices[edge.target.positionHash()] + 1] = edge.weight;
                 }
             });
             let csv = "";

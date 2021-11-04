@@ -630,5 +630,10 @@ namespace SciViCGraph
                 $(".scivi_graph_tooltip").fadeOut(100);
             }
         }
+
+        public positionHash(): string
+        {
+            return this.x + ":" + this.y;
+        }
     }
 }

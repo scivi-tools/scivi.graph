@@ -314,11 +314,11 @@ var Louvain = {
 
         data.nodes.forEach(function (node) {
             if (node.visible)
-                graph.addNode(node.id, node);
+                graph.addNode(node.positionHash(), node);
         });
         data.edges.forEach(function (edge) {
             if (edge.visible)
-                graph.addLink(edge.source.id, edge.target.id);
+                graph.addLink(edge.source.positionHash(), edge.target.positionHash());
         });
 
         var clusters = detect(graph);
