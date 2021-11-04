@@ -1916,6 +1916,7 @@ namespace SciViCGraph
         set edgesEditMode(eem: boolean)
         {
             this.m_edgesEditMode = eem;
+            $("#scivi_edge_edit").prop("checked", eem);
         }
 
         get createDirectedEdges(): boolean
@@ -1926,6 +1927,7 @@ namespace SciViCGraph
         set createDirectedEdges(cde: boolean)
         {
             this.m_createDirectedEdges = cde;
+            $("#scivi_create_directed_edges").prop("checked", cde);
         }
     }
 }
