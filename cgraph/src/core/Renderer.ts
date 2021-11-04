@@ -1856,6 +1856,11 @@ namespace SciViCGraph
             this.downloadFile("graph.js", g);
             */
             // Save current state of graph to Semograph-compatible semantic map in csv
+            var filename = prompt("Enter name of file to save", "graph.csv");
+            if (!filename)
+                return;
+            if (filename.indexOf(".") === -1)
+                filename += ".csv";
             let n = 0;
             let nodeIndices = {};
             this.currentData().nodes.forEach((node) => {
@@ -1890,7 +1895,7 @@ namespace SciViCGraph
             sMap.forEach((line) => {
                 csv += line.join(",") + "\n";
             });
-            this.downloadFile("graph.csv", csv);
+            this.downloadFile(filename, csv);
         }
 
         public selectGraphState(stateName: string)
