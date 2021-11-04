@@ -1804,6 +1804,8 @@ namespace SciViCGraph
 
         public saveGraph()
         {
+            /*
+            // Save graph to js script
             // FIXME: Convert dataKey to label
             let g = "{\n  states: [\n";
             let firstState = true;
@@ -1839,6 +1841,43 @@ namespace SciViCGraph
             });
             g += "  ]\n}";
             this.downloadFile("graph.js", g);
+            */
+            // Save current state of graph to Semograph-compatible semantic map in csv
+            let n = 0;
+            let nodeIndices = {};
+            this.currentData().nodes.forEach((node) => {
+                if (node.visible) {
+                    nodeIndices[node.id] = n;
+                    ++n;
+                }
+            });
+            let sMap = [];
+            for (let i = 0, m = n + 1; i < m; ++i) {
+                let line = [];
+                for (let j = 0, k = n + 2; j < k; ++j)
+                    line.push("");
+                sMap.push(line);
+            }
+            let index = 0;
+            this.currentData().nodes.forEach((node) => {
+                if (node.visible) {
+                    const index = nodeIndices[node.id] + 1;
+                    sMap[0][index] = "\"" + node.label + "\"";
+                    sMap[index][0] = "\"" + node.label + "\"";
+                    sMap[index][n + 1] = node.weight;
+                }
+            });
+            sMap[0][n + 1] = "Weight";
+            this.currentData().edges.forEach((edge) => {
+                if (edge.visible && edge.source.visible && edge.target.visible) {
+                    sMap[nodeIndices[edge.source.id] + 1][nodeIndices[edge.target.id] + 1] = edge.weight;
+                }
+            });
+            let csv = "";
+            sMap.forEach((line) => {
+                csv += line.join(",") + "\n";
+            });
+            this.downloadFile("graph.csv", csv);
         }
 
         public selectGraphState(stateName: string)
