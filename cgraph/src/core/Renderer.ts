@@ -92,6 +92,7 @@ namespace SciViCGraph
         private m_stateCalc: Calculator;
         private m_filtersManager: FiltersManager;
         private m_edgesEditMode: boolean;
+        private m_createDirectedEdges: boolean;
 
         static readonly m_ringScaleWidth = 30;
         static readonly m_minFontSize = 5;
@@ -137,6 +138,7 @@ namespace SciViCGraph
             this.m_stateCalc = new Calculator(this, this.m_calculator);
             this.m_filtersManager = new FiltersManager(this, this.m_filters);
             this.m_edgesEditMode = false;
+            this.m_createDirectedEdges = false;
 
             let tooltip = document.createElement("div");
             tooltip.className = "scivi_graph_tooltip";
@@ -655,7 +657,11 @@ namespace SciViCGraph
                 "<div id='scivi_sort_by_ring' class='scivi_button'>" + this.m_localizer["LOC_SORT_BY_RING"] + "</div>" +
                 "<div id='scivi_calc_modularity' class='scivi_button'>" + this.m_localizer["LOC_CALC_MODULARITY"] + "</div>" +
                 "<div id='scivi_save_graph' class='scivi_button'>" + this.m_localizer["LOC_SAVE_GRAPH"] + "</div>" +
-                "<br/><br/><hr/><br/><div><input id='scivi_edge_edit' type='checkbox' value='" + (this.edgesEditMode ? "checked" : "") + "'/><span>" + this.m_localizer["LOC_EDGE_EDIT"] + "</span></div>" +
+                "<br/><br/><hr/><br/><div>" + 
+                    "<span><input id='scivi_edge_edit' type='checkbox' value='" + (this.edgesEditMode ? "checked" : "") + "'/><span>" + this.m_localizer["LOC_EDGE_EDIT"] + "</span></span>" +
+                    "&nbsp;&nbsp;&nbsp;&nbsp;" +
+                    "<span><input id='scivi_create_directed_edges' type='checkbox' value='" + (this.createDirectedEdges ? "checked" : "") + "'/><span>" + this.m_localizer["LOC_CREATE_DIRECTED_EDGES"] + "</span></span>" +
+                "</div>" +
                 "<br/><hr/><br/><div class='scivi_button' onclick='window.location.href = \"" + this.m_localizer["LOC_HELPLOC"] + "\"'>" + this.m_localizer["LOC_HELP"] + "</div>";
 
                 $("#scivi_node_alpha_slider").slider({
@@ -713,6 +719,10 @@ namespace SciViCGraph
                 $("#scivi_edge_edit").change(() => {
                     this.edgesEditMode = !this.edgesEditMode;
                 });
+
+                $("#scivi_create_directed_edges").change(() => {
+                    this.createDirectedEdges = !this.createDirectedEdges;
+                });                
             }
 
             this.m_filtersManager.initFilters();
@@ -1524,7 +1534,7 @@ namespace SciViCGraph
             this.m_transientEdge = new Edge(node, node, 1, null);
             this.m_transientEdgeBatch.addEdge(this.m_transientEdge);
             this.m_transientEdge.highlight = HighlightType.Hover;
-            this.m_transientEdge.isDirected = true;
+            this.m_transientEdge.isDirected = this.m_createDirectedEdges;
             this.m_stage.addChild(this.m_transientEdgeBatch);
             this.render(true, true);
         }
@@ -1548,8 +1558,11 @@ namespace SciViCGraph
         {
             if (this.m_transientEdgeBatch) {
                 const needsReinit = this.m_transientEdge.target !== null;
-                if (needsReinit)
+                if (needsReinit) {
                     this.currentData().edges.push(this.m_transientEdge);
+                    if (!this.createDirectedEdges)
+                        this.currentData().edges.push(new Edge(this.m_transientEdge.target, this.m_transientEdge.source, 1, null));
+                }
                 this.m_stage.removeChild(this.m_transientEdgeBatch);
                 this.m_transientEdge = null;
                 this.m_transientEdgeBatch = null;
@@ -1898,6 +1911,16 @@ namespace SciViCGraph
         set edgesEditMode(eem: boolean)
         {
             this.m_edgesEditMode = eem;
+        }
+
+        get createDirectedEdges(): boolean
+        {
+            return this.m_createDirectedEdges;
+        }
+
+        set createDirectedEdges(cde: boolean)
+        {
+            this.m_createDirectedEdges = cde;
         }
     }
 }

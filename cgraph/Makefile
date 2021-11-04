@@ -13,3 +13,4 @@ deploy:
 	cp ../demo/cgraph/css/loc-en.js ../../../scivi.tools/scivi.web/lib/cgraph/cgraph.loc.js
 	cp ../demo/cgraph/css/default.css ../../../scivi.tools/scivi.web/lib/cgraph/cgraph.css
 	sed -i .bak 's/g_loc_en/g_loc/g' ../../../scivi.tools/scivi.web/lib/cgraph/cgraph.loc.js
+	rm -f ../../../scivi.tools/scivi.web/lib/cgraph/cgraph.loc.js.bak
