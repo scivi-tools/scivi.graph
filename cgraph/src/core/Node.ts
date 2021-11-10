@@ -33,8 +33,10 @@ namespace SciViCGraph
         {
             super();
 
+            const histColor = this.m_dict["histColor"] === undefined ? 0xFFCB35 : string2color(this.m_dict["histColor"]);
+
             this.m_column = new PIXI.Graphics();
-            this.m_column.beginFill(0xFFCB35, 1.0);
+            this.m_column.beginFill(histColor, 1.0);
             this.addChild(this.m_column);
 
             this.m_text = new PIXI.Text(this.label);
