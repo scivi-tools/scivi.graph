@@ -117,7 +117,7 @@ namespace SciViCGraph
             stateB.nodes.forEach((node) => {
                 const corrNode = this.findCorrespondingNode(node, resultNodes);
                 if (corrNode)
-                    corrNode.custom["weight"] = Math.max(corrNode.weight, node.weight);
+                    corrNode.custom["weight"] = shouldAdd ? (corrNode.weight + node.weight) : Math.max(corrNode.weight, node.weight);
                 else
                     resultNodes.push(node.clone(resultNodes.length));
             });
