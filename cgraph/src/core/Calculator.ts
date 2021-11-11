@@ -6,6 +6,7 @@ namespace SciViCGraph
         static readonly m_opIntersect = "1";
         static readonly m_opDiff = "2";
         static readonly m_opSymDiff = "3";
+        static readonly m_opUnionAdd = "4";
 
         private m_exprDiv: JQuery;
         private m_operands: JQuery[];
@@ -74,6 +75,7 @@ namespace SciViCGraph
             $('<option>', { value: Calculator.m_opDiff, text: this.m_renderer.localizer["LOC_OPDIFF"] }).appendTo(combo);
             $('<option>', { value: Calculator.m_opSymDiff, text: this.m_renderer.localizer["LOC_OPSYMDIFF"] }).appendTo(combo);
             $('<option>', { value: Calculator.m_opUnion, text: this.m_renderer.localizer["LOC_OPUNION"] }).appendTo(combo);
+            $('<option>', { value: Calculator.m_opUnionAdd, text: this.m_renderer.localizer["LOC_OPSUM"] }).appendTo(combo);
             this.m_operations.push(combo);
             return combo;
         }
@@ -106,7 +108,7 @@ namespace SciViCGraph
             return null;
         }
 
-        private stateUnion(stateA: GraphData, stateB: GraphData): GraphData
+        private stateUnion(stateA: GraphData, stateB: GraphData, shouldAdd: boolean): GraphData
         {
             const resultNodes = [];
             stateA.nodes.forEach((node) => {
@@ -131,7 +133,7 @@ namespace SciViCGraph
                 const dst = this.findCorrespondingNode(edge.target, resultNodes);
                 const corrEdge = this.findCorrespondingEdge(src, dst, resultEdges);
                 if (corrEdge)
-                    corrEdge.weight = Math.max(corrEdge.weight, edge.weight);
+                    corrEdge.weight = shouldAdd ? (corrEdge.weight + edge.weight) : Math.max(corrEdge.weight, edge.weight);
                 else
                     resultEdges.push(new Edge(src, dst, edge.weight, null));
             });
@@ -188,7 +190,7 @@ namespace SciViCGraph
 
         private stateSymDiff(stateA: GraphData, stateB: GraphData): GraphData
         {
-            return this.stateDiff(this.stateUnion(stateA, stateB), this.stateIntersect(stateA, stateB));
+            return this.stateDiff(this.stateUnion(stateA, stateB, false), this.stateIntersect(stateA, stateB));
         }
 
         private calculate()
@@ -197,7 +199,7 @@ namespace SciViCGraph
             for (let i = 0, n = this.m_operations.length; i < n; ++i) {
                 switch (this.m_operations[i].val()) {
                     case Calculator.m_opUnion:
-                        result = this.stateUnion(result, this.getState(this.m_operands[i + 1].val()));
+                        result = this.stateUnion(result, this.getState(this.m_operands[i + 1].val()), false);
                         break;
 
                     case Calculator.m_opIntersect:
@@ -210,6 +212,10 @@ namespace SciViCGraph
 
                     case Calculator.m_opSymDiff:
                         result = this.stateSymDiff(result, this.getState(this.m_operands[i + 1].val()));
+                        break;
+
+                    case Calculator.m_opUnionAdd:
+                        result = this.stateUnion(result, this.getState(this.m_operands[i + 1].val()), true);
                         break;
                 }
             }
