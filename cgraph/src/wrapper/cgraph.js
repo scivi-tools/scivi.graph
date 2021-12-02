@@ -67,6 +67,16 @@ CGraph.prototype.loadFilterSet = function (filterSet)
     this.renderer.loadFilterSet(filterSet);
 }
 
+CGraph.prototype.colorWithHSV = function (h, s, v)
+{
+    return SciViCGraph.Color.hsv2rgb([h, s, v]);
+}
+
+CGraph.prototype.maxContrastColor = function (color)
+{
+    return SciViCGraph.Color.maxContrast(color);
+}
+
 CGraph.prototype.reshape = function ()
 {
     if (this.graphContainer) {
