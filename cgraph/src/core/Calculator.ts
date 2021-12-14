@@ -138,7 +138,7 @@ namespace SciViCGraph
                     resultEdges.push(new Edge(src, dst, edge.weight, null));
             });
 
-            return new GraphData(resultNodes, resultEdges);
+            return new GraphData(resultNodes, resultEdges, []);
         }
 
         private stateIntersect(stateA: GraphData, stateB: GraphData): GraphData
@@ -162,7 +162,7 @@ namespace SciViCGraph
                     resultEdges.push(new Edge(src, dst, Math.min(edge.weight, corrEdge.weight), null));
             });
 
-            return new GraphData(resultNodes, resultEdges);
+            return new GraphData(resultNodes, resultEdges, []);
         }
 
         private stateDiff(stateA: GraphData, stateB: GraphData): GraphData
@@ -185,7 +185,7 @@ namespace SciViCGraph
                     resultEdges.push(new Edge(src, dst, edge.weight, null));
             });
 
-            return new GraphData(resultNodes, resultEdges);
+            return new GraphData(resultNodes, resultEdges, []);
         }
 
         private stateSymDiff(stateA: GraphData, stateB: GraphData): GraphData

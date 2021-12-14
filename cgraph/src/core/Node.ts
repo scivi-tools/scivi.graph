@@ -6,6 +6,7 @@ namespace SciViCGraph
         private m_needsUpdate: boolean;
         private m_highlightSet: boolean;
         private m_edges: Edge[];
+        private m_hyperEdges: HyperEdge[];
         private m_info: HTMLElement;
         private m_text: PIXI.Text;
         private m_column: PIXI.Graphics;
@@ -403,15 +404,26 @@ namespace SciViCGraph
             batch.addEdge(edge);
         }
 
+        public addHyperEdge(hyperEdge: HyperEdge)
+        {
+            this.m_hyperEdges.push(hyperEdge);
+        }
+
         public clearEdges()
         {
             this.m_edges = [];
+            this.m_hyperEdges = [];
             this.m_edgeBatches = [];
         }
 
         get edges(): Edge[]
         {
             return this.m_edges;
+        }
+
+        get hyperEdges(): HyperEdge[]
+        {
+            return this.m_hyperEdges;
         }
 
         get edgeBatches(): EdgeBatch[]

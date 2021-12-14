@@ -757,6 +757,23 @@ namespace SciViCGraph
                             this.updateNodesVisibility();
                         }
                         break;
+
+                    case 13: // ENTER
+                        if (e.shiftKey) {
+                            let needsReinit = this.m_selectedNode && this.m_multiselectedNodes.length > 0;
+                            if (this.m_multiselectedNodes.length == 1) {
+                                this.currentData().edges.push(new Edge(this.m_selectedNode, this.m_multiselectedNodes[0], 1, null));
+                                if (!this.createDirectedEdges)
+                                    this.currentData().edges.push(new Edge(this.m_multiselectedNodes[0], this.m_selectedNode, 1, null));
+                            } else if (needsReinit) {
+                                this.currentData().hyperEdges.push(new HyperEdge([this.m_selectedNode].concat(this.m_multiselectedNodes)));
+                            }
+                            if (needsReinit) {
+                                this.m_filtersManager.calcWeights();
+                                this.reinit(false, false);
+                            }
+                        }
+                        break;
                 }
             });
 
@@ -845,6 +862,13 @@ namespace SciViCGraph
 
             this.currentData().edges.forEach((edge) => {
                 edge.source.addEdge(edge);
+            });
+
+            this.currentData().hyperEdges.forEach((hyperEdge) => {
+                hyperEdge.nodes.forEach((node) => {
+                    node.addHyperEdge(hyperEdge);
+                });
+                hyperEdge.addToScene(this.m_stage);
             });
 
             this.m_edgeBatches = [];
@@ -984,6 +1008,11 @@ namespace SciViCGraph
                 needsRender = needsRender || nr;
             }
 
+            this.currentData().hyperEdges.forEach((hyperEdge) => {
+                let nr = hyperEdge.prepare();
+                needsRender = needsRender || nr;
+            });
+
             if (needsRender)
                 this.m_renderingCache.update();
 
@@ -1038,7 +1067,7 @@ namespace SciViCGraph
                         newEdges.push(edge);
                 });
 
-                newStates.data[dataKey] = new GraphData(newNodes, newEdges);
+                newStates.data[dataKey] = new GraphData(newNodes, newEdges, []);
             });
 
             if (this.m_statesStack === null)
@@ -1157,6 +1186,9 @@ namespace SciViCGraph
                             this.isNodeVisibleByEqualizer(node);
                 if (vis !== node.visible) {
                     node.visible = vis;
+                    node.hyperEdges.forEach((hyperEdge) => {
+                        hyperEdge.setNeedsUpdate();
+                    });
                     result = true;
                     if (node === this.m_selectedNode)
                         this.m_clicked = true;

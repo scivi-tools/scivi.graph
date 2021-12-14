@@ -29,7 +29,7 @@ namespace SciViCGraph
         private m_shadowNodes;
         private m_shadowEdges;
 
-        constructor(public nodes: Node[], public edges: Edge[])
+        constructor(public nodes: Node[], public edges: Edge[], public hyperEdges: HyperEdge[])
         {
             this.m_shadowNodes = this.nodes;
             this.m_shadowEdges = this.edges;
@@ -57,6 +57,7 @@ namespace SciViCGraph
         label: string;
         nodes: any[];
         edges: any[];
+        hyperEdges: any[];
     }
 
     export class IJsonStatesFormat
@@ -80,14 +81,18 @@ namespace SciViCGraph
     {
         private m_nodes: { [id: number]: Node };
         private m_edges: Edge[];
+        private m_hyperEdges: HyperEdge[];
         
         constructor(jsonData: IJsonFormat)
         {
             this.m_nodes = [];
             this.m_edges = [];
+            this.m_hyperEdges = [];
 
             this.processNodes(jsonData.nodes);
             this.processEdges(jsonData.edges);
+            if (jsonData.hyperEdges)
+                this.processHyperEdges(jsonData.hyperEdges);
         }
 
         private processNodes(nodes: any[])
@@ -105,13 +110,18 @@ namespace SciViCGraph
             });
         }
 
+        private processHyperEdges(hyperEdges: any[])
+        {
+            // TODO
+        }
+
         get graphData(): GraphData
         {
             let nodes = [];
             for (let key in this.m_nodes)
                 nodes.push(this.m_nodes[key]);
 
-            return new GraphData(nodes, this.m_edges);
+            return new GraphData(nodes, this.m_edges, this.m_hyperEdges);
         }
 
         get graphStates(): GraphStates
