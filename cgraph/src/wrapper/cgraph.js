@@ -26,6 +26,9 @@ module.exports = CGraph;
 
 function CGraph()
 {
+    CGraph.prototype.nodesTabVisible = true;
+    CGraph.prototype.filtersTabVisible = true;
+    CGraph.prototype.clustersTabVisible = true;
 }
 
 CGraph.prototype.parse = function (data)
@@ -65,6 +68,16 @@ CGraph.prototype.createClassifier = function (tree, getKlass)
 CGraph.prototype.loadFilterSet = function (filterSet)
 {
     this.renderer.loadFilterSet(filterSet);
+}
+
+CGraph.prototype.colorWithHSV = function (h, s, v)
+{
+    return SciViCGraph.Color.hsv2rgb([h, s, v]);
+}
+
+CGraph.prototype.maxContrastColor = function (color)
+{
+    return SciViCGraph.Color.maxContrast(color);
 }
 
 CGraph.prototype.reshape = function ()
@@ -116,19 +129,19 @@ CGraph.prototype.run = function (loc, data, scales, colors, title, info, classif
         "<div id=\"scivi_cgraph_tabs\">" +
         "    <ul>" +
         "        <li><a href=\"#scivi_cgraph_info\">" + loc["LOC_INFO"] + "</a></li>" +
-        "        <li><a href=\"#scivi_cgraph_list\">" + loc["LOC_NODES"] + "</a></li>" +
+        (this.nodesTabVisible ? "        <li><a href=\"#scivi_cgraph_list\">" + loc["LOC_NODES"] + "</a></li>" : "") +
         "        <li><a href=\"#scivi_cgraph_settings\">" + loc["LOC_SETTINGS"] + "</a></li>" +
-        "        <li><a href=\"#scivi_cgraph_filters\">" + loc["LOC_FILTERS"] + "</a></li>" +
-        "        <li><a href=\"#scivi_cgraph_stats\">" + loc["LOC_GROUPS"] + "</a></li>" +
+        (this.filtersTabVisible ? "        <li><a href=\"#scivi_cgraph_filters\">" + loc["LOC_FILTERS"] + "</a></li>" : "") +
+        (this.clustersTabVisible ? "        <li><a href=\"#scivi_cgraph_stats\">" + loc["LOC_GROUPS"] + "</a></li>" : "") +
         (classifier ? "        <li><a href=\"#scivi_cgraph_tree\">" + loc["LOC_TREE"] + "</a></li>" : "") +
         (data.hasStates ? "        <li><a href=\"#scivi_cgraph_calc\">" + loc["LOC_CALCULATOR"] + "</a></li>" : "") +
         (info ? "        <li><a href=\"#scivi_cgraph_ginfo\">" + loc["LOC_GINFO"] + "</a></li>" : "") +
         "    </ul>" +
         "    <div id=\"scivi_cgraph_info\"></div>" +
-        "    <div id=\"scivi_cgraph_list\"></div>" +
+        (this.nodesTabVisible ? "    <div id=\"scivi_cgraph_list\"></div>" : "") +
         "    <div id=\"scivi_cgraph_settings\"></div>" +
-        "    <div id=\"scivi_cgraph_filters\"></div>" +
-        "    <div id=\"scivi_cgraph_stats\"></div>" +
+        (this.filtersTabVisible ? "    <div id=\"scivi_cgraph_filters\"></div>" : "") +
+        (this.clustersTabVisible ? "    <div id=\"scivi_cgraph_stats\"></div>" : "") +
         "    <div id=\"scivi_cgraph_tree\"></div>" +
         "    <div id=\"scivi_cgraph_calc\"></div>" +
         (info ? "    <div id=\"scivi_cgraph_ginfo\">" + info + "</div>" : "") +
@@ -140,10 +153,12 @@ CGraph.prototype.run = function (loc, data, scales, colors, title, info, classif
     graphContainer.prepend(splitInfo);
     graphContainer.prepend(splitGraph);
 
-    var renderer = new SciViCGraph.Renderer($("#scivi_cgraph_view")[0], $("#scivi_cgraph_info")[0],
-                                            $("#scivi_cgraph_list")[0], $("#scivi_cgraph_settings")[0],
-                                            $("#scivi_cgraph_filters")[0],
-                                            $("#scivi_cgraph_stats")[0],
+    var renderer = new SciViCGraph.Renderer($("#scivi_cgraph_view")[0],
+                                            $("#scivi_cgraph_info")[0],
+                                            this.nodesTabVisible ? $("#scivi_cgraph_list")[0] : null,
+                                            $("#scivi_cgraph_settings")[0],
+                                            this.filtersTabVisible ? $("#scivi_cgraph_filters")[0] : null,
+                                            this.clustersTabVisible ?  $("#scivi_cgraph_stats")[0] : null,
                                             data.hasStates ? $("#scivi_cgraph_stateline")[0] : null,
                                             classifier ? $("#scivi_cgraph_tree")[0] : null, 
                                             data.hasStates ? $("#scivi_cgraph_calc")[0] : null,
