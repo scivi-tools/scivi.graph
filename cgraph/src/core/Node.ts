@@ -532,7 +532,8 @@ namespace SciViCGraph
         set multiselected(ms: boolean)
         {
             this.m_multiselected = ms;
-            this.m_selInput.checked = ms; // Does not invoke onChange.
+            if (this.m_selInput)
+                this.m_selInput.checked = ms; // Does not invoke onChange.
         }
 
         get customColor(): number
