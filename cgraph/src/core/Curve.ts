@@ -214,7 +214,7 @@ namespace SciViCGraph
             }
         }
 
-        private updateGraphics(uid: number, gl: WebGLRenderingContext, renderer: PIXI.WebGLRenderer)
+        protected updateGraphics(uid: number, gl: WebGLRenderingContext, renderer: PIXI.WebGLRenderer)
         {
             let webGL = this._webGL[uid];
             let graphicsRenderer = renderer.plugins.graphics;

@@ -3,11 +3,13 @@ namespace SciViCGraph
     export class HyperEdge
     {
         private m_border: Curve;
+        private m_fill: Polygon;
         private m_needsUpdate: boolean;
 
         constructor(public nodes: Node[])
         {
             this.m_border = null;
+            this.m_fill = null;
             this.m_needsUpdate = false;
         }
 
@@ -26,7 +28,10 @@ namespace SciViCGraph
         {
             if (!this.m_border)
                 this.m_border = new Curve();
+            if (!this.m_fill)
+                this.m_fill = new Polygon();
             scene.addChild(this.m_border);
+            scene.addChild(this.m_fill);
             this.m_needsUpdate = true;
         }
 
@@ -57,6 +62,7 @@ namespace SciViCGraph
                 });
                 this.m_border.clear();
                 this.m_border.lineStyle(thickness, 0x0, 1);
+                this.m_fill.clear();
                 const n = nodesToDraw.length;
                 if (n > 1) {
                     for (let i = 0; i < n; ++i) {
@@ -66,6 +72,9 @@ namespace SciViCGraph
                         this.m_border.addColor({ from: fromNode.groupColor, to: toNode.groupColor, alpha: alpha });
                         this.m_border.moveTo(fromNode.x, fromNode.y);
                         this.m_border.quadraticCurveWithArrowTo(cp.x, cp.y, toNode.x, toNode.y, 0.0, 0.0);
+                        this.m_fill.addColor({ from: fromNode.groupColor, to: toNode.groupColor, alpha: alpha / 3.0 });
+                        this.m_fill.moveTo(fromNode.x, fromNode.y);
+                        this.m_fill.quadraticCurveWithArrowTo(cp.x, cp.y, toNode.x, toNode.y, 0.0, 0.0);
                     }
                 }
             }
