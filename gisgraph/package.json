@@ -30,7 +30,7 @@
   "dependencies": {
     "@scivi/utils": "file:../lib/utils",
     "d3": "5.9.1",
-    "jquery": "3.4.1",
+    "jquery": "3.5.0",
     "jquery-ui": "1.12.1",
     "leaflet": "1.4.0",
     "leaflet-geosearch": "2.7.0",

@@ -501,16 +501,19 @@ namespace SciViCGraph
         public labelSize(normalize: boolean): { width: number, height: number }
         {
             let w = 0.0;
-            if (this.m_text.style.fontWeight === "normal" || !normalize)
+            let h = 0.0;
+            if (this.m_text.style.fontWeight === "normal" || !normalize) {
                 w = this.m_text.width;
-            else {
+                h = this.m_text.height;
+            } else {
                 this.m_text.style.fontWeight = "normal";
                 this.m_text.text = this.label;
                 w = this.m_text.width;
+                h = this.m_text.height;
                 this.m_text.style.fontWeight = "bold";
                 this.m_text.text = "[-" + this.label + "-]";
             }
-            return { width: w / 2.0 + Node.m_textPadding, height: this.m_text.height / 2.0 - 5.0 };
+            return { width: w / 2.0 + Node.m_textPadding, height: h / 2.0 - 5.0 };
         }
 
         set wordWrap(ww: boolean)
@@ -541,7 +544,8 @@ namespace SciViCGraph
         set multiselected(ms: boolean)
         {
             this.m_multiselected = ms;
-            this.m_selInput.checked = ms; // Does not invoke onChange.
+            if (this.m_selInput)
+                this.m_selInput.checked = ms; // Does not invoke onChange.
         }
 
         get customColor(): number
