@@ -35,9 +35,6 @@ namespace SciViCGraph
 
             this.clear();
 
-            this.m_colors = [];
-            this.m_arrowThicknesses = [];
-
             this.m_edges.forEach((edge) => {
                 if (edge.visible) {
                     if (p.edgeWeight.max > p.edgeWeight.min) {

@@ -589,5 +589,13 @@ namespace SciViCGraph
                 p.addChildAt(this, 0);
             }
         }
+
+        public clear(): any
+        {
+            this.m_colors = [];
+            this.m_arrowThicknesses = [];
+
+            return super.clear();
+        }
     }
 }
