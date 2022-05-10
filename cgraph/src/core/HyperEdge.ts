@@ -7,7 +7,7 @@ namespace SciViCGraph
         private m_needsUpdate: boolean;
         private m_visible: boolean;
 
-        constructor(public nodes: Node[])
+        constructor(public nodes: Node[], public weight: number)
         {
             this.m_fill = null;
             this.m_border = null;

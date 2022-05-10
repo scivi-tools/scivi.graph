@@ -12,6 +12,8 @@ namespace SciViCGraph
         private m_nodesWeight: number;
         private m_edgesCount: number;
         private m_edgesWeight: number;
+        private m_hyperEdgesCount: number;
+        private m_hyperEdgesWeight: number;
         private m_clInput: any;
         private m_clWrapper: HTMLElement;
         private m_selectedGroupIndex: number;
@@ -44,6 +46,8 @@ namespace SciViCGraph
             this.m_nodesWeight = 0;
             this.m_edgesCount = 0;
             this.m_edgesWeight = 0;
+            this.m_hyperEdgesCount = 0;
+            this.m_hyperEdgesWeight = 0;
             this.m_clInput = null;
             this.m_clWrapper = null;
             this.m_selectedGroupIndex = -1;
@@ -279,6 +283,10 @@ namespace SciViCGraph
                                          " ( " + this.m_svRenderer.localizer["LOC_SUMWEIGHT"] + " " + this.m_nodesWeight + "); " +
                                          this.m_svRenderer.localizer["LOC_EDGES"] + " " + this.m_edgesCount +
                                          " ( " + this.m_svRenderer.localizer["LOC_SUMWEIGHT"] + " " + this.m_edgesWeight + ")";
+            if (this.m_hyperEdgesCount > 0) {
+                this.m_graphStat.innerHTML += "; " + this.m_svRenderer.localizer["LOC_HYPEREDGES"] + " " + this.m_hyperEdgesCount +
+                                              " ( " + this.m_svRenderer.localizer["LOC_SUMWEIGHT"] + " " + this.m_hyperEdgesWeight + ")";
+            }
 
         }
 
@@ -289,10 +297,12 @@ namespace SciViCGraph
             this.updateStats();
         }
 
-        public updateEdgesStat(count: number, weight: number)
+        public updateEdgesStat(count: number, weight: number, hyperCount: number, hyperWeight: number)
         {
             this.m_edgesCount = count;
             this.m_edgesWeight = weight;
+            this.m_hyperEdgesCount = hyperCount;
+            this.m_hyperEdgesWeight = hyperWeight;
             this.updateStats();
         }
     }

@@ -16,6 +16,7 @@ var g_loc_ru = {
     "LOC_GINFO": "О графе",
     "LOC_NODES": "Вершины",
     "LOC_EDGES": "Рёбра",
+    "LOC_HYPEREDGES": "Гипер-рёбра",
     "LOC_SETTINGS": "Настройки",
     "LOC_FILTERS": "Фильтры",
     "LOC_GROUPS": "Кластеры",

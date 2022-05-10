@@ -16,6 +16,7 @@ var g_loc_en = {
     "LOC_GINFO": "Graph info",
     "LOC_NODES": "Nodes",
     "LOC_EDGES": "Edges",
+    "LOC_HYPEREDGES": "Hyper Edges",
     "LOC_SETTINGS": "Settings",
     "LOC_FILTERS": "Filters",
     "LOC_GROUPS": "Clusters",

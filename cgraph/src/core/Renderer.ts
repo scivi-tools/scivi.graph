@@ -766,7 +766,7 @@ namespace SciViCGraph
                                 if (!this.createDirectedEdges)
                                     this.currentData().edges.push(new Edge(this.m_multiselectedNodes[0], this.m_selectedNode, 1, null));
                             } else if (needsReinit) {
-                                this.currentData().hyperEdges.push(new HyperEdge([this.m_selectedNode].concat(this.m_multiselectedNodes)));
+                                this.currentData().hyperEdges.push(new HyperEdge([this.m_selectedNode].concat(this.m_multiselectedNodes), 1));
                             }
                             if (needsReinit) {
                                 this.m_filtersManager.calcWeights();
@@ -1150,6 +1150,8 @@ namespace SciViCGraph
             let result = false;
             let cnt = 0;
             let w = 0;
+            let hCnt = 0;
+            let hW = 0;
             const rmin = this.m_filtersManager.edgeWeight.min;
             const rmax = this.m_filtersManager.edgeWeight.max;
             this.currentData().edges.forEach((edge) => {
@@ -1168,8 +1170,15 @@ namespace SciViCGraph
                     w += edge.weight;
                 }
             });
+            this.currentData().hyperEdges.forEach((hyperEdge) => {
+                if (hyperEdge.visible) {
+                    hyperEdge.setNeedsUpdate(); // Thickness may have changed due to filtering => update needed.
+                    ++hCnt;
+                    hW += hyperEdge.weight;
+                }
+            });
             if (this.m_statistics)
-                this.m_statistics.updateEdgesStat(cnt, w);
+                this.m_statistics.updateEdgesStat(cnt, w, hCnt, hW);
             return result;
         }
 
