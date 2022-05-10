@@ -237,7 +237,7 @@ namespace SciViCGraph
 
             let webGLData = void 0;
 
-            for (let i = webGL.lastIndex; i < this.graphicsData.length; ++i) {
+            for (let i = webGL.lastIndex, n = this.m_colors.length; i < n; ++i) {
                 this.buildLine(this.graphicsData[i], graphicsRenderer.getWebGLData(webGL, 0), 
                                this.m_colors[i].from, this.m_colors[i].to, this.m_colors[i].alpha, this.m_arrowThicknesses[i]);
                 webGL.lastIndex++;

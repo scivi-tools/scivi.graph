@@ -62,29 +62,31 @@ namespace SciViCGraph
 
             let points = [];
             let center = { x: 0.0, y: 0.0, color: [0.0, 0.0, 0.0, 0.0] };
-            let n = this.graphicsData.length;
-            for (let i = 0; i < n; ++i) {
-                center.x += this.graphicsData[i].shape.points[0];
-                center.y += this.graphicsData[i].shape.points[1];
-                const cColor = this.convertColor(this.m_colors[i].from, this.m_colors[i].alpha);
-                center.color[0] += cColor[0];
-                center.color[1] += cColor[1];
-                center.color[2] += cColor[2];
-                center.color[3] += cColor[3];
-                for (let j = 0, m = this.graphicsData[i].shape.points.length; j < m; j += 2) {
-                    points.push({ x: this.graphicsData[i].shape.points[j + 0],
-                                  y: this.graphicsData[i].shape.points[j + 1],
-                                  color: this.calcColor(this.m_colors[i].from, this.m_colors[i].to, this.m_colors[i].alpha, j / 2, m / 2) });
+            const n = this.m_colors.length;
+            if (n > 0) {
+                for (let i = 0; i < n; ++i) {
+                    center.x += this.graphicsData[i].shape.points[0];
+                    center.y += this.graphicsData[i].shape.points[1];
+                    const cColor = this.convertColor(this.m_colors[i].from, this.m_colors[i].alpha);
+                    center.color[0] += cColor[0];
+                    center.color[1] += cColor[1];
+                    center.color[2] += cColor[2];
+                    center.color[3] += cColor[3];
+                    for (let j = 0, m = this.graphicsData[i].shape.points.length; j < m; j += 2) {
+                        points.push({ x: this.graphicsData[i].shape.points[j + 0],
+                                      y: this.graphicsData[i].shape.points[j + 1],
+                                      color: this.calcColor(this.m_colors[i].from, this.m_colors[i].to, this.m_colors[i].alpha, j / 2, m / 2) });
+                    }
                 }
+                center.x /= n;
+                center.y /= n;
+                center.color[0] /= n;
+                center.color[1] /= n;
+                center.color[2] /= n;
+                center.color[3] /= n;
+                this.buildPoly(points, center, graphicsRenderer.getWebGLData(webGL, 0));
+                webGL.lastIndex++;
             }
-            center.x /= n;
-            center.y /= n;
-            center.color[0] /= n;
-            center.color[1] /= n;
-            center.color[2] /= n;
-            center.color[3] /= n;
-            this.buildPoly(points, center, graphicsRenderer.getWebGLData(webGL, 0));
-            webGL.lastIndex++;
 
             renderer.bindVao(null);
 
