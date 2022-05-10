@@ -109,5 +109,13 @@ namespace SciViCGraph
             const b = Color.srgb2rgb((rgb & 0xFF) / 255);
             return 0.2126 * r + 0.7152 * g + 0.0722 * b >= 0.3 ? 0x000000 : 0xffffff;
         }
+
+        public static passiveColor(rgb: number)
+        {
+            let hsv = Color.rgb2hsv(rgb);
+            hsv[1] = 10;
+            hsv[2] = 90;
+            return Color.hsv2rgb(hsv);
+        }
     }
 }

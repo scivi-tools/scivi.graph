@@ -500,6 +500,15 @@ namespace SciViCGraph
                         edge.target.highlight = hl;
                 }
             });
+            this.m_hyperEdges.forEach((hyperEdge) => {
+                if (hyperEdge.visible) {
+                    hyperEdge.highlight = hl;
+                    hyperEdge.nodes.forEach((node) => {
+                        if (node !== this && !node.highlightSet)
+                            node.highlight = hl;
+                    });
+                }
+            });
         }
 
         public setHighlightForEdges(hl: HighlightType)

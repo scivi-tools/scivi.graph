@@ -16,8 +16,8 @@ namespace SciViCGraph
         private m_enableLoop: boolean;
 
         public static passiveEdgeAlpha = 0.5;
-        private static readonly m_hoveredEdgeAlpha = 1.0;
-        private static readonly m_selectedEdgeAlpha = 1.0;
+        public static readonly hoveredEdgeAlpha = 1.0;
+        public static readonly selectedEdgeAlpha = 1.0;
         private static readonly m_detachedColor = 0xff0000;
 
         public static readonly minThickness = 1.5;
@@ -39,14 +39,6 @@ namespace SciViCGraph
             this.m_enableLoop = false;
         }
 
-        private passiveColor(rgb: number)
-        {
-            let hsv = Color.rgb2hsv(rgb);
-            hsv[1] = 10;
-            hsv[2] = 90;
-            return Color.hsv2rgb(hsv);
-        }
-
         public setBatch(batch: EdgeBatch)
         {
             this.m_batch = batch;
@@ -65,8 +57,8 @@ namespace SciViCGraph
                 let toColor = this.target ? this.target.groupColor : Edge.m_detachedColor;
                 switch (this.m_highlight) {
                     case HighlightType.None: {
-                        this.m_fromColor = this.passiveColor(fromColor)
-                        this.m_toColor = this.passiveColor(toColor);
+                        this.m_fromColor = Color.passiveColor(fromColor)
+                        this.m_toColor = Color.passiveColor(toColor);
                         this.m_alpha = Edge.passiveEdgeAlpha;
                         this.m_batch.sendToBack();
                         break;
@@ -77,7 +69,7 @@ namespace SciViCGraph
                     case HighlightType.Multiselect: {
                         this.m_fromColor = fromColor;
                         this.m_toColor = toColor;
-                        this.m_alpha = Edge.m_hoveredEdgeAlpha;
+                        this.m_alpha = Edge.hoveredEdgeAlpha;
                         this.m_batch.sendToFront();
                         break;
                     }
