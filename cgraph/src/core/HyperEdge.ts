@@ -5,12 +5,14 @@ namespace SciViCGraph
         private m_fill: Polygon;
         private m_border: Curve;
         private m_needsUpdate: boolean;
+        private m_visible: boolean;
 
         constructor(public nodes: Node[])
         {
             this.m_fill = null;
             this.m_border = null;
             this.m_needsUpdate = false;
+            this.m_visible = true;
         }
 
         public prepare(): boolean
@@ -38,6 +40,19 @@ namespace SciViCGraph
         public setNeedsUpdate()
         {
             this.m_needsUpdate = true;
+        }
+
+        set visible(v: boolean)
+        {
+            if (v !== this.m_visible) {
+                this.m_visible = v;
+                this.setNeedsUpdate();
+            }
+        }
+
+        get visible(): boolean
+        {
+            return this.m_visible;
         }
 
         private controlPoint(from: Node, to: Node): Point

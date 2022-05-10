@@ -37,6 +37,7 @@ var g_loc_en = {
     "LOC_ENTERGROUP": "Enter cluster",
     "LOC_LEAVEGROUP": "Leave cluster",
     "LOC_LINKEDNODES": "Linked nodes:",
+    "LOC_HYPERLINKEDNODES": "Hyper-linked nodes:",
     "LOC_STATSTUB": "Click on the pie sector to get info about corresponding cluster",
     "LOC_STATCAPTION": "Clusters statistics (number of clusters: ",
     "LOC_MALE": "male",

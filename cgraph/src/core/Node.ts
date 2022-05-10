@@ -214,6 +214,22 @@ namespace SciViCGraph
                 nodesList.innerHTML = connList;
             }
 
+            let hyperNodesList = null;
+            if (this.m_hyperEdges.length > 0) {
+                hyperNodesList = document.createElement("div");
+                let hyperConnList = "<div>" + this.m_svRenderer.localizer["LOC_HYPERLINKEDNODES"] + "</div><ul>";
+                this.m_hyperEdges.forEach((hyperEdge) => {
+                    if (hyperEdge.visible) {
+                        hyperEdge.nodes.forEach((lNode) => {
+                            if (lNode.visible && lNode !== this)
+                                hyperConnList += "<li>" + lNode.label + "</li>";
+                        });
+                    }
+                });
+                hyperConnList += "</ul>";
+                hyperNodesList.innerHTML = hyperConnList;
+            }
+
             let md = null;
             if (this.m_dict["metadata"] !== undefined) {
                 md = document.createElement("div");
@@ -241,6 +257,8 @@ namespace SciViCGraph
             }
             if (nodesList)
                 this.m_info.appendChild(nodesList);
+            if (hyperNodesList)
+                this.m_info.appendChild(hyperNodesList);
         }
 
         public postListItem(list: HTMLElement)
