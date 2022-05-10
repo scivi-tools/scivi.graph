@@ -2,14 +2,14 @@ namespace SciViCGraph
 {
     export class HyperEdge
     {
-        private m_border: Curve;
         private m_fill: Polygon;
+        private m_border: Curve;
         private m_needsUpdate: boolean;
 
         constructor(public nodes: Node[])
         {
-            this.m_border = null;
             this.m_fill = null;
+            this.m_border = null;
             this.m_needsUpdate = false;
         }
 
@@ -26,12 +26,12 @@ namespace SciViCGraph
 
         public addToScene(scene: Scene)
         {
-            if (!this.m_border)
-                this.m_border = new Curve();
             if (!this.m_fill)
                 this.m_fill = new Polygon();
-            scene.addChild(this.m_border);
+            if (!this.m_border)
+                this.m_border = new Curve();
             scene.addChild(this.m_fill);
+            scene.addChild(this.m_border);
             this.m_needsUpdate = true;
         }
 
@@ -69,12 +69,12 @@ namespace SciViCGraph
                         const fromNode = nodesToDraw[i];
                         const toNode = nodesToDraw[(i + 1) % n];
                         const cp = this.controlPoint(fromNode, toNode);
-                        this.m_border.addColor({ from: fromNode.groupColor, to: toNode.groupColor, alpha: alpha });
-                        this.m_border.moveTo(fromNode.x, fromNode.y);
-                        this.m_border.quadraticCurveWithArrowTo(cp.x, cp.y, toNode.x, toNode.y, 0.0, 0.0);
                         this.m_fill.addColor({ from: fromNode.groupColor, to: toNode.groupColor, alpha: alpha / 3.0 });
                         this.m_fill.moveTo(fromNode.x, fromNode.y);
                         this.m_fill.quadraticCurveWithArrowTo(cp.x, cp.y, toNode.x, toNode.y, 0.0, 0.0);
+                        this.m_border.addColor({ from: fromNode.groupColor, to: toNode.groupColor, alpha: alpha });
+                        this.m_border.moveTo(fromNode.x, fromNode.y);
+                        this.m_border.quadraticCurveWithArrowTo(cp.x, cp.y, toNode.x, toNode.y, 0.0, 0.0);
                     }
                 }
             }
