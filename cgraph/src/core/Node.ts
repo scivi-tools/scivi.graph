@@ -693,6 +693,7 @@ namespace SciViCGraph
         public handleClick(): boolean
         {
             let result = false;
+
             if (this.m_hoveredEdge) {
                 if (this.m_selectedEdge === this.m_hoveredEdge)
                     this.m_selectedEdge = null;
@@ -710,6 +711,25 @@ namespace SciViCGraph
                     result = true;
                 }
             }
+
+            if (this.m_hoveredHyperEdge) {
+                if (this.m_selectedHyperEdge === this.m_hoveredHyperEdge)
+                    this.m_selectedHyperEdge = null;
+                else {
+                    if (this.m_selectedHyperEdge) {
+                        this.m_selectedHyperEdge.isGlowing = false;
+                        result = true;
+                    }
+                    this.m_selectedHyperEdge = this.m_hoveredHyperEdge;
+                }
+            } else {
+                if (this.m_selectedHyperEdge) {
+                    this.m_selectedHyperEdge.isGlowing = false;
+                    this.m_selectedHyperEdge = null;
+                    result = true;
+                }
+            }
+
             return result;
         }
 
