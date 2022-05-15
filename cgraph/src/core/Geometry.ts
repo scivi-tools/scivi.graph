@@ -211,5 +211,17 @@ namespace SciViCGraph
                     return true;
             }
         }
+
+        public static pointInPolygon(pt: Point, poly: Point[]): boolean
+        {
+            // By W. Randolph Franklin, https://wrf.ecse.rpi.edu/Research/Short_Notes/pnpoly.html
+            let c = false;
+            for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+                if (((poly[i].y > pt.y) != (poly[j].y > pt.y)) &&
+                    (pt.x < (poly[j].x - poly[i].x) * (pt.y - poly[i].y) / (poly[j].y - poly[i].y) + poly[i].x))
+                    c = !c;
+            }
+            return c;
+        }
     }
 }

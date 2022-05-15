@@ -19,6 +19,8 @@ namespace SciViCGraph
         private m_selInput: HTMLInputElement;
         private m_hoveredEdge: Edge;
         private m_selectedEdge: Edge;
+        private m_hoveredHyperEdge: HyperEdge;
+        private m_selectedHyperEdge: HyperEdge;
         private m_markerRect: { x: number, y: number, w: number, h: number };
         private m_multiselected: boolean;
         private m_customColor;
@@ -64,6 +66,8 @@ namespace SciViCGraph
             this.m_hoveredEdge = null;
             this.m_selectedEdge = null;
             this.m_multiselected = false;
+            this.m_hoveredHyperEdge = null;
+            this.m_selectedHyperEdge = null;
             this.m_customColor = null;
         }
 
@@ -601,6 +605,22 @@ namespace SciViCGraph
             return null;
         }
 
+        private getHyperEdgeByPosition(x: number, y: number, s: number): HyperEdge
+        {
+            if (isNaN(x) || isNaN(y))
+                return null;
+            const d = x * x + y * y;
+            const r = this.m_svRenderer.radius;
+            const inRing = r * r * s * s;
+            if (d < inRing) {
+                for (let i = this.hyperEdges.length - 1; i >= 0; --i) {
+                    if (this.hyperEdges[i].visible && this.hyperEdges[i].hitTest(x / s, y / s))
+                        return this.hyperEdges[i];
+                }
+            }
+            return null;
+        }
+
         public handleCursorMove(x: number, y: number, s: number, gx: number, gy: number): boolean
         {
             let hoveredEdge = this.getEdgeByPosition(x, y, s);
@@ -634,6 +654,38 @@ namespace SciViCGraph
                     }
                     return true;
                 }
+
+                let hoveredHyperEdge = this.getHyperEdgeByPosition(x, y, s);
+                if (hoveredHyperEdge) {
+                    if (this.m_hoveredHyperEdge !== hoveredHyperEdge) {
+                        if (this.m_hoveredHyperEdge && this.m_hoveredHyperEdge !== this.m_selectedHyperEdge)
+                            this.m_hoveredHyperEdge.isGlowing = false;
+                        this.m_hoveredHyperEdge = hoveredHyperEdge;
+                        this.m_hoveredHyperEdge.isGlowing = true;
+                        // if (this.m_hoveredEdge.tooltip)
+                        //     $(".scivi_graph_tooltip").html(this.m_hoveredEdge.tooltip);
+                        // else
+                            $(".scivi_graph_tooltip").html(this.m_hoveredHyperEdge.weight.toString());
+                        $(".scivi_graph_tooltip").css({top: gy, left: gx + offset});
+                        $(".scivi_graph_tooltip").stop(true);
+                        $(".scivi_graph_tooltip").fadeIn(100);
+                        $(".scivi_graph_tooltip")[0]["host"] = this;
+                        return true;
+                    }
+                    $(".scivi_graph_tooltip").css({top: gy, left: gx + offset, position: "absolute"});
+                    return false;
+                } else {
+                    if (this.m_hoveredHyperEdge) {
+                        if (this.m_hoveredHyperEdge !== this.m_selectedHyperEdge)
+                            this.m_hoveredHyperEdge.isGlowing = false;
+                        this.m_hoveredHyperEdge = null;
+                        if ($(".scivi_graph_tooltip")[0]["host"] === this) {
+                            $(".scivi_graph_tooltip").stop(true);
+                            $(".scivi_graph_tooltip").fadeOut(100);
+                        }
+                        return true;
+                    }
+                }
             }
             return false;
         }
@@ -666,10 +718,25 @@ namespace SciViCGraph
             return this.m_selectedEdge;
         }
 
+        get selectedHyperEdge(): HyperEdge
+        {
+            return this.m_selectedHyperEdge;
+        }
+
         public deleteSelectedEdge()
         {
             this.m_selectedEdge = null;
             this.m_hoveredEdge = null;
+            if ($(".scivi_graph_tooltip")[0]["host"] === this) {
+                $(".scivi_graph_tooltip").stop(true);
+                $(".scivi_graph_tooltip").fadeOut(100);
+            }
+        }
+
+        public deleteSelectedHyperEdge()
+        {
+            this.m_selectedHyperEdge = null;
+            this.m_hoveredHyperEdge = null;
             if ($(".scivi_graph_tooltip")[0]["host"] === this) {
                 $(".scivi_graph_tooltip").stop(true);
                 $(".scivi_graph_tooltip").fadeOut(100);
