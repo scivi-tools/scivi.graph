@@ -629,6 +629,10 @@ namespace SciViCGraph
                 if (this.m_hoveredEdge !== hoveredEdge) {
                     if (this.m_hoveredEdge && this.m_hoveredEdge !== this.m_selectedEdge)
                         this.m_hoveredEdge.isGlowing = false;
+                    if (this.m_hoveredHyperEdge && this.m_hoveredHyperEdge !== this.m_selectedHyperEdge) {
+                        this.m_hoveredHyperEdge.isGlowing = false;
+                        this.m_hoveredHyperEdge = null;
+                    }
                     this.m_hoveredEdge = hoveredEdge;
                     this.m_hoveredEdge.isGlowing = true;
                     if (this.m_hoveredEdge.tooltip)
@@ -703,6 +707,12 @@ namespace SciViCGraph
                         result = true;
                     }
                     this.m_selectedEdge = this.m_hoveredEdge;
+                    if (this.m_selectedHyperEdge === this.m_hoveredHyperEdge) {
+                        this.m_selectedHyperEdge.isGlowing = false;
+                        this.m_selectedHyperEdge = null;
+                        this.m_hoveredHyperEdge = null;
+                        result = true;
+                    }
                 }
             } else {
                 if (this.m_selectedEdge) {

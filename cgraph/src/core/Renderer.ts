@@ -1636,20 +1636,38 @@ namespace SciViCGraph
 
         private deleteSelectedEdge()
         {
-            if (this.m_selectedNode && this.m_selectedNode.selectedEdge) {
-                const d = this.currentData();
-                const n = d.edges.length;
-                let i = 0;
-                for (; i < n; ++i) {
-                    if (d.edges[i] === this.m_selectedNode.selectedEdge)
-                        break;
+            if (this.m_selectedNode) {
+                if (this.m_selectedNode.selectedEdge) {
+                    const d = this.currentData();
+                    const n = d.edges.length;
+                    let i = 0;
+                    for (; i < n; ++i) {
+                        if (d.edges[i] === this.m_selectedNode.selectedEdge)
+                            break;
+                    }
+                    if (i < n) {
+                        d.edges.splice(i, 1);
+                        this.m_selectedNode.deleteSelectedEdge();
+                        this.reinit(false, false);
+                        if (this.m_cursorPos.x !== undefined && this.m_cursorPos.y !== undefined)
+                            this.hoverGraph(this.m_cursorPos.x, this.m_cursorPos.y);
+                    }
                 }
-                if (i < n) {
-                    d.edges.splice(i, 1);
-                    this.m_selectedNode.deleteSelectedEdge();
-                    this.reinit(false, false);
-                    if (this.m_cursorPos.x !== undefined && this.m_cursorPos.y !== undefined)
-                        this.hoverGraph(this.m_cursorPos.x, this.m_cursorPos.y);
+                if (this.m_selectedNode.selectedHyperEdge) {
+                    const d = this.currentData();
+                    const n = d.hyperEdges.length;
+                    let i = 0;
+                    for (; i < n; ++i) {
+                        if (d.hyperEdges[i] === this.m_selectedNode.selectedHyperEdge)
+                            break;
+                    }
+                    if (i < n) {
+                        d.hyperEdges.splice(i, 1);
+                        this.m_selectedNode.deleteSelectedHyperEdge();
+                        this.reinit(false, false);
+                        if (this.m_cursorPos.x !== undefined && this.m_cursorPos.y !== undefined)
+                            this.hoverGraph(this.m_cursorPos.x, this.m_cursorPos.y);
+                    }
                 }
             }
         }
