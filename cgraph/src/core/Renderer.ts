@@ -1874,46 +1874,8 @@ namespace SciViCGraph
             return this.m_filtersManager.maxNumberOfEdges;
         }
 
-        public saveGraph()
+        private saveAsSemanticMapCSV()
         {
-            /*
-            // Save graph to js script
-            // FIXME: Convert dataKey to label
-            let g = "{\n  states: [\n";
-            let firstState = true;
-            Object.keys(this.m_states.data).forEach((dataKey) => {
-                if (!firstState)
-                    g += ",\n";
-                g += "    {\n      label: \"" + this.m_states.stateLines[0][dataKey] + "\",\n      nodes: [\n";
-                const data = this.m_states.data[dataKey];
-                let first = true;
-                for (let i = 0, n = data.nodes.length; i < n; ++i) {
-                    if (data.nodes[i].visible) {
-                        if (!first)
-                            g += ",\n";
-                        g += "        " + JSON.stringify(data.nodes[i].custom);
-                        first = false;
-                    }
-                }
-                g += "      ],\n      edges: [\n";
-                first = true;
-                for (let i = 0, n = data.edges.length; i < n; ++i) {
-                    if (data.edges[i].visible) {
-                        if (!first)
-                            g += ",\n";
-                        g += "        { \"source\": " + data.edges[i].source.id + 
-                             ", \"target\": " + data.edges[i].target.id + 
-                             ", \"weight\": " + data.edges[i].weight +
-                             ", \"tooltip\": " + data.edges[i].tooltip + " }";
-                        first = false;
-                    }
-                }
-                g += "      ]\n    }";
-                firstState = false;
-            });
-            g += "  ]\n}";
-            this.downloadFile("graph.js", g);
-            */
             // Save current state of graph to Semograph-compatible semantic map in csv
             var filename = prompt("Enter name of file to save", "graph.csv");
             if (!filename)
@@ -1955,6 +1917,108 @@ namespace SciViCGraph
                 csv += line.join(",") + "\n";
             });
             this.downloadFile(filename, csv);
+        }
+
+        private saveAsJSON()
+        {
+            var filename = prompt("Enter name of file to save", "graph.json");
+            if (!filename)
+                return;
+            if (filename.indexOf(".") === -1)
+                filename += ".json";
+
+            let nodesArray = "[\n";
+            let nodes = this.currentData().nodes;
+            for (let i = 0, n = nodes.length; i < n; ++i) {
+                nodesArray += "  { \"id\": " + nodes[i].id +
+                              ", \"label\": \"" + nodes[i].label +
+                              "\", \"weight\": " + nodes[i].weight +
+                              " }"
+                if (i < n - 1)
+                    nodesArray += ",";
+                nodesArray += "\n";
+            }
+            nodesArray += "],\n";
+
+            let edgesArray = "[\n";
+            let edges = this.currentData().edges;
+            for (let i = 0, n = edges.length; i < n; ++i) {
+                edgesArray += "  { \"source\": " + edges[i].source.id +
+                              ", \"target\": " + edges[i].target.id +
+                              ", \"weight\": " + edges[i].weight +
+                              " }";
+                if (i < n - 1)
+                    edgesArray += ",";
+                edgesArray += "\n";
+            }
+            edgesArray += "],\n";
+
+            let hyperEdgesArray = "[\n";
+            let hyperEdges = this.currentData().hyperEdges;
+            for (let i = 0, n = hyperEdges.length; i < n; ++i) {
+                let hyperLinkedNodesArray = "";
+                for (let j = 0, m = hyperEdges[i].nodes.length; j < m; ++j) {
+                    hyperLinkedNodesArray += hyperEdges[i].nodes[j].id;
+                    if (j < m - 1)
+                        hyperLinkedNodesArray += ", ";
+                }
+                hyperEdgesArray += "  { \"nodes\": [ " + hyperLinkedNodesArray +
+                                   " ], \"weight\": " + hyperEdges[i].weight +
+                                   " }";
+                if (i < n - 1)
+                    hyperEdgesArray += ",";
+                hyperEdgesArray += "\n";
+            }
+            hyperEdgesArray += "]\n";
+
+            let g = "{\n\"label\": \"" + this.currentStateKey +
+                    "\",\n\"nodes\": " + nodesArray +
+                    "\"edges\": " + edgesArray +
+                    "\"hyperEdges\": " + hyperEdgesArray + "}\n";
+            this.downloadFile(filename, g);
+        }
+
+        public saveGraph()
+        {
+            /*
+            // Save graph to js script
+            // FIXME: Convert dataKey to label
+            let g = "{\n  states: [\n";
+            let firstState = true;
+            Object.keys(this.m_states.data).forEach((dataKey) => {
+                if (!firstState)
+                    g += ",\n";
+                g += "    {\n      label: \"" + this.m_states.stateLines[0][dataKey] + "\",\n      nodes: [\n";
+                const data = this.m_states.data[dataKey];
+                let first = true;
+                for (let i = 0, n = data.nodes.length; i < n; ++i) {
+                    if (data.nodes[i].visible) {
+                        if (!first)
+                            g += ",\n";
+                        g += "        " + JSON.stringify(data.nodes[i].custom);
+                        first = false;
+                    }
+                }
+                g += "      ],\n      edges: [\n";
+                first = true;
+                for (let i = 0, n = data.edges.length; i < n; ++i) {
+                    if (data.edges[i].visible) {
+                        if (!first)
+                            g += ",\n";
+                        g += "        { \"source\": " + data.edges[i].source.id + 
+                             ", \"target\": " + data.edges[i].target.id + 
+                             ", \"weight\": " + data.edges[i].weight +
+                             ", \"tooltip\": " + data.edges[i].tooltip + " }";
+                        first = false;
+                    }
+                }
+                g += "      ]\n    }";
+                firstState = false;
+            });
+            g += "  ]\n}";
+            this.downloadFile("graph.js", g);
+            */
+            this.saveAsJSON();
         }
 
         public selectGraphState(stateName: string)
