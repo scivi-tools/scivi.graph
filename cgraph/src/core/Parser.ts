@@ -112,7 +112,13 @@ namespace SciViCGraph
 
         private processHyperEdges(hyperEdges: any[])
         {
-            // TODO
+            hyperEdges.forEach(hyperEdge => {
+                let nodes = [];
+                hyperEdge.nodes.forEach(nodeID => {
+                    nodes.push(this.m_nodes[nodeID]);
+                });
+                this.m_hyperEdges.push(new HyperEdge(nodes, hyperEdge.weight));
+            });
         }
 
         get graphData(): GraphData
