@@ -5,8 +5,8 @@ namespace SciViCGraph
         private m_fill: Polygon;
         private m_border: Curve;
         private m_glow: Curve;
+        private m_glowVisible: boolean;
         private m_needsUpdate: boolean;
-        private m_visible: boolean;
         private m_highlight: HighlightType;
         private m_highlightSet: boolean;
 
@@ -15,8 +15,8 @@ namespace SciViCGraph
             this.m_fill = null;
             this.m_border = null;
             this.m_glow = null;
+            this.m_glowVisible = false;
             this.m_needsUpdate = false;
-            this.m_visible = true;
             this.m_highlight = HighlightType.None;
             this.m_highlightSet = false;
         }
@@ -58,15 +58,19 @@ namespace SciViCGraph
 
         set visible(v: boolean)
         {
-            if (v !== this.m_visible) {
-                this.m_visible = v;
-                this.setNeedsUpdate();
+            if (v !== this.m_border.visible) {
+                if (v) {
+                    this.m_border.visible = this.m_fill.visible = true;
+                    this.m_glow.visible = this.m_glowVisible;
+                } else {
+                    this.m_border.visible = this.m_fill.visible = this.m_glow.visible = false;
+                }
             }
         }
 
         get visible(): boolean
         {
-            return this.m_visible;
+            return this.m_border.visible;
         }
 
         set highlight(hl: HighlightType)
@@ -179,6 +183,9 @@ namespace SciViCGraph
 
         public hitTest(x: number, y: number): boolean
         {
+            if (!this.visible)
+                return false;
+
             const p = { x: x, y: y };
             const nodesToDraw = this.nodesToDraw();
             let cp = [];
@@ -191,6 +198,7 @@ namespace SciViCGraph
         set isGlowing(g: boolean)
         {
             this.m_glow.visible = g;
+            this.m_glowVisible = g;
             if (g)
                 this.m_glow.bringToFront();
         }

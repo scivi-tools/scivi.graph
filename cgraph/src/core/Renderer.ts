@@ -1148,6 +1148,7 @@ namespace SciViCGraph
         private filterEdges(): boolean
         {
             let result = false;
+            let needsRepostInfo = false;
             let cnt = 0;
             let w = 0;
             let hCnt = 0;
@@ -1162,7 +1163,7 @@ namespace SciViCGraph
                     edge.visible = vis;
                     result = true;
                     if (edge.source === this.m_selectedNode || edge.target === this.m_selectedNode)
-                        this.m_selectedNode.postInfo();
+                        needsRepostInfo = true;
                 }
                 if (edge.visible) {
                     edge.setNeedsUpdate(); // Thickness may have changed due to filtering => update needed.
@@ -1171,12 +1172,22 @@ namespace SciViCGraph
                 }
             });
             this.currentData().hyperEdges.forEach((hyperEdge) => {
+                const rv = hyperEdge.weight;
+                const vis = rv >= rmin && rv <= rmax;
+                if (vis !== hyperEdge.visible) {
+                    hyperEdge.visible = vis;
+                    result = true;
+                    if (hyperEdge.nodes.indexOf(this.m_selectedNode) >= 0)
+                        needsRepostInfo = true;
+                }
                 if (hyperEdge.visible) {
                     hyperEdge.setNeedsUpdate(); // Thickness may have changed due to filtering => update needed.
                     ++hCnt;
                     hW += hyperEdge.weight;
                 }
             });
+            if (needsRepostInfo)
+                this.m_selectedNode.postInfo();
             if (this.m_statistics)
                 this.m_statistics.updateEdgesStat(cnt, w, hCnt, hW);
             return result;

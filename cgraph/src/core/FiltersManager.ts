@@ -62,12 +62,13 @@ namespace SciViCGraph
                 const data = this.m_renderer.states.data[dataKey];
                 const nc = data.nodes.length;
                 const ec = data.edges.length;
+                const hc = data.hyperEdges.length;
                 const angleStep = 2.0 * Math.PI / nc;
 
                 if (nc > this.m_maxNumberOfNodes)
                     this.m_maxNumberOfNodes = nc;
-                if (ec > this.m_maxNumberOfEdges)
-                    this.m_maxNumberOfEdges = ec;
+                if (ec + hc > this.m_maxNumberOfEdges)
+                    this.m_maxNumberOfEdges = ec + hc;
 
                 for (let i = 0; i < nc; ++i) {
                     if (this.m_nodeWeight.min === undefined || this.m_nodeWeight.min > data.nodes[i].weight)
@@ -82,6 +83,13 @@ namespace SciViCGraph
                         this.m_edgeWeight.min = data.edges[i].weight;
                     if (this.m_edgeWeight.max === undefined || this.m_edgeWeight.max < data.edges[i].weight)
                         this.m_edgeWeight.max = data.edges[i].weight;
+                }
+
+                for (let i = 0; i < hc; ++i) {
+                    if (this.m_edgeWeight.min === undefined || this.m_edgeWeight.min > data.hyperEdges[i].weight)
+                        this.m_edgeWeight.min = data.hyperEdges[i].weight;
+                    if (this.m_edgeWeight.max === undefined || this.m_edgeWeight.max < data.hyperEdges[i].weight)
+                        this.m_edgeWeight.max = data.hyperEdges[i].weight;
                 }
             });
 
