@@ -9,6 +9,7 @@ namespace SciViCGraph
         private m_needsUpdate: boolean;
         private m_highlight: HighlightType;
         private m_highlightSet: boolean;
+        private m_parent: Scene
 
         constructor(public nodes: Node[], public weight: number)
         {
@@ -19,6 +20,7 @@ namespace SciViCGraph
             this.m_needsUpdate = false;
             this.m_highlight = HighlightType.None;
             this.m_highlightSet = false;
+            this.m_parent = null;
         }
 
         public prepare(): boolean
@@ -48,6 +50,7 @@ namespace SciViCGraph
             scene.addChild(this.m_fill);
             scene.addChild(this.m_border);
             scene.addChild(this.m_glow);
+            this.m_parent = scene;
             this.m_needsUpdate = true;
         }
 
@@ -107,10 +110,21 @@ namespace SciViCGraph
             return result;
         }
 
+        private calcThickness(): number
+        {
+            if (this.m_parent.edgeWeight.max > this.m_parent.edgeWeight.min) {
+                return Edge.minThickness +
+                       (Edge.maxThickness - Edge.minThickness) / (this.m_parent.edgeWeight.max - this.m_parent.edgeWeight.min) *
+                       (this.weight - this.m_parent.edgeWeight.min);
+            } else {
+                return (Edge.minThickness + Edge.maxThickness) / 2.0;
+            }
+        }
+
         private update()
         {
             if (this.m_border && this.nodes.length > 0) {
-                const thickness = 2.0;
+                const thickness = this.calcThickness();
 
                 this.m_fill.clear();
                 this.m_border.clear();

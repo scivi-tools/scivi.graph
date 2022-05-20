@@ -704,16 +704,15 @@ namespace SciViCGraph
                 else {
                     if (this.m_selectedEdge) {
                         this.m_selectedEdge.isGlowing = false;
-                        result = true;
                     }
                     this.m_selectedEdge = this.m_hoveredEdge;
                     if (this.m_selectedHyperEdge === this.m_hoveredHyperEdge) {
                         this.m_selectedHyperEdge.isGlowing = false;
                         this.m_selectedHyperEdge = null;
                         this.m_hoveredHyperEdge = null;
-                        result = true;
                     }
                 }
+                result = true;
             } else {
                 if (this.m_selectedEdge) {
                     this.m_selectedEdge.isGlowing = false;
@@ -728,10 +727,10 @@ namespace SciViCGraph
                 else {
                     if (this.m_selectedHyperEdge) {
                         this.m_selectedHyperEdge.isGlowing = false;
-                        result = true;
                     }
                     this.m_selectedHyperEdge = this.m_hoveredHyperEdge;
                 }
+                result = true;
             } else {
                 if (this.m_selectedHyperEdge) {
                     this.m_selectedHyperEdge.isGlowing = false;
