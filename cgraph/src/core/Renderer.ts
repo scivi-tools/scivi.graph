@@ -1642,6 +1642,8 @@ namespace SciViCGraph
             if (this.m_selectedNode) {
                 if (this.m_selectedNode.handleClick())
                     this.render(true, true);
+                else
+                    this.selectNode(null);
             }
         }
 
