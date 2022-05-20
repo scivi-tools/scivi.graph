@@ -479,19 +479,21 @@ namespace SciViCGraph
                 this.m_cursorPos.x = x;
                 this.m_cursorPos.y = y;
                 if (this.m_mousePressed) {
-                    if (this.m_edgesEditMode && this.m_transientEdgeSource) {
-                        this.createTransientEdgeWithSourceNode(this.m_transientEdgeSource);
-                        if (this.m_selectedNode !== this.m_transientEdgeSource)
-                            this.selectNode(this.m_transientEdgeSource);
-                        this.m_transientEdgeSource = null;
-                    } if (this.m_edgesEditMode && this.m_transientEdgeBatch) {
-                        this.changeTransientEdge();
-                    } else if (this.m_draggedNodeIndex !== -1) {
-                        this.dragNode(x, y);
-                    } else if (this.m_draggedRingIndex !== -1) {
-                        this.dragRing(x, y);
-                    } else {
-                        this.panGraph(x, y);
+                    if (!e.shiftKey) {
+                        if (this.m_edgesEditMode && this.m_transientEdgeSource) {
+                            this.createTransientEdgeWithSourceNode(this.m_transientEdgeSource);
+                            if (this.m_selectedNode !== this.m_transientEdgeSource)
+                                this.selectNode(this.m_transientEdgeSource);
+                            this.m_transientEdgeSource = null;
+                        } if (this.m_edgesEditMode && this.m_transientEdgeBatch) {
+                            this.changeTransientEdge();
+                        } else if (this.m_draggedNodeIndex !== -1) {
+                            this.dragNode(x, y);
+                        } else if (this.m_draggedRingIndex !== -1) {
+                            this.dragRing(x, y);
+                        } else {
+                            this.panGraph(x, y);
+                        }
                     }
                 } else {
                     if (!this.m_edgesEditMode && this.m_transientEdgeBatch)
