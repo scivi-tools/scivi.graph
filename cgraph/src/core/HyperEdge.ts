@@ -41,10 +41,13 @@ namespace SciViCGraph
         {
             if (!this.m_fill)
                 this.m_fill = new Polygon();
-            if (!this.m_border)
+            if (!this.m_border) {
                 this.m_border = new Curve();
+                this.m_border.curveStrip = true;
+            }
             if (!this.m_glow) {
                 this.m_glow = new Curve();
+                this.m_glow.curveStrip = true;
                 this.m_glow.visible = false;
             }
             scene.addChild(this.m_fill);

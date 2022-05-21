@@ -4,6 +4,7 @@ namespace SciViCGraph
     {
         protected m_colors: { from: number, to: number, alpha: number }[];
         protected m_arrowThicknesses: number[];
+        protected m_curveStrip: boolean;
 
         constructor()
         {
@@ -11,6 +12,7 @@ namespace SciViCGraph
 
             this.m_colors = [];
             this.m_arrowThicknesses = [];
+            this.m_curveStrip = false;
         }
 
         private addVertex(vertices: number[], px: number, py: number, nx: number, ny: number,
@@ -29,7 +31,8 @@ namespace SciViCGraph
             vertices.push(px + dx, py + dy, 0, 0, 0, 0);
         }
 
-        private buildLine(graphicsData, webGLData, fromColor: number, toColor: number, alpha: number, arrowThickness: number)
+        private buildLine(graphicsData, webGLData, fromColor: number, toColor: number, alpha: number, arrowThickness: number,
+                          edgePts: { start: Point, end: Point })
         {
             graphicsData.points = graphicsData.shape.points.slice();
             let points = graphicsData.points;
@@ -52,6 +55,12 @@ namespace SciViCGraph
             let p2y = 0;
             let p3x = 0;
             let p3y = 0;
+
+            let v1x = 0;
+            let v1y = 0;
+            let v2x = 0;
+            let v2y = 0;
+            let vLen = 0;
 
             let totalLength = 0;
             for (let i = 0; i < length - 1; ++i) {
@@ -83,8 +92,8 @@ namespace SciViCGraph
 
             for (let i = 0; i < length; ++i) {
                 if (i === 0) {
-                    p1x = points[0];
-                    p1y = points[1];
+                    p1x = /*points[0];*/ edgePts.start.x;
+                    p1y = /*points[1];*/ edgePts.start.y;
 
                     p2x = points[0];
                     p2y = points[1];
@@ -102,8 +111,8 @@ namespace SciViCGraph
                     p2x = points[i * 2];
                     p2y = points[i * 2 + 1];
                     
-                    p3x = points[i * 2];
-                    p3y = points[i * 2 + 1];
+                    p3x = /*points[i * 2];*/ edgePts.end.x;
+                    p3y = /*points[i * 2 + 1];*/ edgePts.end.y;
 
                     r = rTo;
                     g = gTo;
@@ -122,6 +131,31 @@ namespace SciViCGraph
                     r = rFrom + t * (rTo - rFrom);
                     g = gFrom + t * (gTo - gFrom);
                     b = bFrom + t * (bTo - bFrom);
+                }
+
+                v1x = p1x - p2x;
+                v1y = p1y - p2y;
+                v2x = p3x - p2x;
+                v2y = p3y - p2y;
+                vLen = Math.sqrt(v1x * v1x + v1y * v1y);
+                if (vLen > 0.01) {
+                    v1x /= vLen;
+                    v1y /= vLen;
+                    vLen = Math.sqrt(v2x * v2x + v2y * v2y);
+                    if (vLen > 0.01) {
+                        v2x /= vLen;
+                        v2y /= vLen;
+                        d = v1x * v2x + v1y * v2y;
+                        if (d > 0.7) {
+                            if (i === 0) {
+                                p1x = p2x;
+                                p1y = p2y;
+                            } else {
+                                p3x = p2x;
+                                p3y = p2y;
+                            }
+                        }
+                    }
                 }
 
                 if (arrowThickness > 0.0) {
@@ -237,9 +271,32 @@ namespace SciViCGraph
 
             let webGLData = void 0;
 
+            const startIndex = webGL.lastIndex;
+
             for (let i = webGL.lastIndex, n = this.m_colors.length; i < n; ++i) {
+                let pts = this.graphicsData[i].shape.points;
+                let edgePts = pts.length > 4 ? { start: { x: pts[0], y: pts[1] }, end: { x: pts[pts.length - 2], y: pts[pts.length - 1] } } : 
+                                               { start: { x: 0.0, y: 0.0 }, end: { x: 0.0, y: 0.0 } };
+                if (this.m_curveStrip) {
+                    if (i == startIndex)
+                        pts = this.graphicsData[n - 1].shape.points;
+                    else
+                        pts = this.graphicsData[i - 1].shape.points;
+                    if (pts.length > 4) {
+                        edgePts.start.x = pts[pts.length - 4];
+                        edgePts.start.y = pts[pts.length - 3];
+                    }
+                    if (i == n - 1)
+                        pts = this.graphicsData[startIndex].shape.points;
+                    else
+                        pts = this.graphicsData[i + 1].shape.points;
+                    if (pts.length > 4) {
+                        edgePts.end.x = pts[2];
+                        edgePts.end.y = pts[3];
+                    }
+                }
                 this.buildLine(this.graphicsData[i], graphicsRenderer.getWebGLData(webGL, 0), 
-                               this.m_colors[i].from, this.m_colors[i].to, this.m_colors[i].alpha, this.m_arrowThicknesses[i]);
+                               this.m_colors[i].from, this.m_colors[i].to, this.m_colors[i].alpha, this.m_arrowThicknesses[i], edgePts);
                 webGL.lastIndex++;
             }
 
@@ -596,6 +653,16 @@ namespace SciViCGraph
             this.m_arrowThicknesses = [];
 
             return super.clear();
+        }
+
+        get curveStrip(): boolean
+        {
+            return this.m_curveStrip;
+        }
+
+        set curveStrip(cs: boolean)
+        {
+            this.m_curveStrip = cs;
         }
     }
 }
