@@ -120,7 +120,7 @@ namespace SciViCGraph
                        (Edge.maxThickness - Edge.minThickness) / (this.m_parent.edgeWeight.max - this.m_parent.edgeWeight.min) *
                        (this.weight - this.m_parent.edgeWeight.min);
             } else {
-                return (Edge.minThickness + Edge.maxThickness) / 2.0;
+                return Edge.minThickness;
             }
         }
 
