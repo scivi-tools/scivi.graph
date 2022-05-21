@@ -219,5 +219,17 @@ namespace SciViCGraph
             if (g)
                 this.m_glow.bringToFront();
         }
+
+        public convertToBinaryEdges(): Edge[]
+        {
+            let result = [];
+            for (let i = 0, n = this.nodes.length; i < n; ++i) {
+                for (let j = 0; j < n; ++j) {
+                    if (i !== j)
+                        result.push(new Edge(this.nodes[i], this.nodes[j], this.weight, null));
+                }
+            }
+            return result;
+        }
     }
 }

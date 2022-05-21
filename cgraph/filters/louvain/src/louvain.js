@@ -1,7 +1,7 @@
 var Louvain = {
-        detectClusters: function (data)
-        {
-            function createCommunityGraph(ngraph)
+    detectClusters: function (data)
+    {
+        function createCommunityGraph(ngraph)
         {
             var nodeCount = ngraph.getNodesCount();
             var weight = 0;
@@ -319,6 +319,13 @@ var Louvain = {
         data.edges.forEach(function (edge) {
             if (edge.visible)
                 graph.addLink(edge.source.positionHash(), edge.target.positionHash());
+        });
+        data.hyperEdges.forEach(function (hyperEdge) {
+            if (hyperEdge.visible) {
+                hyperEdge.convertToBinaryEdges().forEach(function (edge) {
+                    graph.addLink(edge.source.positionHash(), edge.target.positionHash());
+                });
+            }
         });
 
         var clusters = detect(graph);
