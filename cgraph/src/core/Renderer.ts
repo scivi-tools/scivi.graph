@@ -658,6 +658,7 @@ namespace SciViCGraph
                 "<div id='scivi_fit_to_screen' class='scivi_button'>" + this.m_localizer["LOC_FIT_TO_SCREEN"] + "</div>" +
                 "<div id='scivi_sort_by_ring' class='scivi_button'>" + this.m_localizer["LOC_SORT_BY_RING"] + "</div>" +
                 "<div id='scivi_calc_modularity' class='scivi_button'>" + this.m_localizer["LOC_CALC_MODULARITY"] + "</div>" +
+                "<div id='scivi_sort_by_modularity' class='scivi_button'>" + this.m_localizer["LOC_SORT_BY_MODULARITY"] + "</div>" +
                 "<div id='scivi_save_graph' class='scivi_button'>" + this.m_localizer["LOC_SAVE_GRAPH"] + "</div>" +
                 "<br/><br/><hr/><br/><div>" + 
                     "<span><input id='scivi_edge_edit' type='checkbox' value='" + (this.edgesEditMode ? "checked" : "") + "'/><span>" + this.m_localizer["LOC_EDGE_EDIT"] + "</span></span>" +
@@ -711,6 +712,11 @@ namespace SciViCGraph
 
                 $("#scivi_calc_modularity").click(() => {
                     this.m_modularityFilters[0].detectClusters(this.currentData());
+                    this.reinit(false, false);
+                });
+
+                $("#scivi_sort_by_modularity").click(() => {
+                    this.sortNodesNyModularity();
                     this.reinit(false, false);
                 });
 
@@ -1340,6 +1346,21 @@ namespace SciViCGraph
                     this.currentData().nodes.sort(sorter);
                 }
             }
+        }
+
+        public sortNodesNyModularity()
+        {
+            const sorter = (x1, x2) => {
+                const v1 = x1.groupID;
+                const v2 = x2.groupID;
+                if (v1 < v2)
+                    return -1;
+                else if (v1 > v2)
+                    return 1;
+                else
+                    return this.smartCmp(x1.label, x2.label);
+            }
+            this.currentData().nodes.sort(sorter);
         }
 
         public hoverNode(node: Node)
