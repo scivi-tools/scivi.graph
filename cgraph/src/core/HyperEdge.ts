@@ -25,16 +25,13 @@ namespace SciViCGraph
 
         public prepare(): boolean
         {
-            let result = false;
+            this.m_highlightSet = false;
             if (this.m_needsUpdate) {
                 this.update();
                 this.m_needsUpdate = false;
-                result = true;
+                return true;
             }
-            if (!this.m_highlightSet)
-                this.highlight = HighlightType.None;
-            this.m_highlightSet = false;
-            return result;
+            return false;
         }
 
         public addToScene(scene: Scene)
@@ -230,6 +227,12 @@ namespace SciViCGraph
                 }
             }
             return result;
+        }
+
+        public dropHighlightIfNotSet()
+        {
+            if (!this.m_highlightSet)
+                this.highlight = HighlightType.None;
         }
     }
 }

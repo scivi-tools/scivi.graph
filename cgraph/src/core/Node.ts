@@ -526,6 +526,10 @@ namespace SciViCGraph
                     this.m_selectedEdge.isGlowing = false;
                     this.m_selectedEdge = null;
                 }
+                this.m_hyperEdges.forEach((hyperEdge) => {
+                    if (hyperEdge.visible)
+                        hyperEdge.dropHighlightIfNotSet();
+                });
             }
             this.m_edges.forEach((edge) => {
                 if (edge.visible)
