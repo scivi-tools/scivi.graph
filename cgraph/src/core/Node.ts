@@ -476,6 +476,10 @@ namespace SciViCGraph
                 if (edge.visible)
                     edge.invalidate(wipeInternals);
             });
+            this.m_hyperEdges.forEach((hyperEdge) => {
+                if (hyperEdge.visible)
+                    hyperEdge.setNeedsUpdate();
+            });
         }
 
         public setAnchor(x: number, y: number, maxHeight: number)
