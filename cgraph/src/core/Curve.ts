@@ -146,7 +146,7 @@ namespace SciViCGraph
                         v2x /= vLen;
                         v2y /= vLen;
                         d = v1x * v2x + v1y * v2y;
-                        if (d > 0.7) {
+                        if (d > 0.5) {
                             if (i === 0) {
                                 p1x = p2x;
                                 p1y = p2y;
