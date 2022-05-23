@@ -768,14 +768,29 @@ namespace SciViCGraph
 
                     case 13: // ENTER
                         if (e.shiftKey) {
-                            let needsReinit = this.m_selectedNode && this.m_multiselectedNodes.length > 0;
-                            if (this.m_multiselectedNodes.length == 1) {
-                                this.currentData().edges.push(new Edge(this.m_selectedNode, this.m_multiselectedNodes[0], 1, null));
-                                if (!this.createDirectedEdges)
-                                    this.currentData().edges.push(new Edge(this.m_multiselectedNodes[0], this.m_selectedNode, 1, null));
-                            } else if (needsReinit) {
-                                this.currentData().hyperEdges.push(new HyperEdge([this.m_selectedNode].concat(this.m_multiselectedNodes), 1));
+                            let needsReinit = false;
+                            if (this.m_selectedNode) {
+                                if (this.m_multiselectedNodes.length === 1) {
+                                    this.currentData().edges.push(new Edge(this.m_selectedNode, this.m_multiselectedNodes[0], 1, null));
+                                    if (!this.createDirectedEdges)
+                                        this.currentData().edges.push(new Edge(this.m_multiselectedNodes[0], this.m_selectedNode, 1, null));
+                                    needsReinit = true;
+                                } else if (this.m_multiselectedNodes.length > 1) {
+                                    this.currentData().hyperEdges.push(new HyperEdge([this.m_selectedNode].concat(this.m_multiselectedNodes), 1));
+                                    needsReinit = true;
+                                }
+                            } else {
+                                if (this.m_multiselectedNodes.length === 2) {
+                                    this.currentData().edges.push(new Edge(this.m_multiselectedNodes[0], this.m_multiselectedNodes[1], 1, null));
+                                    if (!this.createDirectedEdges)
+                                        this.currentData().edges.push(new Edge(this.m_multiselectedNodes[1], this.m_multiselectedNodes[0], 1, null));
+                                    needsReinit = true;
+                                } else {
+                                    this.currentData().hyperEdges.push(new HyperEdge(this.m_multiselectedNodes, 1));
+                                    needsReinit = true;
+                                }
                             }
+
                             if (needsReinit) {
                                 this.m_filtersManager.calcWeights();
                                 this.reinit(false, false);
