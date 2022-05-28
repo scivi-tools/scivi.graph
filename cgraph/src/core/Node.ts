@@ -780,6 +780,23 @@ namespace SciViCGraph
             }
         }
 
+        public renameSelectedEdge(tt: string)
+        {
+            if (this.m_selectedEdge) {
+                this.m_selectedEdge.tooltip = tt;
+                if (tt)
+                    $(".scivi_graph_tooltip").html(tt);
+                else
+                    $(".scivi_graph_tooltip").html(this.m_selectedEdge.weight.toString());
+            } else if (this.m_selectedHyperEdge) {
+                this.m_selectedHyperEdge.tooltip = tt;
+                if (tt)
+                    $(".scivi_graph_tooltip").html(tt);
+                else
+                    $(".scivi_graph_tooltip").html(this.m_selectedHyperEdge.weight.toString());
+            }
+        }
+
         public positionHash(): string
         {
             return this.x + ":" + this.y;

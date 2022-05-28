@@ -93,6 +93,7 @@ namespace SciViCGraph
         private m_filtersManager: FiltersManager;
         private m_edgesEditMode: boolean;
         private m_createDirectedEdges: boolean;
+        private m_clickCount: number;
 
         static readonly m_ringScaleWidth = 30;
         static readonly m_minFontSize = 5;
@@ -139,6 +140,7 @@ namespace SciViCGraph
             this.m_filtersManager = new FiltersManager(this, this.m_filters);
             this.m_edgesEditMode = false;
             this.m_createDirectedEdges = false;
+            this.m_clickCount = 0;
 
             let tooltip = document.createElement("div");
             tooltip.className = "scivi_graph_tooltip";
@@ -478,6 +480,7 @@ namespace SciViCGraph
                 const y = e.clientY - rect.top;
                 this.m_cursorPos.x = x;
                 this.m_cursorPos.y = y;
+                this.m_clickCount = 0;
                 if (this.m_mousePressed) {
                     if (!e.shiftKey) {
                         if (this.m_edgesEditMode && this.m_transientEdgeSource) {
@@ -551,7 +554,10 @@ namespace SciViCGraph
                         const rect = e.target.getBoundingClientRect();
                         const x = e.clientX - rect.left;
                         const y = e.clientY - rect.top;
-                        if (!this.dropNode(x, y) && !this.dropRing(x, y)) {
+                        this.m_clickCount++;
+                        if (this.m_clickCount === 2) {
+                            this.renameSelectedEdge();
+                        } else if (!this.dropNode(x, y) && !this.dropRing(x, y)) {
                             this.m_clickCaught = true;
                             let isInRing = [ false ];
                             const dx = x - this.m_renderingCache.x;
@@ -780,6 +786,8 @@ namespace SciViCGraph
                                     var tt = this.requestEdgeTooltip();
                                     this.currentData().hyperEdges.push(new HyperEdge([this.m_selectedNode].concat(this.m_multiselectedNodes), 1, tt));
                                     needsReinit = true;
+                                } else {
+                                    this.renameSelectedEdge();
                                 }
                             } else {
                                 if (this.m_multiselectedNodes.length === 2) {
@@ -788,10 +796,12 @@ namespace SciViCGraph
                                     if (!this.createDirectedEdges)
                                         this.currentData().edges.push(new Edge(this.m_multiselectedNodes[1], this.m_multiselectedNodes[0], 1, tt));
                                     needsReinit = true;
-                                } else {
+                                } else if (this.m_multiselectedNodes.length > 2) {
                                     var tt = this.requestEdgeTooltip();
                                     this.currentData().hyperEdges.push(new HyperEdge(this.m_multiselectedNodes, 1, tt));
                                     needsReinit = true;
+                                } else {
+                                    this.renameSelectedEdge();
                                 }
                             }
 
@@ -1731,6 +1741,16 @@ namespace SciViCGraph
                             this.hoverGraph(this.m_cursorPos.x, this.m_cursorPos.y);
                     }
                 }
+            }
+        }
+
+        private renameSelectedEdge()
+        {
+            if (this.m_selectedNode &&
+                (this.m_selectedNode.selectedEdge || this.m_selectedNode.selectedHyperEdge)) {
+                var tt = this.requestEdgeTooltip();
+                if (tt)
+                    this.m_selectedNode.renameSelectedEdge(tt);
             }
         }
 
