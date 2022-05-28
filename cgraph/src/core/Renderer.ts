@@ -94,6 +94,7 @@ namespace SciViCGraph
         private m_edgesEditMode: boolean;
         private m_createDirectedEdges: boolean;
         private m_clickCount: number;
+        private m_prompt: Prompt;
 
         static readonly m_ringScaleWidth = 30;
         static readonly m_minFontSize = 5;
@@ -141,6 +142,7 @@ namespace SciViCGraph
             this.m_edgesEditMode = false;
             this.m_createDirectedEdges = false;
             this.m_clickCount = 0;
+            this.m_prompt = new Prompt(m_view);
 
             let tooltip = document.createElement("div");
             tooltip.className = "scivi_graph_tooltip";
@@ -777,28 +779,42 @@ namespace SciViCGraph
                             let needsReinit = false;
                             if (this.m_selectedNode) {
                                 if (this.m_multiselectedNodes.length === 1) {
-                                    var tt = this.requestEdgeTooltip();
-                                    this.currentData().edges.push(new Edge(this.m_selectedNode, this.m_multiselectedNodes[0], 1, tt));
-                                    if (!this.createDirectedEdges)
-                                        this.currentData().edges.push(new Edge(this.m_multiselectedNodes[0], this.m_selectedNode, 1, tt));
+                                    let newEdges = [];
+                                    let e1 = new Edge(this.m_selectedNode, this.m_multiselectedNodes[0], 1, null);
+                                    this.currentData().edges.push(e1);
+                                    newEdges.push(e1);
+                                    if (!this.createDirectedEdges) {
+                                        let e2 = new Edge(this.m_multiselectedNodes[0], this.m_selectedNode, 1, null);
+                                        this.currentData().edges.push(e2);
+                                        newEdges.push(e2);
+                                    }
+                                    this.assignEdgeTooltip(newEdges);
                                     needsReinit = true;
                                 } else if (this.m_multiselectedNodes.length > 1) {
-                                    var tt = this.requestEdgeTooltip();
-                                    this.currentData().hyperEdges.push(new HyperEdge([this.m_selectedNode].concat(this.m_multiselectedNodes), 1, tt));
+                                    let he = new HyperEdge([this.m_selectedNode].concat(this.m_multiselectedNodes), 1, null);
+                                    this.currentData().hyperEdges.push(he);
+                                    this.assignEdgeTooltip([ he ]);
                                     needsReinit = true;
                                 } else {
                                     this.renameSelectedEdge();
                                 }
                             } else {
                                 if (this.m_multiselectedNodes.length === 2) {
-                                    var tt = this.requestEdgeTooltip();
-                                    this.currentData().edges.push(new Edge(this.m_multiselectedNodes[0], this.m_multiselectedNodes[1], 1, tt));
-                                    if (!this.createDirectedEdges)
-                                        this.currentData().edges.push(new Edge(this.m_multiselectedNodes[1], this.m_multiselectedNodes[0], 1, tt));
+                                    let newEdges = [];
+                                    let e1 = new Edge(this.m_multiselectedNodes[0], this.m_multiselectedNodes[1], 1, null);
+                                    this.currentData().edges.push(e1);
+                                    newEdges.push(e1);
+                                    if (!this.createDirectedEdges) {
+                                        let e2 = new Edge(this.m_multiselectedNodes[1], this.m_multiselectedNodes[0], 1, null)
+                                        this.currentData().edges.push(e2);
+                                        newEdges.push(e2);
+                                    }
+                                    this.assignEdgeTooltip(newEdges);
                                     needsReinit = true;
                                 } else if (this.m_multiselectedNodes.length > 2) {
-                                    var tt = this.requestEdgeTooltip();
-                                    this.currentData().hyperEdges.push(new HyperEdge(this.m_multiselectedNodes, 1, tt));
+                                    let he = new HyperEdge(this.m_multiselectedNodes, 1, null)
+                                    this.currentData().hyperEdges.push(he);
+                                    this.assignEdgeTooltip([ he ]);
                                     needsReinit = true;
                                 } else {
                                     this.renameSelectedEdge();
@@ -1663,11 +1679,15 @@ namespace SciViCGraph
             if (this.m_transientEdgeBatch) {
                 const needsReinit = this.m_transientEdge.target !== null;
                 if (needsReinit) {
-                    var tt = this.requestEdgeTooltip();
-                    this.m_transientEdge.tooltip = tt;
+                    let newEdges = [];
                     this.currentData().edges.push(this.m_transientEdge);
-                    if (!this.createDirectedEdges && this.m_transientEdge.source !== this.m_transientEdge.target)
-                        this.currentData().edges.push(new Edge(this.m_transientEdge.target, this.m_transientEdge.source, 1, tt));
+                    newEdges.push(this.m_transientEdge);
+                    if (!this.createDirectedEdges && this.m_transientEdge.source !== this.m_transientEdge.target) {
+                        let e2 = new Edge(this.m_transientEdge.target, this.m_transientEdge.source, 1, null)
+                        this.currentData().edges.push(e2);
+                        newEdges.push(e2);
+                    }
+                    this.assignEdgeTooltip(newEdges);
                 }
                 this.m_stage.removeChild(this.m_transientEdgeBatch);
                 this.m_transientEdge = null;
@@ -1691,9 +1711,15 @@ namespace SciViCGraph
             }
         }
 
-        private requestEdgeTooltip(): string
+        private assignEdgeTooltip(edges: any[])
         {
-            return prompt(this.m_localizer["LOC_ENTER_EDGE_TOOLTIP"], "");
+            this.m_prompt.show(this.m_localizer["LOC_ENTER_EDGE_TOOLTIP"],
+                               (val: string) => {
+                                    if (val)
+                                        edges.forEach((edge) => { edge.tooltip = val; })
+                                    if (this.m_selectedNode)
+                                        this.m_selectedNode.updateEdgeTooltip();
+                               });
         }
 
         private selectEdge()
@@ -1746,11 +1772,14 @@ namespace SciViCGraph
 
         private renameSelectedEdge()
         {
-            if (this.m_selectedNode &&
-                (this.m_selectedNode.selectedEdge || this.m_selectedNode.selectedHyperEdge)) {
-                var tt = this.requestEdgeTooltip();
-                if (tt)
-                    this.m_selectedNode.renameSelectedEdge(tt);
+            if (this.m_selectedNode) {
+                let edges = [];
+                if (this.m_selectedNode.selectedEdge)
+                    edges.push(this.m_selectedNode.selectedEdge);
+                if (this.m_selectedNode.selectedHyperEdge)
+                    edges.push(this.m_selectedNode.selectedHyperEdge);
+                if (edges.length > 0)
+                    this.assignEdgeTooltip(edges);
             }
         }
 

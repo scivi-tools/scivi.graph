@@ -780,18 +780,16 @@ namespace SciViCGraph
             }
         }
 
-        public renameSelectedEdge(tt: string)
+        public updateEdgeTooltip()
         {
             if (this.m_selectedEdge) {
-                this.m_selectedEdge.tooltip = tt;
-                if (tt)
-                    $(".scivi_graph_tooltip").html(tt);
+                if (this.m_selectedEdge.tooltip)
+                    $(".scivi_graph_tooltip").html(this.m_selectedEdge.tooltip);
                 else
                     $(".scivi_graph_tooltip").html(this.m_selectedEdge.weight.toString());
             } else if (this.m_selectedHyperEdge) {
-                this.m_selectedHyperEdge.tooltip = tt;
-                if (tt)
-                    $(".scivi_graph_tooltip").html(tt);
+                if (this.m_selectedHyperEdge.tooltip)
+                    $(".scivi_graph_tooltip").html(this.m_selectedHyperEdge.tooltip);
                 else
                     $(".scivi_graph_tooltip").html(this.m_selectedHyperEdge.weight.toString());
             }
