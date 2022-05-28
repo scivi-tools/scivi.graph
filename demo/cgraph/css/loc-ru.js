@@ -81,4 +81,5 @@ var g_loc_ru = {
     "LOC_FILTER_SET_AVAILABLE": "Доступных наборов: ",
     "LOC_EDGE_EDIT": "Режим редактирования связей",
     "LOC_CREATE_DIRECTED_EDGES": "Создавать ориентированные связи",
+    "LOC_ENTER_EDGE_TOOLTIP": "Введите название ребра"
 };

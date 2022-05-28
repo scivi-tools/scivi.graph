@@ -674,9 +674,9 @@ namespace SciViCGraph
                             this.m_hoveredHyperEdge.isGlowing = false;
                         this.m_hoveredHyperEdge = hoveredHyperEdge;
                         this.m_hoveredHyperEdge.isGlowing = true;
-                        // if (this.m_hoveredEdge.tooltip)
-                        //     $(".scivi_graph_tooltip").html(this.m_hoveredEdge.tooltip);
-                        // else
+                        if (this.m_hoveredHyperEdge.tooltip)
+                            $(".scivi_graph_tooltip").html(this.m_hoveredHyperEdge.tooltip);
+                        else
                             $(".scivi_graph_tooltip").html(this.m_hoveredHyperEdge.weight.toString());
                         $(".scivi_graph_tooltip").css({top: gy, left: gx + offset});
                         $(".scivi_graph_tooltip").stop(true);

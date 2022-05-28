@@ -117,7 +117,8 @@ namespace SciViCGraph
                 hyperEdge.nodes.forEach(nodeID => {
                     nodes.push(this.m_nodes[nodeID]);
                 });
-                this.m_hyperEdges.push(new HyperEdge(nodes, hyperEdge.weight));
+                let tt = hyperEdge.tooltip !== undefined ? hyperEdge.tooltip : null;
+                this.m_hyperEdges.push(new HyperEdge(nodes, hyperEdge.weight, tt));
             });
         }
 

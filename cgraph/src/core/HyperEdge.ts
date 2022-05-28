@@ -11,7 +11,7 @@ namespace SciViCGraph
         private m_highlightSet: boolean;
         private m_parent: Scene
 
-        constructor(public nodes: Node[], public weight: number)
+        constructor(public nodes: Node[], public weight: number, public tooltip: string)
         {
             this.m_fill = null;
             this.m_border = null;

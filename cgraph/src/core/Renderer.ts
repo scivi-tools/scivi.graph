@@ -771,22 +771,26 @@ namespace SciViCGraph
                             let needsReinit = false;
                             if (this.m_selectedNode) {
                                 if (this.m_multiselectedNodes.length === 1) {
-                                    this.currentData().edges.push(new Edge(this.m_selectedNode, this.m_multiselectedNodes[0], 1, null));
+                                    var tt = this.requestEdgeTooltip();
+                                    this.currentData().edges.push(new Edge(this.m_selectedNode, this.m_multiselectedNodes[0], 1, tt));
                                     if (!this.createDirectedEdges)
-                                        this.currentData().edges.push(new Edge(this.m_multiselectedNodes[0], this.m_selectedNode, 1, null));
+                                        this.currentData().edges.push(new Edge(this.m_multiselectedNodes[0], this.m_selectedNode, 1, tt));
                                     needsReinit = true;
                                 } else if (this.m_multiselectedNodes.length > 1) {
-                                    this.currentData().hyperEdges.push(new HyperEdge([this.m_selectedNode].concat(this.m_multiselectedNodes), 1));
+                                    var tt = this.requestEdgeTooltip();
+                                    this.currentData().hyperEdges.push(new HyperEdge([this.m_selectedNode].concat(this.m_multiselectedNodes), 1, tt));
                                     needsReinit = true;
                                 }
                             } else {
                                 if (this.m_multiselectedNodes.length === 2) {
-                                    this.currentData().edges.push(new Edge(this.m_multiselectedNodes[0], this.m_multiselectedNodes[1], 1, null));
+                                    var tt = this.requestEdgeTooltip();
+                                    this.currentData().edges.push(new Edge(this.m_multiselectedNodes[0], this.m_multiselectedNodes[1], 1, tt));
                                     if (!this.createDirectedEdges)
-                                        this.currentData().edges.push(new Edge(this.m_multiselectedNodes[1], this.m_multiselectedNodes[0], 1, null));
+                                        this.currentData().edges.push(new Edge(this.m_multiselectedNodes[1], this.m_multiselectedNodes[0], 1, tt));
                                     needsReinit = true;
                                 } else {
-                                    this.currentData().hyperEdges.push(new HyperEdge(this.m_multiselectedNodes, 1));
+                                    var tt = this.requestEdgeTooltip();
+                                    this.currentData().hyperEdges.push(new HyperEdge(this.m_multiselectedNodes, 1, tt));
                                     needsReinit = true;
                                 }
                             }
@@ -1649,9 +1653,11 @@ namespace SciViCGraph
             if (this.m_transientEdgeBatch) {
                 const needsReinit = this.m_transientEdge.target !== null;
                 if (needsReinit) {
+                    var tt = this.requestEdgeTooltip();
+                    this.m_transientEdge.tooltip = tt;
                     this.currentData().edges.push(this.m_transientEdge);
                     if (!this.createDirectedEdges && this.m_transientEdge.source !== this.m_transientEdge.target)
-                        this.currentData().edges.push(new Edge(this.m_transientEdge.target, this.m_transientEdge.source, 1, null));
+                        this.currentData().edges.push(new Edge(this.m_transientEdge.target, this.m_transientEdge.source, 1, tt));
                 }
                 this.m_stage.removeChild(this.m_transientEdgeBatch);
                 this.m_transientEdge = null;
@@ -1673,6 +1679,11 @@ namespace SciViCGraph
                 this.m_transientEdgeBatch = null;
                 this.render(true, true);
             }
+        }
+
+        private requestEdgeTooltip(): string
+        {
+            return prompt(this.m_localizer["LOC_ENTER_EDGE_TOOLTIP"], "");
         }
 
         private selectEdge()
@@ -1997,6 +2008,7 @@ namespace SciViCGraph
                 edgesArray += "  { \"source\": " + edges[i].source.id +
                               ", \"target\": " + edges[i].target.id +
                               ", \"weight\": " + edges[i].weight +
+                              (edges[i].tooltip !== undefined ? ", \"tooltip\": \"" + edges[i].tooltip + "\"" : "") +
                               " }";
                 if (i < n - 1)
                     edgesArray += ",";
@@ -2015,6 +2027,7 @@ namespace SciViCGraph
                 }
                 hyperEdgesArray += "  { \"nodes\": [ " + hyperLinkedNodesArray +
                                    " ], \"weight\": " + hyperEdges[i].weight +
+                                   (hyperEdges[i].tooltip !== undefined ? ", \"tooltip\": \"" + hyperEdges[i].tooltip + "\"" : "") +
                                    " }";
                 if (i < n - 1)
                     hyperEdgesArray += ",";
