@@ -231,8 +231,10 @@ namespace SciViCGraph
 
         public dropHighlightIfNotSet()
         {
-            if (!this.m_highlightSet)
+            if (!this.m_highlightSet) {
                 this.highlight = HighlightType.None;
+                this.isGlowing = false;
+            }
         }
     }
 }
