@@ -60,6 +60,7 @@ namespace SciViCGraph
                         this.m_fromColor = Color.passiveColor(fromColor)
                         this.m_toColor = Color.passiveColor(toColor);
                         this.m_alpha = Edge.passiveEdgeAlpha;
+                        this.isGlowing = false;
                         this.m_batch.sendToBack();
                         break;
                     }
@@ -150,7 +151,7 @@ namespace SciViCGraph
                     this.m_glow.visible = g;
                     if (g)
                         this.m_glow.bringToFront()
-                } else {
+                } else if (g) {
                     this.m_glow = this.m_batch.createGlow(this);
                     this.m_glowThickness = this.m_thickness;
                 }

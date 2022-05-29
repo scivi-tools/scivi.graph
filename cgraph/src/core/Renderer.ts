@@ -95,6 +95,7 @@ namespace SciViCGraph
         private m_createDirectedEdges: boolean;
         private m_clickCount: number;
         private m_prompt: Prompt;
+        private m_edgeSelector: EdgeSelector;
 
         static readonly m_ringScaleWidth = 30;
         static readonly m_minFontSize = 5;
@@ -143,6 +144,7 @@ namespace SciViCGraph
             this.m_createDirectedEdges = false;
             this.m_clickCount = 0;
             this.m_prompt = new Prompt(m_view);
+            this.m_edgeSelector = new EdgeSelector(this);
 
             let tooltip = document.createElement("div");
             tooltip.className = "scivi_graph_tooltip";
@@ -260,7 +262,7 @@ namespace SciViCGraph
             this.createStage();
 
             this.m_hoveredNode = null;
-            this.m_selectedNode = null;
+            this.setSelectedNode(null);
             this.m_highlightedGroup = undefined;
 
             this.m_clickCaught = false;
@@ -297,7 +299,7 @@ namespace SciViCGraph
             this.createStage();
             
             if (this.m_selectedNode !== null)
-                this.m_selectedNode = this.getNodeByID(this.m_selectedNode.id);
+                this.setSelectedNode(this.getNodeByID(this.m_selectedNode.id));
 
             this.currentData().nodes.forEach((node) => {
                 node.fontSize = this.m_nodesFontSize;
@@ -409,11 +411,8 @@ namespace SciViCGraph
 
         private clearSelected()
         {
-            if (this.m_selectedNode) {
-                this.m_selectedNode.handleCursorMove(NaN, NaN, NaN, NaN, NaN);
-                this.m_selectedNode.handleClick();
-            }
-            this.m_selectedNode = null;
+            this.m_edgeSelector.clearSelected();
+            this.setSelectedNode(null);
             if (this.m_info) {
                 while (this.m_info.firstChild)
                     this.m_info.removeChild(this.m_info.firstChild);
@@ -1051,6 +1050,9 @@ namespace SciViCGraph
                 }
             });
 
+            let es = this.m_edgeSelector.prepare();
+            needsRender = needsRender || es;
+
             this.m_edgeBatches.forEach((batch) => {
                 let nr = batch.prepare();
                 needsRender = needsRender || nr;
@@ -1419,7 +1421,7 @@ namespace SciViCGraph
             if (node === null || node === this.m_selectedNode)
                 this.clearSelected();
             else {
-                this.m_selectedNode = node;
+                this.setSelectedNode(node);
                 this.m_selectedNode.postInfo();
             }
             this.render(false, true);
@@ -1632,9 +1634,7 @@ namespace SciViCGraph
             let ly = y - this.m_renderingCache.y;
             let s = this.m_renderingCache.currentScale();
             this.m_hoveredNode = this.getNodeByPosition(lx, ly, s);
-            let f1 = false
-            if (this.m_selectedNode)
-                f1 = this.m_selectedNode.handleCursorMove(lx, ly, s, x, y);
+            let f1 = this.m_edgeSelector.handleCursorMove(lx, ly, s, x, y);
             let f2 = false;
             let m = false;
             if (this.m_ringScales) {
@@ -1717,70 +1717,63 @@ namespace SciViCGraph
                                (val: string) => {
                                     if (val)
                                         edges.forEach((edge) => { edge.tooltip = val; })
-                                    if (this.m_selectedNode)
-                                        this.m_selectedNode.updateEdgeTooltip();
+                                    this.m_edgeSelector.updateEdgeTooltip();
                                });
         }
 
         private selectEdge()
         {
-            if (this.m_selectedNode) {
-                if (this.m_selectedNode.handleClick())
-                    this.render(true, true);
-                else
-                    this.selectNode(null);
-            }
+            if (this.m_edgeSelector.handleClick())
+                this.render(true, true);
+            else if (this.m_selectedNode)
+                this.selectNode(null);
         }
 
         private deleteSelectedEdge()
         {
-            if (this.m_selectedNode) {
-                if (this.m_selectedNode.selectedEdge) {
-                    const d = this.currentData();
-                    const n = d.edges.length;
-                    let i = 0;
-                    for (; i < n; ++i) {
-                        if (d.edges[i] === this.m_selectedNode.selectedEdge)
-                            break;
-                    }
-                    if (i < n) {
-                        d.edges.splice(i, 1);
-                        this.m_selectedNode.deleteSelectedEdge();
-                        this.reinit(false, false);
-                        if (this.m_cursorPos.x !== undefined && this.m_cursorPos.y !== undefined)
-                            this.hoverGraph(this.m_cursorPos.x, this.m_cursorPos.y);
-                    }
+            if (this.m_edgeSelector.selectedEdge) {
+                const d = this.currentData();
+                const n = d.edges.length;
+                let i = 0;
+                for (; i < n; ++i) {
+                    if (d.edges[i] === this.m_edgeSelector.selectedEdge)
+                        break;
                 }
-                if (this.m_selectedNode.selectedHyperEdge) {
-                    const d = this.currentData();
-                    const n = d.hyperEdges.length;
-                    let i = 0;
-                    for (; i < n; ++i) {
-                        if (d.hyperEdges[i] === this.m_selectedNode.selectedHyperEdge)
-                            break;
-                    }
-                    if (i < n) {
-                        d.hyperEdges.splice(i, 1);
-                        this.m_selectedNode.deleteSelectedHyperEdge();
-                        this.reinit(false, false);
-                        if (this.m_cursorPos.x !== undefined && this.m_cursorPos.y !== undefined)
-                            this.hoverGraph(this.m_cursorPos.x, this.m_cursorPos.y);
-                    }
+                if (i < n) {
+                    d.edges.splice(i, 1);
+                    this.m_edgeSelector.deleteSelectedEdge();
+                    this.reinit(false, false);
+                    if (this.m_cursorPos.x !== undefined && this.m_cursorPos.y !== undefined)
+                        this.hoverGraph(this.m_cursorPos.x, this.m_cursorPos.y);
+                }
+            }
+            if (this.m_edgeSelector.selectedHyperEdge) {
+                const d = this.currentData();
+                const n = d.hyperEdges.length;
+                let i = 0;
+                for (; i < n; ++i) {
+                    if (d.hyperEdges[i] === this.m_edgeSelector.selectedHyperEdge)
+                        break;
+                }
+                if (i < n) {
+                    d.hyperEdges.splice(i, 1);
+                    this.m_edgeSelector.deleteSelectedHyperEdge();
+                    this.reinit(false, false);
+                    if (this.m_cursorPos.x !== undefined && this.m_cursorPos.y !== undefined)
+                        this.hoverGraph(this.m_cursorPos.x, this.m_cursorPos.y);
                 }
             }
         }
 
         private renameSelectedEdge()
         {
-            if (this.m_selectedNode) {
-                let edges = [];
-                if (this.m_selectedNode.selectedEdge)
-                    edges.push(this.m_selectedNode.selectedEdge);
-                if (this.m_selectedNode.selectedHyperEdge)
-                    edges.push(this.m_selectedNode.selectedHyperEdge);
-                if (edges.length > 0)
-                    this.assignEdgeTooltip(edges);
-            }
+            let edges = [];
+            if (this.m_edgeSelector.selectedEdge)
+                edges.push(this.m_edgeSelector.selectedEdge);
+            if (this.m_edgeSelector.selectedHyperEdge)
+                edges.push(this.m_edgeSelector.selectedHyperEdge);
+            if (edges.length > 0)
+                this.assignEdgeTooltip(edges);
         }
 
         private startDragNode(x: number, y: number): boolean
@@ -2164,6 +2157,22 @@ namespace SciViCGraph
         {
             this.m_createDirectedEdges = cde;
             $("#scivi_create_directed_edges").prop("checked", cde);
+        }
+
+        private setSelectedNode(sn: Node)
+        {
+            this.m_selectedNode = sn;
+            if (this.m_states) {
+                if (sn) {
+                    this.m_edgeSelector.edges = sn.edges;
+                    this.m_edgeSelector.hyperEdges = sn.hyperEdges;
+                    this.m_edgeSelector.orphanedMode = false;
+                } else {
+                    this.m_edgeSelector.edges = this.currentData().edges;
+                    this.m_edgeSelector.hyperEdges = this.currentData().hyperEdges;
+                    this.m_edgeSelector.orphanedMode = true;
+                }
+            }
         }
     }
 }
