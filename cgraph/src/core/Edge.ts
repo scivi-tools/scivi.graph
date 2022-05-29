@@ -60,7 +60,6 @@ namespace SciViCGraph
                         this.m_fromColor = Color.passiveColor(fromColor)
                         this.m_toColor = Color.passiveColor(toColor);
                         this.m_alpha = Edge.passiveEdgeAlpha;
-                        this.isGlowing = false;
                         this.m_batch.sendToBack();
                         break;
                     }
@@ -140,6 +139,11 @@ namespace SciViCGraph
                 this.m_glow = null;
         }
 
+        get isGlowing(): boolean
+        {
+            return this.m_glow && this.m_glow.visible;
+        }
+
         set isGlowing(g: boolean)
         {
             if (this.m_batch) {
@@ -150,12 +154,17 @@ namespace SciViCGraph
                 if (this.m_glow) {
                     this.m_glow.visible = g;
                     if (g)
-                        this.m_glow.bringToFront()
+                        this.m_glow.bringToFront();
                 } else if (g) {
                     this.m_glow = this.m_batch.createGlow(this);
                     this.m_glowThickness = this.m_thickness;
                 }
             }
+        }
+
+        public resetBatchMove()
+        {
+            this.m_batch.resetMove();
         }
 
         private minMaxCP(cp: Point[]): Point[]

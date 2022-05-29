@@ -79,6 +79,11 @@ namespace SciViCGraph
             this.m_move = -1;
         }
 
+        public resetMove()
+        {
+            this.m_move = 0;
+        }
+
         public prepare(): boolean
         {
             if (this.m_needsUpdate) {

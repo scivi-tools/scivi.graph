@@ -297,6 +297,8 @@ namespace SciViCGraph
                         this.m_selectedEdge.isGlowing = true;
                         result = true;
                     }
+                    if (this.m_selectedEdge.isGlowing)
+                        this.m_selectedEdge.resetBatchMove();
                 }
             }
             return result;
