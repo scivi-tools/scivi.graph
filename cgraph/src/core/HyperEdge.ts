@@ -209,6 +209,11 @@ namespace SciViCGraph
             return Geometry.pointInPolygon(p, cp);
         }
 
+        get isGlowing(): boolean
+        {
+            return this.m_glow && this.m_glow.visible;
+        }
+
         set isGlowing(g: boolean)
         {
             this.m_glow.visible = g;

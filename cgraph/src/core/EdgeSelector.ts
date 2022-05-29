@@ -300,6 +300,35 @@ namespace SciViCGraph
                     if (this.m_selectedEdge.isGlowing)
                         this.m_selectedEdge.resetBatchMove();
                 }
+
+                if (this.m_hoveredHyperEdge) {
+                    if (this.m_hoveredHyperEdge.highlight === HighlightType.None) {
+                        this.m_hoveredHyperEdge.highlight = HighlightType.Hover;
+                        result = true;
+                    }
+                    this.m_hoveredHyperEdge.nodes.forEach((node) => {
+                        if (node.visible && node.highlight === HighlightType.None) {
+                            node.highlight = HighlightType.Hover;
+                            result = true;
+                        }
+                    });
+                }
+                if (this.m_selectedHyperEdge) {
+                    if (this.m_selectedHyperEdge.highlight === HighlightType.None) {
+                        this.m_selectedHyperEdge.highlight = HighlightType.Hover;
+                        result = true;
+                    }
+                    this.m_selectedHyperEdge.nodes.forEach((node) => {
+                        if (node.visible && node.highlight === HighlightType.None) {
+                            node.highlight = HighlightType.Hover;
+                            result = true;
+                        }
+                    });
+                    if (!this.m_selectedHyperEdge.isGlowing) {
+                        this.m_selectedHyperEdge.isGlowing = true;
+                        result = true;
+                    }
+                }
             }
             return result;
         }
