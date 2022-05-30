@@ -782,7 +782,9 @@ namespace SciViCGraph
                                     let e1 = new Edge(this.m_selectedNode, this.m_multiselectedNodes[0], 1, null);
                                     this.currentData().edges.push(e1);
                                     newEdges.push(e1);
-                                    if (!this.createDirectedEdges) {
+                                    if (this.createDirectedEdges)
+                                        e1.isDirected = true;
+                                    else {
                                         let e2 = new Edge(this.m_multiselectedNodes[0], this.m_selectedNode, 1, null);
                                         this.currentData().edges.push(e2);
                                         newEdges.push(e2);
