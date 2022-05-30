@@ -70,5 +70,10 @@ namespace SciViCGraph
             this.m_doneCB = doneCB;
             this.m_dialog.dialog("open");
         }
+
+        get isOpen(): boolean
+        {
+            return this.m_dialog.dialog("isOpen");
+        }
     }
 }

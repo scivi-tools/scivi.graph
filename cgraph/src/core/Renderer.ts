@@ -748,6 +748,8 @@ namespace SciViCGraph
                 this.m_stateCalc.build();
 
             $(document).keyup((e) => {
+                if (this.m_prompt.isOpen)
+                    return;
                 switch (e.keyCode) {
                     case 27: // ESC
                         this.m_draggedNodeIndex = -1;
