@@ -2027,14 +2027,8 @@ namespace SciViCGraph
             this.downloadFile(filename, csv);
         }
 
-        private saveAsJSON()
+        public saveAsJSON(): string
         {
-            var filename = prompt("Enter name of file to save", "graph.json");
-            if (!filename)
-                return;
-            if (filename.indexOf(".") === -1)
-                filename += ".json";
-
             let nodesArray = "[\n";
             let nodes = this.currentData().nodes;
             for (let i = 0, n = nodes.length; i < n; ++i) {
@@ -2081,11 +2075,10 @@ namespace SciViCGraph
             }
             hyperEdgesArray += "]\n";
 
-            let g = "{\n\"label\": \"" + this.currentStateKey +
-                    "\",\n\"nodes\": " + nodesArray +
-                    "\"edges\": " + edgesArray +
-                    "\"hyperEdges\": " + hyperEdgesArray + "}\n";
-            this.downloadFile(filename, g);
+            return "{\n\"label\": \"" + this.currentStateKey +
+                   "\",\n\"nodes\": " + nodesArray +
+                   "\"edges\": " + edgesArray +
+                   "\"hyperEdges\": " + hyperEdgesArray + "}\n";
         }
 
         public saveGraph()
@@ -2128,7 +2121,12 @@ namespace SciViCGraph
             g += "  ]\n}";
             this.downloadFile("graph.js", g);
             */
-            this.saveAsJSON();
+            var filename = prompt("Enter name of file to save", "graph.json");
+            if (!filename)
+                return;
+            if (filename.indexOf(".") === -1)
+                filename += ".json";
+            this.downloadFile(filename, this.saveAsJSON());
         }
 
         public selectGraphState(stateName: string)
