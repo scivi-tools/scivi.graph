@@ -92,10 +92,16 @@ namespace SciViCGraph
 
         private controlPoint(from: Node, to: Node, center: Point): Point
         {
+            const h = 30.0;
             const c = { x: (from.x + to.x) / 2.0, y: (from.y + to.y) / 2.0 };
             const v = { x: center.x - c.x, y: center.y - c.y };
-            const l = Math.sqrt(v.x * v.x + v.y * v.y);
-            const d = Math.min(l, 30.0) / l;
+            let l = Math.sqrt(v.x * v.x + v.y * v.y);
+            if (l < 0.01) {
+                const ft = { x: to.x - from.x, y: to.y - from.y };
+                l = Math.sqrt(ft.x * ft.x + ft.y * ft.y);
+                return { x: -ft.y / l * h + c.x, y: ft.x / l * h + c.y };
+            }
+            const d = Math.min(l, h) / l;
             return { x: c.x + v.x * d, y: c.y + v.y * d };
         }
 
