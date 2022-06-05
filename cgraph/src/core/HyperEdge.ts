@@ -90,13 +90,13 @@ namespace SciViCGraph
             return this.m_highlight;
         }
 
-        private controlPoint(from: Node, to: Node): Point
+        private controlPoint(from: Node, to: Node, center: Point): Point
         {
-            const h = 30.0;
-            const ft = { x: to.x - from.x, y: to.y - from.y };
-            const l = Math.sqrt(ft.x * ft.x + ft.y * ft.y);
             const c = { x: (from.x + to.x) / 2.0, y: (from.y + to.y) / 2.0 };
-            return { x: -ft.y / l * h + c.x, y: ft.x / l * h + c.y };
+            const v = { x: center.x - c.x, y: center.y - c.y };
+            const l = Math.sqrt(v.x * v.x + v.y * v.y);
+            const d = Math.min(l, 30.0) / l;
+            return { x: c.x + v.x * d, y: c.y + v.y * d };
         }
 
         private nodesToDraw(): Node[]
@@ -136,10 +136,17 @@ namespace SciViCGraph
                 const n = nodesToDraw.length;
 
                 if (n > 1) {
+                    let center = { x: 0.0, y: 0.0 };
+                    for (let i = 0; i < n; ++i) {
+                        center.x += nodesToDraw[i].x;
+                        center.y += nodesToDraw[i].y;
+                    }
+                    center.x /= n;
+                    center.y /= n;
                     for (let i = 0; i < n; ++i) {
                         const fromNode = nodesToDraw[i];
                         const toNode = nodesToDraw[(i + 1) % n];
-                        const cp = this.controlPoint(fromNode, toNode);
+                        const cp = this.controlPoint(fromNode, toNode, center);
 
                         let fromColor = null;
                         let toColor = null;
