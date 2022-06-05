@@ -422,6 +422,11 @@ namespace SciViCGraph
                 dv.innerHTML = this.m_localizer["LOC_SELSTUB"];
                 this.m_info.appendChild(dv);
             }
+            this.clearMultiselection();
+        }
+
+        private clearMultiselection()
+        {
             if (this.m_multiselectedNodes) {
                 this.m_multiselectedNodes.forEach((node) => {
                     node.multiselected = false;
@@ -488,8 +493,10 @@ namespace SciViCGraph
                     if (!e.shiftKey) {
                         if (this.m_edgesEditMode && this.m_transientEdgeSource) {
                             this.createTransientEdgeWithSourceNode(this.m_transientEdgeSource);
-                            if (this.m_selectedNode !== this.m_transientEdgeSource)
+                            if (this.m_selectedNode !== this.m_transientEdgeSource) {
                                 this.selectNode(this.m_transientEdgeSource);
+                                this.clearMultiselection();
+                            }
                             this.m_transientEdgeSource = null;
                         } if (this.m_edgesEditMode && this.m_transientEdgeBatch) {
                             this.changeTransientEdge();
@@ -571,8 +578,10 @@ namespace SciViCGraph
                             if (shouldSelectNode) {
                                 if (e.shiftKey)
                                     this.multiselectNode(node);
-                                else
+                                else {
+                                    this.clearMultiselection();
                                     this.selectNode(node);
+                                }
                             }
                             if (node) {
                                 if (!this.m_transientEdgeBatch) {
