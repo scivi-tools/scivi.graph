@@ -796,7 +796,7 @@ namespace SciViCGraph
                                     this.assignEdgeTooltip(newEdges);
                                     needsReinit = true;
                                 } else if (this.m_multiselectedNodes.length > 1) {
-                                    let he = new HyperEdge([this.m_selectedNode].concat(this.m_multiselectedNodes), 1, null);
+                                    let he = new HyperEdge([this.m_selectedNode].concat(this.m_multiselectedNodes.slice()), 1, null);
                                     this.currentData().hyperEdges.push(he);
                                     this.assignEdgeTooltip([ he ]);
                                     needsReinit = true;
@@ -817,7 +817,7 @@ namespace SciViCGraph
                                     this.assignEdgeTooltip(newEdges);
                                     needsReinit = true;
                                 } else if (this.m_multiselectedNodes.length > 2) {
-                                    let he = new HyperEdge(this.m_multiselectedNodes, 1, null)
+                                    let he = new HyperEdge(this.m_multiselectedNodes.slice(), 1, null)
                                     this.currentData().hyperEdges.push(he);
                                     this.assignEdgeTooltip([ he ]);
                                     needsReinit = true;
