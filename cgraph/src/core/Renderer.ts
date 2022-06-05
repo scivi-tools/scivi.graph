@@ -298,8 +298,7 @@ namespace SciViCGraph
 
             this.createStage();
             
-            if (this.m_selectedNode !== null)
-                this.setSelectedNode(this.getNodeByID(this.m_selectedNode.id));
+            const selectedNodeID = this.m_selectedNode !== null ? this.m_selectedNode.id : undefined;
 
             this.currentData().nodes.forEach((node) => {
                 node.fontSize = this.m_nodesFontSize;
@@ -327,6 +326,9 @@ namespace SciViCGraph
 
             this.filterNodes();
             this.filterEdges();
+
+            if (selectedNodeID !== undefined)
+                this.setSelectedNode(this.getNodeByID(selectedNodeID));
 
             if (animated) {
                 this.updateRenderingCache(true);

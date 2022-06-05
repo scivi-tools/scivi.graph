@@ -190,6 +190,8 @@ namespace SciViCGraph
                 this.m_list.appendChild(listHolder);
             } else {
                 this.clearSelection();
+                this.m_svRenderer.clearSelected();
+                this.m_svRenderer.render(false, true);
             }
         }
 
@@ -206,9 +208,6 @@ namespace SciViCGraph
             this.m_clInput = null;
             this.m_clWrapper = null;
             this.m_selectedGroupIndex = -1;
-
-            this.m_svRenderer.clearSelected();
-            this.m_svRenderer.render(false, true);
         }
 
         private chartCaption(n: number)
