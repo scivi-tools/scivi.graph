@@ -1446,7 +1446,7 @@ namespace SciViCGraph
         {
             if (node === null)
                 this.clearSelected();
-            else {
+            else if (node !== this.m_selectedNode) {
                 if (!this.removeFromMultiselection(node))
                     this.addToMultiselection(node);
             }
