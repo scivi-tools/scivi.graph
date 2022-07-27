@@ -26,7 +26,7 @@ namespace SciViCGraph
 
         public addSegment(from: number, to: number, color: number, textColor: number, name: string, sHash: string)
         {
-            let c = { from: color, to: color, alpha: 1.0 };
+            let c = { from: color, to: color, alpha: color === 0xFFFFFF ? 0.0 : 1.0 };
             let as = Math.sin(from);
             let ac = Math.cos(from);
             let r = this.m_outRadius + this.m_width / 2.0;
