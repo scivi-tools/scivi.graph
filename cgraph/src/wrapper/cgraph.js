@@ -89,7 +89,7 @@ CGraph.prototype.reshape = function ()
     }
 }
 
-CGraph.prototype.run = function (loc, data, scales, colors, title, info, classifier, container)
+CGraph.prototype.run = function (loc, data, scales, colors, title, info, classifier, container, sortNodes)
 {
     container = container || "body";
 
@@ -205,7 +205,8 @@ CGraph.prototype.run = function (loc, data, scales, colors, title, info, classif
     } else {
         renderer.scaleLevels = scales;
     }
-    renderer.sortNodesByRingScale(true);
+    if (sortNodes)
+        renderer.sortNodesByRingScale(true);
     renderer.run();
 
     this.renderer = renderer;
