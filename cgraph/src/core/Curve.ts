@@ -546,6 +546,7 @@ namespace SciViCGraph
             }
 
             this.dirty++;
+            this.m_arrowThicknesses.push(0.0);
 
             return this;
         }

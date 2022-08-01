@@ -498,7 +498,7 @@ namespace SciViCGraph
                                 this.clearMultiselection();
                             }
                             this.m_transientEdgeSource = null;
-                        } if (this.m_edgesEditMode && this.m_transientEdgeBatch) {
+                        } else if (this.m_edgesEditMode && this.m_transientEdgeBatch) {
                             this.changeTransientEdge();
                         } else if (this.m_draggedNodeIndex !== -1) {
                             this.dragNode(x, y);
