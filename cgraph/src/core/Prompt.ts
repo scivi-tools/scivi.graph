@@ -4,6 +4,7 @@ namespace SciViCGraph
     {
         private m_doneCB: (val: string) => void;
         private m_dialog: any;
+        private m_text: HTMLElement;
 
         constructor(view: HTMLElement)
         {
@@ -33,6 +34,7 @@ namespace SciViCGraph
             inputEl.style.width = "100%";
             inputEl.style.height = "100%";
             fieldSetEl.appendChild(inputEl);
+            this.m_text = inputEl;
 
             let submitEl = document.createElement("input");
             submitEl.type = "submit";
@@ -70,9 +72,10 @@ namespace SciViCGraph
             return true;
         }
 
-        public show(title: string, doneCB: (val: string) => void)
+        public show(title: string, content: string, doneCB: (val: string) => void)
         {
             this.m_dialog.dialog("option", "title", title);
+            this.m_text.innerHTML = content;
             this.m_doneCB = doneCB;
             this.m_dialog.dialog("open");
         }

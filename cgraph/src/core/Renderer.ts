@@ -1729,6 +1729,7 @@ namespace SciViCGraph
         private assignEdgeTooltip(edges: any[])
         {
             this.m_prompt.show(this.m_localizer["LOC_ENTER_EDGE_TOOLTIP"],
+                               edges[0].tooltip,
                                (val: string) => {
                                     if (val)
                                         edges.forEach((edge) => { edge.tooltip = val; })
