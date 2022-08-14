@@ -12,20 +12,26 @@ namespace SciViCGraph
             view.parentElement.parentElement.appendChild(promptEl);
 
             let formEl = document.createElement("form");
+            formEl.style.width = "98.5%";
+            formEl.style.height = "99%";
+            formEl.style.margin = "0px";
+            formEl.style.padding = "0px";
             promptEl.appendChild(formEl);
 
             let fieldSetEl = document.createElement("fieldset");
+            fieldSetEl.style.width = "100%";
+            fieldSetEl.style.height = "100%";
             fieldSetEl.style.border = "0px";
+            fieldSetEl.style.margin = "0px";
+            fieldSetEl.style.padding = "0px";
             formEl.appendChild(fieldSetEl);
             
-            let inputEl = document.createElement("input");
-            inputEl.type = "text";
+            let inputEl = document.createElement("textarea");
             inputEl.id = "scivi_graph_propmt_text_value";
             inputEl.classList.add("ui-widget-content");
             inputEl.classList.add("ui-corner-all");
-            inputEl.style.marginBottom = "12px";
-            inputEl.style.width = "95%";
-            inputEl.style.padding = ".4em";
+            inputEl.style.width = "100%";
+            inputEl.style.height = "100%";
             fieldSetEl.appendChild(inputEl);
 
             let submitEl = document.createElement("input");
