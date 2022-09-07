@@ -126,7 +126,7 @@ namespace SciViCGraph
             stateA.edges.forEach((edge) => {
                 const src = this.findCorrespondingNode(edge.source, resultNodes);
                 const dst = this.findCorrespondingNode(edge.target, resultNodes);
-                resultEdges.push(new Edge(src, dst, edge.weight, null));
+                resultEdges.push(new Edge(src, dst, edge.weight, null, edge.birthTS, edge.deathTS));
             });
             stateB.edges.forEach((edge) => {
                 const src = this.findCorrespondingNode(edge.source, resultNodes);
@@ -135,10 +135,34 @@ namespace SciViCGraph
                 if (corrEdge)
                     corrEdge.weight = shouldAdd ? (corrEdge.weight + edge.weight) : Math.max(corrEdge.weight, edge.weight);
                 else
-                    resultEdges.push(new Edge(src, dst, edge.weight, null));
+                    resultEdges.push(new Edge(src, dst, edge.weight, null, edge.birthTS, edge.deathTS));
             });
 
             return new GraphData(resultNodes, resultEdges, []);
+        }
+
+        private minTS(ts1: number, ts2: number): number
+        {
+            if ((ts1 === undefined) && (ts2 === undefined))
+                return undefined;
+            else if (ts1 === undefined)
+                return ts2;
+            else if (ts2 === undefined)
+                return ts1;
+            else
+                return Math.min(ts1, ts2);
+        }
+
+        private maxTS(ts1: number, ts2: number): number
+        {
+            if ((ts1 === undefined) && (ts2 === undefined))
+                return undefined;
+            else if (ts1 === undefined)
+                return ts2;
+            else if (ts2 === undefined)
+                return ts1;
+            else
+                return Math.max(ts1, ts2);
         }
 
         private stateIntersect(stateA: GraphData, stateB: GraphData): GraphData
@@ -158,8 +182,13 @@ namespace SciViCGraph
                 const src = this.findCorrespondingNode(edge.source, resultNodes);
                 const dst = this.findCorrespondingNode(edge.target, resultNodes);
                 const corrEdge = this.findCorrespondingEdge(src, dst, stateB.edges);
-                if (corrEdge)
-                    resultEdges.push(new Edge(src, dst, Math.min(edge.weight, corrEdge.weight), null));
+                if (corrEdge) {
+                    resultEdges.push(new Edge(src, dst,
+                                              Math.min(edge.weight, corrEdge.weight),
+                                              null,
+                                              this.maxTS(edge.birthTS, corrEdge.birthTS),
+                                              this.minTS(edge.deathTS, corrEdge.deathTS)));
+                }
             });
 
             return new GraphData(resultNodes, resultEdges, []);
@@ -182,7 +211,7 @@ namespace SciViCGraph
                 const dst = this.findCorrespondingNode(edge.target, resultNodes);
                 const corrEdge = this.findCorrespondingEdge(src, dst, stateB.edges);
                 if (!corrEdge)
-                    resultEdges.push(new Edge(src, dst, edge.weight, null));
+                    resultEdges.push(new Edge(src, dst, edge.weight, null, edge.birthTS, edge.deathTS));
             });
 
             return new GraphData(resultNodes, resultEdges, []);

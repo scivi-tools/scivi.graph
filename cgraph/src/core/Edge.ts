@@ -1,6 +1,8 @@
+/// <reference path="./Historical.ts" />
+
 namespace SciViCGraph
 {
-    export class Edge
+    export class Edge extends Historical
     {
         private m_fromColor: number;
         private m_toColor: number;
@@ -23,8 +25,11 @@ namespace SciViCGraph
         public static readonly minThickness = 1.5;
         public static readonly maxThickness = 10.0;
 
-        constructor(public source: Node, public target: Node, public weight: number, public tooltip: string)
+        constructor(public source: Node, public target: Node, public weight: number, public tooltip: string,
+                    birthTS: number, deathTS: number)
         {
+            super(birthTS, deathTS);
+
             this.m_fromColor = 0;
             this.m_toColor = 0;
             this.m_alpha = 0;

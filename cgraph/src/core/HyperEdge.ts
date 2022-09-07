@@ -1,6 +1,8 @@
+/// <reference path="./Historical.ts" />
+
 namespace SciViCGraph
 {
-    export class HyperEdge
+    export class HyperEdge extends Historical
     {
         private m_fill: Polygon;
         private m_border: Curve;
@@ -11,8 +13,11 @@ namespace SciViCGraph
         private m_highlightSet: boolean;
         private m_parent: Scene
 
-        constructor(public nodes: Node[], public weight: number, public tooltip: string)
+        constructor(public nodes: Node[], public weight: number, public tooltip: string,
+                    birthTS: number, deathTS: number)
         {
+            super(birthTS, deathTS);
+
             this.m_fill = null;
             this.m_border = null;
             this.m_glow = null;
@@ -241,7 +246,7 @@ namespace SciViCGraph
             for (let i = 0, n = this.nodes.length; i < n; ++i) {
                 for (let j = 0; j < n; ++j) {
                     if (i !== j)
-                        result.push(new Edge(this.nodes[i], this.nodes[j], this.weight, null));
+                        result.push(new Edge(this.nodes[i], this.nodes[j], this.weight, null, this.birthTS, this.deathTS));
                 }
             }
             return result;

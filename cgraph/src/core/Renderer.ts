@@ -792,20 +792,20 @@ namespace SciViCGraph
                             if (this.m_selectedNode) {
                                 if (this.m_multiselectedNodes.length === 1) {
                                     let newEdges = [];
-                                    let e1 = new Edge(this.m_selectedNode, this.m_multiselectedNodes[0], 1, null);
+                                    let e1 = new Edge(this.m_selectedNode, this.m_multiselectedNodes[0], 1, null, this.currentTS(), undefined);
                                     this.currentData().edges.push(e1);
                                     newEdges.push(e1);
                                     if (this.createDirectedEdges)
                                         e1.isDirected = true;
                                     else {
-                                        let e2 = new Edge(this.m_multiselectedNodes[0], this.m_selectedNode, 1, null);
+                                        let e2 = new Edge(this.m_multiselectedNodes[0], this.m_selectedNode, 1, null, this.currentTS(), undefined);
                                         this.currentData().edges.push(e2);
                                         newEdges.push(e2);
                                     }
                                     this.assignEdgeTooltip(newEdges);
                                     needsReinit = true;
                                 } else if (this.m_multiselectedNodes.length > 1) {
-                                    let he = new HyperEdge([this.m_selectedNode].concat(this.m_multiselectedNodes.slice()), 1, null);
+                                    let he = new HyperEdge([this.m_selectedNode].concat(this.m_multiselectedNodes.slice()), 1, null, this.currentTS(), undefined);
                                     this.currentData().hyperEdges.push(he);
                                     this.assignEdgeTooltip([ he ]);
                                     needsReinit = true;
@@ -815,18 +815,18 @@ namespace SciViCGraph
                             } else {
                                 if (this.m_multiselectedNodes.length === 2) {
                                     let newEdges = [];
-                                    let e1 = new Edge(this.m_multiselectedNodes[0], this.m_multiselectedNodes[1], 1, null);
+                                    let e1 = new Edge(this.m_multiselectedNodes[0], this.m_multiselectedNodes[1], 1, null, this.currentTS(), undefined);
                                     this.currentData().edges.push(e1);
                                     newEdges.push(e1);
                                     if (!this.createDirectedEdges) {
-                                        let e2 = new Edge(this.m_multiselectedNodes[1], this.m_multiselectedNodes[0], 1, null)
+                                        let e2 = new Edge(this.m_multiselectedNodes[1], this.m_multiselectedNodes[0], 1, null, this.currentTS(), undefined);
                                         this.currentData().edges.push(e2);
                                         newEdges.push(e2);
                                     }
                                     this.assignEdgeTooltip(newEdges);
                                     needsReinit = true;
                                 } else if (this.m_multiselectedNodes.length > 2) {
-                                    let he = new HyperEdge(this.m_multiselectedNodes.slice(), 1, null)
+                                    let he = new HyperEdge(this.m_multiselectedNodes.slice(), 1, null, this.currentTS(), undefined);
                                     this.currentData().hyperEdges.push(he);
                                     this.assignEdgeTooltip([ he ]);
                                     needsReinit = true;
@@ -1666,7 +1666,7 @@ namespace SciViCGraph
         private createTransientEdgeWithSourceNode(node: Node)
         {
             this.m_transientEdgeBatch = new EdgeBatch();
-            this.m_transientEdge = new Edge(node, node, 1, null);
+            this.m_transientEdge = new Edge(node, node, 1, null, this.currentTS(), undefined);
             this.m_transientEdgeBatch.addEdge(this.m_transientEdge);
             this.m_transientEdge.highlight = HighlightType.Hover;
             this.m_transientEdge.isDirected = this.m_createDirectedEdges;
@@ -1689,6 +1689,11 @@ namespace SciViCGraph
             }
         }
 
+        private currentTS()
+        {
+            return Date.now();
+        }
+
         private commitTransientEdge()
         {
             if (this.m_transientEdgeBatch) {
@@ -1698,7 +1703,7 @@ namespace SciViCGraph
                     this.currentData().edges.push(this.m_transientEdge);
                     newEdges.push(this.m_transientEdge);
                     if (!this.createDirectedEdges && this.m_transientEdge.source !== this.m_transientEdge.target) {
-                        let e2 = new Edge(this.m_transientEdge.target, this.m_transientEdge.source, 1, null)
+                        let e2 = new Edge(this.m_transientEdge.target, this.m_transientEdge.source, 1, null, this.currentTS(), undefined);
                         this.currentData().edges.push(e2);
                         newEdges.push(e2);
                     }
@@ -1756,7 +1761,8 @@ namespace SciViCGraph
                         break;
                 }
                 if (i < n) {
-                    d.edges.splice(i, 1);
+                    // d.edges.splice(i, 1);
+                    d.edges[i].deathTS = this.currentTS();
                     this.m_edgeSelector.deleteSelectedEdge();
                     this.reinit(false, false);
                     if (this.m_cursorPos.x !== undefined && this.m_cursorPos.y !== undefined)
@@ -1772,7 +1778,8 @@ namespace SciViCGraph
                         break;
                 }
                 if (i < n) {
-                    d.hyperEdges.splice(i, 1);
+                    // d.hyperEdges.splice(i, 1);
+                    d.hyperEdges[i].deathTS = this.currentTS();
                     this.m_edgeSelector.deleteSelectedHyperEdge();
                     this.reinit(false, false);
                     if (this.m_cursorPos.x !== undefined && this.m_cursorPos.y !== undefined)
