@@ -8,9 +8,13 @@ namespace SciViCGraph
 
         constructor(view: HTMLElement)
         {
+            let promptElBase = document.createElement("div");
+            promptElBase.id = "scivi_graph_prompt_base";
+            view.appendChild(promptElBase);
+
             let promptEl = document.createElement("div");
             promptEl.id = "scivi_graph_prompt";
-            view.parentElement.parentElement.appendChild(promptEl);
+            view.appendChild(promptEl);
 
             let formEl = document.createElement("form");
             formEl.style.width = "98.5%";
@@ -47,6 +51,7 @@ namespace SciViCGraph
             let form = null;
 
             this.m_dialog = $("#scivi_graph_prompt").dialog({
+                appendTo: "#scivi_graph_prompt_base",
                 autoOpen: false,
                 height: 180,
                 width: 350,
