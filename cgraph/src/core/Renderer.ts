@@ -275,10 +275,10 @@ namespace SciViCGraph
 
             this.createGraph(true);
 
+            this.initInterface();
+
             this.filterNodes();
             this.filterEdges();
-
-            this.initInterface();
 
             this.updateRenderingCache(true);
             this.m_renderingCache.transit();
@@ -2075,6 +2075,8 @@ namespace SciViCGraph
                               ", \"target\": " + edges[i].target.id +
                               ", \"weight\": " + edges[i].weight +
                               (edges[i].tooltip !== undefined ? ", \"tooltip\": \"" + edges[i].tooltip + "\"" : "") +
+                              (edges[i].birthTS !== undefined ? ", \"birthTS\": " + edges[i].birthTS : "") +
+                              (edges[i].deathTS !== undefined ? ", \"deathTS\": " + edges[i].deathTS : "") +
                               " }";
                 if (i < n - 1)
                     edgesArray += ",";
@@ -2094,6 +2096,8 @@ namespace SciViCGraph
                 hyperEdgesArray += "  { \"nodes\": [ " + hyperLinkedNodesArray +
                                    " ], \"weight\": " + hyperEdges[i].weight +
                                    (hyperEdges[i].tooltip !== undefined ? ", \"tooltip\": \"" + hyperEdges[i].tooltip + "\"" : "") +
+                                   (hyperEdges[i].birthTS !== undefined ? ", \"birthTS\": " + hyperEdges[i].birthTS : "") +
+                                   (hyperEdges[i].deathTS !== undefined ? ", \"deathTS\": " + hyperEdges[i].deathTS : "") +
                                    " }";
                 if (i < n - 1)
                     hyperEdgesArray += ",";
