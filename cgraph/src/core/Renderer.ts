@@ -1225,10 +1225,12 @@ namespace SciViCGraph
             let hW = 0;
             const rmin = this.m_filtersManager.edgeWeight.min;
             const rmax = this.m_filtersManager.edgeWeight.max;
+            const timeSpan = this.m_filtersManager.edgeLifeTime;
             this.currentData().edges.forEach((edge) => {
                 const rv = edge.weight;
                 const vis = edge.source.visible && edge.target.visible && rv >= rmin && rv <= rmax &&
-                            this.isEdgeVisibleByRingSegment(edge) && this.isEdgeVisibleByEqualizer(edge);
+                            this.isEdgeVisibleByRingSegment(edge) && this.isEdgeVisibleByEqualizer(edge) &&
+                            edge.lifeSpanIntersectsTimeSpan(timeSpan);
                 if (vis !== edge.visible) {
                     edge.visible = vis;
                     result = true;
@@ -1243,7 +1245,7 @@ namespace SciViCGraph
             });
             this.currentData().hyperEdges.forEach((hyperEdge) => {
                 const rv = hyperEdge.weight;
-                const vis = rv >= rmin && rv <= rmax;
+                const vis = rv >= rmin && rv <= rmax && hyperEdge.lifeSpanIntersectsTimeSpan(timeSpan);
                 if (vis !== hyperEdge.visible) {
                     hyperEdge.visible = vis;
                     result = true;

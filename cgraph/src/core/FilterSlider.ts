@@ -114,16 +114,8 @@ namespace SciViCGraph
             const div = $(divID);
             let field = $("<span>").attr({ id: divID + "_field" });
 
-            const options = {
-                year: "numeric",
-                month: "numeric",
-                day: "numeric",
-                hour: "numeric",
-                minute: "numeric",
-                second: "numeric"
-            }
-            const d = new Date(curVal);
-            field.text(d.toLocaleDateString("ru-RU", options));
+            if (curVal > 0)
+                field.text(this.formatDate(curVal));
 
             const sliderID = divID + "_slider";
             this.m_slider = $("<div>").css("margin", "10px 10px 10px 5px");
@@ -142,8 +134,7 @@ namespace SciViCGraph
                 values: [ curVal ],
                 step: step,
                 slide: (event, ui) => {
-                    const d = new Date(ui.value);
-                    field.text(d.toLocaleDateString("ru-RU", options));
+                    field.text(this.formatDate(ui.value));
                     cb(ui.value - 1, ui.value + 1);
                 }
             });
@@ -151,6 +142,19 @@ namespace SciViCGraph
             div.append(label + " ");
             div.append(field);
             div.append(this.m_slider);
+        }
+
+        private formatDate(val: number): string
+        {
+            const d = new Date(val);
+            return d.toLocaleDateString("ru-RU", {
+                year: "numeric",
+                month: "numeric",
+                day: "numeric",
+                hour: "numeric",
+                minute: "numeric",
+                second: "numeric"
+            }) + d.getMilliseconds();
         }
 
         public setValue(v: number)

@@ -40,6 +40,11 @@ namespace SciViCGraph
             return this.m_edgeWeight;
         }
 
+        get edgeLifeTime(): Range
+        {
+            return this.m_edgeLifeTime;
+        }
+
         get maxNumberOfNodes(): number
         {
             return this.m_maxNumberOfNodes;
@@ -135,9 +140,13 @@ namespace SciViCGraph
                 this.m_edgeWeight.max = 0.0;
 
             if (this.m_edgeLifeTime.min === undefined)
-                this.m_edgeLifeTime.min = 0.0;
+                this.m_edgeLifeTime.min = 0;
+            else if (this.m_edgeLifeTime.min > 2)
+                this.m_edgeLifeTime.min -= 2;
             if (this.m_edgeLifeTime.max === undefined)
-                this.m_edgeLifeTime.max = 0.0;
+                this.m_edgeLifeTime.max = 0;
+            else
+                this.m_edgeLifeTime.max += 2;
         }
 
         public initFilters()
@@ -230,6 +239,8 @@ namespace SciViCGraph
                 if (e.which == 13)
                     filterSetName.blur();
             });
+
+            this.m_edgeLifeTime.min = this.m_edgeLifeTime.max;
         }
 
         public changeNodeTreshold(fromVal: number, toVal: number)

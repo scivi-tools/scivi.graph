@@ -6,16 +6,20 @@ namespace SciViCGraph
         {
         }
 
-        public aliveAtTimestamp(ts: number): boolean
+        public lifeSpanIntersectsTimeSpan(ts: Range): boolean
         {
-            if ((this.birthTS === undefined) && (this.deathTS === undefined))
+            if (((this.birthTS === undefined) && (this.deathTS === undefined)) || ((ts.min === undefined) && (ts.max === undefined)))
                 return true;
             else if (this.birthTS === undefined)
-                return ts < this.deathTS;
+                return ts.min === undefined ? true : this.deathTS >= ts.min;
             else if (this.deathTS === undefined)
-                return ts > this.birthTS;
+                return ts.max === undefined ? true : this.birthTS <= ts.max;
+            else if (ts.min === undefined)
+                return this.birthTS <= ts.max;
+            else if (ts.max === undefined)
+                return this.deathTS >= ts.min;
             else
-                return (ts > this.birthTS) && (ts < this.deathTS);
+                return (this.birthTS <= ts.max) && (this.deathTS >= ts.min);
         }
     }
 }
