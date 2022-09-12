@@ -8,9 +8,11 @@ namespace SciViCGraph
     {
         private m_nodeWeight: Range;
         private m_edgeWeight: Range;
+        private m_edgeLifeTime: Range;
         private m_equalizer: EqualizerItem[];
         private m_edgeFilterSlider: FilterSlider;
         private m_nodeFilterSlider: FilterSlider;
+        private m_edgeLifeTimeSlider: FilterDateSlider;
         private m_maxNumberOfNodes: number;
         private m_maxNumberOfEdges: number;
 
@@ -19,9 +21,11 @@ namespace SciViCGraph
         {
             this.m_nodeWeight = { min: undefined, max: undefined };
             this.m_edgeWeight = { min: undefined, max: undefined };
+            this.m_edgeLifeTime = { min: undefined, max: undefined };
             this.m_equalizer = [];
             this.m_edgeFilterSlider = null;
             this.m_nodeFilterSlider = null;
+            this.m_edgeLifeTimeSlider = null;
             this.m_maxNumberOfNodes = 0;
             this.m_maxNumberOfEdges = 0;
         }
@@ -55,6 +59,7 @@ namespace SciViCGraph
         {
             this.m_nodeWeight = { min: undefined, max: undefined };
             this.m_edgeWeight = { min: undefined, max: undefined };
+            this.m_edgeLifeTime = { min: undefined, max: undefined };
             this.m_maxNumberOfNodes = 0;
             this.m_maxNumberOfEdges = 0;
 
@@ -83,6 +88,19 @@ namespace SciViCGraph
                         this.m_edgeWeight.min = data.edges[i].weight;
                     if (this.m_edgeWeight.max === undefined || this.m_edgeWeight.max < data.edges[i].weight)
                         this.m_edgeWeight.max = data.edges[i].weight;
+
+                    if (data.edges[i].birthTS !== undefined) {
+                        if (this.m_edgeLifeTime.min === undefined || this.m_edgeLifeTime.min > data.edges[i].birthTS)
+                            this.m_edgeLifeTime.min = data.edges[i].birthTS;
+                        if (this.m_edgeLifeTime.max === undefined || this.m_edgeLifeTime.max < data.edges[i].birthTS)
+                            this.m_edgeLifeTime.max = data.edges[i].birthTS;
+                    }
+                    if (data.edges[i].deathTS !== undefined) {
+                        if (this.m_edgeLifeTime.min === undefined || this.m_edgeLifeTime.min > data.edges[i].deathTS)
+                            this.m_edgeLifeTime.min = data.edges[i].deathTS;
+                        if (this.m_edgeLifeTime.max === undefined || this.m_edgeLifeTime.max < data.edges[i].deathTS)
+                            this.m_edgeLifeTime.max = data.edges[i].deathTS;
+                    }
                 }
 
                 for (let i = 0; i < hc; ++i) {
@@ -90,6 +108,19 @@ namespace SciViCGraph
                         this.m_edgeWeight.min = data.hyperEdges[i].weight;
                     if (this.m_edgeWeight.max === undefined || this.m_edgeWeight.max < data.hyperEdges[i].weight)
                         this.m_edgeWeight.max = data.hyperEdges[i].weight;
+
+                    if (data.hyperEdges[i].birthTS !== undefined) {
+                        if (this.m_edgeLifeTime.min === undefined || this.m_edgeLifeTime.min > data.hyperEdges[i].birthTS)
+                            this.m_edgeLifeTime.min = data.hyperEdges[i].birthTS;
+                        if (this.m_edgeLifeTime.max === undefined || this.m_edgeLifeTime.max < data.hyperEdges[i].birthTS)
+                            this.m_edgeLifeTime.max = data.hyperEdges[i].birthTS;
+                    }
+                    if (data.hyperEdges[i].deathTS !== undefined) {
+                        if (this.m_edgeLifeTime.min === undefined || this.m_edgeLifeTime.min > data.hyperEdges[i].deathTS)
+                            this.m_edgeLifeTime.min = data.hyperEdges[i].deathTS;
+                        if (this.m_edgeLifeTime.max === undefined || this.m_edgeLifeTime.max < data.hyperEdges[i].deathTS)
+                            this.m_edgeLifeTime.max = data.hyperEdges[i].deathTS;
+                    }
                 }
             });
 
@@ -102,6 +133,11 @@ namespace SciViCGraph
                 this.m_edgeWeight.min = 0.0;
             if (this.m_edgeWeight.max === undefined)
                 this.m_edgeWeight.max = 0.0;
+
+            if (this.m_edgeLifeTime.min === undefined)
+                this.m_edgeLifeTime.min = 0.0;
+            if (this.m_edgeLifeTime.max === undefined)
+                this.m_edgeLifeTime.max = 0.0;
         }
 
         public initFilters()
@@ -118,7 +154,7 @@ namespace SciViCGraph
                 "<div class='scivi_button' id='scivi_rem_filter_set'>" + this.m_renderer.localizer["LOC_REM_FILTER_SET"] + "</div>" + 
                 "<div class='scivi_button' id='scivi_save_filter_set'>" + this.m_renderer.localizer["LOC_SAVE_FILTER_SET"] + "</div>" + 
                 "</div><hr/><br/>" +
-                "<div id='scivi_node_treshold'></div><div id='scivi_edge_treshold'></div><hr/><br/>" +
+                "<div id='scivi_node_treshold'></div><div id='scivi_edge_treshold'></div><div id='scivi_edge_lifetime'></div><hr/><br/>" +
                 "<div id='scivi_equalizer'></div>";
 
             this.m_nodeFilterSlider = new FilterSlider("#scivi_node_treshold", this.m_renderer.localizer["LOC_NODETHRESHOLD"],
@@ -132,6 +168,12 @@ namespace SciViCGraph
                                                        this.m_edgeWeight.min, this.m_edgeWeight.max,
                                                        this.m_maxNumberOfEdges * 2, // Heuristics
                                                        (fromVal: number, toVal: number) => { this.changeEdgeTreshold(fromVal, toVal); });
+
+            this.m_edgeLifeTimeSlider = new FilterDateSlider("#scivi_edge_lifetime", this.m_renderer.localizer["LOC_EDGELIFETIME"],
+                                                             this.m_edgeLifeTime.min, this.m_edgeLifeTime.max,
+                                                             this.m_edgeLifeTime.max,
+                                                             this.m_edgeLifeTime.max - this.m_edgeLifeTime.min,
+                                                             (fromVal: number, toVal: number) => { this.changeEdgeLifetime(fromVal, toVal); });
 
             $("#scivi_add_filter_set").click(() => {
                 let fs = $("#scivi_filter_sets");
@@ -190,6 +232,13 @@ namespace SciViCGraph
             });
         }
 
+        public changeNodeTreshold(fromVal: number, toVal: number)
+        {
+            this.m_nodeWeight.min = fromVal;
+            this.m_nodeWeight.max = toVal;
+            this.m_renderer.updateNodesVisibility();
+        }
+
         public changeEdgeTreshold(fromVal: number, toVal: number)
         {
             this.m_edgeWeight.min = fromVal;
@@ -197,11 +246,11 @@ namespace SciViCGraph
             this.m_renderer.updateEdgesVisibility();
         }
 
-        public changeNodeTreshold(fromVal: number, toVal: number)
+        public changeEdgeLifetime(fromVal: number, toVal: number)
         {
-            this.m_nodeWeight.min = fromVal;
-            this.m_nodeWeight.max = toVal;
-            this.m_renderer.updateNodesVisibility();
+            this.m_edgeLifeTime.min = fromVal;
+            this.m_edgeLifeTime.max = toVal;
+            this.m_renderer.updateEdgesVisibility();
         }
 
         public validateCurrentFilterSet()

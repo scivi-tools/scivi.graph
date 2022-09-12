@@ -23,6 +23,7 @@ var g_loc_ru = {
     "LOC_SELSTUB": "Кликните на вершину, чтобы получить информацию о ней",
     "LOC_EDGETHRESHOLD": "Все рёбра:",
     "LOC_NODETHRESHOLD": "Все вершины:",
+    "LOC_EDGELIFETIME": "Время жизни рёбер:",
     "LOC_PASSIVETEXTALPHA": "Яркость невыделенных вершин:",
     "LOC_PASSIVEEDGEALPHA": "Яркость невыделенных рёбер:",
     "LOC_NODEFONT": "Размер шрифта вершин:",

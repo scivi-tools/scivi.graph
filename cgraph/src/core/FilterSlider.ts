@@ -101,4 +101,61 @@ namespace SciViCGraph
             this.m_slider.slider("values", 1, v.max);
         }
     }
+
+    export class FilterDateSlider
+    {
+        private m_slider: JQuery;
+
+        constructor(divID: string, label: string,
+                    minVal: number, maxVal: number, curVal: number,
+                    numberOfTicks: number,
+                    cb: (fromVal: number, toVal: number) => void)
+        {
+            const div = $(divID);
+            let field = $("<span>").attr({ id: divID + "_field" });
+
+            const options = {
+                year: "numeric",
+                month: "numeric",
+                day: "numeric",
+                hour: "numeric",
+                minute: "numeric",
+                second: "numeric"
+            }
+            const d = new Date(curVal);
+            field.text(d.toLocaleDateString("ru-RU", options));
+
+            const sliderID = divID + "_slider";
+            this.m_slider = $("<div>").css("margin", "10px 10px 10px 5px");
+
+            if (numberOfTicks <= 0)
+                numberOfTicks = 1;
+
+            let step = Math.abs(maxVal - minVal) / numberOfTicks;
+            if (step === 0)
+                step = 1;
+
+            this.m_slider.slider({
+                min: minVal,
+                max: maxVal,
+                range: false,
+                values: [ curVal ],
+                step: step,
+                slide: (event, ui) => {
+                    const d = new Date(ui.value);
+                    field.text(d.toLocaleDateString("ru-RU", options));
+                    cb(ui.value - 1, ui.value + 1);
+                }
+            });
+
+            div.append(label + " ");
+            div.append(field);
+            div.append(this.m_slider);
+        }
+
+        public setValue(v: number)
+        {
+            this.m_slider.slider("values", 0, v);
+        }
+    }
 }

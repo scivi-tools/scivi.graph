@@ -836,7 +836,7 @@ namespace SciViCGraph
                             }
 
                             if (needsReinit) {
-                                this.m_filtersManager.calcWeights();
+                                this.updateWeights();
                                 this.reinit(false, false);
                             }
                         }
@@ -1594,16 +1594,21 @@ namespace SciViCGraph
             return this.m_localizer;
         }
 
+        private updateWeights()
+        {
+            this.m_filtersManager.calcWeights();
+            this.m_stage.nodeWeight = this.m_filtersManager.nodeWeight;
+            this.m_stage.edgeWeight = this.m_filtersManager.edgeWeight;
+            this.m_filtersManager.initFilters();
+        }
+
         public changeCurrentState(cs: string)
         {
             if (this.m_states.isDynamic) {
                 this.m_states.data["current"] = null;
                 this.m_currentStateKey = cs;
                 this.currentData(); // Force state to load
-                this.m_filtersManager.calcWeights();
-                this.m_stage.nodeWeight = this.m_filtersManager.nodeWeight;
-                this.m_stage.edgeWeight = this.m_filtersManager.edgeWeight;
-                this.m_filtersManager.initFilters();
+                this.updateWeights();
             } else {
                 this.m_currentStateKey = cs;
             }
@@ -1613,10 +1618,7 @@ namespace SciViCGraph
         public changeCurrentStateToCalculated()
         {
             this.m_currentStateKey = "calculated";
-            this.m_filtersManager.calcWeights();
-            this.m_stage.nodeWeight = this.m_filtersManager.nodeWeight;
-            this.m_stage.edgeWeight = this.m_filtersManager.edgeWeight;
-            this.m_filtersManager.initFilters();
+            this.updateWeights();
             this.sortNodesByRingScale(false);
             this.m_stateLineNav.curtain();
             this.reinit(false, false);
@@ -1713,7 +1715,7 @@ namespace SciViCGraph
                 this.m_transientEdge = null;
                 this.m_transientEdgeBatch = null;
                 if (needsReinit) {
-                    this.m_filtersManager.calcWeights();
+                    this.updateWeights();
                     this.reinit(false, false);
                 } else {
                     this.render(true, true);
@@ -1752,6 +1754,7 @@ namespace SciViCGraph
 
         private deleteSelectedEdge()
         {
+            let needsReinit = false;
             if (this.m_edgeSelector.selectedEdge) {
                 const d = this.currentData();
                 const n = d.edges.length;
@@ -1762,11 +1765,9 @@ namespace SciViCGraph
                 }
                 if (i < n) {
                     // d.edges.splice(i, 1);
-                    d.edges[i].deathTS = this.currentTS();
+                    d.edges[i].deathTS = this.currentTS(); // Do not actually delete, just set death time
                     this.m_edgeSelector.deleteSelectedEdge();
-                    this.reinit(false, false);
-                    if (this.m_cursorPos.x !== undefined && this.m_cursorPos.y !== undefined)
-                        this.hoverGraph(this.m_cursorPos.x, this.m_cursorPos.y);
+                    needsReinit = true;
                 }
             }
             if (this.m_edgeSelector.selectedHyperEdge) {
@@ -1779,12 +1780,16 @@ namespace SciViCGraph
                 }
                 if (i < n) {
                     // d.hyperEdges.splice(i, 1);
-                    d.hyperEdges[i].deathTS = this.currentTS();
+                    d.hyperEdges[i].deathTS = this.currentTS(); // Do not actually delete, just set death time
                     this.m_edgeSelector.deleteSelectedHyperEdge();
-                    this.reinit(false, false);
-                    if (this.m_cursorPos.x !== undefined && this.m_cursorPos.y !== undefined)
-                        this.hoverGraph(this.m_cursorPos.x, this.m_cursorPos.y);
+                    needsReinit = true;
                 }
+            }
+            if (needsReinit) {
+                this.updateWeights();
+                this.reinit(false, false);
+                if (this.m_cursorPos.x !== undefined && this.m_cursorPos.y !== undefined)
+                    this.hoverGraph(this.m_cursorPos.x, this.m_cursorPos.y);
             }
         }
 
