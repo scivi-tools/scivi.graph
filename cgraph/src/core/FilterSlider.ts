@@ -154,7 +154,7 @@ namespace SciViCGraph
                 hour: "numeric",
                 minute: "numeric",
                 second: "numeric"
-            }) + d.getMilliseconds();
+            }) + "." + d.getMilliseconds();
         }
 
         public setValue(v: number)
