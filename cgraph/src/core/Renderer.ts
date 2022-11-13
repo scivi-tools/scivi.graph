@@ -677,6 +677,7 @@ namespace SciViCGraph
                 "<div id='scivi_sort_by_ring' class='scivi_button'>" + this.m_localizer["LOC_SORT_BY_RING"] + "</div>" +
                 "<div id='scivi_calc_modularity' class='scivi_button'>" + this.m_localizer["LOC_CALC_MODULARITY"] + "</div>" +
                 "<div id='scivi_sort_by_modularity' class='scivi_button'>" + this.m_localizer["LOC_SORT_BY_MODULARITY"] + "</div>" +
+                "<div id='scivi_modularity_to_ring' class='scivi_button'>" + this.m_localizer["LOC_MODULARITY_TO_RING"] + "</div>" +
                 "<div id='scivi_save_graph' class='scivi_button'>" + this.m_localizer["LOC_SAVE_GRAPH"] + "</div>" +
                 "<br/><br/><hr/><br/><div>" + 
                     "<span><input id='scivi_edge_edit' type='checkbox' value='" + (this.edgesEditMode ? "checked" : "") + "'/><span>" + this.m_localizer["LOC_EDGE_EDIT"] + "</span></span>" +
@@ -735,6 +736,11 @@ namespace SciViCGraph
 
                 $("#scivi_sort_by_modularity").click(() => {
                     this.sortNodesNyModularity();
+                    this.reinit(false, false);
+                });
+
+                $("#scivi_modularity_to_ring").click(() => {
+                    this.modularityToRing();
                     this.reinit(false, false);
                 });
 
@@ -1425,6 +1431,28 @@ namespace SciViCGraph
                     return this.smartCmp(x1.label, x2.label);
             }
             this.currentData().nodes.sort(sorter);
+        }
+
+        public modularityToRing()
+        {
+            let steps = [];
+            this.currentData().nodes.forEach((node) => {
+                if (steps[node.groupID] === undefined)
+                    steps[node.groupID] = [ node.id ];
+                else
+                    steps[node.groupID].push(node.id);
+            });
+            let names = [];
+            steps.forEach((step, i) => {
+                step.sort((a, b) => { return a > b ? 1 : -1; });
+                names.push((i + 1).toString());
+            });
+            let textColors = [];
+            this.m_colors.forEach((color) => {
+                textColors.push(Color.maxContrast(color));
+            });
+            let scale = new DiscreteScale(steps, this.m_colors, textColors, names, (node) => { return node.id; });
+            this.scaleLevels = [ scale ];
         }
 
         public hoverNode(node: Node)

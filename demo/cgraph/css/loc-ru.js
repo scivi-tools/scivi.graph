@@ -50,6 +50,7 @@ var g_loc_ru = {
     "LOC_FIT_TO_SCREEN": "Вписать в экран",
     "LOC_SORT_BY_RING": "Отсортировать по кольцевой шкале",
     "LOC_SORT_BY_MODULARITY": "Отсортировать по модулярности",
+    "LOC_MODULARITY_TO_RING": "Модулярность в круговую шкалу",
     "LOC_CALC_MODULARITY": "Модулярность",
     "LOC_RING_FILTER_ADD": "Добавить фильтр",
     "LOC_RING_FILTER_ARCS_GROUP": "Фильтровать дуги",
