@@ -151,8 +151,10 @@ namespace SciViCGraph
 
         public initFilters()
         {
-            if (!this.m_filters)
+            if (!this.m_filters) {
+                this.m_edgeLifeTime.min = this.m_edgeLifeTime.max;
                 return;
+            }
 
             this.m_equalizer = [];
 
