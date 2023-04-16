@@ -2081,6 +2081,11 @@ namespace SciViCGraph
             this.downloadFile(filename, csv);
         }
 
+        private escapeTooltip(tt: string): string
+        {
+            return tt.replace(/\n/g, "%0A").replace(/\"/g, "%22");
+        }
+
         public saveAsJSON(): string
         {
             let nodesArray = "[\n";
@@ -2102,7 +2107,7 @@ namespace SciViCGraph
                 edgesArray += "  { \"source\": " + edges[i].source.id +
                               ", \"target\": " + edges[i].target.id +
                               ", \"weight\": " + edges[i].weight +
-                              (edges[i].tooltip !== undefined ? ", \"tooltip\": \"" + edges[i].tooltip + "\"" : "") +
+                              (edges[i].tooltip !== undefined ? ", \"tooltip\": \"" + this.escapeTooltip(edges[i].tooltip) + "\"" : "") +
                               (edges[i].birthTS !== undefined ? ", \"birthTS\": " + edges[i].birthTS : "") +
                               (edges[i].deathTS !== undefined ? ", \"deathTS\": " + edges[i].deathTS : "") +
                               " }";
@@ -2123,7 +2128,7 @@ namespace SciViCGraph
                 }
                 hyperEdgesArray += "  { \"nodes\": [ " + hyperLinkedNodesArray +
                                    " ], \"weight\": " + hyperEdges[i].weight +
-                                   (hyperEdges[i].tooltip !== undefined ? ", \"tooltip\": \"" + hyperEdges[i].tooltip + "\"" : "") +
+                                   (hyperEdges[i].tooltip !== undefined ? ", \"tooltip\": \"" + this.escapeTooltip(hyperEdges[i].tooltip) + "\"" : "") +
                                    (hyperEdges[i].birthTS !== undefined ? ", \"birthTS\": " + hyperEdges[i].birthTS : "") +
                                    (hyperEdges[i].deathTS !== undefined ? ", \"deathTS\": " + hyperEdges[i].deathTS : "") +
                                    " }";
