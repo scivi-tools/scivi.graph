@@ -110,7 +110,7 @@ namespace SciViCGraph
         private processEdges(edges: any[])
         {
             edges.forEach(edge => {
-                let tt = edge.tooltip !== undefined ? this.unescapeTooltip(edge.tooltip) : null;
+                let tt = edge.tooltip !== undefined && edge.tooltip !== null ? this.unescapeTooltip(edge.tooltip) : null;
                 this.m_edges.push(new Edge(this.m_nodes[edge.source], this.m_nodes[edge.target], edge.weight, tt,
                                            edge.birthTS, edge.deathTS));
             });
@@ -123,7 +123,7 @@ namespace SciViCGraph
                 hyperEdge.nodes.forEach(nodeID => {
                     nodes.push(this.m_nodes[nodeID]);
                 });
-                let tt = hyperEdge.tooltip !== undefined ? this.unescapeTooltip(hyperEdge.tooltip) : null;
+                let tt = hyperEdge.tooltip !== undefined && hyperEdge.tooltip !== null ? this.unescapeTooltip(hyperEdge.tooltip) : null;
                 this.m_hyperEdges.push(new HyperEdge(nodes, hyperEdge.weight, tt,
                                                      hyperEdge.birthTS, hyperEdge.deathTS));
             });
