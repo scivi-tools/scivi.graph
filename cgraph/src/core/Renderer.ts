@@ -2107,9 +2107,9 @@ namespace SciViCGraph
                 edgesArray += "  { \"source\": " + edges[i].source.id +
                               ", \"target\": " + edges[i].target.id +
                               ", \"weight\": " + edges[i].weight +
-                              (edges[i].tooltip !== undefined ? ", \"tooltip\": \"" + this.escapeTooltip(edges[i].tooltip) + "\"" : "") +
-                              (edges[i].birthTS !== undefined ? ", \"birthTS\": " + edges[i].birthTS : "") +
-                              (edges[i].deathTS !== undefined ? ", \"deathTS\": " + edges[i].deathTS : "") +
+                              (edges[i].tooltip !== undefined && edges[i].tooltip !== null ? ", \"tooltip\": \"" + this.escapeTooltip(edges[i].tooltip) + "\"" : "") +
+                              (edges[i].birthTS !== undefined && edges[i].birthTS !== null ? ", \"birthTS\": " + edges[i].birthTS : "") +
+                              (edges[i].deathTS !== undefined && edges[i].deathTS !== null ? ", \"deathTS\": " + edges[i].deathTS : "") +
                               " }";
                 if (i < n - 1)
                     edgesArray += ",";
