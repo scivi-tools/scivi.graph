@@ -2128,9 +2128,9 @@ namespace SciViCGraph
                 }
                 hyperEdgesArray += "  { \"nodes\": [ " + hyperLinkedNodesArray +
                                    " ], \"weight\": " + hyperEdges[i].weight +
-                                   (hyperEdges[i].tooltip !== undefined ? ", \"tooltip\": \"" + this.escapeTooltip(hyperEdges[i].tooltip) + "\"" : "") +
-                                   (hyperEdges[i].birthTS !== undefined ? ", \"birthTS\": " + hyperEdges[i].birthTS : "") +
-                                   (hyperEdges[i].deathTS !== undefined ? ", \"deathTS\": " + hyperEdges[i].deathTS : "") +
+                                   (hyperEdges[i].tooltip !== undefined && hyperEdges[i].tooltip !== null ? ", \"tooltip\": \"" + this.escapeTooltip(hyperEdges[i].tooltip) + "\"" : "") +
+                                   (hyperEdges[i].birthTS !== undefined && hyperEdges[i].birthTS !== null ? ", \"birthTS\": " + hyperEdges[i].birthTS : "") +
+                                   (hyperEdges[i].deathTS !== undefined && hyperEdges[i].deathTS !== null ? ", \"deathTS\": " + hyperEdges[i].deathTS : "") +
                                    " }";
                 if (i < n - 1)
                     hyperEdgesArray += ",";
