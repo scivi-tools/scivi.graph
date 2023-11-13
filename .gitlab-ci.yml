@@ -9,62 +9,68 @@ stages:
   - deploy
 
 build_cgraph:
-  image: node:6
+  image: node:16-alpine
   stage: build_cgraph
   cache:
     key: "npm-cgraph"
     paths:
       - cgraph/node_modules
+  variables:
+    NODE_ENV: production
   before_script:
-    - pushd cgraph
-    - npm install
-    - popd
+    - cd cgraph
+    - npm ci --include=dev
+    - cd ..
   script: 
-    - pushd cgraph
-    - NODE_ENV=production npm run release
-    - popd
+    - cd cgraph
+    - npm run release
+    - cd ..
   artifacts:
     paths:
       - demo
     expire_in: 1 day
 
 build_fsgraph:
-  image: node:6
+  image: node:16-alpine
   stage: build_fsgraph
   cache:
     key: "npm-fsgraph"
     paths:
       - fsgraph/node_modules
+  variables:
+    NODE_ENV: production
   before_script:
-    - pushd fsgraph
+    - cd fsgraph
     - npm run update-locals
-    - npm install
-    - popd
+    - npm ci --include=dev
+    - cd ..
   script:
-    - pushd fsgraph
-    - NODE_ENV=production npm run release
-    - popd
+    - cd fsgraph
+    - npm run release
+    - cd ..
   artifacts:
     paths:
       - demo
     expire_in: 1 day
 
 build_gisgraph:
-  image: node:6
+  image: node:16-alpine
   stage: build_gisgraph
   cache:
     key: "npm-gisgraph"
     paths:
       - gisgraph/node_modules
+  variables:
+    NODE_ENV: production
   before_script:
-    - pushd gisgraph
+    - cd gisgraph
     - npm run update-locals
-    - npm install
-    - popd
+    - npm ci --include=dev
+    - cd ..
   script:
-    - pushd gisgraph
-    - NODE_ENV=production npm run release
-    - popd
+    - cd gisgraph
+    - npm run release
+    - cd ..
   artifacts:
     paths:
       - demo
@@ -76,7 +82,7 @@ build_image:
   before_script:
     - docker info
   script:
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN docker.semograph.com
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN docker.semograph.com
     - docker-compose build --pull
     - docker-compose push
   only:
@@ -88,7 +94,7 @@ deploy_prod:
   variables:
     DOCKER_HOST: tcp://10.0.6.2:2376
   script:
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN docker.semograph.com
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN docker.semograph.com
     - docker stack deploy -c docker-compose.yml graph --with-registry-auth
   only:
     - master

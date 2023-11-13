@@ -12,9 +12,11 @@
   "license": "",
   "dependencies": {
     "@scivi/utils": "file:../lib/utils",
+    "@types/node-polyglot": "^2.4.5",
     "jquery": "3.5.0",
     "jquery-ui": "1.13.0",
     "ngraph.centrality": "0.3.0",
+    "node-polyglot": "^2.5.0",
     "split.js": "1.3.5",
     "vivagraphjs": "0.10.0"
   },

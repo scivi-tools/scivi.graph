@@ -29,11 +29,13 @@
   },
   "dependencies": {
     "@scivi/utils": "file:../lib/utils",
+    "@types/node-polyglot": "^2.4.5",
     "d3": "5.9.1",
     "jquery": "3.5.0",
     "jquery-ui": "1.13.0",
     "leaflet": "1.4.0",
     "leaflet-geosearch": "2.7.0",
+    "node-polyglot": "^2.5.0",
     "split.js": "1.5.10"
   }
 }
