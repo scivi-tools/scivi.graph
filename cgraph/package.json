@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Circular graph visualization module of SciVi",
   "scripts": {
+    "update-locals": "echo \"Nothing to do\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "debug": "sh ./build.sh debug",
     "embed": "sh ./build.sh embed",
